@@ -1,4 +1,7 @@
-﻿Install-Package Microsoft.Azure.Management.DataLake.Analytics -Pre
+﻿
+To get all the NuGet packages use these commands:
+
+Install-Package Microsoft.Azure.Management.DataLake.Analytics -Pre
 Install-Package Microsoft.Azure.Management.DataLake.Store -Pre
 Install-Package Microsoft.Azure.Management.DataLake.StoreUploader -Pre
 Install-Package Microsoft.Rest.ClientRuntime.Azure.Authentication -Pre
