@@ -38,5 +38,21 @@ namespace AzureDataLakeClient.Store
                 yield return acc;
             }
         }
+
+        public ADL.Store.Models.DataLakeStoreAccount GetAccount(string resource_group,string account_name)
+        {
+            return this._adls_mgmt_rest_client.Account.Get(resource_group,account_name);
+        }
+
+        public void Update(string resource_group, string account_name, ADL.Store.Models.DataLakeStoreAccount parameters)
+        {
+            this._adls_mgmt_rest_client.Account.Update(resource_group, account_name, parameters);
+        }
+
+        public void Delete(string resource_group, string account_name)
+        {
+            this._adls_mgmt_rest_client.Account.Delete(resource_group, account_name);
+        }
+
     }
 }
