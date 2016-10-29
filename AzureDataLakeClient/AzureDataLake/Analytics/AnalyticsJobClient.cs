@@ -35,7 +35,7 @@ namespace AzureDataLakeClient.Analytics
                 odata_query.Top = options.Top;
             }
 
-            odata_query.OrderBy = options.CreateOrderByString();
+            odata_query.OrderBy = options.Sorting.CreateOrderByString();
             odata_query.Filter = options.Filter.ToFilterString(this.AuthenticatedSession);
 
             // Other parameters

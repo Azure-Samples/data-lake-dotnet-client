@@ -18,8 +18,8 @@ namespace ADL_Client_Demo
             var opts =new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 5;
 
-            opts.OrderByDirection = JobOrderByDirection.Descending;
-            opts.OrderByField = JobOrderByField.SubmitTime;
+            opts.Sorting.OrderByDirection = JobOrderByDirection.Descending;
+            opts.Sorting.OrderByField = JobOrderByField.SubmitTime;
 
             opts.Filter.DegreeOfParallelism.OneOf(1,2,10);
             //opts.FilterSubmitTime.Before(new System.DateTime(2016, 9, 17));

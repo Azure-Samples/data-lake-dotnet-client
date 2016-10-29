@@ -1,17 +1,10 @@
 namespace AzureDataLakeClient.Analytics
 {
-    public class GetJobsOptions
+    public class JobListSorting
     {
-        public int Top=0; // 300 is the ADLA limit
         public JobOrderByField OrderByField;
         public JobOrderByDirection OrderByDirection;
-        public JobListFilter Filter;
 
-        public GetJobsOptions()
-        {
-            this.Filter = new JobListFilter();
-
-        }
 
         private static string get_order_field_name(JobOrderByField field)
         {
@@ -36,6 +29,19 @@ namespace AzureDataLakeClient.Analytics
             }
 
             return null;
+        }
+    }
+
+    public class GetJobsOptions
+    {
+        public int Top=0; // 300 is the ADLA limit
+        public JobListFilter Filter;
+        public JobListSorting Sorting;
+
+        public GetJobsOptions()
+        {
+            this.Filter = new JobListFilter();
+            this.Sorting = new JobListSorting();
         }
     }
 }
