@@ -2,33 +2,25 @@ namespace AzureDataLakeClient.Analytics
 {
     public class JobListSorting
     {
-        public JobOrderByField OrderByField;
-        public JobOrderByDirection OrderByDirection;
-
-
-        private static string get_order_field_name(JobOrderByField field)
-        {
-            if (field == JobOrderByField.None)
-            {
-                throw new System.ArgumentException();
-            }
-
-            string field_name_str = field.ToString();
-            return StringUtil.ToLowercaseFirstLetter(field_name_str);
-        }
-
+        public AzureDataLakeClient.OData.ExprField Field;
+        public OrderByDirection Direction;
+        
         public string CreateOrderByString()
         {
-            if (this.OrderByField != JobOrderByField.None)
+            if (this.Field != null)
             {
-                var fieldname = get_order_field_name(this.OrderByField);
-                var dir = (this.OrderByDirection == JobOrderByDirection.Ascending) ? "asc" : "desc";
-
-                string orderBy = string.Format("{0} {1}", fieldname, dir);
+                var dir = DirectionToString(this.Direction);
+                string orderBy = string.Format("{0} {1}", this.Field.Name, dir);
                 return orderBy;
             }
 
             return null;
+        }
+
+        private static string DirectionToString(OrderByDirection direction)
+        {
+            var dir = (direction == OrderByDirection.Ascending) ? "asc" : "desc";
+            return dir;
         }
     }
 

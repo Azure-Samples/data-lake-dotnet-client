@@ -47,10 +47,13 @@ namespace ADL_Client_Tests.Analytics
         public void List_Jobs()
         {
             this.Initialize();
+
+            var jobfields = new AzureDataLakeClient.Analytics.JobListFields();
+
             var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
             getjobs_options.Top = 30;
-            getjobs_options.Sorting.OrderByField = AzureDataLakeClient.Analytics.JobOrderByField.DegreeOfParallelism;
-            getjobs_options.Sorting.OrderByDirection = AzureDataLakeClient.Analytics.JobOrderByDirection.Descending;
+            getjobs_options.Sorting.Field = jobfields.field_degreeofparallelism;
+            getjobs_options.Sorting.Direction = AzureDataLakeClient.Analytics.OrderByDirection.Descending;
 
             foreach (var job in this.adla_job_client.GetJobs(getjobs_options))
             {

@@ -1,6 +1,6 @@
 namespace AzureDataLakeClient.Analytics
 {
-    public enum JobOrderByDirection
+    public enum OrderByDirection
     {
         Ascending,
         Descending
