@@ -145,11 +145,11 @@
     <Compile Include="AzureDataLake\OData\ExprToUpper.cs" />
     <Compile Include="AzureDataLake\OData\ExprYear.cs" />
     <Compile Include="AzureDataLake\OData\Utils\RangeDateTime.cs" />
-    <Compile Include="AzureDataLake\OData\Utils\PropertyFilter.cs" />
-    <Compile Include="AzureDataLake\OData\Utils\PropertyFilterDateTime.cs" />
-    <Compile Include="AzureDataLake\OData\Utils\PropertyFilterInteger.cs" />
-    <Compile Include="AzureDataLake\OData\Utils\PropertyFilterEnum.cs" />
-    <Compile Include="AzureDataLake\OData\Utils\PropertyFilterString.cs" />
+    <Compile Include="AzureDataLake\OData\Utils\FieldFilter.cs" />
+    <Compile Include="AzureDataLake\OData\Utils\FieldFilterDateTime.cs" />
+    <Compile Include="AzureDataLake\OData\Utils\FieldFilterInteger.cs" />
+    <Compile Include="AzureDataLake\OData\Utils\FieldFilterEnum.cs" />
+    <Compile Include="AzureDataLake\OData\Utils\FieldFilterString.cs" />
     <Compile Include="AzureDataLake\Analytics\JobListFilter.cs" />
     <Compile Include="AzureDataLake\OData\Enums\ComparisonOperation.cs" />
     <Compile Include="AzureDataLake\OData\ExpressionWriter.cs" />

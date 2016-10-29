@@ -4,12 +4,12 @@ using AzureDataLakeClient.OData.Enums;
 
 namespace AzureDataLakeClient.OData.Utils
 {
-    public class PropertyFilterEnum<T> : PropertyFilter where T : struct, System.IComparable, System.IConvertible, System.IFormattable 
+    public class FieldFilterEnum<T> : FieldFilter where T : struct, System.IComparable, System.IConvertible, System.IFormattable 
     {
         private List<T> one_of_value;
         public bool Not;
 
-        public PropertyFilterEnum(string field_name) :
+        public FieldFilterEnum(string field_name) :
             base(field_name)
         {
         }

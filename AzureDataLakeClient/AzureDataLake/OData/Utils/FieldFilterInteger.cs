@@ -3,12 +3,12 @@ using AzureDataLakeClient.OData.Enums;
 
 namespace AzureDataLakeClient.OData.Utils
 {
-    public class PropertyFilterInteger : PropertyFilter
+    public class FieldFilterInteger : FieldFilter
     {
         private RangeInteger range;
         private List<int> one_of_list;
 
-        public PropertyFilterInteger(string field_name) :
+        public FieldFilterInteger(string field_name) :
             base(field_name)
         {
             

@@ -8,27 +8,27 @@ namespace AzureDataLakeClient.Analytics
     public class JobListFilter
     {
         public bool SubmitterIsCurrentUser;
-        public OData.Utils.PropertyFilterString Name;
-        public OData.Utils.PropertyFilterString Submitter;
-        public OData.Utils.PropertyFilterDateTime SubmitTime;
-        public OData.Utils.PropertyFilterDateTime StartTime;
-        public OData.Utils.PropertyFilterDateTime EndTime;
-        public OData.Utils.PropertyFilterInteger DegreeOfParallelism;
-        public OData.Utils.PropertyFilterInteger Priority;
-        public OData.Utils.PropertyFilterEnum<JobState> State;
-        public OData.Utils.PropertyFilterEnum<JobResult> Result;
+        public OData.Utils.FieldFilterString Name;
+        public OData.Utils.FieldFilterString Submitter;
+        public OData.Utils.FieldFilterDateTime SubmitTime;
+        public OData.Utils.FieldFilterDateTime StartTime;
+        public OData.Utils.FieldFilterDateTime EndTime;
+        public OData.Utils.FieldFilterInteger DegreeOfParallelism;
+        public OData.Utils.FieldFilterInteger Priority;
+        public OData.Utils.FieldFilterEnum<JobState> State;
+        public OData.Utils.FieldFilterEnum<JobResult> Result;
 
         public JobListFilter()
         {
-            this.Submitter = new OData.Utils.PropertyFilterString("submitter");
-            this.Name = new OData.Utils.PropertyFilterString("name");
-            this.SubmitTime = new OData.Utils.PropertyFilterDateTime("submitTime");
-            this.StartTime = new OData.Utils.PropertyFilterDateTime("startTime");
-            this.EndTime = new OData.Utils.PropertyFilterDateTime("endTime");
-            this.DegreeOfParallelism = new OData.Utils.PropertyFilterInteger("degreeOfParallelism");
-            this.Priority = new OData.Utils.PropertyFilterInteger("priority");
-            this.State = new OData.Utils.PropertyFilterEnum<JobState>("state");
-            this.Result = new OData.Utils.PropertyFilterEnum<JobResult>("result");
+            this.Submitter = new OData.Utils.FieldFilterString("submitter");
+            this.Name = new OData.Utils.FieldFilterString("name");
+            this.SubmitTime = new OData.Utils.FieldFilterDateTime("submitTime");
+            this.StartTime = new OData.Utils.FieldFilterDateTime("startTime");
+            this.EndTime = new OData.Utils.FieldFilterDateTime("endTime");
+            this.DegreeOfParallelism = new OData.Utils.FieldFilterInteger("degreeOfParallelism");
+            this.Priority = new OData.Utils.FieldFilterInteger("priority");
+            this.State = new OData.Utils.FieldFilterEnum<JobState>("state");
+            this.Result = new OData.Utils.FieldFilterEnum<JobResult>("result");
         }
 
         public string ToFilterString(Authentication.AuthenticatedSession auth_session)

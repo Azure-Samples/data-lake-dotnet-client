@@ -2,12 +2,12 @@ using AzureDataLakeClient.OData.Enums;
 
 namespace AzureDataLakeClient.OData.Utils
 {
-    public class PropertyFilterDateTime : PropertyFilter
+    public class FieldFilterDateTime : FieldFilter
     {
         private RangeDateTime range;
         public bool Inclusive;
 
-        public PropertyFilterDateTime(string field_name) :
+        public FieldFilterDateTime(string field_name) :
             base(field_name)
         {
         }

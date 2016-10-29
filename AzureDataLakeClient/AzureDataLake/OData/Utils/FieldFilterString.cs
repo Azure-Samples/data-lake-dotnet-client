@@ -3,7 +3,7 @@ using AzureDataLakeClient.OData.Enums;
 
 namespace AzureDataLakeClient.OData.Utils
 {
-    public class PropertyFilterString : PropertyFilter
+    public class FieldFilterString : FieldFilter
     {
         private List<string> one_of_text;
         private string begins_with_text;
@@ -11,7 +11,7 @@ namespace AzureDataLakeClient.OData.Utils
         private string contains_text;
         public bool IgnoreCase;
 
-        public PropertyFilterString(string field_name) :
+        public FieldFilterString(string field_name) :
             base(field_name)
         {
         }
@@ -44,8 +44,8 @@ namespace AzureDataLakeClient.OData.Utils
                 var expr_or = new ExprLogicalOr();
                 foreach (var item in this.one_of_text)
                 {
-                    var expr1 = PropertyFilterString.AlterCase(this.expr_field, this.IgnoreCase);
-                    var expr2 = PropertyFilterString.AlterCase(new ExprLiteralString(item), this.IgnoreCase);
+                    var expr1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
+                    var expr2 = FieldFilterString.AlterCase(new ExprLiteralString(item), this.IgnoreCase);
                     var expr_compare = Expr.GetExprComparison(expr1, expr2, ComparisonOperation.Equals );
                     expr_or.Add(expr_compare);
                 }
@@ -53,24 +53,24 @@ namespace AzureDataLakeClient.OData.Utils
             }
             if (this.contains_text !=null)
             {
-                var expr_1 = PropertyFilterString.AlterCase(new ExprLiteralString(this.contains_text), this.IgnoreCase);
-                var expr_2 = PropertyFilterString.AlterCase(this.expr_field, this.IgnoreCase);
+                var expr_1 = FieldFilterString.AlterCase(new ExprLiteralString(this.contains_text), this.IgnoreCase);
+                var expr_2 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
                 var expr_substringof = new ExprSubstringOf(expr_1,expr_2);
                 return expr_substringof;
             }
 
             if (this.ends_with_text != null)
             {
-                var expr_1 = PropertyFilterString.AlterCase(this.expr_field, this.IgnoreCase);
-                var expr_2 = PropertyFilterString.AlterCase(new ExprLiteralString(this.ends_with_text), this.IgnoreCase);
+                var expr_1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
+                var expr_2 = FieldFilterString.AlterCase(new ExprLiteralString(this.ends_with_text), this.IgnoreCase);
                 var expr_endswith= new ExprEndsWith(expr_1, expr_2);
                 return expr_endswith;
             }
 
             if (this.begins_with_text != null)
             {
-                var expr_1 = PropertyFilterString.AlterCase(this.expr_field, this.IgnoreCase);
-                var expr_2 = PropertyFilterString.AlterCase(new ExprLiteralString(this.begins_with_text), this.IgnoreCase);
+                var expr_1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
+                var expr_2 = FieldFilterString.AlterCase(new ExprLiteralString(this.begins_with_text), this.IgnoreCase);
                 var expr_startswith = new ExprStartsWith(expr_1, expr_2);
                 return expr_startswith;
             }
