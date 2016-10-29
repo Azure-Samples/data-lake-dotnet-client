@@ -20,15 +20,25 @@ namespace AzureDataLakeClient.Analytics
 
         public JobListFilter()
         {
-            this.Submitter = new OData.Utils.FieldFilterString("submitter");
-            this.Name = new OData.Utils.FieldFilterString("name");
-            this.SubmitTime = new OData.Utils.FieldFilterDateTime("submitTime");
-            this.StartTime = new OData.Utils.FieldFilterDateTime("startTime");
-            this.EndTime = new OData.Utils.FieldFilterDateTime("endTime");
-            this.DegreeOfParallelism = new OData.Utils.FieldFilterInteger("degreeOfParallelism");
-            this.Priority = new OData.Utils.FieldFilterInteger("priority");
-            this.State = new OData.Utils.FieldFilterEnum<JobState>("state");
-            this.Result = new OData.Utils.FieldFilterEnum<JobResult>("result");
+            var field_submitter = new OData.ExprField("submitter");
+            var field_name = new OData.ExprField("name");
+            var field_state = new OData.ExprField("state");
+            var field_result = new OData.ExprField("result");
+            var field_submittime = new OData.ExprField("submitTime");
+            var field_starttime = new OData.ExprField("startTime");
+            var field_endtime = new OData.ExprField("endTime");
+            var field_degreeofparallelism = new OData.ExprField("degreeOfParallelism");
+            var field_priority = new OData.ExprField("priority");
+
+            this.Submitter = new OData.Utils.FieldFilterString(field_submitter);
+            this.Name = new OData.Utils.FieldFilterString(field_name);
+            this.SubmitTime = new OData.Utils.FieldFilterDateTime(field_submittime);
+            this.StartTime = new OData.Utils.FieldFilterDateTime(field_starttime);
+            this.EndTime = new OData.Utils.FieldFilterDateTime(field_endtime);
+            this.DegreeOfParallelism = new OData.Utils.FieldFilterInteger(field_degreeofparallelism);
+            this.Priority = new OData.Utils.FieldFilterInteger(field_priority);
+            this.State = new OData.Utils.FieldFilterEnum<JobState>(field_state);
+            this.Result = new OData.Utils.FieldFilterEnum<JobResult>(field_result);
         }
 
         public string ToFilterString(Authentication.AuthenticatedSession auth_session)
@@ -38,7 +48,6 @@ namespace AzureDataLakeClient.Analytics
             var writer = new ExpressionWriter();
             writer.Append(expr_and);
             string text = writer.ToString();
-            Console.WriteLine("DEBUG: FILTER {0}", text);
             return text;
         }
 

@@ -8,8 +8,8 @@ namespace AzureDataLakeClient.OData.Utils
         private RangeInteger range;
         private List<int> one_of_list;
 
-        public FieldFilterInteger(string field_name) :
-            base(field_name)
+        public FieldFilterInteger(ExprField field) :
+            base(field)
         {
             
         }

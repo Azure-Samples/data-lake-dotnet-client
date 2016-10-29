@@ -11,8 +11,8 @@ namespace AzureDataLakeClient.OData.Utils
         private string contains_text;
         public bool IgnoreCase;
 
-        public FieldFilterString(string field_name) :
-            base(field_name)
+        public FieldFilterString(ExprField field) :
+            base(field)
         {
         }
 

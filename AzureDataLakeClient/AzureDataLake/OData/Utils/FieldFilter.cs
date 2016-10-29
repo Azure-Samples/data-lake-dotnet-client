@@ -5,9 +5,9 @@ namespace AzureDataLakeClient.OData.Utils
     {
         protected ExprField expr_field;
 
-        protected FieldFilter(string field_name)
+        protected FieldFilter(ExprField field)
         {
-            this.expr_field = new ExprField(field_name);
+            this.expr_field = new ExprField(field.Name);
         }
 
         public abstract Expr ToExpression();

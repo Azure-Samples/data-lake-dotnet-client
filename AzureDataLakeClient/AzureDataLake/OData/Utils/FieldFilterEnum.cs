@@ -9,8 +9,8 @@ namespace AzureDataLakeClient.OData.Utils
         private List<T> one_of_value;
         public bool Not;
 
-        public FieldFilterEnum(string field_name) :
-            base(field_name)
+        public FieldFilterEnum(ExprField field) :
+            base(field)
         {
         }
 

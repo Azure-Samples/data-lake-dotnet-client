@@ -7,8 +7,8 @@ namespace AzureDataLakeClient.OData.Utils
         private RangeDateTime range;
         public bool Inclusive;
 
-        public FieldFilterDateTime(string field_name) :
-            base(field_name)
+        public FieldFilterDateTime(ExprField field) :
+            base(field)
         {
         }
 
