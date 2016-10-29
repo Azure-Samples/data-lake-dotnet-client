@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace AzureDataLakeClient.Analytics
 {
     public class GetJobsOptions
@@ -40,6 +37,5 @@ namespace AzureDataLakeClient.Analytics
 
             return null;
         }
-
     }
 }

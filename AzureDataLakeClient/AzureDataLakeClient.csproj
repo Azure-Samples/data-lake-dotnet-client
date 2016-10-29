@@ -117,6 +117,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzureDataLake\Analytics\AnalyticsAccountRef.cs" />
     <Compile Include="AzureDataLake\Analytics\AnalyticsExtensions.cs" />
     <Compile Include="AzureDataLake\ClientBase.cs" />
     <Compile Include="AzureDataLake\OData\ExprCeiling.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="AzureDataLake\Store\ListFilesOptions.cs" />
     <Compile Include="AzureDataLake\Store\LocalPath.cs" />
     <Compile Include="AzureDataLake\Store\FsUnixTime.cs" />
+    <Compile Include="AzureDataLake\Store\StoreAccountRef.cs" />
     <Compile Include="AzureDataLake\Store\UploadOptions.cs" />
     <Compile Include="AzureDataLake\StringUtil.cs" />
     <Compile Include="AzureDataLake\Analytics\SubmitJobOptions.cs" />

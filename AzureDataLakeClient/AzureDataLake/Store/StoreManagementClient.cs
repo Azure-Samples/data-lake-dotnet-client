@@ -39,19 +39,19 @@ namespace AzureDataLakeClient.Store
             }
         }
 
-        public ADL.Store.Models.DataLakeStoreAccount GetAccount(string resource_group,string account_name)
+        public ADL.Store.Models.DataLakeStoreAccount GetAccount(StoreAccountRef account)
         {
-            return this._adls_mgmt_rest_client.Account.Get(resource_group,account_name);
+            return this._adls_mgmt_rest_client.Account.Get(account.ResourceGroup, account.Name);
         }
 
-        public void Update(string resource_group, string account_name, ADL.Store.Models.DataLakeStoreAccount parameters)
+        public void Update(StoreAccountRef account, ADL.Store.Models.DataLakeStoreAccount parameters)
         {
-            this._adls_mgmt_rest_client.Account.Update(resource_group, account_name, parameters);
+            this._adls_mgmt_rest_client.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
-        public void Delete(string resource_group, string account_name)
+        public void Delete(StoreAccountRef account)
         {
-            this._adls_mgmt_rest_client.Account.Delete(resource_group, account_name);
+            this._adls_mgmt_rest_client.Account.Delete(account.ResourceGroup, account.Name);
         }
 
     }
