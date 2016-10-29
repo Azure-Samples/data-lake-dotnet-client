@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using AzureDataLakeClient.Authentication;
 using Microsoft.Azure.Management.DataLake.Analytics;
-using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using ADL=Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Analytics
@@ -27,9 +25,9 @@ namespace AzureDataLakeClient.Analytics
             return job;
         }
 
-        public IEnumerable<JobInformation> GetJobs(GetJobsOptions options)
+        public IEnumerable<ADL.Analytics.Models.JobInformation> GetJobs(GetJobsOptions options)
         {
-            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<JobInformation>();
+            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<ADL.Analytics.Models.JobInformation>();
 
             // if users requests top, set the value appropriately relative to the page size
             if ( (options.Top > 0) && (options.Top <= AnalyticsJobClient.ADLJobPageSize))
@@ -48,7 +46,7 @@ namespace AzureDataLakeClient.Analytics
 
             int item_count = 0;
             var page = this._adla_job_rest_client.Job.List(this.Account, odata_query, opt_select, opt_count, opt_search, opt_format);
-            foreach (var job in RESTUtil.EnumItemsInPages<JobInformation>(page, p => this._adla_job_rest_client.Job.ListNext(p.NextPageLink)))
+            foreach (var job in RESTUtil.EnumItemsInPages<ADL.Analytics.Models.JobInformation>(page, p => this._adla_job_rest_client.Job.ListNext(p.NextPageLink)))
             {
                 yield return job;
                 item_count++;
@@ -80,16 +78,16 @@ namespace AzureDataLakeClient.Analytics
             return job_info;
         }
 
-        private static JobInformation CreateNewJobProperties(SubmitJobOptions options)
+        private static ADL.Analytics.Models.JobInformation CreateNewJobProperties(SubmitJobOptions options)
         {
-            var jobprops = new USqlJobProperties();
+            var jobprops = new ADL.Analytics.Models.USqlJobProperties();
             jobprops.Script = options.ScriptText;
 
-            var jobType = JobType.USql;
+            var jobType = ADL.Analytics.Models.JobType.USql;
             int priority = 1;
             int dop = 1;
 
-            var parameters = new JobInformation(
+            var parameters = new ADL.Analytics.Models.JobInformation(
                 name: options.JobName,
                 type: jobType,
                 properties: jobprops,
