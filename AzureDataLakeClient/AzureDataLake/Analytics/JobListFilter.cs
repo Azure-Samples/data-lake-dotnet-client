@@ -1,7 +1,6 @@
 using System;
 using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.OData;
-using AzureDataLakeClient.OData.Enums;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 
 namespace AzureDataLakeClient.Analytics
