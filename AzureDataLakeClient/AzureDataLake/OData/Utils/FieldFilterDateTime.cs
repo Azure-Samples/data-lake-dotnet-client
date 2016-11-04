@@ -12,6 +12,12 @@ namespace AzureDataLakeClient.OData.Utils
         {
         }
 
+        public void InRange(RangeDateTime range)
+        {
+            this.range = range;
+        }
+
+
         public override Expr ToExpression()
         {
             if (this.range == null)

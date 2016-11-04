@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AzureDataLakeClient.Analytics;
+using AzureDataLakeClient.OData;
+using AzureDataLakeClient.OData.Utils;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 
 namespace ADL_Client_Demo
@@ -13,46 +15,94 @@ namespace ADL_Client_Demo
             var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client");
             auth_session.Authenticate();
 
-            var client = new AzureDataLakeClient.Analytics.AnalyticsJobClient("datainsightsadhoc", auth_session);
+            var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient("datainsightsadhoc", auth_session);
 
-            var opts =new AzureDataLakeClient.Analytics.GetJobsOptions();
-            opts.Top = 5;
+            //Demo_Get10MostRecentJobs(job_client);
+            //Demo_Get5FailedJobs(job_client);
+            //Demo_GetJobsSubmittedByMe(job_client);
+            //Demo_GetJobsSubmittedByUsers(job_client);
+            Demo_GetJobsSubmitedSinceMidnight(job_client);
+
+        }
+
+        private static void Demo_GetJobsSubmittedByMe(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 10;
+            opts.Filter.SubmitterIsCurrentUser = true;
+
+            var jobs = job_client.GetJobs(opts);
+
+            PrintJobs(jobs);
+        }
+
+        private static void Demo_GetJobsSubmittedByUsers(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 10;
+            opts.Filter.Submitter.OneOf("mrys@microsoft.com", "saveenr@microsoft.com");
+
+            var jobs = job_client.GetJobs(opts);
+
+            PrintJobs(jobs);
+        }
+
+
+        private static void Demo_Get10MostRecentJobs(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 10;
 
             var jobfields = new AzureDataLakeClient.Analytics.JobListFields();
-
             opts.Sorting.Direction = OrderByDirection.Descending;
             opts.Sorting.Field = jobfields.field_submittime;
 
-            opts.Filter.DegreeOfParallelism.OneOf(1,2,10);
-            //opts.FilterSubmitTime.Before(new System.DateTime(2016, 9, 17));
-            //opts.Filter.Priority.Exactly(1);
-            //opts.Filter.Result  = new List<JobResult> { JobResult.Cancelled};
-            //opts.Filter.State.OneOf(JobState.Ended);
-            //opts.Filter.State.Not = true;
-            //opts.Filter.SubmitterToCurrentUser = true;
-            //opts.Filter.State.OneOf( JobState.Running, JobState.Accepted, JobState.Compiling);
-            //opts.Filter.Submitter.OneOf("SAVEENR@microSOFT.COM");
-            //opts.Filter.Submitter.IgnoreCase = true;
-            //opts.Filter.Submitter.BeginsWith("SaV");
-            //opts.Filter.Submitter.IgnoreCase = true;
+            var jobs = job_client.GetJobs(opts);
 
-            var jobs = client.GetJobs(opts);
+            PrintJobs(jobs);
+        }
 
+        private static void Demo_Get5FailedJobs(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 5;
 
+            opts.Filter.Result.OneOf(JobResult.Failed);
+
+            var jobs = job_client.GetJobs(opts);
+
+            PrintJobs(jobs);
+        }
+
+        private static void Demo_GetJobsSubmitedInLast2hours(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Filter.SubmitTime.InRange(RangeDateTime.InTheLastNHours(2));
+            var jobs = job_client.GetJobs(opts);
+            PrintJobs(jobs);
+        }
+
+        private static void Demo_GetJobsSubmitedSinceMidnight(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Filter.SubmitTime.InRange( RangeDateTime.SinceLocalMidnight());
+            var jobs = job_client.GetJobs(opts);
+            PrintJobs(jobs);
+        }
+
+        private static void PrintJobs(IEnumerable<JobInformation> jobs)
+        {
             foreach (var job in jobs)
             {
                 Console.WriteLine("------------------------------------------------------------");
-                Console.WriteLine("DoP        = {0}", job.DegreeOfParallelism);
-                Console.WriteLine("Result     = {0}", job.Result);
-                Console.WriteLine("State      = {0}", job.State);
+                Console.WriteLine("Name = {0}", job.Name);
+                Console.WriteLine("DoP = {0}; Priority = {1}", job.DegreeOfParallelism, job.Priority);
+                Console.WriteLine("Result = {0}; State = {1}", job.Result, job.State);
                 Console.WriteLine("SubmitTime = {0} [ Local = {1} ] ", job.SubmitTime.Value, job.SubmitTime.Value.ToLocalTime());
-                Console.WriteLine("Priority   = {0}", job.Priority);
-                Console.WriteLine("Submitter  = {0}", job.Submitter);
-                Console.WriteLine("Name       = {0}", job.Name);                
+                Console.WriteLine("Submitter = {0}", job.Submitter);
             }
         }
 
+
     }
-
-
 }

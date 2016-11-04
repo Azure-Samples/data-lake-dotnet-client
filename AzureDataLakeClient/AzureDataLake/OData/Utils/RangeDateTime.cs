@@ -25,6 +25,14 @@ namespace AzureDataLakeClient.OData.Utils
             return new RangeDateTime(lower,null);
         }
 
+        public static RangeDateTime SinceLocalMidnight()
+        {
+            var localnow = System.DateTime.Now;
+            var localmidnight = new System.DateTime(localnow.Year, localnow.Month, localnow.Day);
+            var lower = new System.DateTimeOffset(localmidnight);
+            return new RangeDateTime(lower,null);
+        }
+
         public bool HasBoundary
         {
             get { return (this.upper.HasValue || this.lower.HasValue); }
