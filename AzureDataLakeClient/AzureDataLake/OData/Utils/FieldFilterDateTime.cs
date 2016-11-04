@@ -10,13 +10,13 @@ namespace AzureDataLakeClient.OData.Utils
         public FieldFilterDateTime(ExprField field) :
             base(field)
         {
+            this.Inclusive = true;
         }
 
         public void InRange(RangeDateTime range)
         {
             this.range = range;
         }
-
 
         public override Expr ToExpression()
         {
@@ -25,7 +25,7 @@ namespace AzureDataLakeClient.OData.Utils
                 return null;
             }
 
-            if (!this.range.HasBoundary)
+            if (!this.range.HasUpperOrLower)
             {
                 return null;
             }

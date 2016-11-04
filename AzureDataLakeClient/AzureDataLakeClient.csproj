@@ -168,6 +168,7 @@
     <Compile Include="AzureDataLake\OData\ExprRaw.cs" />
     <Compile Include="AzureDataLake\Analytics\OrderByDirection.cs" />
     <Compile Include="AzureDataLake\Analytics\JobOrderByField.cs" />
+    <Compile Include="AzureDataLake\OData\Utils\RangeInteger.cs" />
     <Compile Include="AzureDataLake\ResourceManagementClient.cs" />
     <Compile Include="AzureDataLake\Analytics\AnalyticsCatalogClient.cs" />
     <Compile Include="AzureDataLake\Store\AclType.cs" />
