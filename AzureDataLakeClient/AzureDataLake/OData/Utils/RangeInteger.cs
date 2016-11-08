@@ -2,18 +2,18 @@ namespace AzureDataLakeClient.OData.Utils
 {
     public class RangeInteger
     {
-        public readonly int? upper;
-        public readonly int? lower;
+        public int? UpperBound { get; }
+        public int? LowerBound { get; }
 
         public RangeInteger(int? lower, int? upper)
         {
-            this.lower = lower;
-            this.upper = upper;
+            this.LowerBound = lower;
+            this.UpperBound = upper;
         }
 
-        public bool HasUpperOrLower
+        public bool IsBounded
         {
-            get { return (this.upper.HasValue || this.lower.HasValue); }
+            get { return (this.UpperBound.HasValue || this.LowerBound.HasValue); }
         }
     }
 }

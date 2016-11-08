@@ -44,17 +44,17 @@ namespace AzureDataLakeClient.OData.Utils
 
             if (this.range != null)
             {
-                if (this.range.upper.HasValue)
+                if (this.range.UpperBound.HasValue)
                 {
                     var op = ComparisonOperation.LesserThanOrEquals;
-                    var expr_compare = Expr.GetExprComparison(this.expr_field, new ExprLiteralInt(this.range.upper.Value), op);
+                    var expr_compare = Expr.GetExprComparison(this.expr_field, new ExprLiteralInt(this.range.UpperBound.Value), op);
                     expr_and.Add(expr_compare);
                 }
 
-                if (this.range.lower.HasValue)
+                if (this.range.LowerBound.HasValue)
                 {
                     var op = ComparisonOperation.GreaterThanOrEquals ;
-                    var expr_compare = Expr.GetExprComparison(this.expr_field, new ExprLiteralInt(this.range.upper.Value), op);
+                    var expr_compare = Expr.GetExprComparison(this.expr_field, new ExprLiteralInt(this.range.UpperBound.Value), op);
                     expr_and.Add(expr_compare);
                 }
 

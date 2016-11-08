@@ -1,14 +1,16 @@
+using System;
+
 namespace AzureDataLakeClient.OData.Utils
 {
     public class RangeDateTime
     {
-        public readonly System.DateTimeOffset? upper;
-        public readonly System.DateTimeOffset? lower;
+        public DateTimeOffset? UpperBound { get; }
+        public DateTimeOffset? LowerBound { get; }
 
         public RangeDateTime(System.DateTimeOffset? lower, System.DateTimeOffset? upper)
         {
-            this.lower = lower;
-            this.upper = upper;
+            this.LowerBound = lower;
+            this.UpperBound = upper;
         }
 
         public static RangeDateTime InTheLastNHours(int hours)
@@ -33,9 +35,9 @@ namespace AzureDataLakeClient.OData.Utils
             return new RangeDateTime(lower,null);
         }
 
-        public bool HasUpperOrLower
+        public bool IsBounded
         {
-            get { return (this.upper.HasValue || this.lower.HasValue); }
+            get { return (this.UpperBound.HasValue || this.LowerBound.HasValue); }
         }
     }
 }
