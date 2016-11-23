@@ -9,7 +9,7 @@ namespace AzureDataLakeClient.OData.Utils
         private string begins_with_text;
         private string ends_with_text;
         private string contains_text;
-        public bool IgnoreCase;
+        public bool IgnoreCase=true;
 
         public FieldFilterString(ExprField field) :
             base(field)
@@ -19,7 +19,7 @@ namespace AzureDataLakeClient.OData.Utils
         public void OneOf(params string[] items)
         {
             this.one_of_text = new List<string>(items.Length);
-            this.one_of_text.AddRange(items);    
+            this.one_of_text.AddRange(items);
         }
 
         public void BeginsWith(string text)

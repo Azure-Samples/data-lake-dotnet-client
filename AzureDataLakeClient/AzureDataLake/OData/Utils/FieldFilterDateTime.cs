@@ -10,6 +10,12 @@ namespace AzureDataLakeClient.OData.Utils
         public FieldFilterDateTime(ExprField field) :
             base(field)
         {
+            this.Inclusive = true;
+        }
+
+        public void InRange(RangeDateTime range)
+        {
+            this.range = range;
         }
 
         public override Expr ToExpression()
@@ -19,26 +25,26 @@ namespace AzureDataLakeClient.OData.Utils
                 return null;
             }
 
-            if (!this.range.HasBoundary)
+            if (!this.range.IsBounded)
             {
                 return null;
             }
 
             var expr_and = new ExprLogicalAnd();
 
-            if (this.range.upper.HasValue)
+            if (this.range.UpperBound.HasValue)
             {
                 var op = this.Inclusive ? ComparisonOperation.GreaterThanOrEquals : ComparisonOperation.LesserThan;
 
-                var expr_date = new ExprLiteralDateTime(this.range.upper.Value);
+                var expr_date = new ExprLiteralDateTime(this.range.UpperBound.Value);
                 var expr_compare = Expr.GetExprComparison(this.expr_field, expr_date, op);
                 expr_and.Add(expr_compare);
             }
 
-            if (this.range.lower.HasValue)
+            if (this.range.LowerBound.HasValue)
             {
                 var op = this.Inclusive ? ComparisonOperation.GreaterThanOrEquals : ComparisonOperation.GreaterThan;
-                var expr_date = new ExprLiteralDateTime(this.range.lower.Value);
+                var expr_date = new ExprLiteralDateTime(this.range.LowerBound.Value);
                 var expr_compare = Expr.GetExprComparison(this.expr_field, expr_date, op);
                 expr_and.Add(expr_compare);
             }
