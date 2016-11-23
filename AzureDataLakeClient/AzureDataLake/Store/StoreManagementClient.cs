@@ -44,7 +44,7 @@ namespace AzureDataLakeClient.Store
             return this._adls_mgmt_rest_client.Account.Get(account.ResourceGroup, account.Name);
         }
 
-        public void Update(StoreAccountRef account, ADL.Store.Models.DataLakeStoreAccount parameters)
+        public void Update(StoreAccountRef account, ADL.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
             this._adls_mgmt_rest_client.Account.Update(account.ResourceGroup, account.Name, parameters);
         }

@@ -41,11 +41,9 @@ namespace AzureDataLakeClient.Analytics
             // Other parameters
             string opt_select = null;
             bool? opt_count = null;
-            string opt_search = null;
-            string opt_format = null;
 
             int item_count = 0;
-            var page = this._adla_job_rest_client.Job.List(this.Account, odata_query, opt_select, opt_count, opt_search, opt_format);
+            var page = this._adla_job_rest_client.Job.List(this.Account, odata_query, opt_select, opt_count);
             foreach (var job in RESTUtil.EnumItemsInPages<ADL.Analytics.Models.JobInformation>(page, p => this._adla_job_rest_client.Job.ListNext(p.NextPageLink)))
             {
                 yield return job;
