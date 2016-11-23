@@ -24,7 +24,7 @@ namespace ADL_Client_Demo
             opts.Sorting.Field = jobfields.field_submittime;
 
             opts.Filter.DegreeOfParallelism.OneOf(1,2,10);
-            //opts.FilterSubmitTime.Before(new System.DateTime(2016, 9, 17));
+            //opts.Filter.SubmitTime.(new System.DateTime(2016, 9, 17));
             //opts.Filter.Priority.Exactly(1);
             //opts.Filter.Result  = new List<JobResult> { JobResult.Cancelled};
             //opts.Filter.State.OneOf(JobState.Ended);
