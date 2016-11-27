@@ -12,10 +12,13 @@ namespace ADL_Client_Demo
     {
         private static void Main(string[] args)
         {
-            var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client");
+            string tenant = "microsoft.onmicrosoft.com"; // change this to YOUR tenant
+            string adla_account = "datainsightsadhoc"; // change this to an ADLA account you have access to 
+
+            var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client", tenant);
             auth_session.Authenticate();
 
-            var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient("datainsightsadhoc", auth_session);
+            var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient(adla_account, auth_session);
 
             //Demo_Get10MostRecentJobs(job_client);
             //Demo_Get5FailedJobs(job_client);

@@ -9,10 +9,11 @@ namespace AzureDataLakeClient.Authentication
     public class AuthenticatedSession
     {
         public Microsoft.Rest.ServiceClientCredentials Credentials;
+        public string Tenant;
         public TokenCacheItem Token;
         public string Name;
 
-        public AuthenticatedSession(string name)
+        public AuthenticatedSession(string name, string tenant)
         {
             if (name == null)
             {
@@ -23,6 +24,8 @@ namespace AzureDataLakeClient.Authentication
             {
                 throw new System.ArgumentException(nameof(name));
             }
+
+            this.Tenant = tenant;
 
             this.Name = name;
         }
@@ -43,8 +46,10 @@ namespace AzureDataLakeClient.Authentication
 
         public void Authenticate()
         {
-            var domain = "common"; // Replace this string with the user's Azure Active Directory tenant ID or domain name, if needed.
-            var client_id = "1950a258-227b-4e31-a9cf-717495945fc2";
+
+            string domain = this.Tenant; // if you want it to automatically use a tenant use "common" - but this can pick the an unintended tenant so it is best to be explicit
+            string client_id = "1950a258-227b-4e31-a9cf-717495945fc2"; // Re-use the Azure PowerShell client id, in production code you should create your own client id
+
             var client_redirect = new System.Uri("urn:ietf:wg:oauth:2.0:oob");
             var AD_client_settings = REST.Authentication.ActiveDirectoryClientSettings.UseCacheCookiesOrPrompt(client_id, client_redirect);
 
