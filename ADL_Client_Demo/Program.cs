@@ -13,7 +13,8 @@ namespace ADL_Client_Demo
         private static void Main(string[] args)
         {
             string tenant = "microsoft.onmicrosoft.com"; // change this to YOUR tenant
-            string adla_account = "datainsightsadhoc"; // change this to an ADLA account you have access to 
+            string adla_account = "datainsightsadhoc"; // change this to an ADL Analytics account you have access to 
+            string adls_account = "datainsightsadhoc"; // change this to an ADL Store account you have access to 
 
             var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client", tenant);
             auth_session.Authenticate();
@@ -24,7 +25,25 @@ namespace ADL_Client_Demo
             //Demo_Get5FailedJobs(job_client);
             //Demo_GetJobsSubmittedByMe(job_client);
             //Demo_GetJobsSubmittedByUsers(job_client);
-            Demo_GetJobsSubmitedSinceMidnight(job_client);
+            //Demo_GetJobsSubmitedSinceMidnight(job_client);
+
+            var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
+
+            Demo_ListFilesAtRoot(fs_client);
+        }
+
+        private static void Demo_ListFilesAtRoot(AzureDataLakeClient.Store.StoreFileSystemClient fs_client)
+        {
+            //var root = AzureDataLakeClient.Store.FsPath.Root; // same as "/"
+            var root = new AzureDataLakeClient.Store.FsPath("/Samples");
+            var lfo = new AzureDataLakeClient.Store.ListFilesOptions();
+            foreach (var page in fs_client.ListFilesPaged(root,lfo))
+            {
+                foreach (var fileitemn in page.FileItems)
+                {
+                    Console.WriteLine("path={0} filename={1}",page.Path,fileitemn.PathSuffix);                    
+                }
+            }
 
         }
 
@@ -38,6 +57,7 @@ namespace ADL_Client_Demo
 
             PrintJobs(jobs);
         }
+
 
         private static void Demo_GetJobsSubmittedByUsers(AnalyticsJobClient job_client)
         {
