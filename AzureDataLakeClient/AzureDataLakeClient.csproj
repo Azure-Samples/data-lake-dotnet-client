@@ -122,6 +122,7 @@
     <Compile Include="AzureDataLake\Analytics\AnalyticsAccountRef.cs" />
     <Compile Include="AzureDataLake\Analytics\AnalyticsExtensions.cs" />
     <Compile Include="AzureDataLake\Analytics\JobListFields.cs" />
+    <Compile Include="AzureDataLake\Analytics\JobListSorting.cs" />
     <Compile Include="AzureDataLake\ClientBase.cs" />
     <Compile Include="AzureDataLake\OData\ExprCeiling.cs" />
     <Compile Include="AzureDataLake\OData\ExprDay.cs" />
