@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AzureDataLakeClient.Analytics;
-using AzureDataLakeClient.OData;
-using AzureDataLakeClient.OData.Utils;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 
 namespace ADL_Client_Demo
@@ -26,7 +24,8 @@ namespace ADL_Client_Demo
             //Demo_GetJobsSubmittedByMe(job_client);
             //Demo_GetJobsSubmittedByUsers(job_client);
             //Demo_GetJobsSubmitedSinceMidnight(job_client);
-            Demo_GetJobsWildcards(job_client);
+            // Demo_GetJobs_Submitter_Begins_With(job_client);
+            Demo_GetJobs_Submitter_Contains(job_client);
 
             //var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
             //Demo_ListFilesAtRoot(fs_client);
@@ -70,7 +69,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsWildcards(AnalyticsJobClient job_client)
+        private static void Demo_GetJobs_Submitter_Begins_With(AnalyticsJobClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 10;
@@ -81,6 +80,16 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
+        private static void Demo_GetJobs_Submitter_Contains(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 10;
+            opts.Filter.Submitter.Contains("eenr");
+
+            var jobs = job_client.GetJobs(opts);
+
+            PrintJobs(jobs);
+        }
 
 
         private static void Demo_Get10MostRecentJobs(AnalyticsJobClient job_client)
@@ -112,7 +121,7 @@ namespace ADL_Client_Demo
         private static void Demo_GetJobsSubmitedInLast2hours(AnalyticsJobClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
-            opts.Filter.SubmitTime.InRange(RangeDateTime.InTheLastNHours(2));
+            opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(2));
             var jobs = job_client.GetJobs(opts);
             PrintJobs(jobs);
         }
@@ -120,7 +129,7 @@ namespace ADL_Client_Demo
         private static void Demo_GetJobsSubmitedSinceMidnight(AnalyticsJobClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
-            opts.Filter.SubmitTime.InRange( RangeDateTime.SinceLocalMidnight());
+            opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.SinceLocalMidnight());
             var jobs = job_client.GetJobs(opts);
             PrintJobs(jobs);
         }
