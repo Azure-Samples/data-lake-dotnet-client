@@ -26,10 +26,10 @@ namespace ADL_Client_Demo
             //Demo_GetJobsSubmittedByMe(job_client);
             //Demo_GetJobsSubmittedByUsers(job_client);
             //Demo_GetJobsSubmitedSinceMidnight(job_client);
+            Demo_GetJobsWildcards(job_client);
 
-            var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
-
-            Demo_ListFilesAtRoot(fs_client);
+            //var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
+            //Demo_ListFilesAtRoot(fs_client);
         }
 
         private static void Demo_ListFilesAtRoot(AzureDataLakeClient.Store.StoreFileSystemClient fs_client)
@@ -69,6 +69,18 @@ namespace ADL_Client_Demo
 
             PrintJobs(jobs);
         }
+
+        private static void Demo_GetJobsWildcards(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 10;
+            opts.Filter.Submitter.BeginsWith("saa");
+
+            var jobs = job_client.GetJobs(opts);
+
+            PrintJobs(jobs);
+        }
+
 
 
         private static void Demo_Get10MostRecentJobs(AnalyticsJobClient job_client)
