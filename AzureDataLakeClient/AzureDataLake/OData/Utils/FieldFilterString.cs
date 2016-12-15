@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using AzureDataLakeClient.OData.Enums;
 
 namespace AzureDataLakeClient.OData.Utils
@@ -6,9 +7,9 @@ namespace AzureDataLakeClient.OData.Utils
     public class FieldFilterString : FieldFilter
     {
         private List<string> one_of_text;
-        private string begins_with_text;
-        private string ends_with_text;
-        private string contains_text;
+        private List<string> begins_with_text;
+        private List<string> ends_with_text;
+        private List<string> contains_text;
         public bool IgnoreCase=true;
 
         public FieldFilterString(ExprField field) :
@@ -18,23 +19,22 @@ namespace AzureDataLakeClient.OData.Utils
 
         public void OneOf(params string[] items)
         {
-            this.one_of_text = new List<string>(items.Length);
-            this.one_of_text.AddRange(items);
+            this.one_of_text = items.ToList();
         }
 
-        public void BeginsWith(string text)
+        public void BeginsWith(params string[] items)
         {
-            this.begins_with_text = text;
+            this.begins_with_text = items.ToList();
         }
 
-        public void EndsWith(string text)
+        public void EndsWith(params string[] items)
         {
-            this.ends_with_text = text;
+            this.ends_with_text = items.ToList();
         }
 
-        public void Contains(string text)
+        public void Contains(params string[] items)
         {
-            this.contains_text = text;
+            this.contains_text = items.ToList();
         }
 
         public override Expr ToExpression()
@@ -51,31 +51,57 @@ namespace AzureDataLakeClient.OData.Utils
                 }
                 return expr_or;
             }
-            if (this.contains_text !=null)
+            else if (this.contains_text !=null)
             {
-                var expr_1 = FieldFilterString.AlterCase(new ExprLiteralString(this.contains_text), this.IgnoreCase);
-                var expr_2 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
-                var expr_substringof = new ExprSubstringOf(expr_1,expr_2);
-                return expr_substringof;
-            }
+                var expr_or = new ExprLogicalOr();
 
-            if (this.ends_with_text != null)
+                foreach (var item in this.contains_text)
+                {
+                    var expr_1 = FieldFilterString.AlterCase(new ExprLiteralString(item), this.IgnoreCase);
+                    var expr_2 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
+
+                    var expr_substringof = new ExprSubstringOf(expr_1, expr_2);
+
+                    expr_or.Add(expr_substringof);
+                }
+                return expr_or;
+            }
+            else if (this.ends_with_text != null)
             {
-                var expr_1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
-                var expr_2 = FieldFilterString.AlterCase(new ExprLiteralString(this.ends_with_text), this.IgnoreCase);
-                var expr_endswith= new ExprEndsWith(expr_1, expr_2);
-                return expr_endswith;
-            }
 
-            if (this.begins_with_text != null)
+                var expr_or = new ExprLogicalOr();
+
+                foreach (var item in this.ends_with_text)
+                {
+                    var expr_1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
+                    var expr_2 = FieldFilterString.AlterCase(new ExprLiteralString(item), this.IgnoreCase);
+
+                    var expr_endswith = new ExprEndsWith(expr_1, expr_2);
+
+                    expr_or.Add(expr_endswith);
+                }
+                return expr_or;
+            }
+            else if (this.begins_with_text != null)
             {
-                var expr_1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
-                var expr_2 = FieldFilterString.AlterCase(new ExprLiteralString(this.begins_with_text), this.IgnoreCase);
-                var expr_startswith = new ExprStartsWith(expr_1, expr_2);
-                return expr_startswith;
-            }
 
-            return null;
+                var expr_or = new ExprLogicalOr();
+
+                foreach (var item in this.begins_with_text)
+                {
+                    var expr_1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
+                    var expr_2 = FieldFilterString.AlterCase(new ExprLiteralString(item), this.IgnoreCase);
+
+                    var expr_startswith = new ExprStartsWith(expr_1, expr_2);
+
+                    expr_or.Add(expr_startswith);
+                }
+                return expr_or;
+            }
+            else
+            {
+                return null;
+            }
         }
 
 
