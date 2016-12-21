@@ -149,25 +149,38 @@ namespace AzureDataLakeClient.Analytics
             }
         }
 
-
-        public ADL.Analytics.Models.USqlSecret GetSecret(string dbname, string secret_name)
+        public void CreateCredential(string dbname, string credname, DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
         {
-            return this._catalog_ops.GetSecret(this.Account, dbname, secret_name);
+            this._catalog_ops.CreateCredential(this.Account, dbname, credname, create_parameters);
         }
 
-        public void CreateSecret(string dbname, string secret_name, DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters secret_parameters)
+        public void DeleteCredential(string dbname, string credname, DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
         {
-            this._catalog_ops.CreateSecret(this.Account, dbname, secret_name, secret_parameters);
+            this._catalog_ops.DeleteCredential(this.Account, dbname, credname);
         }
 
-        public void DeleteSecret(string dbname, string secret_name)
+        public void UpdateCredential(string dbname, string credname, DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
         {
-            this._catalog_ops.DeleteSecret(this.Account, dbname, secret_name);
+            this._catalog_ops.UpdateCredential(this.Account, dbname, credname, update_parameters);
+        }
+        
+        public ADL.Analytics.Models.USqlCredential GetCredential(string dbname, string credname)
+        {
+            return this._catalog_ops.GetCredential(this.Account, dbname, credname);
         }
 
-        public void DeleteAllSecrets(string dbname)
+        public IEnumerable<ADL.Analytics.Models.USqlCredential> ListCredential(string dbname)
         {
-            this._catalog_ops.DeleteAllSecrets(this.Account, dbname);
+            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<ADL.Analytics.Models.USqlCredential>();
+            string @select = null;
+            bool? count = null;
+
+            var page = this._catalog_ops.ListCredentials(this.Account, dbname, oDataQuery, @select, count);
+            foreach (var cred in RESTUtil.EnumItemsInPages<ADL.Analytics.Models.USqlCredential>(page, p => this._catalog_ops.ListCredentialsNext(p.NextPageLink)))
+            {
+                yield return cred;
+            }
         }
+
     }
 }
