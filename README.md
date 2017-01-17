@@ -2,7 +2,7 @@
 ---
 services: data-lake-store,data-lake-analytics
 platforms: dotnet
-author: mahi-msft
+author: saveenr-msft
 ---
 
 # Azure Data Lake DotNet Client Sample
