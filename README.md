@@ -1,7 +1,7 @@
 
 ---
 services: data-lake-store,data-lake-analytics
-platforms: java
+platforms: dotnet
 author: mahi-msft
 ---
 
