@@ -5,7 +5,7 @@ namespace AzureDataLakeClient
 {
     public class RESTUtil
     {
-        public static IEnumerable<T> EnumItemsInPages<T>(IPage<T> page, System.Func<IPage<T>, IPage<T>> f_get_next_page)
+        public static IEnumerable<T>EnumItemsInPages<T>(IPage<T> page, System.Func<IPage<T>, IPage<T>> f_get_next_page)
         {
             // Handle the first page
             foreach (var item in page)

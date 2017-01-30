@@ -7,6 +7,16 @@ namespace ADL_Client_Tests.Analytics
     [TestClass]
     public class Analytics_Job_Tests : Base_Tests
     {
+        [TestMethod]
+        public void Verify_Default_Top()
+        {
+            this.Initialize();
+            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+
+            var jobs = this.adla_job_client.GetJobs(getjobs_options).ToList();
+            Assert.IsTrue(jobs.Count>2);
+        }
+
 
         [TestMethod]
         public void Verify_Paging_1()

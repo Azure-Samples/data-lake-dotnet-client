@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>AzureDataLake.Client</id>
-    <version>1.0.2-preview</version>
+    <version>1.0.3-preview</version>
     <authors>saveenr</authors>
     <owners>saveenr</owners>
     <licenseUrl>https://raw.githubusercontent.com/Microsoft/dotnet/master/LICENSE</licenseUrl>
@@ -10,7 +10,7 @@
     <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288890</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simplifies using Azure Data Lake from .NET languages</description>
-    <releaseNotes>Updated depedencies</releaseNotes>
+    <releaseNotes>Fixed enumeration of jobs when no Top is given</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Azure Data Lake</tags>
   </metadata>

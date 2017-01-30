@@ -48,7 +48,8 @@ namespace AzureDataLakeClient.Analytics
             {
                 yield return job;
                 item_count++;
-                if (item_count >= options.Top)
+
+                if ( (options.Top > 0) && (item_count >= options.Top))
                 {
                     break;
                 }

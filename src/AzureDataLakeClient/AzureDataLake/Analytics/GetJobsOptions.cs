@@ -2,7 +2,7 @@ namespace AzureDataLakeClient.Analytics
 {
     public class GetJobsOptions
     {
-        public int Top=0; // 300 is the ADLA limit
+        public int Top=100; // 300 is the ADLA limit
         public JobListFilter Filter;
         public JobListSorting Sorting;
 
