@@ -19,13 +19,15 @@ namespace ADL_Client_Demo
 
             var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient(adla_account, auth_session);
 
+            //Demo_GetExactlyOneJob(job_client);
+            //Demo_Get10OldestJobs(job_client);
             //Demo_Get10MostRecentJobs(job_client);
             //Demo_Get5FailedJobs(job_client);
             //Demo_GetJobsSubmittedByMe(job_client);
             //Demo_GetJobsSubmittedByUsers(job_client);
             //Demo_GetJobsSubmitedSinceMidnight(job_client);
-            // Demo_GetJobs_Submitter_Begins_With(job_client);
-            Demo_GetJobs_Submitter_Contains(job_client);
+            //Demo_GetJobs_Submitter_Begins_With(job_client);
+            //Demo_GetJobs_Submitter_Contains(job_client);
 
             //var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
             //Demo_ListFilesAtRoot(fs_client);
@@ -44,6 +46,15 @@ namespace ADL_Client_Demo
                 }
             }
 
+        }
+
+        private static void Demo_GetExactlyOneJob(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 1;
+            var jobs = job_client.GetJobs(opts);
+
+            PrintJobs(jobs);
         }
 
         private static void Demo_GetJobsSubmittedByMe(AnalyticsJobClient job_client)
@@ -99,6 +110,20 @@ namespace ADL_Client_Demo
 
             var jobfields = new AzureDataLakeClient.Analytics.JobListFields();
             opts.Sorting.Direction = OrderByDirection.Descending;
+            opts.Sorting.Field = jobfields.field_submittime;
+
+            var jobs = job_client.GetJobs(opts);
+
+            PrintJobs(jobs);
+        }
+
+        private static void Demo_Get10OldestJobs(AnalyticsJobClient job_client)
+        {
+            var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            opts.Top = 10;
+
+            var jobfields = new AzureDataLakeClient.Analytics.JobListFields();
+            opts.Sorting.Direction = OrderByDirection.Ascending;
             opts.Sorting.Field = jobfields.field_submittime;
 
             var jobs = job_client.GetJobs(opts);

@@ -10,6 +10,10 @@ namespace AzureDataLakeClient.Analytics
         {
             this.Filter = new JobListFilter();
             this.Sorting = new JobListSorting();
+
+            var jobfields = new AzureDataLakeClient.Analytics.JobListFields();
+            this.Sorting.Direction = OrderByDirection.Descending;
+            this.Sorting.Field = jobfields.field_submittime;
         }
     }
 }
