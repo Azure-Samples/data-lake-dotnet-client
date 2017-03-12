@@ -1,12 +1,17 @@
 ﻿namespace AzureDataLakeClient.Analytics
 {
-    public class AnalyticsUri
+    public class AnalyticsAccountUri
     {
         public readonly string Name;
 
-        public AnalyticsUri(string name)
+        public AnalyticsAccountUri(string name)
         {
             this.Name = name;
+        }
+
+        public System.Uri GetUri()
+        {
+            return new System.Uri("https://" + this.Name + "." + "azuredatalakeanalytics.net");
         }
     }
 }

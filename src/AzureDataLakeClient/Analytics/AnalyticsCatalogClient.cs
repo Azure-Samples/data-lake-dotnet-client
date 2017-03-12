@@ -8,8 +8,8 @@ namespace AzureDataLakeClient.Analytics
     public class AnalyticsCatalogClient : AccountClientBase
     {
         private AnalyticsCatalogRestClient _adla_catalog_rest_client;
-        AnalyticsUri analyticsuri;
-        public AnalyticsCatalogClient(AnalyticsUri account, AuthenticatedSession authSession) :
+        AnalyticsAccountUri analyticsuri;
+        public AnalyticsCatalogClient(AnalyticsAccountUri account, AuthenticatedSession authSession) :
             base(account.Name, authSession)
         {
             this._adla_catalog_rest_client = new AnalyticsCatalogRestClient(this.AuthenticatedSession.Credentials);

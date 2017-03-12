@@ -19,7 +19,7 @@ namespace ADL_Client_Tests.Store
             var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
             cfo.Overwrite = true;
 
-            this.adls_fs_client.CreateFileWithContent(fname1, "Hello", cfo);
+            this.adls_fs_client.Create(fname1, "Hello", cfo);
 
             var before_fstat1 = this.adls_fs_client.GetFileStatus(fname1);
 
@@ -39,7 +39,7 @@ namespace ADL_Client_Tests.Store
             var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
             cfo.Overwrite = true;
 
-            this.adls_fs_client.CreateFileWithContent(fname1, "Hello", cfo);
+            this.adls_fs_client.Create(fname1, "Hello", cfo);
 
             var now = System.DateTimeOffset.UtcNow;
             var one_day = new TimeSpan(1,0,0,0);
@@ -67,7 +67,7 @@ namespace ADL_Client_Tests.Store
             var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
             cfo.Overwrite = true;
 
-            this.adls_fs_client.CreateFileWithContent(fname1, "Hello", cfo);
+            this.adls_fs_client.Create(fname1, "Hello", cfo);
 
             var now = System.DateTimeOffset.UtcNow;
             var future = now.AddDays(365);

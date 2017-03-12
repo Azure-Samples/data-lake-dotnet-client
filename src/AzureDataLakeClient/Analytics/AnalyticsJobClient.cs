@@ -12,9 +12,9 @@ namespace AzureDataLakeClient.Analytics
 
         private AnalyticsJobsRestClient _adla_job_rest_client;
 
-        AnalyticsUri analyticsuri;
+        AnalyticsAccountUri analyticsuri;
 
-        public AnalyticsJobClient(AnalyticsUri account, AuthenticatedSession authSession) :
+        public AnalyticsJobClient(AnalyticsAccountUri account, AuthenticatedSession authSession) :
             base(account.Name, authSession)
         {
             this._adla_job_rest_client = new AnalyticsJobsRestClient(this.AuthenticatedSession.Credentials);
