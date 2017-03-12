@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using AzureDataLakeClient.Analytics.Clients;
 using AzureDataLakeClient.Authentication;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Commands
 {
     public class JobCommands
     {

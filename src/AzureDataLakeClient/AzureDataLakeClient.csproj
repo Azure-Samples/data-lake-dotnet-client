@@ -113,16 +113,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsAccount.cs" />
-    <Compile Include="Analytics\AnalyticsCatalogRestClient.cs" />
-    <Compile Include="Analytics\AnalyticsJobsRestClient.cs" />
-    <Compile Include="Analytics\AnalyticsRmRestClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsCatalogRestClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsJobsRestClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsAccountManagmentClient.cs" />
     <Compile Include="Analytics\AnalyticsAccountUri.cs" />
-    <Compile Include="Analytics\CatalogCommands.cs" />
+    <Compile Include="Analytics\Commands\CatalogCommands.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
-    <Compile Include="Analytics\JobCommands.cs" />
+    <Compile Include="Analytics\Commands\JobCommands.cs" />
     <Compile Include="Analytics\JobListFields.cs" />
     <Compile Include="Analytics\JobListSorting.cs" />
-    <Compile Include="Analytics\ManagementCommands.cs" />
+    <Compile Include="Analytics\Commands\ManagementCommands.cs" />
     <Compile Include="Authentication\Tenant.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
@@ -195,7 +195,7 @@
     <Compile Include="RESTUtil.cs" />
     <Compile Include="Analytics\GetJobsOptions.cs" />
     <Compile Include="AccountClientBase.cs" />
-    <Compile Include="Analytics\AnalyticsRmClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsRmClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />
     <Compile Include="Store\FsAcl.cs" />

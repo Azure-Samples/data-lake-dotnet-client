@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AzureDataLakeClient.Analytics.Commands;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -34,10 +35,10 @@ namespace ADL_Client_Tests.Analytics
         {
             this.Initialize();
             var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
-            getjobs_options.Top = AzureDataLakeClient.Analytics.JobCommands.ADLJobPageSize;
+            getjobs_options.Top = JobCommands.ADLJobPageSize;
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
-            Assert.AreEqual(AzureDataLakeClient.Analytics.JobCommands.ADLJobPageSize, jobs.Count);
+            Assert.AreEqual(JobCommands.ADLJobPageSize, jobs.Count);
         }
 
         [TestMethod]
@@ -45,7 +46,7 @@ namespace ADL_Client_Tests.Analytics
         {
             this.Initialize();
             var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
-            var top = AzureDataLakeClient.Analytics.JobCommands.ADLJobPageSize + (AzureDataLakeClient.Analytics.JobCommands.ADLJobPageSize/2);
+            var top = JobCommands.ADLJobPageSize + (JobCommands.ADLJobPageSize/2);
             getjobs_options.Top = top;
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();

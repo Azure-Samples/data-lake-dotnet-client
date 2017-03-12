@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AzureDataLakeClient.Analytics.Clients;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ADL_Client_Tests
@@ -10,7 +11,7 @@ namespace ADL_Client_Tests
 
         public AzureDataLakeClient.Authentication.AuthenticatedSession auth_session;
         public AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_account_client;
-        public AzureDataLakeClient.Analytics.AnalyticsRmClient adla_rm_client;
+        public AnalyticsRmClient adla_rm_client;
         public AzureDataLakeClient.Store.StoreFileSystemClient adls_fs_client;
         public AzureDataLakeClient.Store.StoreRmClient adls_rm_client;
         public AzureDataLakeClient.Rm.Subscription sub;
@@ -34,7 +35,7 @@ namespace ADL_Client_Tests
                 this.adls_fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(store_account, auth_session);
                 this.adla_account_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(analytics_account, auth_session);
                 this.adls_rm_client = new AzureDataLakeClient.Store.StoreRmClient(sub, auth_session);
-                this.adla_rm_client = new AzureDataLakeClient.Analytics.AnalyticsRmClient(sub, auth_session);
+                this.adla_rm_client = new AnalyticsRmClient(sub, auth_session);
 
             }
         }

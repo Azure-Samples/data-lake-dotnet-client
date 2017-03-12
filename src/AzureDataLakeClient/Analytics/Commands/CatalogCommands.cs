@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
+using AzureDataLakeClient.Analytics.Clients;
 using AzureDataLakeClient.Authentication;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Commands
 {
     public class CatalogCommands
     {
         private AnalyticsCatalogRestClient _adla_catalog_rest_client;
         private AnalyticsAccount account;
-        AuthenticatedSession authSession;
 
-        public CatalogCommands(AnalyticsAccount a, AnalyticsCatalogRestClient c, AuthenticatedSession authSession)
+        public CatalogCommands(AnalyticsAccount a, AnalyticsCatalogRestClient c)
         {
             this.account = a;
             this._adla_catalog_rest_client = c;
-            this.authSession = authSession;
         }
 
         public ADL.Analytics.Models.USqlDatabase GetDatabase(string name)

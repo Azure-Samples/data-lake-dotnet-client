@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Clients
 {
     public class AnalyticsCatalogRestClient
     {

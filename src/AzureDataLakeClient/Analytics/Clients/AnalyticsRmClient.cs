@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using AzureDataLakeClient.Authentication;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Clients
 {
     public class AnalyticsRmClient: ClientBase
     {
-        private AnalyticsRmRestClient _rest_client;
+        private AnalyticsAccountManagmentClient _rest_client;
         private AzureDataLakeClient.Rm.Subscription Sub;
 
         public AnalyticsRmClient(AzureDataLakeClient.Rm.Subscription sub, AuthenticatedSession authSession) :
@@ -14,7 +14,7 @@ namespace AzureDataLakeClient.Analytics
         {
 
             this.Sub = sub;
-            this._rest_client = new AnalyticsRmRestClient(sub, authSession.Credentials);
+            this._rest_client = new AnalyticsAccountManagmentClient(sub, authSession.Credentials);
         }
 
         public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccounts()

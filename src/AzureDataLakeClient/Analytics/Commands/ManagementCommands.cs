@@ -1,19 +1,18 @@
 using System.Collections.Generic;
+using AzureDataLakeClient.Analytics.Clients;
 using AzureDataLakeClient.Authentication;
 
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Commands
 {
     public class ManagementCommands
     {
-        private AnalyticsRmRestClient _rest_client;
+        private AnalyticsAccountManagmentClient _rest_client;
         private AnalyticsAccount account;
         AuthenticatedSession authSession;
-
-        public ManagementCommands(AnalyticsAccount a, AnalyticsRmRestClient c, AuthenticatedSession authSession)
+        public ManagementCommands(AnalyticsAccount a, AnalyticsAccountManagmentClient c)
         {
             this.account = a;
             this._rest_client = c;
-            this.authSession = authSession;
         }
 
         public void UpdateAccount(Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
