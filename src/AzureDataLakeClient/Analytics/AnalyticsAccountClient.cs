@@ -4,6 +4,51 @@ using ADL=Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Analytics
 {
+    public class JobCommands
+    {
+        private AnalyticsJobsRestClient _adla_job_rest_client;
+        private AnalyticsAccount account;
+        AuthenticatedSession authSession;
+        public JobCommands(AnalyticsAccount a, AnalyticsJobsRestClient c, AuthenticatedSession authSession)
+        {
+            this.account = a;
+            this._adla_job_rest_client = c;
+            this.authSession = authSession;
+        }
+
+        public ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
+        {
+            var job = this._adla_job_rest_client.JobGet(this.account.GetUri(), jobid);
+            return job;
+        }
+
+        public IEnumerable<ADL.Analytics.Models.JobInformation> GetJobs(GetJobsOptions options)
+        {
+            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<ADL.Analytics.Models.JobInformation>();
+
+            // if users requests top, set the value appropriately relative to the page size
+            if ((options.Top > 0) && (options.Top <= AnalyticsAccountClient.ADLJobPageSize))
+            {
+                odata_query.Top = options.Top;
+            }
+
+            odata_query.OrderBy = options.Sorting.CreateOrderByString();
+            odata_query.Filter = options.Filter.ToFilterString(this.authSession);
+
+
+            var jobs = this._adla_job_rest_client.JobList(this.account.GetUri(), odata_query, options.Top);
+            foreach (var job in jobs)
+            {
+                yield return job;
+            }
+        }
+
+    }
+
+
+    // --------------------------
+
+
     public class AnalyticsAccountClient : AccountClientBase
     {
         // The maximum page size for ADLA list is 300
@@ -16,6 +61,9 @@ namespace AzureDataLakeClient.Analytics
 
         AnalyticsAccountUri analyticsuri;
 
+
+        public readonly JobCommands Jobs;
+
         public AnalyticsAccountClient(AnalyticsAccount account, AuthenticatedSession authSession) :
             base(account.Name, authSession)
         {
@@ -23,34 +71,10 @@ namespace AzureDataLakeClient.Analytics
             this._adla_catalog_rest_client = new AnalyticsCatalogRestClient(this.AuthenticatedSession.Credentials);
             this._rest_client = new AnalyticsRmRestClient(account.Subscription, authSession.Credentials);
             this.analyticsuri = account.GetUri();
+
+            this.Jobs = new JobCommands(account, this._adla_job_rest_client, authSession);
         }
 
-        public ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
-        {
-            var job = this._adla_job_rest_client.JobGet(this.analyticsuri, jobid);
-            return job;
-        }
-
-        public IEnumerable<ADL.Analytics.Models.JobInformation> GetJobs(GetJobsOptions options)
-        {
-            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<ADL.Analytics.Models.JobInformation>();
-
-            // if users requests top, set the value appropriately relative to the page size
-            if ( (options.Top > 0) && (options.Top <= AnalyticsAccountClient.ADLJobPageSize))
-            {
-                odata_query.Top = options.Top;
-            }
-
-            odata_query.OrderBy = options.Sorting.CreateOrderByString();
-            odata_query.Filter = options.Filter.ToFilterString(this.AuthenticatedSession);
-
-     
-            var jobs = this._adla_job_rest_client.JobList(this.analyticsuri, odata_query, options.Top);
-            foreach (var job in jobs)
-            {
-                yield return job;
-            }
-        }
 
         public ADL.Analytics.Models.JobInformation  SubmitJob(SubmitJobOptions options)
         {

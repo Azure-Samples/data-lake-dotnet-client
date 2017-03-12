@@ -57,7 +57,7 @@ namespace ADL_Client_Demo
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 1;
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -68,7 +68,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.SubmitterIsCurrentUser = true;
 
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -80,7 +80,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.Submitter.OneOf("mrys@microsoft.com", "saveenr@microsoft.com");
 
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -91,7 +91,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.Submitter.BeginsWith("saa");
 
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -102,7 +102,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.Submitter.Contains("eenr");
 
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -117,7 +117,7 @@ namespace ADL_Client_Demo
             opts.Sorting.Direction = AzureDataLakeClient.Analytics.OrderByDirection.Descending;
             opts.Sorting.Field = jobfields.field_submittime;
 
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -131,7 +131,7 @@ namespace ADL_Client_Demo
             opts.Sorting.Direction = AzureDataLakeClient.Analytics.OrderByDirection.Ascending;
             opts.Sorting.Field = jobfields.field_submittime;
 
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -143,7 +143,7 @@ namespace ADL_Client_Demo
 
             opts.Filter.Result.OneOf(ADLA.Models.JobResult.Failed);
 
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
@@ -152,7 +152,7 @@ namespace ADL_Client_Demo
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(2));
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
             PrintJobs(jobs);
         }
 
@@ -160,7 +160,7 @@ namespace ADL_Client_Demo
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.SinceLocalMidnight());
-            var jobs = job_client.GetJobs(opts);
+            var jobs = job_client.Jobs.GetJobs(opts);
             PrintJobs(jobs);
         }
 
