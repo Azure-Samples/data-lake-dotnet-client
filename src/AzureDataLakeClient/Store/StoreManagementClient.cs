@@ -33,11 +33,6 @@ namespace AzureDataLakeClient.Store
             return this._store_acctmgmt_rest_client.GetAccount(account);
         }
 
-        public void Update(StoreAccount account, ADL.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
-        {
-            this._store_acctmgmt_rest_client.Update(account, parameters);
-        }
-
         public void Delete(StoreAccount account)
         {
             this._store_acctmgmt_rest_client.Delete(account);
