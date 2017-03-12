@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AzureDataLakeClient.Analytics.Clients;
-using AzureDataLakeClient.Authentication;
 using ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Analytics.Commands

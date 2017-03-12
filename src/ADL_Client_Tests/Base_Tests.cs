@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using AzureDataLakeClient.Analytics.Clients;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace ADL_Client_Tests
+﻿namespace ADL_Client_Tests
 {
     public class Base_Tests
     {

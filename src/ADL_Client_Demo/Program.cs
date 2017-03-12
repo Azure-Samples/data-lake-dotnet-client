@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AzureDataLakeClient.Analytics.Clients;
 using ADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Demo
@@ -20,7 +19,7 @@ namespace ADL_Client_Demo
             auth_session.Authenticate();
 
             var adla_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(adla_account, auth_session);
-            var mgmt_client = new AzureDataLakeClient.RmClient(adla_account.Subscription, auth_session);
+            var rm_client = new AzureDataLakeClient.RmClient(sub, auth_session);
 
             //Demo_GetExactlyOneJob(job_client);
             //Demo_Get10OldestJobs(job_client);
@@ -36,8 +35,9 @@ namespace ADL_Client_Demo
             //Demo_ListFilesAtRoot(fs_client);
             Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
 
-            Demo_ListDataLakeAnalyticsAccountsInSubscription(mgmt_client);
+            Demo_ListDataLakeAnalyticsAccountsInSubscription(rm_client);
             Demo_ListDatabases(adla_client);
+            Demo_ListDataLakeStoreAccountsInSubscription(rm_client);
         }
 
         private static void Demo_ListFilesAtRoot(AzureDataLakeClient.Store.StoreFileSystemClient fs_client)
@@ -211,6 +211,18 @@ namespace ADL_Client_Demo
                 Console.WriteLine("Name = {0}", i.Name);
                 Console.WriteLine("Version = {0}", i.Version);
                 Console.WriteLine("ComputeAccountName = {0}", i.ComputeAccountName);
+            }
+        }
+
+        private static void Demo_ListDataLakeStoreAccountsInSubscription(AzureDataLakeClient.RmClient rm_client)
+        {
+            var storage_accounts = rm_client.ListStoreAccounts().ToList();
+            foreach (var i in storage_accounts)
+            {
+                Console.WriteLine("----------------");
+                Console.WriteLine("Name = {0}", i.Name);
+                Console.WriteLine("Location = {0}", i.Location);
+                Console.WriteLine("Type = {0}", i.Type);
             }
         }
     }

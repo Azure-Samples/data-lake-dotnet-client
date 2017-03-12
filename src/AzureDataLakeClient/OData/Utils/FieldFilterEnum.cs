@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.OData;
 using AzureDataLakeClient.OData.Enums;
 
 namespace AzureDataLakeClient.OData.Utils

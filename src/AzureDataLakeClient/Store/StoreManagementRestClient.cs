@@ -49,5 +49,10 @@ namespace AzureDataLakeClient.Store
             this._rest_client.Account.Delete(account.ResourceGroup.Name, account.Name);
         }
 
+        public bool Exists(StoreAccount account)
+        {
+            return this._rest_client.Account.Exists(account.ResourceGroup.Name, account.Name);
+        }
+
     }
 }

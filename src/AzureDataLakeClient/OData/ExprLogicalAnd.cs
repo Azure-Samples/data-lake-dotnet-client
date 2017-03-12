@@ -1,5 +1,3 @@
-using System;
-
 namespace AzureDataLakeClient.OData
 {
     public class ExprLogicalAnd : ExprLogicalList

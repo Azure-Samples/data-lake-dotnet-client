@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using AzureDataLakeClient.Authentication;
 using ADL = Microsoft.Azure.Management.DataLake;
