@@ -78,7 +78,7 @@ namespace ADL_Client_Tests.Analytics
             var sjo = new AzureDataLakeClient.Analytics.SubmitJobOptions();
             sjo.ScriptText = "FOOBAR";
             sjo.JobName = "Test Job";
-            var ji = this.adla_account_client.SubmitJob(sjo);
+            var ji = this.adla_account_client.Jobs.SubmitJob(sjo);
 
             System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.JobId, ji.SubmitTime);
 

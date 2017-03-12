@@ -43,6 +43,37 @@ namespace AzureDataLakeClient.Analytics
             }
         }
 
+        public ADL.Analytics.Models.JobInformation SubmitJob(SubmitJobOptions options)
+        {
+            // If caller doesn't provide a guid, then create a new one
+            if (options.JobID == default(System.Guid))
+            {
+                options.JobID = System.Guid.NewGuid();
+            }
+
+            // if caller doesn't provide a name, then create one automativally
+            if (options.JobName == null)
+            {
+                // TODO: Handle the date part of the name nicely
+                options.JobName = "ADL_Demo_Client_Job_" + System.DateTimeOffset.Now.ToString();
+            }
+
+            var job_info = this._adla_job_rest_client.JobCreate(this.account.GetUri(), options);
+            return job_info;
+        }
+
+        public ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
+        {
+            return this._adla_job_rest_client.GetStatistics(this.account.GetUri(), jobid);
+        }
+
+        public ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
+        {
+            return this._adla_job_rest_client.GetDebugDataPath(this.account.GetUri(), jobid);
+        }
+
+
+
     }
 
 
@@ -73,36 +104,6 @@ namespace AzureDataLakeClient.Analytics
             this.analyticsuri = account.GetUri();
 
             this.Jobs = new JobCommands(account, this._adla_job_rest_client, authSession);
-        }
-
-
-        public ADL.Analytics.Models.JobInformation  SubmitJob(SubmitJobOptions options)
-        {
-            // If caller doesn't provide a guid, then create a new one
-            if (options.JobID == default(System.Guid))
-            {
-                options.JobID = System.Guid.NewGuid();
-            }
-
-            // if caller doesn't provide a name, then create one automativally
-            if (options.JobName == null)
-            {
-                // TODO: Handle the date part of the name nicely
-                options.JobName = "ADL_Demo_Client_Job_" + System.DateTimeOffset.Now.ToString();
-            }
-
-            var job_info = this._adla_job_rest_client.JobCreate(this.analyticsuri, options);
-            return job_info;
-        }
-
-        public ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
-        {
-            return this._adla_job_rest_client.GetStatistics(this.analyticsuri, jobid);
-        }
-
-        public ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
-        {
-            return this._adla_job_rest_client.GetDebugDataPath(this.analyticsuri, jobid);
         }
 
 
