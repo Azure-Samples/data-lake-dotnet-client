@@ -3,11 +3,11 @@ namespace AzureDataLakeClient.Rm
 
     public class Subscription
     {
-        public readonly string ID;
+        public readonly string Id;
 
         public Subscription(string id)
         {
-            this.ID = id;
+            this.Id = id;
         }
     }
 }

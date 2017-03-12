@@ -11,7 +11,7 @@ namespace AzureDataLakeClient.Store.Clients
         public StoreManagementRestClient(Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
             this._rest_client = new DataLakeStoreAccountManagementClient(creds);
-            this._rest_client.SubscriptionId = sub.ID;
+            this._rest_client.SubscriptionId = sub.Id;
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()

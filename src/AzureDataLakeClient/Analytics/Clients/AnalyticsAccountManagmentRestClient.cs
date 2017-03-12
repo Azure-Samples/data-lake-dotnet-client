@@ -11,7 +11,7 @@ namespace AzureDataLakeClient.Analytics.Clients
         public AnalyticsAccountManagmentRestClient(AzureDataLakeClient.Rm.Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
             this._adla_acctmgmt_client = new ADL.Analytics.DataLakeAnalyticsAccountManagementClient(creds);
-            this._adla_acctmgmt_client.SubscriptionId = sub.ID;
+            this._adla_acctmgmt_client.SubscriptionId = sub.Id;
         }
 
         public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccounts()
