@@ -2,6 +2,7 @@
 
 namespace AzureDataLakeClient.Authentication
 {
+
     public class Directory
     {
         public string Name;

@@ -119,6 +119,7 @@
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
     <Compile Include="Analytics\JobListFields.cs" />
     <Compile Include="Analytics\JobListSorting.cs" />
+    <Compile Include="Authentication\Tenant.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
     <Compile Include="OData\ExprDay.cs" />
