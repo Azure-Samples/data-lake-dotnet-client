@@ -33,7 +33,8 @@ namespace ADL_Client_Demo
 
             //var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
             //Demo_ListFilesAtRoot(fs_client);
-            Demo_ListLinkedDataLakeStoreAccounts(mgmt_client, adla_account);
+            Demo_ListLinkedDataLakeStoreAccounts(job_client, adla_account);
+
             Demo_ListDataLakeAnalyticsAccountsInSubscription(mgmt_client);
         }
 
@@ -176,7 +177,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListLinkedDataLakeStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsRmClient rm_client, AzureDataLakeClient.Analytics.AnalyticsAccount account)
+        private static void Demo_ListLinkedDataLakeStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsJobClient rm_client, AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
             var storage_accounts = rm_client.ListLinkedDataLakeStoreAccounts(account).ToList();
             foreach (var i in storage_accounts)
