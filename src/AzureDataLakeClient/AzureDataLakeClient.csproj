@@ -113,9 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsAccount.cs" />
-    <Compile Include="Analytics\AnalyticsAccountRef.cs" />
     <Compile Include="Analytics\AnalyticsCatalogRestClient.cs" />
     <Compile Include="Analytics\AnalyticsJobsRestClient.cs" />
+    <Compile Include="Analytics\AnalyticsRmRestClient.cs" />
     <Compile Include="Analytics\AnalyticsUri.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
     <Compile Include="Analytics\JobListFields.cs" />
