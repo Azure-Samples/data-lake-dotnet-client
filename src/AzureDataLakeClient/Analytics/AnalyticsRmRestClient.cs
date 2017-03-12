@@ -32,9 +32,9 @@ namespace AzureDataLakeClient.Analytics
             }
         }
 
-        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccount account)
+        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AzureDataLakeClient.Rm.ResourceGroup resource_group, string account)
         {
-            var adls_account = this._rest_client.Account.Get(account.ResourceGroup.Name, account.Name);
+            var adls_account = this._rest_client.Account.Get(resource_group.Name, account);
             return adls_account;
         }
 

@@ -30,7 +30,7 @@ namespace AzureDataLakeClient.Analytics
 
         public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccount account)
         {
-            return this._rest_client.GetAccount(account);
+            return this._rest_client.GetAccount(account.ResourceGroup, account.Name);
         }
 
         public bool ExistsAccount(AnalyticsAccount account)
