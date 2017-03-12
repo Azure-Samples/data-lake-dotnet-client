@@ -1,5 +1,4 @@
 ﻿using AzureDataLakeClient.Store;
-using AzureDataLakeClient.Store.Clients;
 
 namespace ADL_Client_Tests
 {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AzureDataLakeClient.Store;
-using AzureDataLakeClient.Store.Clients;
 using ADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Demo
@@ -24,22 +23,22 @@ namespace ADL_Client_Demo
             var adls_client = new StoreAccountClient(adls_account, auth_session);
             var sub_client = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
 
-            //Demo_GetExactlyOneJob(job_client);
-            //Demo_Get10OldestJobs(job_client);
-            //Demo_Get10MostRecentJobs(job_client);
-            //Demo_Get5FailedJobs(job_client);
-            //Demo_GetJobsSubmittedByMe(job_client);
-            //Demo_GetJobsSubmittedByUsers(job_client);
-            //Demo_GetJobsSubmitedSinceMidnight(job_client);
-            //Demo_GetJobs_Submitter_Begins_With(job_client);
-            //Demo_GetJobs_Submitter_Contains(job_client);
+            Demo_GetExactlyOneJob(adla_client);
+            Demo_Get10OldestJobs(adla_client);
+            Demo_Get10MostRecentJobs(adla_client);
+            Demo_Get5FailedJobs(adla_client);
+            Demo_GetJobsSubmittedByMe(adla_client);
+            Demo_GetJobsSubmittedByUsers(adla_client);
+            Demo_GetJobsSubmitedSinceMidnight(adla_client);
+            Demo_GetJobs_Submitter_Begins_With(adla_client);
+            Demo_GetJobs_Submitter_Contains(adla_client);
 
             Demo_ListFilesAtRoot(adls_client);
-            //Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
+            Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
 
-            //Demo_ListDataLakeAnalyticsAccountsInSubscription(rm_client);
-            //Demo_ListDatabases(adla_client);
-            //Demo_ListDataLakeStoreAccountsInSubscription(rm_client);
+            Demo_ListDataLakeAnalyticsAccountsInSubscription(sub_client);
+            Demo_ListDatabases(adla_client);
+            Demo_ListDataLakeStoreAccountsInSubscription(sub_client);
         }
 
         private static void Demo_ListFilesAtRoot(StoreAccountClient adls_client)
