@@ -9,11 +9,11 @@ namespace AzureDataLakeClient.Analytics
     {
         private AnalyticsCatalogRestClient _adla_catalog_rest_client;
         AnalyticsAccountUri analyticsuri;
-        public AnalyticsCatalogClient(AnalyticsAccountUri account, AuthenticatedSession authSession) :
+        public AnalyticsCatalogClient(AnalyticsAccount account, AuthenticatedSession authSession) :
             base(account.Name, authSession)
         {
             this._adla_catalog_rest_client = new AnalyticsCatalogRestClient(this.AuthenticatedSession.Credentials);
-            this.analyticsuri = account;
+            this.analyticsuri = account.GetUri();
         }
 
         public ADL.Analytics.Models.USqlDatabase GetDatabase(string name)

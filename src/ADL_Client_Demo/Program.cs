@@ -9,16 +9,18 @@ namespace ADL_Client_Demo
     {
         private static void Main(string[] args)
         {
-            var tenant = new AzureDataLakeClient.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
-            var adla_account = new AzureDataLakeClient.Analytics.AnalyticsAccountUri("datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
-            var adls_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc"); // change this to an ADL Store account you have access to 
             var sub = new AzureDataLakeClient.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
+            var rg = new AzureDataLakeClient.Rm.ResourceGroup("InsightServices");
+            var adla_account = new AzureDataLakeClient.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg); // change this to an ADL Analytics account you have access to 
+            var adls_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc"); // change this to an ADL Store account you have access to 
+
+            var tenant = new AzureDataLakeClient.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
             var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession(tenant);
             auth_session.Authenticate();
 
             var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient(adla_account, auth_session);
             var cat_client = new AzureDataLakeClient.Analytics.AnalyticsCatalogClient(adla_account, auth_session);
-            var mgmt_client = new AzureDataLakeClient.Analytics.AnalyticsRmClient(sub, auth_session);
+            var mgmt_client = new AzureDataLakeClient.Analytics.AnalyticsRmClient(adla_account.Subscription, auth_session);
 
             //Demo_GetExactlyOneJob(job_client);
             //Demo_Get10OldestJobs(job_client);
@@ -32,7 +34,7 @@ namespace ADL_Client_Demo
 
             //var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
             //Demo_ListFilesAtRoot(fs_client);
-            Demo_ListStoreAccounts(mgmt_client);
+            Demo_ListStoreAccounts(mgmt_client, adla_account);
         }
 
         private static void Demo_ListFilesAtRoot(AzureDataLakeClient.Store.StoreFileSystemClient fs_client)
@@ -174,11 +176,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsRmClient mgmt_client)
+        private static void Demo_ListStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsRmClient rm_client, AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
-            var rg = new AzureDataLakeClient.Rm.ResourceGroup("InsightServices");
-            var account = new AzureDataLakeClient.Analytics.AnalyticsAccountRmRef("datainsightsadhoc", rg);
-            var storage_accounts = mgmt_client.ListStoreAccounts(account).ToList();
+            var storage_accounts = rm_client.ListStoreAccounts(account).ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");

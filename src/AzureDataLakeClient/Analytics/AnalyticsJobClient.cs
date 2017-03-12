@@ -14,11 +14,11 @@ namespace AzureDataLakeClient.Analytics
 
         AnalyticsAccountUri analyticsuri;
 
-        public AnalyticsJobClient(AnalyticsAccountUri account, AuthenticatedSession authSession) :
+        public AnalyticsJobClient(AnalyticsAccount account, AuthenticatedSession authSession) :
             base(account.Name, authSession)
         {
             this._adla_job_rest_client = new AnalyticsJobsRestClient(this.AuthenticatedSession.Credentials);
-            this.analyticsuri = account;
+            this.analyticsuri = account.GetUri();
         }
 
         public ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)

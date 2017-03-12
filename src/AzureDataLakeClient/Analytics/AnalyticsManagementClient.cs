@@ -28,16 +28,16 @@ namespace AzureDataLakeClient.Analytics
             }
         }
 
-        public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccountsByResourceGroup(string resource_group)
+        public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccountsByResourceGroup(AzureDataLakeClient.Rm.ResourceGroup resource_group)
         {
-            var initial_page = this._rest_client.Account.ListByResourceGroup(resource_group);
+            var initial_page = this._rest_client.Account.ListByResourceGroup(resource_group.Name);
             foreach (var acc in RESTUtil.EnumItemsInPages(initial_page, p => this._rest_client.Account.ListByResourceGroupNext(p.NextPageLink)))
             {
                 yield return acc;
             }
         }
 
-        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccountRmRef account)
+        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccount account)
         {
             var adls_account = this._rest_client.Account.Get(account.ResourceGroup.Name, account.Name);
             return adls_account;
@@ -63,7 +63,7 @@ namespace AzureDataLakeClient.Analytics
             this._rest_client.DataLakeStoreAccounts.Add(account.ResourceGroup.Name, account.Name, storage_account, parameters);
         }
 
-        public IEnumerable<ADL.Analytics.Models.DataLakeStoreAccountInfo> ListStoreAccounts(AnalyticsAccountRmRef account)
+        public IEnumerable<ADL.Analytics.Models.DataLakeStoreAccountInfo> ListStoreAccounts(AnalyticsAccount account)
         {
             var initial_page = this._rest_client.DataLakeStoreAccounts.ListByAccount(account.ResourceGroup.Name, account.Name);
             foreach (var acc in RESTUtil.EnumItemsInPages(initial_page, p => this._rest_client.DataLakeStoreAccounts.ListByAccountNext(p.NextPageLink)))
