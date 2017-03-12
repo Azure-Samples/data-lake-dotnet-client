@@ -33,14 +33,9 @@ namespace AzureDataLakeClient.Analytics
             return this._rest_client.GetAccount(account);
         }
 
-        public bool ExistsAccount(AzureDataLakeClient.Rm.ResourceGroup resource_group, string account_name)
+        public bool ExistsAccount(AnalyticsAccount account)
         {
-            return this._rest_client.ExistsAccount(resource_group, account_name);
-        }
-
-        public void UpdateAccount(AzureDataLakeClient.Rm.ResourceGroup resource_group, string account_name, ADL.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
-        {
-            this._rest_client.UpdateAccount(resource_group, account_name, parameters);
+            return this._rest_client.ExistsAccount(account.ResourceGroup, account.Name);
         }
 
         public void UpdateAccount(AnalyticsAccount account, ADL.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
@@ -48,6 +43,7 @@ namespace AzureDataLakeClient.Analytics
             this._rest_client.UpdateAccount(account.ResourceGroup, account.Name, parameters);
         }
 
+   
         public void AddStorageAccount(AnalyticsAccount account, string storage_account, ADL.Analytics.Models.AddStorageAccountParameters parameters)
         {
             this._rest_client.AddStorageAccount(account.ResourceGroup, account.Name, storage_account, parameters);
