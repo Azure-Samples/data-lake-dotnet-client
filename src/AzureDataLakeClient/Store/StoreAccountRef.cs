@@ -1,11 +1,11 @@
 namespace AzureDataLakeClient.Store
 {
-    public class StoreAccountRef
+    public class StoreAccountRmRef
     {
         public string Name;
         public string ResourceGroup;
 
-        public StoreAccountRef(string name, string rg)
+        public StoreAccountRmRef(string name, string rg)
         {
             this.Name = name;
             this.ResourceGroup = rg;

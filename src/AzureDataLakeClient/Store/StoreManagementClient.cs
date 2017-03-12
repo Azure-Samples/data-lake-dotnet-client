@@ -5,12 +5,12 @@ using Microsoft.Azure.Management.DataLake.Store;
 
 namespace AzureDataLakeClient.Store
 {
-    public class StoreManagementClient : ClientBase
+    public class StoreRmClient : ClientBase
     {
         private ADL.Store.DataLakeStoreAccountManagementClient _rest_client;
-        private Subscription Sub;
+        private AzureDataLakeClient.Rm.Subscription Sub;
 
-        public StoreManagementClient(Subscription sub, AuthenticatedSession authSession) :
+        public StoreRmClient(AzureDataLakeClient.Rm.Subscription sub, AuthenticatedSession authSession) :
             base(authSession)
         {
             this.Sub = sub;
@@ -39,17 +39,17 @@ namespace AzureDataLakeClient.Store
             }
         }
 
-        public ADL.Store.Models.DataLakeStoreAccount GetAccount(StoreAccountRef account)
+        public ADL.Store.Models.DataLakeStoreAccount GetAccount(StoreAccountRmRef account)
         {
             return this._rest_client.Account.Get(account.ResourceGroup, account.Name);
         }
 
-        public void Update(StoreAccountRef account, ADL.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
+        public void Update(StoreAccountRmRef account, ADL.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
             this._rest_client.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
-        public void Delete(StoreAccountRef account)
+        public void Delete(StoreAccountRmRef account)
         {
             this._rest_client.Account.Delete(account.ResourceGroup, account.Name);
         }

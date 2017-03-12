@@ -1,6 +1,6 @@
 using AzureDataLakeClient.Authentication;
 
-namespace AzureDataLakeClient
+namespace AzureDataLakeClient.Rm
 {
     public class ResourceManagementClient : AccountClientBase
     {
