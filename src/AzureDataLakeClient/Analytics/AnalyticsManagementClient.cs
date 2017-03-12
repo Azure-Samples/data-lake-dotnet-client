@@ -4,7 +4,6 @@ using ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Analytics
 {
-
     public class AnalyticsRmClient: ClientBase
     {
         private AnalyticsRmRestClient _rest_client;
@@ -30,58 +29,57 @@ namespace AzureDataLakeClient.Analytics
 
         public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccount account)
         {
-            return this._rest_client.GetAccount(account.ResourceGroup, account.Name);
+            return this._rest_client.GetAccount(account.ResourceGroup, account.GetUri());
         }
 
         public bool ExistsAccount(AnalyticsAccount account)
         {
-            return this._rest_client.ExistsAccount(account.ResourceGroup, account.Name);
+            return this._rest_client.ExistsAccount(account.ResourceGroup, account.GetUri());
         }
 
         public void UpdateAccount(AnalyticsAccount account, ADL.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this._rest_client.UpdateAccount(account.ResourceGroup, account.Name, parameters);
+            this._rest_client.UpdateAccount(account.ResourceGroup, account.GetUri(), parameters);
         }
-
    
-        public void AddStorageAccount(AnalyticsAccount account, string storage_account, ADL.Analytics.Models.AddStorageAccountParameters parameters)
+        public void LinkBlobStorageAccount(AnalyticsAccount account, string storage_account, ADL.Analytics.Models.AddStorageAccountParameters parameters)
         {
-            this._rest_client.AddStorageAccount(account.ResourceGroup, account.Name, storage_account, parameters);
+            this._rest_client.AddStorageAccount(account.ResourceGroup, account.GetUri(), storage_account, parameters);
         }
 
-        public void AddDataLakeStoreAccount(AnalyticsAccount account, string storage_account, ADL.Analytics.Models.AddDataLakeStoreParameters parameters)
+        public void LinkDataLakeStoreAccount(AnalyticsAccount account, string storage_account, ADL.Analytics.Models.AddDataLakeStoreParameters parameters)
         {
-            this._rest_client.AddDataLakeStoreAccount(account.ResourceGroup, account.Name, storage_account, parameters);
+            this._rest_client.AddDataLakeStoreAccount(account.ResourceGroup, account.GetUri(), storage_account, parameters);
         }
 
-        public IEnumerable<ADL.Analytics.Models.DataLakeStoreAccountInfo> ListStoreAccounts(AnalyticsAccount account)
+        public IEnumerable<ADL.Analytics.Models.DataLakeStoreAccountInfo> ListLinkedDataLakeStoreAccounts(AnalyticsAccount account)
         {
-            return this._rest_client.ListStoreAccounts(account.ResourceGroup, account.Name);
+            return this._rest_client.ListStoreAccounts(account.ResourceGroup, account.GetUri());
         }
 
-        public IEnumerable<ADL.Analytics.Models.StorageAccountInfo> ListStorageAccounts(AnalyticsAccount account)
+        public IEnumerable<ADL.Analytics.Models.StorageAccountInfo> ListLinkedBlobStorageAccounts(AnalyticsAccount account)
         {
-            return this._rest_client.ListStorageAccounts(account.ResourceGroup, account.Name);
+            return this._rest_client.ListStorageAccounts(account.ResourceGroup, account.GetUri());
         }
 
-        public IEnumerable<ADL.Analytics.Models.StorageContainer> ListStorageContainers(AnalyticsAccount account, string storage_account)
+        public IEnumerable<ADL.Analytics.Models.StorageContainer> ListLinkedBlobStorageContainers(AnalyticsAccount account, string storage_account)
         {
-            return this._rest_client.ListStorageContainers(account.ResourceGroup, account.Name, storage_account);
+            return this._rest_client.ListStorageContainers(account.ResourceGroup, account.GetUri(), storage_account);
         }
 
-        public void DeleteStorageAccount(AnalyticsAccount account, string storage_account)
+        public void UnlinkBlobStorageAccount(AnalyticsAccount account, string storage_account)
         {
-            this._rest_client.DeleteStorageAccount(account.ResourceGroup, account.Name, storage_account);
+            this._rest_client.DeleteStorageAccount(account.ResourceGroup, account.GetUri(), storage_account);
         }
 
-        public void DeleteDataLakeStoreAccount(AnalyticsAccount account, string storage_account)
+        public void UnlinkDataLakeStoreAccount(AnalyticsAccount account, string storage_account)
         {
-            this._rest_client.DeleteDataLakeStoreAccount(account.ResourceGroup, account.Name, storage_account);
+            this._rest_client.DeleteDataLakeStoreAccount(account.ResourceGroup, account.GetUri(), storage_account);
         }
 
-        public IEnumerable<ADL.Analytics.Models.SasTokenInfo> ListSasTokens(AnalyticsAccount account, string storage_account, string container)
+        public IEnumerable<ADL.Analytics.Models.SasTokenInfo> ListBlobStorageSasTokens(AnalyticsAccount account, string storage_account, string container)
         {
-            return this._rest_client.ListSasTokens(account.ResourceGroup, account.Name, storage_account, container);
+            return this._rest_client.ListSasTokens(account.ResourceGroup, account.GetUri(), storage_account, container);
         }
     }
 }
