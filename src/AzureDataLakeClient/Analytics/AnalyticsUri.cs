@@ -8,5 +8,10 @@
         {
             this.Name = name;
         }
+
+        public System.Uri GetUri()
+        {
+            return new System.Uri("https://" + this.Name + "." + "azuredatalakeanalytics.net");
+        }
     }
 }
