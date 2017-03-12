@@ -46,6 +46,35 @@ namespace AzureDataLakeClient.Analytics
             }
 
         }
+
+        public ADL.Analytics.Models.JobInformation JobCreate(string account, SubmitJobOptions options)
+        {
+            var parameters = CreateNewJobProperties(options);
+            var job_info = this._client.Job.Create(account, options.JobID, parameters);
+
+            return job_info;
+
+        }
+
+        private static ADL.Analytics.Models.JobInformation CreateNewJobProperties(SubmitJobOptions options)
+        {
+            var jobprops = new ADL.Analytics.Models.USqlJobProperties();
+            jobprops.Script = options.ScriptText;
+
+            var jobType = ADL.Analytics.Models.JobType.USql;
+            int priority = 1;
+            int dop = 1;
+
+            var parameters = new ADL.Analytics.Models.JobInformation(
+                name: options.JobName,
+                type: jobType,
+                properties: jobprops,
+                priority: priority,
+                degreeOfParallelism: dop,
+                jobId: options.JobID);
+            return parameters;
+        }
+
     }
 
     public class AnalyticsJobClient : AccountClientBase
@@ -104,29 +133,8 @@ namespace AzureDataLakeClient.Analytics
                 options.JobName = "ADL_Demo_Client_Job_" + System.DateTimeOffset.Now.ToString();
             }
 
-            var parameters = CreateNewJobProperties(options);
-            var job_info = this._adla_job_rest_client._client.Job.Create(this.Account, options.JobID, parameters);
-
+            var job_info = this._adla_job_rest_client.JobCreate(this.Account, options);
             return job_info;
-        }
-
-        private static ADL.Analytics.Models.JobInformation CreateNewJobProperties(SubmitJobOptions options)
-        {
-            var jobprops = new ADL.Analytics.Models.USqlJobProperties();
-            jobprops.Script = options.ScriptText;
-
-            var jobType = ADL.Analytics.Models.JobType.USql;
-            int priority = 1;
-            int dop = 1;
-
-            var parameters = new ADL.Analytics.Models.JobInformation(
-                name: options.JobName,
-                type: jobType,
-                properties: jobprops,
-                priority: priority,
-                degreeOfParallelism: dop,
-                jobId: options.JobID);
-            return parameters;
         }
 
 
