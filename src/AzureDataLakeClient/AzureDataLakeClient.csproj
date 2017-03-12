@@ -120,7 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsAccountRef.cs" />
-    <Compile Include="Analytics\AnalyticsExtensions.cs" />
+    <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
     <Compile Include="Analytics\JobListFields.cs" />
     <Compile Include="Analytics\JobListSorting.cs" />
     <Compile Include="ClientBase.cs" />

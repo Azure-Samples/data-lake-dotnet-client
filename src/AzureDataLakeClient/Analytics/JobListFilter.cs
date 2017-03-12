@@ -1,4 +1,3 @@
-using System;
 using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.OData;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
