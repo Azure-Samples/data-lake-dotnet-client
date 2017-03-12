@@ -12,15 +12,18 @@ namespace AzureDataLakeClient.Analytics
 
         private AnalyticsJobsRestClient _adla_job_rest_client;
 
-        public AnalyticsJobClient(string account, AuthenticatedSession authSession) :
-            base(account, authSession)
+        AnalyticsUri analyticsuri;
+
+        public AnalyticsJobClient(AnalyticsUri account, AuthenticatedSession authSession) :
+            base(account.Name, authSession)
         {
             this._adla_job_rest_client = new AnalyticsJobsRestClient(this.AuthenticatedSession.Credentials);
+            this.analyticsuri = account;
         }
 
         public ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
         {
-            var job = this._adla_job_rest_client.JobGet(this.Account, jobid);
+            var job = this._adla_job_rest_client.JobGet(this.analyticsuri, jobid);
             return job;
         }
 
@@ -38,7 +41,7 @@ namespace AzureDataLakeClient.Analytics
             odata_query.Filter = options.Filter.ToFilterString(this.AuthenticatedSession);
 
      
-            var jobs = this._adla_job_rest_client.JobList(this.Account, odata_query, options.Top);
+            var jobs = this._adla_job_rest_client.JobList(this.analyticsuri, odata_query, options.Top);
             foreach (var job in jobs)
             {
                 yield return job;
@@ -60,18 +63,18 @@ namespace AzureDataLakeClient.Analytics
                 options.JobName = "ADL_Demo_Client_Job_" + System.DateTimeOffset.Now.ToString();
             }
 
-            var job_info = this._adla_job_rest_client.JobCreate(this.Account, options);
+            var job_info = this._adla_job_rest_client.JobCreate(this.analyticsuri, options);
             return job_info;
         }
 
         public ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            return this._adla_job_rest_client.GetStatistics(this.Account, jobid);
+            return this._adla_job_rest_client.GetStatistics(this.analyticsuri, jobid);
         }
 
         public ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            return this._adla_job_rest_client.GetDebugDataPath(this.Account, jobid);
+            return this._adla_job_rest_client.GetDebugDataPath(this.analyticsuri, jobid);
         }
     }
 }

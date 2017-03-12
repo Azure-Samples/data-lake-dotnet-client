@@ -11,14 +11,4 @@ namespace AzureDataLakeClient.Store
             this.ResourceGroup = rg;
         }
     }
-
-    public class StoreUri
-    {
-        public readonly string Name;
-
-        public StoreUri(string name)
-        {
-            this.Name = name;
-        }
-    }
 }
