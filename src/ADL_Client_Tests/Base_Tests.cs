@@ -13,7 +13,7 @@ namespace ADL_Client_Tests
         public AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_account_client;
         public AzureDataLakeClient.RmClient adla_rm_client;
         public AzureDataLakeClient.Store.StoreFileSystemClient adls_fs_client;
-        public AzureDataLakeClient.Store.StoreRmClient adls_rm_client;
+        public AzureDataLakeClient.Store.StoreManagementClient adls_rm_client;
         public AzureDataLakeClient.Rm.Subscription sub;
         public AzureDataLakeClient.Rm.ResourceGroup rg;
 
@@ -34,7 +34,7 @@ namespace ADL_Client_Tests
 
                 this.adls_fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(store_account, auth_session);
                 this.adla_account_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(analytics_account, auth_session);
-                this.adls_rm_client = new AzureDataLakeClient.Store.StoreRmClient(sub, auth_session);
+                this.adls_rm_client = new AzureDataLakeClient.Store.StoreManagementClient(sub, auth_session);
                 this.adla_rm_client = new AzureDataLakeClient.RmClient(sub, auth_session);
 
             }

@@ -192,7 +192,7 @@ namespace ADL_Client_Demo
 
         private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(AzureDataLakeClient.RmClient rm_client)
         {
-            var storage_accounts = rm_client.ListAccounts().ToList();
+            var storage_accounts = rm_client.ListAnalyticsAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");

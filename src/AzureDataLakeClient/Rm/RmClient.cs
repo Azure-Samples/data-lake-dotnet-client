@@ -6,7 +6,8 @@ namespace AzureDataLakeClient
 {
     public class RmClient: ClientBase
     {
-        private AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient _rest_client;
+        private AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient _adla_account_mgmt_client;
+        private AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient _adls_account_mgmt_client;
         private AzureDataLakeClient.Rm.Subscription Sub;
 
         public RmClient(AzureDataLakeClient.Rm.Subscription sub, AuthenticatedSession authSession) :
@@ -14,27 +15,27 @@ namespace AzureDataLakeClient
         {
 
             this.Sub = sub;
-            this._rest_client = new AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient(sub, authSession.Credentials);
+            this._adla_account_mgmt_client = new AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient(sub, authSession.Credentials);
         }
 
-        public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccounts()
+        public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAnalyticsAccounts()
         {
-            return this._rest_client.ListAccounts();
+            return this._adla_account_mgmt_client.ListAccounts();
         }
 
-        public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccountsByResourceGroup(AzureDataLakeClient.Rm.ResourceGroup resource_group)
+        public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAnalyticsAccountsByResourceGroup(AzureDataLakeClient.Rm.ResourceGroup resource_group)
         {
-            return this._rest_client.ListAccountsByResourceGroup(resource_group);
+            return this._adla_account_mgmt_client.ListAccountsByResourceGroup(resource_group);
         }
 
-        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
+        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAnalyticsAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
-            return this._rest_client.GetAccount(account.ResourceGroup, account.GetUri());
+            return this._adla_account_mgmt_client.GetAccount(account.ResourceGroup, account.GetUri());
         }
 
-        public bool ExistsAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
+        public bool ExistsAnalyticsAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
-            return this._rest_client.ExistsAccount(account.ResourceGroup, account.GetUri());
+            return this._adla_account_mgmt_client.ExistsAccount(account.ResourceGroup, account.GetUri());
         }
 
     }
