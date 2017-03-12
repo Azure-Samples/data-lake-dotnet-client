@@ -11,7 +11,7 @@ namespace ADL_Client_Tests.Analytics
         public void List_ADLA_Accounts()
         {
             this.Initialize();
-            var adla_accounts = this.adla_mgmt_client.ListAccounts();
+            var adla_accounts = this.adla_rm_client.ListAccounts();
             foreach (var a in adla_accounts)
             {
                 System.Console.WriteLine("Analytics {0} ", a.Name);

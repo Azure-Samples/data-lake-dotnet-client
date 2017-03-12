@@ -112,13 +112,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analytics\AnalyticsAccountRef.cs" />
-    <Compile Include="Analytics\AnalyticsCatalogRestClient.cs" />
-    <Compile Include="Analytics\AnalyticsJobsRestClient.cs" />
-    <Compile Include="Analytics\AnalyticsUri.cs" />
+    <Compile Include="Analytics\AnalyticsAccount.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsCatalogRestClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsJobsRestClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsAccountManagmentClient.cs" />
+    <Compile Include="Analytics\AnalyticsAccountUri.cs" />
+    <Compile Include="Analytics\Commands\CatalogCommands.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
+    <Compile Include="Analytics\Commands\JobCommands.cs" />
     <Compile Include="Analytics\JobListFields.cs" />
     <Compile Include="Analytics\JobListSorting.cs" />
+    <Compile Include="Analytics\Commands\ManagementCommands.cs" />
     <Compile Include="Authentication\Tenant.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
@@ -174,7 +178,6 @@
     <Compile Include="OData\Utils\RangeInteger.cs" />
     <Compile Include="Rm\ResourceGroup.cs" />
     <Compile Include="Rm\ResourceManagementClient.cs" />
-    <Compile Include="Analytics\AnalyticsCatalogClient.cs" />
     <Compile Include="Store\AclType.cs" />
     <Compile Include="Store\CreateFileOptions.cs" />
     <Compile Include="Store\DownloadOptions.cs" />
@@ -183,7 +186,7 @@
     <Compile Include="Store\ListFilesOptions.cs" />
     <Compile Include="Store\LocalPath.cs" />
     <Compile Include="Store\FsUnixTime.cs" />
-    <Compile Include="Store\StoreAccountRef.cs" />
+    <Compile Include="Store\StoreAccountRmRef.cs" />
     <Compile Include="Store\StoreFileSystemRestClient.cs" />
     <Compile Include="Store\StoreUri.cs" />
     <Compile Include="Store\UploadOptions.cs" />
@@ -192,18 +195,18 @@
     <Compile Include="RESTUtil.cs" />
     <Compile Include="Analytics\GetJobsOptions.cs" />
     <Compile Include="AccountClientBase.cs" />
-    <Compile Include="Analytics\AnalyticsManagementClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsRmClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />
     <Compile Include="Store\FsAcl.cs" />
     <Compile Include="Store\FsAclEntry.cs" />
     <Compile Include="Store\FsPath.cs" />
     <Compile Include="Store\FsPermission.cs" />
-    <Compile Include="Store\StoreManagementClient.cs" />
+    <Compile Include="Store\StoreRmClient.cs" />
     <Compile Include="Rm\Subscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store\FsFileStatusPage.cs" />
-    <Compile Include="Analytics\AnalyticsJobClient.cs" />
+    <Compile Include="Analytics\AnalyticsAccountClient.cs" />
     <Compile Include="Store\StoreFileSystemClient.cs" />
   </ItemGroup>
   <ItemGroup>

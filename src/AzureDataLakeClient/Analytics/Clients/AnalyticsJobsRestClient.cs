@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Clients
 {
     public class AnalyticsJobsRestClient
     {
