@@ -118,6 +118,7 @@
     <Compile Include="Analytics\AnalyticsRmRestClient.cs" />
     <Compile Include="Analytics\AnalyticsUri.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
+    <Compile Include="Analytics\JobCommands.cs" />
     <Compile Include="Analytics\JobListFields.cs" />
     <Compile Include="Analytics\JobListSorting.cs" />
     <Compile Include="Authentication\Tenant.cs" />
