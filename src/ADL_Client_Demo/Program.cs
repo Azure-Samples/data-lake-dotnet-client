@@ -18,7 +18,7 @@ namespace ADL_Client_Demo
             var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession(tenant);
             auth_session.Authenticate();
 
-            var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient(adla_account, auth_session);
+            var adla_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(adla_account, auth_session);
             var mgmt_client = new AzureDataLakeClient.Analytics.AnalyticsRmClient(adla_account.Subscription, auth_session);
 
             //Demo_GetExactlyOneJob(job_client);
@@ -33,7 +33,7 @@ namespace ADL_Client_Demo
 
             //var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
             //Demo_ListFilesAtRoot(fs_client);
-            Demo_ListLinkedDataLakeStoreAccounts(job_client, adla_account);
+            Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
 
             Demo_ListDataLakeAnalyticsAccountsInSubscription(mgmt_client);
         }
@@ -53,7 +53,7 @@ namespace ADL_Client_Demo
 
         }
 
-        private static void Demo_GetExactlyOneJob(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_GetExactlyOneJob(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 1;
@@ -62,7 +62,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmittedByMe(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_GetJobsSubmittedByMe(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 10;
@@ -74,7 +74,7 @@ namespace ADL_Client_Demo
         }
 
 
-        private static void Demo_GetJobsSubmittedByUsers(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_GetJobsSubmittedByUsers(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 10;
@@ -85,7 +85,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobs_Submitter_Begins_With(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_GetJobs_Submitter_Begins_With(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 10;
@@ -96,7 +96,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobs_Submitter_Contains(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_GetJobs_Submitter_Contains(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 10;
@@ -108,7 +108,7 @@ namespace ADL_Client_Demo
         }
 
 
-        private static void Demo_Get10MostRecentJobs(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_Get10MostRecentJobs(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 10;
@@ -122,7 +122,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_Get10OldestJobs(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_Get10OldestJobs(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 10;
@@ -136,7 +136,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_Get5FailedJobs(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_Get5FailedJobs(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Top = 5;
@@ -148,7 +148,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmitedInLast2hours(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_GetJobsSubmitedInLast2hours(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(2));
@@ -156,7 +156,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmitedSinceMidnight(AzureDataLakeClient.Analytics.AnalyticsJobClient job_client)
+        private static void Demo_GetJobsSubmitedSinceMidnight(AzureDataLakeClient.Analytics.AnalyticsAccountClient job_client)
         {
             var opts = new AzureDataLakeClient.Analytics.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.SinceLocalMidnight());
@@ -177,7 +177,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListLinkedDataLakeStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsJobClient rm_client, AzureDataLakeClient.Analytics.AnalyticsAccount account)
+        private static void Demo_ListLinkedDataLakeStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsAccountClient rm_client, AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
             var storage_accounts = rm_client.ListLinkedDataLakeStoreAccounts(account).ToList();
             foreach (var i in storage_accounts)
