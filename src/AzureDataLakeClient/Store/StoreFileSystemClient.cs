@@ -48,7 +48,7 @@ namespace AzureDataLakeClient.Store
         
         public void CreateDirectory(FsPath path)
         {
-            this._adls_filesys_rest_client.CreateDirectory(this.Account, path);
+            this._adls_filesys_rest_client.Mkdirs(this.Account, path);
         }
 
         public void Delete(FsPath path)
@@ -140,23 +140,23 @@ namespace AzureDataLakeClient.Store
 
         public FsAcl GetPermissions(FsPath path)
         {
-            var acl_result = this._adls_filesys_rest_client.GetPermissions(this.Account, path);
+            var acl_result = this._adls_filesys_rest_client.GetAclStatus(this.Account, path);
             return acl_result;
         }
 
         public void ModifyACLs(FsPath path, FsAclEntry entry)
         {
-            this._adls_filesys_rest_client.ModifyACLs(this.Account, path, entry);
+            this._adls_filesys_rest_client.ModifyAclEntries(this.Account, path, entry);
         }
 
         public void ModifyACLs(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this._adls_filesys_rest_client.ModifyACLs(this.Account, path, entries);
+            this._adls_filesys_rest_client.ModifyAclEntries(this.Account, path, entries);
         }
 
         public void SetACLs(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this._adls_filesys_rest_client.SetACLs(this.Account, path, entries);
+            this._adls_filesys_rest_client.SetAcl(this.Account, path, entries);
         }
 
         public void RemoveAcl(FsPath path)
@@ -224,7 +224,7 @@ namespace AzureDataLakeClient.Store
 
         public void Concatenate(IEnumerable<FsPath> src_paths, FsPath dest_path)
         {
-            this._adls_filesys_rest_client.Concatenate(this.Account, src_paths,dest_path);
+            this._adls_filesys_rest_client.ConcatConcat(this.Account, src_paths,dest_path);
         }
 
         public void ClearFileExpiry(FsPath path)

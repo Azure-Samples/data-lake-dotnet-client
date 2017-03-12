@@ -17,7 +17,7 @@ namespace AzureDataLakeClient.Store
             this._adls_filesys_rest_client = new ADL.Store.DataLakeStoreFileSystemManagementClient(this._creds);
         }
 
-        public void CreateDirectory(string account, FsPath path)
+        public void Mkdirs(string account, FsPath path)
         {
             var result = _adls_filesys_rest_client.FileSystem.Mkdirs(account, path.ToString());
         }
@@ -43,7 +43,7 @@ namespace AzureDataLakeClient.Store
             return new FsFileStatus(info.FileStatus);
         }
 
-        public FsAcl GetPermissions(string account, FsPath path)
+        public FsAcl GetAclStatus(string account, FsPath path)
         {
             var acl_result = this._adls_filesys_rest_client.FileSystem.GetAclStatus(account, path.ToString());
             var acl_status = acl_result.AclStatus;
@@ -53,18 +53,18 @@ namespace AzureDataLakeClient.Store
             return fs_acl;
         }
 
-        public void ModifyACLs(string account, FsPath path, FsAclEntry entry)
+        public void ModifyAclEntries(string account, FsPath path, FsAclEntry entry)
         {
             this._adls_filesys_rest_client.FileSystem.ModifyAclEntries(account, path.ToString(), entry.ToString());
         }
 
-        public void ModifyACLs(string account, FsPath path, IEnumerable<FsAclEntry> entries)
+        public void ModifyAclEntries(string account, FsPath path, IEnumerable<FsAclEntry> entries)
         {
             var s = FsAclEntry.EntriesToString(entries);
             this._adls_filesys_rest_client.FileSystem.ModifyAclEntries(account, path.ToString(), s);
         }
 
-        public void SetACLs(string account, FsPath path, IEnumerable<FsAclEntry> entries)
+        public void SetAcl(string account, FsPath path, IEnumerable<FsAclEntry> entries)
         {
             var s = FsAclEntry.EntriesToString(entries);
             this._adls_filesys_rest_client.FileSystem.SetAcl(account, path.ToString(), s);
@@ -95,7 +95,7 @@ namespace AzureDataLakeClient.Store
             this._adls_filesys_rest_client.FileSystem.Append(account, file.ToString(), steamContents);
         }
 
-        public void Concatenate(string account, IEnumerable<FsPath> src_paths, FsPath dest_path)
+        public void ConcatConcat(string account, IEnumerable<FsPath> src_paths, FsPath dest_path)
         {
             var src_file_strings = src_paths.Select(i => i.ToString()).ToList();
             this._adls_filesys_rest_client.FileSystem.Concat(account, dest_path.ToString(), src_file_strings);
