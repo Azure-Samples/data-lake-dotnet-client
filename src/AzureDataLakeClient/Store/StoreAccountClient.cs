@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using AzureDataLakeClient.Authentication;
+using AzureDataLakeClient.Store.Clients;
 using Microsoft.Azure.Management.DataLake.Store.Models;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Store.Clients
+namespace AzureDataLakeClient.Store
 {
-    public class StoreFileSystemClient : AccountClientBase
+    public class StoreAccountClient : AccountClientBase
     {
         private StoreFileSystemRestClient _rest_client;
 
         public readonly StoreUri StoreUri;
 
-        public StoreFileSystemClient(StoreUri store, AuthenticatedSession authSession) :
+        public StoreAccountClient(StoreUri store, AuthenticatedSession authSession) :
             base(store.Name,authSession)
         {
             _rest_client = new StoreFileSystemRestClient(this.AuthenticatedSession.Credentials);

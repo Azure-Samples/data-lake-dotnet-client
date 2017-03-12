@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AzureDataLakeClient.Store;
 using AzureDataLakeClient.Store.Clients;
 using ADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
@@ -20,7 +21,7 @@ namespace ADL_Client_Demo
             auth_session.Authenticate();
 
             var adla_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(adla_account, auth_session);
-            var fs_client = new StoreFileSystemClient(adls_account, auth_session);
+            var adls_client = new StoreAccountClient(adls_account, auth_session);
             var sub_client = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
 
             //Demo_GetExactlyOneJob(job_client);
@@ -33,7 +34,7 @@ namespace ADL_Client_Demo
             //Demo_GetJobs_Submitter_Begins_With(job_client);
             //Demo_GetJobs_Submitter_Contains(job_client);
 
-            Demo_ListFilesAtRoot(fs_client);
+            Demo_ListFilesAtRoot(adls_client);
             //Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
 
             //Demo_ListDataLakeAnalyticsAccountsInSubscription(rm_client);
@@ -41,12 +42,12 @@ namespace ADL_Client_Demo
             //Demo_ListDataLakeStoreAccountsInSubscription(rm_client);
         }
 
-        private static void Demo_ListFilesAtRoot(StoreFileSystemClient fs_client)
+        private static void Demo_ListFilesAtRoot(StoreAccountClient adls_client)
         {
             //var root = AzureDataLakeClient.Store.FsPath.Root; // same as "/"
             var root = new AzureDataLakeClient.Store.FsPath("/Samples");
             var lfo = new AzureDataLakeClient.Store.ListFilesOptions();
-            foreach (var page in fs_client.ListFilesPaged(root,lfo))
+            foreach (var page in adls_client.ListFilesPaged(root,lfo))
             {
                 foreach (var fileitemn in page.FileItems)
                 {

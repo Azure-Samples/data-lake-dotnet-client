@@ -12,14 +12,14 @@ namespace ADL_Client_Tests.Store
         {
             var dir = new AzureDataLakeClient.Store.FsPath("/test_adl_demo_client");
 
-            if (this.adls_fs_client.Exists(dir))
+            if (this.adls_account_client.Exists(dir))
             {
-                this.adls_fs_client.Delete(dir, true);
+                this.adls_account_client.Delete(dir, true);
             }
 
-            this.adls_fs_client.CreateDirectory(dir);
+            this.adls_account_client.CreateDirectory(dir);
 
-            if (!this.adls_fs_client.Exists(dir))
+            if (!this.adls_account_client.Exists(dir))
             {
                 Assert.Fail();
             }
@@ -33,16 +33,16 @@ namespace ADL_Client_Tests.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.adls_fs_client.Exists(fname))
+            if (this.adls_account_client.Exists(fname))
             {
-                this.adls_fs_client.Delete(fname);
+                this.adls_account_client.Delete(fname);
             }
 
             var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
             cfo.Overwrite = true;
-            this.adls_fs_client.Create(fname, "HelloWorld", cfo);
+            this.adls_account_client.Create(fname, "HelloWorld", cfo);
 
-            var permissions_before = this.adls_fs_client.GetAclStatus(fname);
+            var permissions_before = this.adls_account_client.GetAclStatus(fname);
 
             Assert.AreEqual(true, permissions_before.OwnerPermission.Value.Read);
             Assert.AreEqual(true, permissions_before.OwnerPermission.Value.Write);
@@ -57,9 +57,9 @@ namespace ADL_Client_Tests.Store
             Assert.AreEqual(false, permissions_before.OtherPermission.Value.Execute);
 
             var modified_entry = new FsAclEntry( AclType.Other,null, new FsPermission("r-x"));
-            this.adls_fs_client.ModifyAclEntries(fname, modified_entry);
+            this.adls_account_client.ModifyAclEntries(fname, modified_entry);
 
-            var permissions_after = this.adls_fs_client.GetAclStatus(fname);
+            var permissions_after = this.adls_account_client.GetAclStatus(fname);
 
             Assert.AreEqual(true, permissions_after.OwnerPermission.Value.Read);
             Assert.AreEqual(true, permissions_after.OwnerPermission.Value.Write);
@@ -81,16 +81,16 @@ namespace ADL_Client_Tests.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.adls_fs_client.Exists(fname))
+            if (this.adls_account_client.Exists(fname))
             {
-                this.adls_fs_client.Delete(fname);
+                this.adls_account_client.Delete(fname);
             }
 
             var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
             cfo.Overwrite = true;
-            this.adls_fs_client.Create(fname, "HelloWorld", cfo);
+            this.adls_account_client.Create(fname, "HelloWorld", cfo);
 
-            var permissions_before = this.adls_fs_client.GetAclStatus(fname);
+            var permissions_before = this.adls_account_client.GetAclStatus(fname);
 
             // find all the named user entries that have write access
             var entries_before = permissions_before.Entries.Where(e => e.Type == AclType.NamedUser).Where(e=>e.Permission.Value.Write).ToList();
@@ -99,9 +99,9 @@ namespace ADL_Client_Tests.Store
             // Remove write access for all those entries
             var perms_mask = new FsPermission("r-x");
             var new_acls = entries_before.Select(e => e.AndWith(perms_mask));
-            this.adls_fs_client.SetAcl(fname, new_acls);
+            this.adls_account_client.SetAcl(fname, new_acls);
  
-            var permissions_after = this.adls_fs_client.GetAclStatus(fname);
+            var permissions_after = this.adls_account_client.GetAclStatus(fname);
             // find all the named user entries that have write access
             var entries_after = permissions_after.Entries.Where(e => e.Type == AclType.NamedUser).Where(e => e.Permission.Value.Write).ToList();
             // verify that there are no such entries
@@ -115,22 +115,22 @@ namespace ADL_Client_Tests.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.adls_fs_client.Exists(fname))
+            if (this.adls_account_client.Exists(fname))
             {
-                this.adls_fs_client.Delete(fname);
+                this.adls_account_client.Delete(fname);
             }
 
             var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
             cfo.Overwrite = true;
-            this.adls_fs_client.Create(fname, "HelloWorld", cfo);
+            this.adls_account_client.Create(fname, "HelloWorld", cfo);
 
-            var permissions_before = this.adls_fs_client.GetAclStatus(fname);
+            var permissions_before = this.adls_account_client.GetAclStatus(fname);
 
             // copy the entries except for the named users
             var new_entries = permissions_before.Entries.Where(e => e.Type != AclType.NamedUser).ToList();
-            this.adls_fs_client.SetAcl(fname, new_entries);
+            this.adls_account_client.SetAcl(fname, new_entries);
 
-            var permissions_after = this.adls_fs_client.GetAclStatus(fname);
+            var permissions_after = this.adls_account_client.GetAclStatus(fname);
             // find all the named user entries that have write access
             var entries_after = permissions_after.Entries.Where(e => e.Type == AclType.NamedUser).ToList();
             // verify that there are no such entries
