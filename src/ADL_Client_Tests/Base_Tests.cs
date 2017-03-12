@@ -12,7 +12,7 @@
         public AzureDataLakeClient.Store.StoreManagementClient adls_rm_client;
 
 
-        public AzureDataLakeClient.RmClient rmclient;
+        public AzureDataLakeClient.SubscriptionClient rmclient;
         public AzureDataLakeClient.Rm.Subscription sub;
         public AzureDataLakeClient.Rm.ResourceGroup rg;
 
@@ -33,7 +33,7 @@
 
                 this.adls_fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(store_account, auth_session);
                 this.adla_account_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(analytics_account, auth_session);
-                this.rmclient = new AzureDataLakeClient.RmClient(sub, auth_session);
+                this.rmclient = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
 
             }
         }

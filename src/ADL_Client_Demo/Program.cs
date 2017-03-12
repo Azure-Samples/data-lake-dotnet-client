@@ -19,7 +19,8 @@ namespace ADL_Client_Demo
             auth_session.Authenticate();
 
             var adla_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(adla_account, auth_session);
-            var rm_client = new AzureDataLakeClient.RmClient(sub, auth_session);
+            var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
+            var sub_client = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
 
             //Demo_GetExactlyOneJob(job_client);
             //Demo_Get10OldestJobs(job_client);
@@ -31,13 +32,12 @@ namespace ADL_Client_Demo
             //Demo_GetJobs_Submitter_Begins_With(job_client);
             //Demo_GetJobs_Submitter_Contains(job_client);
 
-            //var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
-            //Demo_ListFilesAtRoot(fs_client);
-            Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
+            Demo_ListFilesAtRoot(fs_client);
+            //Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
 
-            Demo_ListDataLakeAnalyticsAccountsInSubscription(rm_client);
-            Demo_ListDatabases(adla_client);
-            Demo_ListDataLakeStoreAccountsInSubscription(rm_client);
+            //Demo_ListDataLakeAnalyticsAccountsInSubscription(rm_client);
+            //Demo_ListDatabases(adla_client);
+            //Demo_ListDataLakeStoreAccountsInSubscription(rm_client);
         }
 
         private static void Demo_ListFilesAtRoot(AzureDataLakeClient.Store.StoreFileSystemClient fs_client)
@@ -190,9 +190,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(AzureDataLakeClient.RmClient rm_client)
+        private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(AzureDataLakeClient.SubscriptionClient subscriptionClient)
         {
-            var storage_accounts = rm_client.ListAnalyticsAccounts().ToList();
+            var storage_accounts = subscriptionClient.ListAnalyticsAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
@@ -214,9 +214,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeStoreAccountsInSubscription(AzureDataLakeClient.RmClient rm_client)
+        private static void Demo_ListDataLakeStoreAccountsInSubscription(AzureDataLakeClient.SubscriptionClient subscriptionClient)
         {
-            var storage_accounts = rm_client.ListStoreAccounts().ToList();
+            var storage_accounts = subscriptionClient.ListStoreAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");

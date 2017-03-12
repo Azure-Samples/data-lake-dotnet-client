@@ -23,7 +23,7 @@ namespace AzureDataLakeClient.Store
             return this._store_acctmgmt_rest_client.ListAccounts();
         }
 
-        public IEnumerable<ADL.Store.Models.DataLakeStoreAccount> ListAccountsByResourceGroup(ResourceGroup resource_group)
+        public IEnumerable<ADL.Store.Models.DataLakeStoreAccount> ListAccounts(ResourceGroup resource_group)
         {
             return this._store_acctmgmt_rest_client.ListAccountsByResourceGroup(resource_group);
         }

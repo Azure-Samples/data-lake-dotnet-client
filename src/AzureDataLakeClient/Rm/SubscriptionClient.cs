@@ -4,20 +4,18 @@ using ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient
 {
-    public class RmClient: ClientBase
+    public class SubscriptionClient: ClientBase
     {
-        private AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient _adla_account_mgmt_client;
-        private AzureDataLakeClient.Store.StoreManagementClient _adls_account_mgmt_client;
-        private AzureDataLakeClient.Rm.Subscription Sub;
+        private readonly AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient _adla_account_mgmt_client;
+        private readonly AzureDataLakeClient.Store.StoreManagementClient _adls_account_mgmt_client;
+        public readonly AzureDataLakeClient.Rm.Subscription Subscription;
 
-        public RmClient(AzureDataLakeClient.Rm.Subscription sub, AuthenticatedSession authSession) :
+        public SubscriptionClient(AzureDataLakeClient.Rm.Subscription subscription, AuthenticatedSession authSession) :
             base(authSession)
         {
-
-            this.Sub = sub;
-            this._adla_account_mgmt_client = new AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient(sub, authSession.Credentials);
-            this._adls_account_mgmt_client = new AzureDataLakeClient.Store.StoreManagementClient(sub,
-                authSession.Credentials);
+            this.Subscription = subscription;
+            this._adla_account_mgmt_client = new AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient(subscription, authSession.Credentials);
+            this._adls_account_mgmt_client = new AzureDataLakeClient.Store.StoreManagementClient(subscription, authSession.Credentials);
         }
 
         public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAnalyticsAccounts()
@@ -33,12 +31,12 @@ namespace AzureDataLakeClient
 
         public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAnalyticsAccountsByResourceGroup(AzureDataLakeClient.Rm.ResourceGroup resource_group)
         {
-            return this._adla_account_mgmt_client.ListAccountsByResourceGroup(resource_group);
+            return this._adla_account_mgmt_client.ListAccounts(resource_group);
         }
 
         public IEnumerable<ADL.Store.Models.DataLakeStoreAccount> ListStoreAccountsByResourceGroup(AzureDataLakeClient.Rm.ResourceGroup resource_group)
         {
-            return this._adls_account_mgmt_client.ListAccountsByResourceGroup(resource_group);
+            return this._adls_account_mgmt_client.ListAccounts(resource_group);
         }
 
 

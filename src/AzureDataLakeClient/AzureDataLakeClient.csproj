@@ -195,7 +195,7 @@
     <Compile Include="RESTUtil.cs" />
     <Compile Include="Analytics\GetJobsOptions.cs" />
     <Compile Include="AccountClientBase.cs" />
-    <Compile Include="Rm\RmClient.cs" />
+    <Compile Include="Rm\SubscriptionClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />
     <Compile Include="Store\FsAcl.cs" />
