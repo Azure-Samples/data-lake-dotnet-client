@@ -112,6 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analytics\AnalyticsAccount.cs" />
     <Compile Include="Analytics\AnalyticsAccountRef.cs" />
     <Compile Include="Analytics\AnalyticsCatalogRestClient.cs" />
     <Compile Include="Analytics\AnalyticsJobsRestClient.cs" />
