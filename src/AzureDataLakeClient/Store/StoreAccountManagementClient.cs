@@ -7,15 +7,12 @@ namespace AzureDataLakeClient.Store
     public class StoreAccountManagementClient 
     {
         private StoreManagementRestClient _store_acctmgmt_client;
-        private ADL.Store.DataLakeStoreAccountManagementClient _store_acctmgmt_rest_client;
         private AzureDataLakeClient.Rm.Subscription Sub;
 
         public StoreAccountManagementClient(AzureDataLakeClient.Rm.Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
             this.Sub = sub;
-            this._store_acctmgmt_rest_client = new ADL.Store.DataLakeStoreAccountManagementClient(creds);
-            this._store_acctmgmt_rest_client.SubscriptionId = sub.ID;
-            this._store_acctmgmt_client = new StoreManagementRestClient(_store_acctmgmt_rest_client);
+            this._store_acctmgmt_client = new StoreManagementRestClient(sub, creds);
         }
 
         public IEnumerable<ADL.Store.Models.DataLakeStoreAccount> ListAccounts()

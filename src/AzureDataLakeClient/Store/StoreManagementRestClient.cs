@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AzureDataLakeClient.Rm;
 using Microsoft.Azure.Management.DataLake.Store;
+using Microsoft.Win32.SafeHandles;
 
 namespace AzureDataLakeClient.Store
 {
@@ -8,9 +9,10 @@ namespace AzureDataLakeClient.Store
     {
         private Microsoft.Azure.Management.DataLake.Store.DataLakeStoreAccountManagementClient _rest_client;
 
-        public StoreManagementRestClient(Microsoft.Azure.Management.DataLake.Store.DataLakeStoreAccountManagementClient _rest)
+        public StoreManagementRestClient(Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
-            this._rest_client = _rest;
+            this._rest_client = new DataLakeStoreAccountManagementClient(creds);
+            this._rest_client.SubscriptionId = sub.ID;
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()
