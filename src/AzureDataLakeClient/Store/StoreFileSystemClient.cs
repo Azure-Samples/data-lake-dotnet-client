@@ -8,12 +8,15 @@ namespace AzureDataLakeClient.Store
 {
     public class StoreFileSystemClient : AccountClientBase
     {
-        private StoreFileSystemRestClient _adls_filesys_rest_client;
+        private StoreFileSystemRestClient _rest_client;
 
-        public StoreFileSystemClient(string account, AuthenticatedSession authSession) :
-            base(account,authSession)
+        StoreUri storeuri;
+
+        public StoreFileSystemClient(StoreUri store, AuthenticatedSession authSession) :
+            base(store.Name,authSession)
         {
-            _adls_filesys_rest_client = new StoreFileSystemRestClient(this.AuthenticatedSession.Credentials);
+            _rest_client = new StoreFileSystemRestClient(this.AuthenticatedSession.Credentials);
+            this.storeuri = store;
         }
 
         public IEnumerable<FsFileStatusPage> ListFilesRecursivePaged(FsPath path, ListFilesOptions options)
@@ -43,28 +46,28 @@ namespace AzureDataLakeClient.Store
 
         public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, ListFilesOptions options)
         {
-            return this._adls_filesys_rest_client.ListFilesPaged(this.Account, path, options);
+            return this._rest_client.ListFilesPaged(this.storeuri, path, options);
         }
         
         public void CreateDirectory(FsPath path)
         {
-            this._adls_filesys_rest_client.Mkdirs(this.Account, path);
+            this._rest_client.Mkdirs(this.storeuri, path);
         }
 
         public void Delete(FsPath path)
         {
-            _adls_filesys_rest_client.Delete(this.Account, path);
+            _rest_client.Delete(this.storeuri, path);
         }
 
         public void Delete(FsPath path, bool recursive)
         {
-            _adls_filesys_rest_client.Delete(this.Account, path, recursive );
+            _rest_client.Delete(this.storeuri, path, recursive );
         }
 
         public void Create(FsPath path, byte[] bytes, CreateFileOptions options)
         {
             var memstream = new System.IO.MemoryStream(bytes);
-            _adls_filesys_rest_client.Create(this.Account, path,memstream, options);
+            _rest_client.Create(this.storeuri, path,memstream, options);
         }
 
         public void CreateFileWithContent(FsPath path, string content, CreateFileOptions options)
@@ -75,7 +78,7 @@ namespace AzureDataLakeClient.Store
 
         public FsFileStatus GetFileStatus(FsPath path)
         {
-            return this._adls_filesys_rest_client.GetFileStatus(this.Account, path);
+            return this._rest_client.GetFileStatus(this.Account, path);
         }
 
         public FsFileStatus TryGetFileInformation(FsPath path)
@@ -140,62 +143,62 @@ namespace AzureDataLakeClient.Store
 
         public FsAcl GetAclStatus(FsPath path)
         {
-            var acl_result = this._adls_filesys_rest_client.GetAclStatus(this.Account, path);
+            var acl_result = this._rest_client.GetAclStatus(this.storeuri, path);
             return acl_result;
         }
 
         public void ModifyAclEntries(FsPath path, FsAclEntry entry)
         {
-            this._adls_filesys_rest_client.ModifyAclEntries(this.Account, path, entry);
+            this._rest_client.ModifyAclEntries(this.storeuri, path, entry);
         }
 
         public void ModifyAclEntries(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this._adls_filesys_rest_client.ModifyAclEntries(this.Account, path, entries);
+            this._rest_client.ModifyAclEntries(this.storeuri, path, entries);
         }
 
         public void SetAcl(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this._adls_filesys_rest_client.SetAcl(this.Account, path, entries);
+            this._rest_client.SetAcl(this.storeuri, path, entries);
         }
 
         public void RemoveAcl(FsPath path)
         {
-            this._adls_filesys_rest_client.RemoveAcl(this.Account, path);
+            this._rest_client.RemoveAcl(this.storeuri, path);
         }
 
         public void RemoveDefaultAcl(FsPath path)
         {
-            this._adls_filesys_rest_client.RemoveDefaultAcl(this.Account, path);
+            this._rest_client.RemoveDefaultAcl(this.storeuri, path);
         }
 
         public System.IO.Stream Open(FsPath path)
         {
-            return this._adls_filesys_rest_client.Open(this.Account, path);
+            return this._rest_client.Open(this.storeuri, path);
         }
 
         public System.IO.StreamReader OpenText(FsPath path)
         {
-            var s = this._adls_filesys_rest_client.Open(this.Account, path);
+            var s = this._rest_client.Open(this.storeuri, path);
             return new System.IO.StreamReader(s);
         }
 
         public System.IO.Stream Open(FsPath path, long offset, long bytesToRead)
         {
-            return this._adls_filesys_rest_client.Open(this.Account, path, bytesToRead, offset);
+            return this._rest_client.Open(this.storeuri, path, bytesToRead, offset);
         }
 
         public void Upload(LocalPath src_path, FsPath dest_path, UploadOptions options)
         {
             var parameters = new ADL.StoreUploader.UploadParameters(src_path.ToString(), dest_path.ToString(), this.Account, isOverwrite: options.Force);
-            var frontend = new ADL.StoreUploader.DataLakeStoreFrontEndAdapter(this.Account, this._adls_filesys_rest_client._adls_filesys_rest_client);
+            var frontend = new ADL.StoreUploader.DataLakeStoreFrontEndAdapter(this.Account, this._rest_client._adls_filesys_rest_client);
             var uploader = new ADL.StoreUploader.DataLakeStoreUploader(parameters, frontend);
             uploader.Execute();
         }
 
         public void Download(FsPath src_path, LocalPath dest_path, DownloadOptions options)
         {
-            using (var stream = this._adls_filesys_rest_client.Open(this.Account, src_path))
+            using (var stream = this._rest_client.Open(this.storeuri, src_path))
             {
                 var filemode = options.Append ? System.IO.FileMode.Append : System.IO.FileMode.Create;
                 using (var fileStream = new System.IO.FileStream(dest_path.ToString(), filemode))
@@ -210,7 +213,7 @@ namespace AzureDataLakeClient.Store
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this._adls_filesys_rest_client.Append(this.Account, file, stream);
+                this._rest_client.Append(this.storeuri, file, stream);
             }
         }
 
@@ -218,48 +221,48 @@ namespace AzureDataLakeClient.Store
         {
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this._adls_filesys_rest_client.Append(this.Account, file, stream);
+                this._rest_client.Append(this.storeuri, file, stream);
             }
         }
 
         public void Concat(IEnumerable<FsPath> src_paths, FsPath dest_path)
         {
-            this._adls_filesys_rest_client.Concat(this.Account, src_paths,dest_path);
+            this._rest_client.Concat(this.storeuri, src_paths,dest_path);
         }
 
         public void ClearFileExpiry(FsPath path)
         {
-            this._adls_filesys_rest_client.SetFileExpiry(this.Account, path, ExpiryOptionType.NeverExpire, null);
+            this._rest_client.SetFileExpiry(this.storeuri, path, ExpiryOptionType.NeverExpire, null);
         }
 
         public void SetFileExpiryAbsolute(FsPath path, System.DateTimeOffset expiretime)
         {
-            this._adls_filesys_rest_client.SetFileExpiry(this.Account, path, ExpiryOptionType.Absolute, expiretime);
+            this._rest_client.SetFileExpiry(this.storeuri, path, ExpiryOptionType.Absolute, expiretime);
         }
 
         public void SetFileExpiryRelativeToNow(FsPath path, System.TimeSpan timespan)
         {
-            this._adls_filesys_rest_client.SetFileExpiryRelativeToNow(this.Account, path, timespan);
+            this._rest_client.SetFileExpiryRelativeToNow(this.storeuri, path, timespan);
         }
 
         public void SetFileExpiryRelativeToCreationDate(FsPath path, System.TimeSpan timespan)
         {
-            this._adls_filesys_rest_client.SetFileExpiryRelativeToCreationDate(this.Account, path, timespan);
+            this._rest_client.SetFileExpiryRelativeToCreationDate(this.storeuri, path, timespan);
         }
 
         public ContentSummary GetContentSummary(FsPath path)
         {
-            return this._adls_filesys_rest_client.GetContentSummary(this.Account, path);
+            return this._rest_client.GetContentSummary(this.storeuri, path);
         }
 
         public void SetOwner(FsPath path, string owner, string group)
         {
-            this._adls_filesys_rest_client.SetOwner(this.Account, path, owner, group);
+            this._rest_client.SetOwner(this.storeuri, path, owner, group);
         }        
 
         public void Move(FsPath src_path, FsPath dest_path)
         {
-            this._adls_filesys_rest_client.Move(this.Account, src_path, dest_path);
+            this._rest_client.Move(this.storeuri, src_path, dest_path);
         }
     }
 }
