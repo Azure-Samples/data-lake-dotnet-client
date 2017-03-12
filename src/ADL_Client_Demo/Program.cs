@@ -36,6 +36,7 @@ namespace ADL_Client_Demo
             Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
 
             Demo_ListDataLakeAnalyticsAccountsInSubscription(mgmt_client);
+            Demo_ListDatabases(adla_client);
         }
 
         private static void Demo_ListFilesAtRoot(AzureDataLakeClient.Store.StoreFileSystemClient fs_client)
@@ -200,5 +201,16 @@ namespace ADL_Client_Demo
             }
         }
 
+        private static void Demo_ListDatabases(AzureDataLakeClient.Analytics.AnalyticsAccountClient client)
+        {
+            var databases = client.Catalog.ListDatabases().ToList();
+            foreach (var i in databases)
+            {
+                Console.WriteLine("----------------");
+                Console.WriteLine("Name = {0}", i.Name);
+                Console.WriteLine("Version = {0}", i.Version);
+                Console.WriteLine("ComputeAccountName = {0}", i.ComputeAccountName);
+            }
+        }
     }
 }
