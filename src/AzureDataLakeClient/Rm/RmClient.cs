@@ -2,19 +2,19 @@ using System.Collections.Generic;
 using AzureDataLakeClient.Authentication;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Analytics.Clients
+namespace AzureDataLakeClient
 {
-    public class AnalyticsRmClient: ClientBase
+    public class RmClient: ClientBase
     {
-        private AnalyticsAccountManagmentClient _rest_client;
+        private AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient _rest_client;
         private AzureDataLakeClient.Rm.Subscription Sub;
 
-        public AnalyticsRmClient(AzureDataLakeClient.Rm.Subscription sub, AuthenticatedSession authSession) :
+        public RmClient(AzureDataLakeClient.Rm.Subscription sub, AuthenticatedSession authSession) :
             base(authSession)
         {
 
             this.Sub = sub;
-            this._rest_client = new AnalyticsAccountManagmentClient(sub, authSession.Credentials);
+            this._rest_client = new AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient(sub, authSession.Credentials);
         }
 
         public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccounts()
@@ -27,12 +27,12 @@ namespace AzureDataLakeClient.Analytics.Clients
             return this._rest_client.ListAccountsByResourceGroup(resource_group);
         }
 
-        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccount account)
+        public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
             return this._rest_client.GetAccount(account.ResourceGroup, account.GetUri());
         }
 
-        public bool ExistsAccount(AnalyticsAccount account)
+        public bool ExistsAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
             return this._rest_client.ExistsAccount(account.ResourceGroup, account.GetUri());
         }
