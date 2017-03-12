@@ -10,23 +10,10 @@ namespace AzureDataLakeClient.Authentication
         public Microsoft.Rest.ServiceClientCredentials Credentials;
         public Tenant Tenant;
         public TokenCacheItem Token;
-        public string Name;
 
-        public AuthenticatedSession(string name, Tenant tenant)
+        public AuthenticatedSession(Tenant tenant)
         {
-            if (name == null)
-            {
-                throw new System.ArgumentNullException(nameof(name));
-            }
-
-            if (name.Length < 1)
-            {
-                throw new System.ArgumentException(nameof(name));
-            }
-
             this.Tenant = tenant;
-
-            this.Name = name;
         }
 
         public void Clear()
@@ -109,7 +96,7 @@ namespace AzureDataLakeClient.Authentication
         private string GetTokenCachePath()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string basefname = "TokenCache_" + this.Name + ".tc";
+            string basefname = "AzureDataLakeClient_[" + this.Tenant.Domain+ "].tokencache";
             var tokenCachePath = System.IO.Path.Combine(path, basefname);
             return tokenCachePath;
         }

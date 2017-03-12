@@ -13,7 +13,7 @@ namespace ADL_Client_Demo
             var adla_account = new AzureDataLakeClient.Analytics.AnalyticsAccountUri("datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
             var adls_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc"); // change this to an ADL Store account you have access to 
 
-            var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client", tenant);
+            var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession(tenant);
             auth_session.Authenticate();
 
             var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient(adla_account, auth_session);

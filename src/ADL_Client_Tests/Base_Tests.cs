@@ -22,7 +22,7 @@ namespace ADL_Client_Tests
             if (this.init == false)
             {
                 var tenant = new AzureDataLakeClient.Authentication.Tenant("microsoft.onmicrosoft.com");
-                this.auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client", tenant);
+                this.auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession(tenant);
                 auth_session.Authenticate();
 
                 var store_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc");
