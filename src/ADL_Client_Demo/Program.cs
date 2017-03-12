@@ -47,7 +47,7 @@ namespace ADL_Client_Demo
             //var root = AzureDataLakeClient.Store.FsPath.Root; // same as "/"
             var root = new AzureDataLakeClient.Store.FsPath("/Samples");
             var lfo = new AzureDataLakeClient.Store.ListFilesOptions();
-            foreach (var page in adls_client.ListFilesPaged(root,lfo))
+            foreach (var page in adls_client.FileSystem.ListFilesPaged(root,lfo))
             {
                 foreach (var fileitemn in page.FileItems)
                 {

@@ -180,6 +180,7 @@
     <Compile Include="Store\AclType.cs" />
     <Compile Include="Store\CreateFileOptions.cs" />
     <Compile Include="Store\DownloadOptions.cs" />
+    <Compile Include="Store\FileSystemCommands.cs" />
     <Compile Include="Store\FsFileStatus.cs" />
     <Compile Include="Store\FsUri.cs" />
     <Compile Include="Store\ListFilesOptions.cs" />
