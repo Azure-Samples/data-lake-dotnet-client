@@ -34,7 +34,7 @@ namespace ADL_Client_Demo
             Demo_GetJobs_Submitter_Contains(adla_client);
 
             Demo_ListFilesAtRoot(adls_client);
-            Demo_ListLinkedDataLakeStoreAccounts(adla_client, adla_account);
+            Demo_ListLinkedDataLakeStoreAccounts(adla_client);
 
             Demo_ListDataLakeAnalyticsAccountsInSubscription(sub_client);
             Demo_ListDatabases(adla_client);
@@ -180,9 +180,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListLinkedDataLakeStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsAccountClient rm_client, AzureDataLakeClient.Analytics.AnalyticsAccount account)
+        private static void Demo_ListLinkedDataLakeStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
         {
-            var storage_accounts = rm_client.Management.ListLinkedDataLakeStoreAccounts().ToList();
+            var storage_accounts = adla_client.Management.ListLinkedDataLakeStoreAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
