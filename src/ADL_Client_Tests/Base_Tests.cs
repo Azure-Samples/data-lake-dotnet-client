@@ -27,7 +27,7 @@ namespace ADL_Client_Tests
                 this.sub = new AzureDataLakeClient.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
                 this.rg = new AzureDataLakeClient.Rm.ResourceGroup("InsightsServices");
 
-                var store_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc");
+                var store_account = new AzureDataLakeClient.Store.StoreAccount("datainsightsadhoc",sub,rg);
                 var analytics_account = new AzureDataLakeClient.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg);
                 this.init = true;
 

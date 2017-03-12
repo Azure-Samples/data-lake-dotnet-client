@@ -14,7 +14,7 @@ namespace ADL_Client_Demo
             var sub = new AzureDataLakeClient.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
             var rg = new AzureDataLakeClient.Rm.ResourceGroup("InsightServices");
             var adla_account = new AzureDataLakeClient.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg); // change this to an ADL Analytics account you have access to 
-            var adls_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc"); // change this to an ADL Store account you have access to 
+            var adls_account = new AzureDataLakeClient.Store.StoreAccount("datainsightsadhoc", sub, rg); // change this to an ADL Store account you have access to 
 
             var tenant = new AzureDataLakeClient.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
             var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession(tenant);
