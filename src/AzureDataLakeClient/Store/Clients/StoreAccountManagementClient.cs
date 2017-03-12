@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AzureDataLakeClient.Rm;
 using ADL=Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Store
+namespace AzureDataLakeClient.Store.Clients
 {
     public class StoreAccountManagementClient 
     {

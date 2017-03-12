@@ -5,15 +5,16 @@ using ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Store.Clients
 {
-    public class StoreFileSystemClient
+    public class StoreFileSystemClient : AccountClientBase
     {
         private StoreFileSystemRestClient _rest_client;
 
         public readonly StoreUri StoreUri;
 
-        public StoreFileSystemClient(StoreUri store, AuthenticatedSession authSession) 
+        public StoreFileSystemClient(StoreUri store, AuthenticatedSession authSession) :
+            base(store.Name,authSession)
         {
-            _rest_client = new StoreFileSystemRestClient(authSession.Credentials);
+            _rest_client = new StoreFileSystemRestClient(this.AuthenticatedSession.Credentials);
             this.StoreUri = store;
         }
 

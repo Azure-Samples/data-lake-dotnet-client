@@ -186,8 +186,8 @@
     <Compile Include="Store\LocalPath.cs" />
     <Compile Include="Store\FsUnixTime.cs" />
     <Compile Include="Store\StoreAccount.cs" />
-    <Compile Include="Store\StoreFileSystemRestClient.cs" />
-    <Compile Include="Store\StoreManagementRestClient.cs" />
+    <Compile Include="Store\Clients\StoreFileSystemRestClient.cs" />
+    <Compile Include="Store\Clients\StoreManagementRestClient.cs" />
     <Compile Include="Store\StoreUri.cs" />
     <Compile Include="Store\UploadOptions.cs" />
     <Compile Include="StringUtil.cs" />
@@ -202,12 +202,12 @@
     <Compile Include="Store\FsAclEntry.cs" />
     <Compile Include="Store\FsPath.cs" />
     <Compile Include="Store\FsPermission.cs" />
-    <Compile Include="Store\StoreAccountManagementClient.cs" />
+    <Compile Include="Store\Clients\StoreAccountManagementClient.cs" />
     <Compile Include="Rm\Subscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store\FsFileStatusPage.cs" />
     <Compile Include="Analytics\AnalyticsAccountClient.cs" />
-    <Compile Include="Store\StoreFileSystemClient.cs" />
+    <Compile Include="Store\Clients\StoreFileSystemClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

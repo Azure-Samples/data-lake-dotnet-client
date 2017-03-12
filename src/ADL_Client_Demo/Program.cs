@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AzureDataLakeClient.Store.Clients;
 using ADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Demo
@@ -19,7 +20,7 @@ namespace ADL_Client_Demo
             auth_session.Authenticate();
 
             var adla_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(adla_account, auth_session);
-            var fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(adls_account, auth_session);
+            var fs_client = new StoreFileSystemClient(adls_account, auth_session);
             var sub_client = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
 
             //Demo_GetExactlyOneJob(job_client);
@@ -40,7 +41,7 @@ namespace ADL_Client_Demo
             //Demo_ListDataLakeStoreAccountsInSubscription(rm_client);
         }
 
-        private static void Demo_ListFilesAtRoot(AzureDataLakeClient.Store.StoreFileSystemClient fs_client)
+        private static void Demo_ListFilesAtRoot(StoreFileSystemClient fs_client)
         {
             //var root = AzureDataLakeClient.Store.FsPath.Root; // same as "/"
             var root = new AzureDataLakeClient.Store.FsPath("/Samples");

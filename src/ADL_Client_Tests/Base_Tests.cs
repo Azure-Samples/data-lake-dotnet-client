@@ -1,4 +1,6 @@
-﻿namespace ADL_Client_Tests
+﻿using AzureDataLakeClient.Store.Clients;
+
+namespace ADL_Client_Tests
 {
     public class Base_Tests
     {
@@ -7,9 +9,9 @@
         public AzureDataLakeClient.Authentication.AuthenticatedSession auth_session;
 
         public AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_account_client;
-        public AzureDataLakeClient.Store.StoreFileSystemClient adls_fs_client;
+        public StoreFileSystemClient adls_fs_client;
 
-        public AzureDataLakeClient.Store.StoreAccountManagementClient adls_rm_client;
+        public StoreAccountManagementClient adls_rm_client;
 
 
         public AzureDataLakeClient.SubscriptionClient rmclient;
@@ -31,7 +33,7 @@
                 var analytics_account = new AzureDataLakeClient.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg);
                 this.init = true;
 
-                this.adls_fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(store_account, auth_session);
+                this.adls_fs_client = new StoreFileSystemClient(store_account, auth_session);
                 this.adla_account_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(analytics_account, auth_session);
                 this.rmclient = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
 
