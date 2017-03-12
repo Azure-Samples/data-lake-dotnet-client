@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using AzureDataLakeClient.Analytics.Clients;
 using AzureDataLakeClient.Authentication;
+using AzureDataLakeClient.Rest;
 using ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Analytics.Commands
@@ -9,19 +9,19 @@ namespace AzureDataLakeClient.Analytics.Commands
     {
         public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
 
-        private AnalyticsJobsRestClient _adla_job_rest_client;
+        private AnalyticsJobsRestWrapper _adlaJobRestWrapper;
         private AnalyticsAccount account;
         AuthenticatedSession authSession;
-        public JobCommands(AnalyticsAccount a, AnalyticsJobsRestClient c, AuthenticatedSession authSession)
+        public JobCommands(AnalyticsAccount a, AnalyticsJobsRestWrapper c, AuthenticatedSession authSession)
         {
             this.account = a;
-            this._adla_job_rest_client = c;
+            this._adlaJobRestWrapper = c;
             this.authSession = authSession;
         }
 
         public ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
         {
-            var job = this._adla_job_rest_client.JobGet(this.account.GetUri(), jobid);
+            var job = this._adlaJobRestWrapper.JobGet(this.account.GetUri(), jobid);
             return job;
         }
 
@@ -39,7 +39,7 @@ namespace AzureDataLakeClient.Analytics.Commands
             odata_query.Filter = options.Filter.ToFilterString(this.authSession);
 
 
-            var jobs = this._adla_job_rest_client.JobList(this.account.GetUri(), odata_query, options.Top);
+            var jobs = this._adlaJobRestWrapper.JobList(this.account.GetUri(), odata_query, options.Top);
             foreach (var job in jobs)
             {
                 yield return job;
@@ -61,18 +61,18 @@ namespace AzureDataLakeClient.Analytics.Commands
                 options.JobName = "ADL_Demo_Client_Job_" + System.DateTimeOffset.Now.ToString();
             }
 
-            var job_info = this._adla_job_rest_client.JobCreate(this.account.GetUri(), options);
+            var job_info = this._adlaJobRestWrapper.JobCreate(this.account.GetUri(), options);
             return job_info;
         }
 
         public ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            return this._adla_job_rest_client.GetStatistics(this.account.GetUri(), jobid);
+            return this._adlaJobRestWrapper.GetStatistics(this.account.GetUri(), jobid);
         }
 
         public ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            return this._adla_job_rest_client.GetDebugDataPath(this.account.GetUri(), jobid);
+            return this._adlaJobRestWrapper.GetDebugDataPath(this.account.GetUri(), jobid);
         }
 
 

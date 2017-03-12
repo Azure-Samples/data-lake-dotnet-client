@@ -1,12 +1,12 @@
 using AzureDataLakeClient.Authentication;
-using AzureDataLakeClient.Store.Clients;
+using AzureDataLakeClient.Rest;
 
 namespace AzureDataLakeClient.Store
 {
     public class StoreAccountClient : AccountClientBase
     {
-        private StoreFileSystemRestClient _fs_rest_client;
-        private StoreManagementRestClient _mgmt_rest_client;
+        private StoreFileSystemRestWrapper _fsRestClientWrapper;
+        private StoreManagementRestWrapper _mgmt_rest_client;
         private StoreAccount _store;
 
         public readonly FileSystemCommands FileSystem;
@@ -15,8 +15,8 @@ namespace AzureDataLakeClient.Store
             base(store.Name,authSession)
         {
             this._store = store;
-            this._fs_rest_client  = new StoreFileSystemRestClient(authSession.Credentials);
-            this.FileSystem = new FileSystemCommands(this._store, this._fs_rest_client);
+            this._fsRestClientWrapper  = new StoreFileSystemRestWrapper(authSession.Credentials);
+            this.FileSystem = new FileSystemCommands(this._store, this._fsRestClientWrapper);
 
         }
 

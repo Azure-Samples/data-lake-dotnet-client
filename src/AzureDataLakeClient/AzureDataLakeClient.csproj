@@ -113,9 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsAccount.cs" />
-    <Compile Include="Analytics\Clients\AnalyticsCatalogRestClient.cs" />
-    <Compile Include="Analytics\Clients\AnalyticsJobsRestClient.cs" />
-    <Compile Include="Analytics\Clients\AnalyticsAccountManagmentRestClient.cs" />
+    <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
+    <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
+    <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
     <Compile Include="Analytics\AnalyticsAccountUri.cs" />
     <Compile Include="Analytics\Commands\CatalogCommands.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
@@ -187,13 +187,13 @@
     <Compile Include="Store\LocalPath.cs" />
     <Compile Include="Store\FsUnixTime.cs" />
     <Compile Include="Store\StoreAccount.cs" />
-    <Compile Include="Store\Clients\StoreFileSystemRestClient.cs" />
-    <Compile Include="Store\Clients\StoreManagementRestClient.cs" />
+    <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
+    <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="Store\StoreUri.cs" />
     <Compile Include="Store\UploadOptions.cs" />
     <Compile Include="StringUtil.cs" />
     <Compile Include="Analytics\SubmitJobOptions.cs" />
-    <Compile Include="RESTUtil.cs" />
+    <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Analytics\GetJobsOptions.cs" />
     <Compile Include="AccountClientBase.cs" />
     <Compile Include="Rm\SubscriptionClient.cs" />

@@ -1,14 +1,14 @@
-using AzureDataLakeClient.Analytics.Clients;
 using AzureDataLakeClient.Analytics.Commands;
 using AzureDataLakeClient.Authentication;
+using AzureDataLakeClient.Rest;
 
 namespace AzureDataLakeClient.Analytics
 {
     public class AnalyticsAccountClient : AccountClientBase
     {
-        private AnalyticsJobsRestClient _adla_job_rest_client;
-        private AnalyticsCatalogRestClient _adla_catalog_rest_client;
-        private AnalyticsAccountManagmentRestClient _adla_acctmgmt_client;
+        private AnalyticsJobsRestWrapper _adlaJobRestWrapper;
+        private AnalyticsCatalogRestWrapper _adlaCatalogRestClientWrapper;
+        private AnalyticsAccountManagmentRestWrapper _adlaAcctmgmtClientWrapper;
 
         public readonly JobCommands Jobs;
         public readonly CatalogCommands Catalog;
@@ -17,13 +17,13 @@ namespace AzureDataLakeClient.Analytics
         public AnalyticsAccountClient(AnalyticsAccount account, AuthenticatedSession authSession) :
             base(account.Name, authSession)
         {
-            this._adla_job_rest_client = new AnalyticsJobsRestClient(this.AuthenticatedSession.Credentials);
-            this._adla_catalog_rest_client = new AnalyticsCatalogRestClient(this.AuthenticatedSession.Credentials);
-            this._adla_acctmgmt_client = new AnalyticsAccountManagmentRestClient(account.Subscription, authSession.Credentials);
+            this._adlaJobRestWrapper = new AnalyticsJobsRestWrapper(this.AuthenticatedSession.Credentials);
+            this._adlaCatalogRestClientWrapper = new AnalyticsCatalogRestWrapper(this.AuthenticatedSession.Credentials);
+            this._adlaAcctmgmtClientWrapper = new AnalyticsAccountManagmentRestWrapper(account.Subscription, authSession.Credentials);
 
-            this.Jobs = new JobCommands(account, this._adla_job_rest_client, authSession);
-            this.Catalog = new CatalogCommands(account, this._adla_catalog_rest_client);
-            this.Management = new ManagementCommands(account, this._adla_acctmgmt_client);
+            this.Jobs = new JobCommands(account, this._adlaJobRestWrapper, authSession);
+            this.Catalog = new CatalogCommands(account, this._adlaCatalogRestClientWrapper);
+            this.Management = new ManagementCommands(account, this._adlaAcctmgmtClientWrapper);
         }
     }
 }

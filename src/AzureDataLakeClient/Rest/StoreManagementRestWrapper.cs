@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using AzureDataLakeClient.Rm;
+using AzureDataLakeClient.Store;
 using Microsoft.Azure.Management.DataLake.Store;
 
-namespace AzureDataLakeClient.Store.Clients
+namespace AzureDataLakeClient.Rest
 {
-    public class StoreManagementRestClient
+    public class StoreManagementRestWrapper
     {
         private Microsoft.Azure.Management.DataLake.Store.DataLakeStoreAccountManagementClient _rest_client;
 
-        public StoreManagementRestClient(Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
+        public StoreManagementRestWrapper(Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
             this._rest_client = new DataLakeStoreAccountManagementClient(creds);
             this._rest_client.SubscriptionId = sub.Id;
@@ -17,7 +18,7 @@ namespace AzureDataLakeClient.Store.Clients
         public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()
         {
             var page = this._rest_client.Account.List();
-            foreach (var acc in RESTUtil.EnumItemsInPages(page,
+            foreach (var acc in RestUtil.EnumItemsInPages(page,
                 p => this._rest_client.Account.ListNext(p.NextPageLink)))
             {
                 yield return acc;
@@ -28,7 +29,7 @@ namespace AzureDataLakeClient.Store.Clients
         {
             var page = this._rest_client.Account.ListByResourceGroup(resource_group.Name);
 
-            foreach (var acc in RESTUtil.EnumItemsInPages(page,
+            foreach (var acc in RestUtil.EnumItemsInPages(page,
                 p => this._rest_client.Account.ListByResourceGroupNext(p.NextPageLink)))
             {
                 yield return acc;

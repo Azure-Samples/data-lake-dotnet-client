@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using AzureDataLakeClient.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 
-namespace AzureDataLakeClient.Analytics.Clients
+namespace AzureDataLakeClient.Rest
 {
-    public class AnalyticsCatalogRestClient
+    public class AnalyticsCatalogRestWrapper
     {
         private Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsCatalogManagementClient _client;
         private Microsoft.Rest.ServiceClientCredentials _creds;
 
-        public AnalyticsCatalogRestClient(Microsoft.Rest.ServiceClientCredentials creds)
+        public AnalyticsCatalogRestWrapper(Microsoft.Rest.ServiceClientCredentials creds)
         {
             this._creds = creds;
             this._client = new Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsCatalogManagementClient(creds);
@@ -29,7 +30,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             bool? count = null;
 
             var page = this._client.Catalog.ListDatabases(account.Name, oDataQuery, @select, count);
-            foreach (var db in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlDatabase>(page, p => this._client.Catalog.ListDatabasesNext(p.NextPageLink)))
+            foreach (var db in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlDatabase>(page, p => this._client.Catalog.ListDatabasesNext(p.NextPageLink)))
             {
                 yield return db;
             }
@@ -43,7 +44,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             bool? count = null;
 
             var page = this._client.Catalog.ListAssemblies(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var asm in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlAssemblyClr>(page, p => this._client.Catalog.ListAssembliesNext(p.NextPageLink)))
+            foreach (var asm in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlAssemblyClr>(page, p => this._client.Catalog.ListAssembliesNext(p.NextPageLink)))
             {
                 yield return asm;
             }
@@ -57,7 +58,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             bool? count = null;
 
             var page = this._client.Catalog.ListExternalDataSources(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var ds in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlExternalDataSource>(page, p => this._client.Catalog.ListExternalDataSourcesNext(p.NextPageLink)))
+            foreach (var ds in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlExternalDataSource>(page, p => this._client.Catalog.ListExternalDataSourcesNext(p.NextPageLink)))
             {
                 yield return ds;
             }
@@ -71,7 +72,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             bool? count = null;
 
             var page = this._client.Catalog.ListProcedures(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlProcedure>(page, p => this._client.Catalog.ListProceduresNext(p.NextPageLink)))
+            foreach (var proc in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlProcedure>(page, p => this._client.Catalog.ListProceduresNext(p.NextPageLink)))
             {
                 yield return proc;
             }
@@ -84,7 +85,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             bool? count = null;
 
             var page = this._client.Catalog.ListSchemas(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var proc in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlSchema>(page, p => this._client.Catalog.ListSchemasNext(p.NextPageLink)))
+            foreach (var proc in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlSchema>(page, p => this._client.Catalog.ListSchemasNext(p.NextPageLink)))
             {
                 yield return proc;
             }
@@ -98,7 +99,7 @@ namespace AzureDataLakeClient.Analytics.Clients
 
 
             var page = this._client.Catalog.ListViews(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlView>(page, p => this._client.Catalog.ListViewsNext(p.NextPageLink)))
+            foreach (var proc in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlView>(page, p => this._client.Catalog.ListViewsNext(p.NextPageLink)))
             {
                 yield return proc;
             }
@@ -111,7 +112,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             bool? count = null;
 
             var page = this._client.Catalog.ListTables(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTable>(page, p => this._client.Catalog.ListTablesNext(p.NextPageLink)))
+            foreach (var proc in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTable>(page, p => this._client.Catalog.ListTablesNext(p.NextPageLink)))
             {
                 yield return proc;
             }
@@ -125,7 +126,7 @@ namespace AzureDataLakeClient.Analytics.Clients
 
 
             var page = this._client.Catalog.ListTypes(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlType>(page, p => this._client.Catalog.ListTypesNext(p.NextPageLink)))
+            foreach (var proc in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlType>(page, p => this._client.Catalog.ListTypesNext(p.NextPageLink)))
             {
                 yield return proc;
             }
@@ -139,7 +140,7 @@ namespace AzureDataLakeClient.Analytics.Clients
 
 
             var page = this._client.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTableType>(page, p => this._client.Catalog.ListTableTypesNext(p.NextPageLink)))
+            foreach (var proc in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTableType>(page, p => this._client.Catalog.ListTableTypesNext(p.NextPageLink)))
             {
                 yield return proc;
             }
@@ -172,7 +173,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             bool? count = null;
 
             var page = this._client.Catalog.ListCredentials(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var cred in RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlCredential>(page, p => this._client.Catalog.ListCredentialsNext(p.NextPageLink)))
+            foreach (var cred in RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlCredential>(page, p => this._client.Catalog.ListCredentialsNext(p.NextPageLink)))
             {
                 yield return cred;
             }

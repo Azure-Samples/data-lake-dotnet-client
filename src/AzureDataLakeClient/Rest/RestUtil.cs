@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Rest.Azure;
 
-namespace AzureDataLakeClient
+namespace AzureDataLakeClient.Rest
 {
-    public class RESTUtil
+    public class RestUtil
     {
         public static IEnumerable<T>EnumItemsInPages<T>(IPage<T> page, System.Func<IPage<T>, IPage<T>> f_get_next_page)
         {

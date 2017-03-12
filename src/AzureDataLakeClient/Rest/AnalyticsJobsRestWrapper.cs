@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using AzureDataLakeClient.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AzureDataLakeClient.Analytics.Clients
+namespace AzureDataLakeClient.Rest
 {
-    public class AnalyticsJobsRestClient
+    public class AnalyticsJobsRestWrapper
     {
         private Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsJobManagementClient _client;
         private Microsoft.Rest.ServiceClientCredentials _creds;
 
-        public AnalyticsJobsRestClient(Microsoft.Rest.ServiceClientCredentials creds)
+        public AnalyticsJobsRestWrapper(Microsoft.Rest.ServiceClientCredentials creds)
         {
             this._creds = creds;
             this._client = new Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsJobManagementClient(this._creds);
@@ -31,7 +32,7 @@ namespace AzureDataLakeClient.Analytics.Clients
             var page = this._client.Job.List(account.Name, odata_query, opt_select, opt_count);
             foreach (
                 var job in
-                RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation>(page,
+                RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation>(page,
                     p => this._client.Job.ListNext(p.NextPageLink)))
             {
                 yield return job;

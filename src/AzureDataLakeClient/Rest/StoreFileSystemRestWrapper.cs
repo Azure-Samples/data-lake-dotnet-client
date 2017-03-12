@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AzureDataLakeClient.Store;
 using Microsoft.Azure.Management.DataLake.Store;
 using Microsoft.Azure.Management.DataLake.Store.Models;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Store.Clients
+namespace AzureDataLakeClient.Rest
 {
-    public class StoreFileSystemRestClient
+    public class StoreFileSystemRestWrapper
     {
         public ADL.Store.DataLakeStoreFileSystemManagementClient _adls_filesys_rest_client;
         private Microsoft.Rest.ServiceClientCredentials _creds;
 
-        public StoreFileSystemRestClient(Microsoft.Rest.ServiceClientCredentials creds)
+        public StoreFileSystemRestWrapper(Microsoft.Rest.ServiceClientCredentials creds)
         {
             this._creds = creds;
             this._adls_filesys_rest_client = new ADL.Store.DataLakeStoreFileSystemManagementClient(this._creds);
