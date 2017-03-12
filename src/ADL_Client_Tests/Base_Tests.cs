@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
-using AzureDataLakeClient.Analytics.Clients;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AzureDataLakeClient.Store;
+using AzureDataLakeClient.Store.Clients;
 
 namespace ADL_Client_Tests
 {
@@ -10,10 +8,11 @@ namespace ADL_Client_Tests
         private bool init;
 
         public AzureDataLakeClient.Authentication.AuthenticatedSession auth_session;
+
         public AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_account_client;
-        public AnalyticsRmClient adla_rm_client;
-        public AzureDataLakeClient.Store.StoreFileSystemClient adls_fs_client;
-        public AzureDataLakeClient.Store.StoreRmClient adls_rm_client;
+        public StoreAccountClient adls_account_client;
+        
+        public AzureDataLakeClient.SubscriptionClient sub_client;
         public AzureDataLakeClient.Rm.Subscription sub;
         public AzureDataLakeClient.Rm.ResourceGroup rg;
 
@@ -28,14 +27,13 @@ namespace ADL_Client_Tests
                 this.sub = new AzureDataLakeClient.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
                 this.rg = new AzureDataLakeClient.Rm.ResourceGroup("InsightsServices");
 
-                var store_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc");
+                var store_account = new AzureDataLakeClient.Store.StoreAccount("datainsightsadhoc",sub,rg);
                 var analytics_account = new AzureDataLakeClient.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg);
                 this.init = true;
 
-                this.adls_fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(store_account, auth_session);
+                this.adls_account_client = new StoreAccountClient(store_account, auth_session);
                 this.adla_account_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(analytics_account, auth_session);
-                this.adls_rm_client = new AzureDataLakeClient.Store.StoreRmClient(sub, auth_session);
-                this.adla_rm_client = new AnalyticsRmClient(sub, auth_session);
+                this.sub_client = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
 
             }
         }

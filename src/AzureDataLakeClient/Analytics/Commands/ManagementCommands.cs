@@ -6,10 +6,10 @@ namespace AzureDataLakeClient.Analytics.Commands
 {
     public class ManagementCommands
     {
-        private AnalyticsAccountManagmentClient _rest_client;
+        private AnalyticsAccountManagmentRestClient _rest_client;
         private AnalyticsAccount account;
         AuthenticatedSession authSession;
-        public ManagementCommands(AnalyticsAccount a, AnalyticsAccountManagmentClient c)
+        public ManagementCommands(AnalyticsAccount a, AnalyticsAccountManagmentRestClient c)
         {
             this.account = a;
             this._rest_client = c;

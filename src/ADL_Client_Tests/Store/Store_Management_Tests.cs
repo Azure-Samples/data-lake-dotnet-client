@@ -12,13 +12,14 @@ namespace ADL_Client_Tests.Store
         {
             this.Initialize();
             var directory = AzureDataLakeClient.Authentication.Directory.Resolve("microsoft.com");
+            string tenantid = directory.TenantId;
         }
 
         [TestMethod]
         public void List_ADLS_Accounts()
         {
             this.Initialize();
-            var adls_accounts = this.adls_rm_client.ListAccounts();
+            var adls_accounts = this.sub_client.ListStoreAccounts();
             foreach (var a in adls_accounts)
             {
                 System.Console.WriteLine("Store {0} ", a.Name);

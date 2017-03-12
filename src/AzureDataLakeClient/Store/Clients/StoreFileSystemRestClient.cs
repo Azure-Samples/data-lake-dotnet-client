@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ADL = Microsoft.Azure.Management.DataLake;
 using Microsoft.Azure.Management.DataLake.Store;
 using Microsoft.Azure.Management.DataLake.Store.Models;
+using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Store
+namespace AzureDataLakeClient.Store.Clients
 {
     public class StoreFileSystemRestClient
     {
