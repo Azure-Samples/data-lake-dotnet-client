@@ -9,7 +9,7 @@
         public AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_account_client;
         public AzureDataLakeClient.Store.StoreFileSystemClient adls_fs_client;
 
-        public AzureDataLakeClient.Store.StoreManagementClient adls_rm_client;
+        public AzureDataLakeClient.Store.StoreAccountManagementClient adls_rm_client;
 
 
         public AzureDataLakeClient.SubscriptionClient rmclient;

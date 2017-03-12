@@ -7,7 +7,7 @@ namespace AzureDataLakeClient
     public class SubscriptionClient: ClientBase
     {
         private readonly AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient _adla_account_mgmt_client;
-        private readonly AzureDataLakeClient.Store.StoreManagementClient _adls_account_mgmt_client;
+        private readonly AzureDataLakeClient.Store.StoreAccountManagementClient _adls_account_mgmt_client;
         public readonly AzureDataLakeClient.Rm.Subscription Subscription;
 
         public SubscriptionClient(AzureDataLakeClient.Rm.Subscription subscription, AuthenticatedSession authSession) :
@@ -15,7 +15,7 @@ namespace AzureDataLakeClient
         {
             this.Subscription = subscription;
             this._adla_account_mgmt_client = new AzureDataLakeClient.Analytics.Clients.AnalyticsAccountManagmentClient(subscription, authSession.Credentials);
-            this._adls_account_mgmt_client = new AzureDataLakeClient.Store.StoreManagementClient(subscription, authSession.Credentials);
+            this._adls_account_mgmt_client = new AzureDataLakeClient.Store.StoreAccountManagementClient(subscription, authSession.Credentials);
         }
 
         public IEnumerable<ADL.Analytics.Models.DataLakeAnalyticsAccount> ListAnalyticsAccounts()
