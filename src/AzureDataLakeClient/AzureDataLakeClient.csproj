@@ -175,7 +175,6 @@
     <Compile Include="OData\Utils\RangeInteger.cs" />
     <Compile Include="Rm\ResourceGroup.cs" />
     <Compile Include="Rm\ResourceManagementClient.cs" />
-    <Compile Include="Analytics\AnalyticsCatalogClient.cs" />
     <Compile Include="Store\AclType.cs" />
     <Compile Include="Store\CreateFileOptions.cs" />
     <Compile Include="Store\DownloadOptions.cs" />

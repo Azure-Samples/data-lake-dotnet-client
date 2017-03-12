@@ -19,7 +19,6 @@ namespace ADL_Client_Demo
             auth_session.Authenticate();
 
             var job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient(adla_account, auth_session);
-            var cat_client = new AzureDataLakeClient.Analytics.AnalyticsCatalogClient(adla_account, auth_session);
             var mgmt_client = new AzureDataLakeClient.Analytics.AnalyticsRmClient(adla_account.Subscription, auth_session);
 
             //Demo_GetExactlyOneJob(job_client);

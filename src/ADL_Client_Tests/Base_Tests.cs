@@ -10,7 +10,6 @@ namespace ADL_Client_Tests
 
         public AzureDataLakeClient.Authentication.AuthenticatedSession auth_session;
         public AzureDataLakeClient.Analytics.AnalyticsJobClient adla_job_client;
-        public AzureDataLakeClient.Analytics.AnalyticsCatalogClient adla_catalog_client;
         public AzureDataLakeClient.Analytics.AnalyticsRmClient adla_rm_client;
         public AzureDataLakeClient.Store.StoreFileSystemClient adls_fs_client;
         public AzureDataLakeClient.Store.StoreRmClient adls_rm_client;
@@ -34,7 +33,6 @@ namespace ADL_Client_Tests
 
                 this.adls_fs_client = new AzureDataLakeClient.Store.StoreFileSystemClient(store_account, auth_session);
                 this.adla_job_client = new AzureDataLakeClient.Analytics.AnalyticsJobClient(analytics_account, auth_session);
-                this.adla_catalog_client = new AzureDataLakeClient.Analytics.AnalyticsCatalogClient(analytics_account, auth_session);
                 this.adls_rm_client = new AzureDataLakeClient.Store.StoreRmClient(sub, auth_session);
                 this.adla_rm_client = new AzureDataLakeClient.Analytics.AnalyticsRmClient(sub, auth_session);
 
