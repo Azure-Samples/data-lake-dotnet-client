@@ -14,9 +14,9 @@ namespace AzureDataLakeClient.Analytics
             this._client = new Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsJobManagementClient(this._creds);
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobGet(AnalyticsUri account, System.Guid jobid)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobGet(AnalyticsUri analyticsaccount, System.Guid jobid)
         {
-            var job = this._client.Job.Get(account.Name, jobid);
+            var job = this._client.Job.Get(analyticsaccount.Name, jobid);
             return job;
         }
 
@@ -45,7 +45,8 @@ namespace AzureDataLakeClient.Analytics
 
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobCreate(AnalyticsUri account, SubmitJobOptions options)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobCreate(AnalyticsUri account
+            , SubmitJobOptions options)
         {
             var parameters = CreateNewJobProperties(options);
             var job_info = this._client.Job.Create(account.Name, options.JobID, parameters);
@@ -84,6 +85,5 @@ namespace AzureDataLakeClient.Analytics
             var jobdatapath = this._client.Job.GetDebugDataPath(account.Name, jobid);
             return jobdatapath;
         }
-
     }
 }
