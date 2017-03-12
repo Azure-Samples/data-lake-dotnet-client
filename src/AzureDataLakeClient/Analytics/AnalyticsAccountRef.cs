@@ -1,11 +1,11 @@
 namespace AzureDataLakeClient.Analytics
 {
-    public class AnalyticsAccountRef
+    public class AnalyticsAccountRmRef
     {
         public string Name;
-        public string ResourceGroup;
+        public AzureDataLakeClient.Rm.ResourceGroup ResourceGroup;
 
-        public AnalyticsAccountRef(string name, string rg)
+        public AnalyticsAccountRmRef(string name, AzureDataLakeClient.Rm.ResourceGroup rg)
         {
             this.Name = name;
             this.ResourceGroup = rg;

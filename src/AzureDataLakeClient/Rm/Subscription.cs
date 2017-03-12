@@ -1,8 +1,9 @@
-namespace AzureDataLakeClient
+namespace AzureDataLakeClient.Rm
 {
+
     public class Subscription
     {
-        public string ID;
+        public readonly string ID;
 
         public Subscription(string id)
         {
