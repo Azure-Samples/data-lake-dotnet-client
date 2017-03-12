@@ -6,6 +6,8 @@ namespace AzureDataLakeClient.Analytics
 {
     public class JobCommands
     {
+        public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
+
         private AnalyticsJobsRestClient _adla_job_rest_client;
         private AnalyticsAccount account;
         AuthenticatedSession authSession;
@@ -27,7 +29,7 @@ namespace AzureDataLakeClient.Analytics
             var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<ADL.Analytics.Models.JobInformation>();
 
             // if users requests top, set the value appropriately relative to the page size
-            if ((options.Top > 0) && (options.Top <= AnalyticsAccountClient.ADLJobPageSize))
+            if ((options.Top > 0) && (options.Top <= JobCommands.ADLJobPageSize))
             {
                 odata_query.Top = options.Top;
             }
