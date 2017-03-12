@@ -24,8 +24,8 @@ namespace ADL_Client_Tests
                 this.auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client", "microsoft.onmicrosoft.com");
                 auth_session.Authenticate();
 
-                string store_account = "datainsightsadhoc";
-                string analytics_account = "datainsightsadhoc";
+                var store_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc");
+                var analytics_account = new AzureDataLakeClient.Analytics.AnalyticsUri("datainsightsadhoc");
                 string subid = "045c28ea-c686-462f-9081-33c34e871ba3";
                 this.sub = new AzureDataLakeClient.Subscription(subid);
                 this.init = true;

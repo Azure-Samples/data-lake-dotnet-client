@@ -14,13 +14,13 @@ namespace AzureDataLakeClient.Analytics
             this._client = new Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsJobManagementClient(this._creds);
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobGet(string account, System.Guid jobid)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobGet(AnalyticsUri account, System.Guid jobid)
         {
-            var job = this._client.Job.Get(account, jobid);
+            var job = this._client.Job.Get(account.Name, jobid);
             return job;
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> JobList(string account,
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> JobList(AnalyticsUri account,
             Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> odata_query, int top)
         {
             // Other parameters
@@ -28,7 +28,7 @@ namespace AzureDataLakeClient.Analytics
             bool? opt_count = null;
 
             int item_count = 0;
-            var page = this._client.Job.List(account, odata_query, opt_select, opt_count);
+            var page = this._client.Job.List(account.Name, odata_query, opt_select, opt_count);
             foreach (
                 var job in
                 RESTUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation>(page,
@@ -45,10 +45,10 @@ namespace AzureDataLakeClient.Analytics
 
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobCreate(string account, SubmitJobOptions options)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobCreate(AnalyticsUri account, SubmitJobOptions options)
         {
             var parameters = CreateNewJobProperties(options);
-            var job_info = this._client.Job.Create(account, options.JobID, parameters);
+            var job_info = this._client.Job.Create(account.Name, options.JobID, parameters);
 
             return job_info;
 
@@ -73,15 +73,15 @@ namespace AzureDataLakeClient.Analytics
             return parameters;
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobStatistics GetStatistics(string account, System.Guid jobid)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobStatistics GetStatistics(AnalyticsUri account, System.Guid jobid)
         {
-            var stats = this._client.Job.GetStatistics(account, jobid);
+            var stats = this._client.Job.GetStatistics(account.Name, jobid);
             return stats;
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobDataPath GetDebugDataPath(string account, System.Guid jobid)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobDataPath GetDebugDataPath(AnalyticsUri account, System.Guid jobid)
         {
-            var jobdatapath = this._client.Job.GetDebugDataPath(account, jobid);
+            var jobdatapath = this._client.Job.GetDebugDataPath(account.Name, jobid);
             return jobdatapath;
         }
 

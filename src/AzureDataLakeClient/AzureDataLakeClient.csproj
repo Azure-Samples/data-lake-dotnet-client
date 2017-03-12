@@ -115,6 +115,7 @@
     <Compile Include="Analytics\AnalyticsAccountRef.cs" />
     <Compile Include="Analytics\AnalyticsCatalogRestClient.cs" />
     <Compile Include="Analytics\AnalyticsJobsRestClient.cs" />
+    <Compile Include="Analytics\AnalyticsUri.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
     <Compile Include="Analytics\JobListFields.cs" />
     <Compile Include="Analytics\JobListSorting.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Store\FsUnixTime.cs" />
     <Compile Include="Store\StoreAccountRef.cs" />
     <Compile Include="Store\StoreFileSystemRestClient.cs" />
+    <Compile Include="Store\StoreUri.cs" />
     <Compile Include="Store\UploadOptions.cs" />
     <Compile Include="StringUtil.cs" />
     <Compile Include="Analytics\SubmitJobOptions.cs" />
