@@ -74,7 +74,7 @@ namespace ADL_Client_Tests.Store
             var fi = this.adls_fs_client.GetFileStatus(fname);
             Assert.AreEqual(10,fi.Length);
 
-            using (var s = this.adls_fs_client.OpenFileForReadText(fname))
+            using (var s = this.adls_fs_client.OpenText(fname))
             {
                 var content = s.ReadToEnd();
                 Assert.AreEqual("HelloWorld",content);
@@ -101,8 +101,8 @@ namespace ADL_Client_Tests.Store
 
             this.adls_fs_client.CreateFileWithContent(fname1, "Hello", cfo);
             this.adls_fs_client.CreateFileWithContent(fname2, "World", cfo);          
-            this.adls_fs_client.Concatenate(new [] { fname1, fname2 },fname3);
-            using (var s = this.adls_fs_client.OpenFileForReadText(fname3))
+            this.adls_fs_client.Concat(new [] { fname1, fname2 },fname3);
+            using (var s = this.adls_fs_client.OpenText(fname3))
             {
                 var content = s.ReadToEnd();
                 Assert.AreEqual("HelloWorld", content);

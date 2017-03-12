@@ -61,7 +61,7 @@ namespace AzureDataLakeClient.Store
             _adls_filesys_rest_client.Delete(this.Account, path, recursive );
         }
 
-        public void CreateFileWithContent(FsPath path, byte[] bytes, CreateFileOptions options)
+        public void Create(FsPath path, byte[] bytes, CreateFileOptions options)
         {
             var memstream = new System.IO.MemoryStream(bytes);
             _adls_filesys_rest_client.Create(this.Account, path,memstream, options);
@@ -70,7 +70,7 @@ namespace AzureDataLakeClient.Store
         public void CreateFileWithContent(FsPath path, string content, CreateFileOptions options)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
-            this.CreateFileWithContent(path, bytes, options);
+            this.Create(path, bytes, options);
         }
 
         public FsFileStatus GetFileStatus(FsPath path)
@@ -138,23 +138,23 @@ namespace AzureDataLakeClient.Store
         }
 
 
-        public FsAcl GetPermissions(FsPath path)
+        public FsAcl GetAclStatus(FsPath path)
         {
             var acl_result = this._adls_filesys_rest_client.GetAclStatus(this.Account, path);
             return acl_result;
         }
 
-        public void ModifyACLs(FsPath path, FsAclEntry entry)
+        public void ModifyAclEntries(FsPath path, FsAclEntry entry)
         {
             this._adls_filesys_rest_client.ModifyAclEntries(this.Account, path, entry);
         }
 
-        public void ModifyACLs(FsPath path, IEnumerable<FsAclEntry> entries)
+        public void ModifyAclEntries(FsPath path, IEnumerable<FsAclEntry> entries)
         {
             this._adls_filesys_rest_client.ModifyAclEntries(this.Account, path, entries);
         }
 
-        public void SetACLs(FsPath path, IEnumerable<FsAclEntry> entries)
+        public void SetAcl(FsPath path, IEnumerable<FsAclEntry> entries)
         {
             this._adls_filesys_rest_client.SetAcl(this.Account, path, entries);
         }
@@ -169,18 +169,18 @@ namespace AzureDataLakeClient.Store
             this._adls_filesys_rest_client.RemoveDefaultAcl(this.Account, path);
         }
 
-        public System.IO.Stream OpenFileForReadBinary(FsPath path)
+        public System.IO.Stream Open(FsPath path)
         {
             return this._adls_filesys_rest_client.Open(this.Account, path);
         }
 
-        public System.IO.StreamReader OpenFileForReadText(FsPath path)
+        public System.IO.StreamReader OpenText(FsPath path)
         {
             var s = this._adls_filesys_rest_client.Open(this.Account, path);
             return new System.IO.StreamReader(s);
         }
 
-        public System.IO.Stream OpenFileForReadBinary(FsPath path, long offset, long bytesToRead)
+        public System.IO.Stream Open(FsPath path, long offset, long bytesToRead)
         {
             return this._adls_filesys_rest_client.Open(this.Account, path, bytesToRead, offset);
         }
@@ -205,7 +205,7 @@ namespace AzureDataLakeClient.Store
             }
         }
 
-        public void AppendString(FsFileStatusPage file,string content)
+        public void Appen(FsFileStatusPage file,string content)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
             using (var stream = new System.IO.MemoryStream(bytes))
@@ -214,7 +214,7 @@ namespace AzureDataLakeClient.Store
             }
         }
 
-        public void AppendBytes(FsFileStatusPage file, byte[] bytes)
+        public void Append(FsFileStatusPage file, byte[] bytes)
         {
             using (var stream = new System.IO.MemoryStream(bytes))
             {
@@ -222,9 +222,9 @@ namespace AzureDataLakeClient.Store
             }
         }
 
-        public void Concatenate(IEnumerable<FsPath> src_paths, FsPath dest_path)
+        public void Concat(IEnumerable<FsPath> src_paths, FsPath dest_path)
         {
-            this._adls_filesys_rest_client.ConcatConcat(this.Account, src_paths,dest_path);
+            this._adls_filesys_rest_client.Concat(this.Account, src_paths,dest_path);
         }
 
         public void ClearFileExpiry(FsPath path)

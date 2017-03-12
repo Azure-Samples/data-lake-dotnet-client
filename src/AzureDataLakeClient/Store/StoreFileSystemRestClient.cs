@@ -95,7 +95,7 @@ namespace AzureDataLakeClient.Store
             this._adls_filesys_rest_client.FileSystem.Append(account, file.ToString(), steamContents);
         }
 
-        public void ConcatConcat(string account, IEnumerable<FsPath> src_paths, FsPath dest_path)
+        public void Concat(string account, IEnumerable<FsPath> src_paths, FsPath dest_path)
         {
             var src_file_strings = src_paths.Select(i => i.ToString()).ToList();
             this._adls_filesys_rest_client.FileSystem.Concat(account, dest_path.ToString(), src_file_strings);
