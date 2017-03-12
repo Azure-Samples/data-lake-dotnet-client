@@ -115,7 +115,7 @@
     <Compile Include="Analytics\AnalyticsAccount.cs" />
     <Compile Include="Analytics\Clients\AnalyticsCatalogRestClient.cs" />
     <Compile Include="Analytics\Clients\AnalyticsJobsRestClient.cs" />
-    <Compile Include="Analytics\Clients\AnalyticsAccountManagmentClient.cs" />
+    <Compile Include="Analytics\Clients\AnalyticsAccountManagmentRestClient.cs" />
     <Compile Include="Analytics\AnalyticsAccountUri.cs" />
     <Compile Include="Analytics\Commands\CatalogCommands.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />

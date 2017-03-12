@@ -4,11 +4,11 @@ using ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Analytics.Clients
 {
-    public class AnalyticsAccountManagmentClient
+    public class AnalyticsAccountManagmentRestClient
     {
         private ADL.Analytics.DataLakeAnalyticsAccountManagementClient _adla_acctmgmt_client;
 
-        public AnalyticsAccountManagmentClient(AzureDataLakeClient.Rm.Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
+        public AnalyticsAccountManagmentRestClient(AzureDataLakeClient.Rm.Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
             this._adla_acctmgmt_client = new ADL.Analytics.DataLakeAnalyticsAccountManagementClient(creds);
             this._adla_acctmgmt_client.SubscriptionId = sub.ID;
