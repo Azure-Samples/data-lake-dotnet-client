@@ -14,13 +14,13 @@ namespace AzureDataLakeClient.Analytics
             this._client = new Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsJobManagementClient(this._creds);
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobGet(AnalyticsUri analyticsaccount, System.Guid jobid)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobGet(AnalyticsAccountUri analyticsaccount, System.Guid jobid)
         {
             var job = this._client.Job.Get(analyticsaccount.Name, jobid);
             return job;
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> JobList(AnalyticsUri account,
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> JobList(AnalyticsAccountUri account,
             Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> odata_query, int top)
         {
             // Other parameters
@@ -45,7 +45,7 @@ namespace AzureDataLakeClient.Analytics
 
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobCreate(AnalyticsUri account
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobCreate(AnalyticsAccountUri account
             , SubmitJobOptions options)
         {
             var parameters = CreateNewJobProperties(options);
@@ -74,13 +74,13 @@ namespace AzureDataLakeClient.Analytics
             return parameters;
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobStatistics GetStatistics(AnalyticsUri account, System.Guid jobid)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobStatistics GetStatistics(AnalyticsAccountUri account, System.Guid jobid)
         {
             var stats = this._client.Job.GetStatistics(account.Name, jobid);
             return stats;
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobDataPath GetDebugDataPath(AnalyticsUri account, System.Guid jobid)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobDataPath GetDebugDataPath(AnalyticsAccountUri account, System.Guid jobid)
         {
             var jobdatapath = this._client.Job.GetDebugDataPath(account.Name, jobid);
             return jobdatapath;

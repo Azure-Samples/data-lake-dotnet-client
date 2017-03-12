@@ -10,7 +10,7 @@ namespace ADL_Client_Demo
         private static void Main(string[] args)
         {
             string tenant = "microsoft.onmicrosoft.com"; // change this to YOUR tenant
-            var adla_account = new AzureDataLakeClient.Analytics.AnalyticsUri("datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
+            var adla_account = new AzureDataLakeClient.Analytics.AnalyticsAccountUri("datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
             var adls_account = new AzureDataLakeClient.Store.StoreUri("datainsightsadhoc"); // change this to an ADL Store account you have access to 
 
             var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession("ADL_Demo_Client", tenant);
