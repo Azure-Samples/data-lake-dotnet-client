@@ -7,7 +7,7 @@ namespace AzureDataLakeClient.Analytics
 {
     public class AnalyticsJobsRestClient
     {
-        public ADL.Analytics.DataLakeAnalyticsJobManagementClient _client;
+        private ADL.Analytics.DataLakeAnalyticsJobManagementClient _client;
         private Microsoft.Rest.ServiceClientCredentials _creds;
 
         public AnalyticsJobsRestClient(Microsoft.Rest.ServiceClientCredentials creds)
@@ -75,6 +75,18 @@ namespace AzureDataLakeClient.Analytics
             return parameters;
         }
 
+        public ADL.Analytics.Models.JobStatistics GetStatistics(string account, System.Guid jobid)
+        {
+            var stats = this._client.Job.GetStatistics(account, jobid);
+            return stats;
+        }
+
+        public ADL.Analytics.Models.JobDataPath GetDebugDataPath(string account, System.Guid jobid)
+        {
+            var jobdatapath = this._client.Job.GetDebugDataPath(account, jobid);
+            return jobdatapath;
+        }
+
     }
 
     public class AnalyticsJobClient : AccountClientBase
@@ -137,17 +149,14 @@ namespace AzureDataLakeClient.Analytics
             return job_info;
         }
 
-
         public ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            var stats = this._adla_job_rest_client._client.Job.GetStatistics(this.Account, jobid);
-            return stats;
+            return this._adla_job_rest_client.GetStatistics(this.Account, jobid);
         }
 
         public ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            var jobdatapath = this._adla_job_rest_client._client.Job.GetDebugDataPath(this.Account, jobid);
-            return jobdatapath;
+            return this._adla_job_rest_client.GetDebugDataPath(this.Account, jobid);
         }
     }
 }
