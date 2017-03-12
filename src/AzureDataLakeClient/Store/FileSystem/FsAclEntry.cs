@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AzureDataLakeClient.Store
+namespace AzureDataLakeClient.Store.FileSystem
 {
     public class FsAclEntry
     {

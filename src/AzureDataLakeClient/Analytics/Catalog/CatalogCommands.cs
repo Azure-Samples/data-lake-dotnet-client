@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using AzureDataLakeClient.Rest;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Analytics.Commands
+namespace AzureDataLakeClient.Analytics.Catalog
 {
     public class CatalogCommands
     {

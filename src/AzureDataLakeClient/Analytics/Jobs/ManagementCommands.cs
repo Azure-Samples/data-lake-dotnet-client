@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
 
-namespace AzureDataLakeClient.Analytics.Commands
+namespace AzureDataLakeClient.Analytics.Jobs
 {
     public class ManagementCommands
     {

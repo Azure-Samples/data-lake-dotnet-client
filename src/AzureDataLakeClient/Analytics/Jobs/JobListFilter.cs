@@ -2,7 +2,7 @@ using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.OData;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Jobs
 {
     public class JobListFilter
     {

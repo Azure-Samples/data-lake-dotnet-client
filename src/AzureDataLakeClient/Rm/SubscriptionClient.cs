@@ -3,7 +3,7 @@ using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient
+namespace AzureDataLakeClient.Rm
 {
     public class SubscriptionClient: ClientBase
     {

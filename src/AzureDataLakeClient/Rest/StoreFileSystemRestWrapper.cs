@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AzureDataLakeClient.Store;
+using AzureDataLakeClient.Store.FileSystem;
 using Microsoft.Azure.Management.DataLake.Store;
 using Microsoft.Azure.Management.DataLake.Store.Models;
 using ADL = Microsoft.Azure.Management.DataLake;

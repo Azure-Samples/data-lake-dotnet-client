@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.Store
+namespace AzureDataLakeClient.Store.FileSystem
 {
     public class DownloadOptions
     {

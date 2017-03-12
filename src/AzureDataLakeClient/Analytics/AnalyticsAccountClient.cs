@@ -1,4 +1,5 @@
-using AzureDataLakeClient.Analytics.Commands;
+using AzureDataLakeClient.Analytics.Catalog;
+using AzureDataLakeClient.Analytics.Jobs;
 using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
 

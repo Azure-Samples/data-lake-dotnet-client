@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using AzureDataLakeClient.Analytics.Commands;
+using AzureDataLakeClient.Analytics.Jobs;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,7 +12,7 @@ namespace ADL_Client_Tests.Analytics
         public void Verify_Default_Top()
         {
             this.Initialize();
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
             Assert.IsTrue(jobs.Count>2);
@@ -23,7 +23,7 @@ namespace ADL_Client_Tests.Analytics
         public void Verify_Paging_1()
         {
             this.Initialize();
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 100;
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
@@ -34,7 +34,7 @@ namespace ADL_Client_Tests.Analytics
         public void Verify_Paging_300()
         {
             this.Initialize();
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = JobCommands.ADLJobPageSize;
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
@@ -45,7 +45,7 @@ namespace ADL_Client_Tests.Analytics
         public void Verify_Paging_400()
         {
             this.Initialize();
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
             var top = JobCommands.ADLJobPageSize + (JobCommands.ADLJobPageSize/2);
             getjobs_options.Top = top;
 
@@ -59,12 +59,12 @@ namespace ADL_Client_Tests.Analytics
         {
             this.Initialize();
 
-            var jobfields = new AzureDataLakeClient.Analytics.JobListFields();
+            var jobfields = new JobListFields();
 
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 30;
             getjobs_options.Sorting.Field = jobfields.field_degreeofparallelism;
-            getjobs_options.Sorting.Direction = AzureDataLakeClient.Analytics.OrderByDirection.Descending;
+            getjobs_options.Sorting.Direction = OrderByDirection.Descending;
 
             foreach (var job in this.adla_account_client.Jobs.GetJobs(getjobs_options))
             {
@@ -76,7 +76,7 @@ namespace ADL_Client_Tests.Analytics
         public void Submit_Job_with_Syntax_Error()
         {
             this.Initialize();
-            var sjo = new AzureDataLakeClient.Analytics.SubmitJobOptions();
+            var sjo = new SubmitJobOptions();
             sjo.ScriptText = "FOOBAR";
             sjo.JobName = "Test Job";
             var ji = this.adla_account_client.Jobs.SubmitJob(sjo);
@@ -92,7 +92,7 @@ namespace ADL_Client_Tests.Analytics
         public void List_Jobs_Ended()
         {
             this.Initialize();
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 30;
             getjobs_options.Filter.State.OneOf(JobState.Ended);
 
@@ -110,7 +110,7 @@ namespace ADL_Client_Tests.Analytics
         public void List_Jobs_Running()
         {
             this.Initialize();
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 30;
             getjobs_options.Filter.State.OneOf(JobState.Running);
 
@@ -128,7 +128,7 @@ namespace ADL_Client_Tests.Analytics
         public void List_Jobs_Ended_Failed()
         {
             this.Initialize();
-            var getjobs_options = new AzureDataLakeClient.Analytics.GetJobsOptions();
+            var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 30;
             getjobs_options.Filter.State.OneOf( JobState.Ended);
             getjobs_options.Filter.Result.OneOf( JobResult.Failed);

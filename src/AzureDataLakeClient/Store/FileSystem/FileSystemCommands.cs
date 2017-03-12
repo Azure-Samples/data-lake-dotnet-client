@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AzureDataLakeClient.Rest;
 using Microsoft.Azure.Management.DataLake.Store.Models;
 
-namespace AzureDataLakeClient.Store
+namespace AzureDataLakeClient.Store.FileSystem
 {
     public class FileSystemCommands 
     {

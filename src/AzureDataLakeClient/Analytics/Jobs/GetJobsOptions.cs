@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Jobs
 {
     public class GetJobsOptions
     {
@@ -11,7 +11,7 @@ namespace AzureDataLakeClient.Analytics
             this.Filter = new JobListFilter();
             this.Sorting = new JobListSorting();
 
-            var jobfields = new AzureDataLakeClient.Analytics.JobListFields();
+            var jobfields = new JobListFields();
             this.Sorting.Direction = OrderByDirection.Descending;
             this.Sorting.Field = jobfields.field_submittime;
         }

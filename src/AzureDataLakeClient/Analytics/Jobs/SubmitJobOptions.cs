@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.Analytics
+namespace AzureDataLakeClient.Analytics.Jobs
 {
     public class SubmitJobOptions
     {

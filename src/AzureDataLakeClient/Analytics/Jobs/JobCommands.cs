@@ -3,7 +3,7 @@ using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Analytics.Commands
+namespace AzureDataLakeClient.Analytics.Jobs
 {
     public class JobCommands
     {

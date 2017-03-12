@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AzureDataLakeClient.Analytics;
+using AzureDataLakeClient.Analytics.Jobs;
 using Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AzureDataLakeClient.Rest

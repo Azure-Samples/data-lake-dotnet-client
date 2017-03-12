@@ -1,5 +1,6 @@
 using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
+using AzureDataLakeClient.Store.FileSystem;
 
 namespace AzureDataLakeClient.Store
 {
