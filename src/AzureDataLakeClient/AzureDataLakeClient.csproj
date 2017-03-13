@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsAccount.cs" />
+    <Compile Include="AnalyticsResourceCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="OData\Utils\FilterCategory.cs" />
@@ -191,11 +192,12 @@
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="FileSystem\UploadOptions.cs" />
+    <Compile Include="StoreResourceCommands.cs" />
     <Compile Include="StringUtil.cs" />
     <Compile Include="Jobs\SubmitJobOptions.cs" />
     <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Jobs\GetJobsOptions.cs" />
-    <Compile Include="SubscriptionClient.cs" />
+    <Compile Include="ResourceClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />
     <Compile Include="FileSystem\FsAcl.cs" />

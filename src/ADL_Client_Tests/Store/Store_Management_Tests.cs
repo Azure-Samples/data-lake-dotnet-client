@@ -19,7 +19,7 @@ namespace ADL_Client_Tests.Store
         public void List_ADLS_Accounts()
         {
             this.Initialize();
-            var adls_accounts = this.sub_client.ListStoreAccounts();
+            var adls_accounts = this.sub_client.Store.ListAccounts();
             foreach (var a in adls_accounts)
             {
                 System.Console.WriteLine("Store {0} ", a.Name);

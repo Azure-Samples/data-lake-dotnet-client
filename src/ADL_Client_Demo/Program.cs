@@ -21,7 +21,7 @@ namespace ADL_Client_Demo
 
             var adla_client = new ADLC.AnalyticsClient(adla_account, auth_session);
             var adls_client = new ADLC.StoreClient(adls_account, auth_session);
-            var sub_client = new ADLC.SubscriptionClient(sub, auth_session);
+            var res_client = new ADLC.ResourceClient(sub, auth_session);
 
             Demo_Jobs_List_NeverStarted(adla_client);
 
@@ -38,10 +38,10 @@ namespace ADL_Client_Demo
             Demo_Jobs_List_SubmittedBy_UserContains(adla_client);
             Demo_Jobs_List_MostExpensive_In_Last24hours(adla_client);
             Demo_Catalog_ListDatabases(adla_client);
-            Demo_Catalog_ListDataLakeStoreAccountsInSubscription(sub_client);
+            Demo_Catalog_ListDataLakeStoreAccountsInSubscription(res_client);
             Demo_AnalyticsAccount_List_LinkedStoreAccounts(adla_client);
             Demo_FileSystem_ListFilesAtRoot(adls_client);            
-            Demo_Subscription_List_AnalyticsAccounts(sub_client);
+            Demo_Subscription_List_AnalyticsAccounts(res_client);
         }
 
         private static void Demo_FileSystem_ListFilesAtRoot(ADLC.StoreClient adls_client)
@@ -215,9 +215,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_Subscription_List_AnalyticsAccounts(ADLC.SubscriptionClient sub_client)
+        private static void Demo_Subscription_List_AnalyticsAccounts(ADLC.ResourceClient res_client)
         {
-            var storage_accounts = sub_client.ListAnalyticsAccounts().ToList();
+            var storage_accounts = res_client.Analytics.ListAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
@@ -239,9 +239,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_Catalog_ListDataLakeStoreAccountsInSubscription(ADLC.SubscriptionClient sub_client)
+        private static void Demo_Catalog_ListDataLakeStoreAccountsInSubscription(ADLC.ResourceClient res_client)
         {
-            var storage_accounts = sub_client.ListStoreAccounts().ToList();
+            var storage_accounts = res_client.Store.ListAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
