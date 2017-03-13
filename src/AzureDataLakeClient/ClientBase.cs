@@ -9,3 +9,4 @@ namespace AzureDataLakeClient
             this.AuthenticatedSession = auth_session;
         }
     }
+}
