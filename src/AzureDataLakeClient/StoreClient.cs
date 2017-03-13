@@ -4,7 +4,7 @@ using AzureDataLakeClient.Rest;
 
 namespace AzureDataLakeClient
 {
-    public class StoreAccountClient : ClientBase
+    public class StoreClient : ClientBase
     {
         private StoreFileSystemRestWrapper _FileSystemRest;
         private StoreManagementRestWrapper _StoreAccountMgmtRest;
@@ -12,7 +12,7 @@ namespace AzureDataLakeClient
 
         public readonly FileSystemCommands FileSystem;
 
-        public StoreAccountClient(StoreAccount store, AuthenticatedSession authSession) :
+        public StoreClient(StoreAccount store, AuthenticatedSession authSession) :
             base(authSession)
         {
             this._StoreAccount = store;

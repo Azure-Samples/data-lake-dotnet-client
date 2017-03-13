@@ -12,14 +12,14 @@ namespace ADL_Client_Tests.Store
         {
             var dir = new FsPath("/test_adl_demo_client");
 
-            if (this.adls_account_client.FileSystem.Exists(dir))
+            if (this.AdlsClient.FileSystem.Exists(dir))
             {
-                this.adls_account_client.FileSystem.Delete(dir, true);
+                this.AdlsClient.FileSystem.Delete(dir, true);
             }
 
-            this.adls_account_client.FileSystem.CreateDirectory(dir);
+            this.AdlsClient.FileSystem.CreateDirectory(dir);
 
-            if (!this.adls_account_client.FileSystem.Exists(dir))
+            if (!this.AdlsClient.FileSystem.Exists(dir))
             {
                 Assert.Fail();
             }
@@ -33,16 +33,16 @@ namespace ADL_Client_Tests.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.adls_account_client.FileSystem.Exists(fname))
+            if (this.AdlsClient.FileSystem.Exists(fname))
             {
-                this.adls_account_client.FileSystem.Delete(fname);
+                this.AdlsClient.FileSystem.Delete(fname);
             }
 
             var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
-            this.adls_account_client.FileSystem.Create(fname, "HelloWorld", cfo);
+            this.AdlsClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
-            var permissions_before = this.adls_account_client.FileSystem.GetAclStatus(fname);
+            var permissions_before = this.AdlsClient.FileSystem.GetAclStatus(fname);
 
             Assert.AreEqual(true, permissions_before.OwnerPermission.Value.Read);
             Assert.AreEqual(true, permissions_before.OwnerPermission.Value.Write);
@@ -57,9 +57,9 @@ namespace ADL_Client_Tests.Store
             Assert.AreEqual(false, permissions_before.OtherPermission.Value.Execute);
 
             var modified_entry = new FsAclEntry( AclType.Other,null, new FsPermission("r-x"));
-            this.adls_account_client.FileSystem.ModifyAclEntries(fname, modified_entry);
+            this.AdlsClient.FileSystem.ModifyAclEntries(fname, modified_entry);
 
-            var permissions_after = this.adls_account_client.FileSystem.GetAclStatus(fname);
+            var permissions_after = this.AdlsClient.FileSystem.GetAclStatus(fname);
 
             Assert.AreEqual(true, permissions_after.OwnerPermission.Value.Read);
             Assert.AreEqual(true, permissions_after.OwnerPermission.Value.Write);
@@ -81,16 +81,16 @@ namespace ADL_Client_Tests.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.adls_account_client.FileSystem.Exists(fname))
+            if (this.AdlsClient.FileSystem.Exists(fname))
             {
-                this.adls_account_client.FileSystem.Delete(fname);
+                this.AdlsClient.FileSystem.Delete(fname);
             }
 
             var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
-            this.adls_account_client.FileSystem.Create(fname, "HelloWorld", cfo);
+            this.AdlsClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
-            var permissions_before = this.adls_account_client.FileSystem.GetAclStatus(fname);
+            var permissions_before = this.AdlsClient.FileSystem.GetAclStatus(fname);
 
             // find all the named user entries that have write access
             var entries_before = permissions_before.Entries.Where(e => e.Type == AclType.NamedUser).Where(e=>e.Permission.Value.Write).ToList();
@@ -99,9 +99,9 @@ namespace ADL_Client_Tests.Store
             // Remove write access for all those entries
             var perms_mask = new FsPermission("r-x");
             var new_acls = entries_before.Select(e => e.AndWith(perms_mask));
-            this.adls_account_client.FileSystem.SetAcl(fname, new_acls);
+            this.AdlsClient.FileSystem.SetAcl(fname, new_acls);
  
-            var permissions_after = this.adls_account_client.FileSystem.GetAclStatus(fname);
+            var permissions_after = this.AdlsClient.FileSystem.GetAclStatus(fname);
             // find all the named user entries that have write access
             var entries_after = permissions_after.Entries.Where(e => e.Type == AclType.NamedUser).Where(e => e.Permission.Value.Write).ToList();
             // verify that there are no such entries
@@ -115,22 +115,22 @@ namespace ADL_Client_Tests.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.adls_account_client.FileSystem.Exists(fname))
+            if (this.AdlsClient.FileSystem.Exists(fname))
             {
-                this.adls_account_client.FileSystem.Delete(fname);
+                this.AdlsClient.FileSystem.Delete(fname);
             }
 
             var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
-            this.adls_account_client.FileSystem.Create(fname, "HelloWorld", cfo);
+            this.AdlsClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
-            var permissions_before = this.adls_account_client.FileSystem.GetAclStatus(fname);
+            var permissions_before = this.AdlsClient.FileSystem.GetAclStatus(fname);
 
             // copy the entries except for the named users
             var new_entries = permissions_before.Entries.Where(e => e.Type != AclType.NamedUser).ToList();
-            this.adls_account_client.FileSystem.SetAcl(fname, new_entries);
+            this.AdlsClient.FileSystem.SetAcl(fname, new_entries);
 
-            var permissions_after = this.adls_account_client.FileSystem.GetAclStatus(fname);
+            var permissions_after = this.AdlsClient.FileSystem.GetAclStatus(fname);
             // find all the named user entries that have write access
             var entries_after = permissions_after.Entries.Where(e => e.Type == AclType.NamedUser).ToList();
             // verify that there are no such entries
