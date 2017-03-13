@@ -1,4 +1,4 @@
-﻿using AzureDataLakeClient.Store.FileSystem;
+﻿using AzureDataLakeClient.FileSystem;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ADL_Client_Tests.Store

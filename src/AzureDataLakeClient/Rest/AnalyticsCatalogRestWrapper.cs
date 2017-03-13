@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;

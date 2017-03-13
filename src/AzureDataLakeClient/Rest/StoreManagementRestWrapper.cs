@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Rm;
-using AzureDataLakeClient.Store;
 using Microsoft.Azure.Management.DataLake.Store;
 
 namespace AzureDataLakeClient.Rest
