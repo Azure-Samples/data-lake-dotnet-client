@@ -69,11 +69,11 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmittedByMe(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        private static void Demo_GetJobsSubmittedByAuthenticatedUser(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
         {
             var opts = new GetJobsOptions();
             opts.Top = 10;
-            opts.Filter.SubmitterIsCurrentUser = true;
+            opts.Filter.Submitter.OneOf(adla_client.AuthenticatedSession.Token.DisplayableId);
 
             var jobs = adla_client.Jobs.GetJobs(opts);
 
