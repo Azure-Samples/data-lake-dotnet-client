@@ -21,7 +21,7 @@ namespace AzureDataLakeClient.Analytics.Jobs
 
         public ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
         {
-            var job = this._adlaJobRestWrapper.JobGet(this.account.GetUri(), jobid);
+            var job = this._adlaJobRestWrapper.JobGet(this.account, jobid);
             return job;
         }
 
@@ -39,7 +39,7 @@ namespace AzureDataLakeClient.Analytics.Jobs
             odata_query.Filter = options.Filter.ToFilterString();
 
 
-            var jobs = this._adlaJobRestWrapper.JobList(this.account.GetUri(), odata_query, options.Top);
+            var jobs = this._adlaJobRestWrapper.JobList(this.account, odata_query, options.Top);
             foreach (var job in jobs)
             {
                 var j = new JobInfo(job, this.account);
@@ -62,18 +62,18 @@ namespace AzureDataLakeClient.Analytics.Jobs
                 options.JobName = "USQL " + System.DateTimeOffset.Now.ToString();
             }
 
-            var job_info = this._adlaJobRestWrapper.JobCreate(this.account.GetUri(), options);
+            var job_info = this._adlaJobRestWrapper.JobCreate(this.account, options);
             return job_info;
         }
 
         public ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            return this._adlaJobRestWrapper.GetStatistics(this.account.GetUri(), jobid);
+            return this._adlaJobRestWrapper.GetStatistics(this.account, jobid);
         }
 
         public ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            return this._adlaJobRestWrapper.GetDebugDataPath(this.account.GetUri(), jobid);
+            return this._adlaJobRestWrapper.GetDebugDataPath(this.account, jobid);
         }
 
 

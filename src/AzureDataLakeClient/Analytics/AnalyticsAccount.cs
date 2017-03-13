@@ -12,10 +12,5 @@
             this.Subscription = sub;
             this.ResourceGroup = rg;
         }
-
-        public AnalyticsAccountUri GetUri()
-        {
-            return new AnalyticsAccountUri(this.Name);
-        }
     }
 }
