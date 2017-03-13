@@ -1,3 +1,5 @@
+using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
+
 namespace AzureDataLakeClient.Jobs
 {
     public class SubmitJobOptions
@@ -5,5 +7,26 @@ namespace AzureDataLakeClient.Jobs
         public System.Guid JobID;
         public string JobName;
         public string ScriptText;
+        public int? AUs;
+        public int? Priorty;
+
+        public MSADLA.Models.JobInformation CreateNewJobProperties()
+        {
+            var jobprops = new MSADLA.Models.USqlJobProperties();
+            jobprops.Script = this.ScriptText;
+
+            var jobType = MSADLA.Models.JobType.USql;
+            int dop = 1;
+
+            var job_info = new MSADLA.Models.JobInformation(
+                name: this.JobName,
+                type: jobType,
+                properties: jobprops,
+                priority: this.Priorty,
+                degreeOfParallelism: this.AUs,
+                jobId: this.JobID);
+            return job_info;
+        }
     }
+
 }

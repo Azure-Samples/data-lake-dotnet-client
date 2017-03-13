@@ -82,9 +82,9 @@ namespace ADL_Client_Tests.Analytics
             sjo.JobName = "Test Job";
             var ji = this.adla_account_client.Jobs.SubmitJob(sjo);
 
-            System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.JobId, ji.SubmitTime);
+            System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.Id, ji.SubmitTime);
 
-            var ji2 = this.adla_account_client.Jobs.GetJob(ji.JobId.Value);
+            var ji2 = this.adla_account_client.Jobs.GetJob(ji.Id.Value);
 
             Assert.AreEqual(ji.Name, ji2.Name);
         }
