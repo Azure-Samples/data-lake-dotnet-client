@@ -170,13 +170,13 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void PrintJobs(IEnumerable<ADLA.Models.JobInformation> jobs)
+        private static void PrintJobs(IEnumerable<AzureDataLakeClient.Analytics.Jobs.JobInfo> jobs)
         {
             foreach (var job in jobs)
             {
                 Console.WriteLine("------------------------------------------------------------");
                 Console.WriteLine("Name = {0}", job.Name);
-                Console.WriteLine("DoP = {0}; Priority = {1}", job.DegreeOfParallelism, job.Priority);
+                Console.WriteLine("DoP = {0}; Priority = {1}", job.AUs, job.Priority);
                 Console.WriteLine("Result = {0}; State = {1}", job.Result, job.State);
                 Console.WriteLine("SubmitTime = {0} [ Local = {1} ] ", job.SubmitTime.Value, job.SubmitTime.Value.ToLocalTime());
                 Console.WriteLine("Submitter = {0}", job.Submitter);

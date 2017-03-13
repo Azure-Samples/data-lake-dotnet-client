@@ -68,7 +68,7 @@ namespace ADL_Client_Tests.Analytics
 
             foreach (var job in this.adla_account_client.Jobs.GetJobs(getjobs_options))
             {
-                System.Console.WriteLine("submitter{0} dop {1}", job.Submitter, job.DegreeOfParallelism);
+                System.Console.WriteLine("submitter{0} dop {1}", job.Submitter, job.AUs);
             }
         }
 
