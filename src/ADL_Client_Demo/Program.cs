@@ -26,22 +26,23 @@ namespace ADL_Client_Demo
             var adls_client = new StoreAccountClient(adls_account, auth_session);
             var sub_client = new SubscriptionClient(sub, auth_session);
 
-            Demo_GetExactlyOneJob(adla_client);
-            Demo_Get10OldestJobs(adla_client);
-            Demo_Get10MostRecentJobs(adla_client);
-            Demo_Get5FailedJobs(adla_client);
-            Demo_GetJobsSubmittedByMe(adla_client);
-            Demo_GetJobsSubmittedByUsers(adla_client);
-            Demo_GetJobsSubmitedSinceMidnight(adla_client);
-            Demo_GetJobs_Submitter_Begins_With(adla_client);
-            Demo_GetJobs_Submitter_Contains(adla_client);
-
-            Demo_ListFilesAtRoot(adls_client);
-            Demo_ListLinkedDataLakeStoreAccounts(adla_client);
-
-            Demo_ListDataLakeAnalyticsAccountsInSubscription(sub_client);
-            Demo_ListDatabases(adla_client);
-            Demo_ListDataLakeStoreAccountsInSubscription(sub_client);
+            //Demo_GetExactlyOneJob(adla_client);
+            //Demo_Get10OldestJobs(adla_client);
+            //Demo_Get10MostRecentJobs(adla_client);
+            //Demo_Get5FailedJobs(adla_client);
+            //Demo_GetJobsSubmittedByMe(adla_client);
+            //Demo_GetJobsSubmittedByUsers(adla_client);
+            //Demo_GetJobsSubmitedSinceMidnight(adla_client);
+            //Demo_GetJobs_Submitter_Begins_With(adla_client);
+            //Demo_GetJobs_Submitter_Contains(adla_client);
+            Demo_GetTop10MostExpensiveSubmitedInLast24hours(adla_client);
+            //
+            //Demo_ListFilesAtRoot(adls_client);
+            //Demo_ListLinkedDataLakeStoreAccounts(adla_client);
+            //
+            //Demo_ListDataLakeAnalyticsAccountsInSubscription(sub_client);
+            //Demo_ListDatabases(adla_client);
+            //Demo_ListDataLakeStoreAccountsInSubscription(sub_client);
         }
 
         private static void Demo_ListFilesAtRoot(StoreAccountClient adls_client)
@@ -170,16 +171,27 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
+        private static void Demo_GetTop10MostExpensiveSubmitedInLast24hours(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        {
+            var opts = new GetJobsOptions();
+            opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(24));
+            var jobs = adla_client.Jobs.GetJobs(opts).OrderByDescending(j=>j.AUSeconds).Take(10).ToList();
+
+            PrintJobs(jobs);
+        }
+
         private static void PrintJobs(IEnumerable<AzureDataLakeClient.Analytics.Jobs.JobInfo> jobs)
         {
             foreach (var job in jobs)
             {
                 Console.WriteLine("------------------------------------------------------------");
                 Console.WriteLine("Name = {0}", job.Name);
-                Console.WriteLine("DoP = {0}; Priority = {1}", job.AUs, job.Priority);
+                Console.WriteLine("AUs = {0}", job.AUs);
+                Console.WriteLine("Priority = {0}", job.Priority);
                 Console.WriteLine("Result = {0}; State = {1}", job.Result, job.State);
                 Console.WriteLine("SubmitTime = {0} [ Local = {1} ] ", job.SubmitTime.Value, job.SubmitTime.Value.ToLocalTime());
                 Console.WriteLine("Submitter = {0}", job.Submitter);
+                Console.WriteLine("AUHours = {0}", job.AUSeconds / (60.0 * 60.0));
             }
         }
 
