@@ -1,5 +1,5 @@
-﻿using AzureDataLakeClient.Rm;
-using AzureDataLakeClient.Store;
+﻿using ADLC = AzureDataLakeClient;
+using MS_ADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Tests
 {
@@ -7,36 +7,35 @@ namespace ADL_Client_Tests
     {
         private bool init;
 
-        public AzureDataLakeClient.Authentication.AuthenticatedSession auth_session;
+        public ADLC.Authentication.AuthenticatedSession auth_session;
 
-        public AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_account_client;
-        public StoreAccountClient adls_account_client;
+        public ADLC.Analytics.AnalyticsAccountClient adla_account_client;
+        public ADLC.Store.StoreAccountClient adls_account_client;
         
-        public SubscriptionClient sub_client;
-        public AzureDataLakeClient.Rm.Subscription sub;
-        public AzureDataLakeClient.Rm.ResourceGroup rg;
+        public ADLC.Rm.SubscriptionClient sub_client;
+        public ADLC.Rm.Subscription sub;
+        public ADLC.Rm.ResourceGroup rg;
 
         public void Initialize()
         {
             if (this.init == false)
             {
-                var tenant = new AzureDataLakeClient.Authentication.Tenant("microsoft.onmicrosoft.com");
-                this.auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession(tenant);
+                var tenant = new ADLC.Authentication.Tenant("microsoft.onmicrosoft.com");
+                this.auth_session = new ADLC.Authentication.AuthenticatedSession(tenant);
                 auth_session.Authenticate();
 
-                this.sub = new AzureDataLakeClient.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
-                this.rg = new AzureDataLakeClient.Rm.ResourceGroup("InsightsServices");
+                this.sub = new ADLC.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
+                this.rg = new ADLC.Rm.ResourceGroup("InsightsServices");
 
-                var store_account = new AzureDataLakeClient.Store.StoreAccount("datainsightsadhoc",sub,rg);
-                var analytics_account = new AzureDataLakeClient.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg);
+                var store_account = new ADLC.Store.StoreAccount("datainsightsadhoc",sub,rg);
+                var analytics_account = new ADLC.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg);
                 this.init = true;
 
-                this.adls_account_client = new StoreAccountClient(store_account, auth_session);
+                this.adls_account_client = new ADLC.Store.StoreAccountClient(store_account, auth_session);
                 this.adla_account_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(analytics_account, auth_session);
-                this.sub_client = new SubscriptionClient(sub, auth_session);
+                this.sub_client = new ADLC.Rm.SubscriptionClient(sub, auth_session);
 
             }
         }
-
     }
 }

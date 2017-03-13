@@ -10,18 +10,18 @@ namespace ADL_Client_Demo
     {
         private static void Main(string[] args)
         {
-            var sub = new AzureDataLakeClient.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
-            var rg = new AzureDataLakeClient.Rm.ResourceGroup("InsightServices");
-            var adla_account = new AzureDataLakeClient.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg); // change this to an ADL Analytics account you have access to 
-            var adls_account = new AzureDataLakeClient.Store.StoreAccount("datainsightsadhoc", sub, rg); // change this to an ADL Store account you have access to 
+            var sub = new ADLC.Rm.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
+            var rg = new ADLC.Rm.ResourceGroup("InsightServices");
+            var adla_account = new ADLC.Analytics.AnalyticsAccount("datainsightsadhoc", sub, rg); // change this to an ADL Analytics account you have access to 
+            var adls_account = new ADLC.Store.StoreAccount("datainsightsadhoc", sub, rg); // change this to an ADL Store account you have access to 
 
-            var tenant = new AzureDataLakeClient.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
-            var auth_session = new AzureDataLakeClient.Authentication.AuthenticatedSession(tenant);
+            var tenant = new ADLC.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
+            var auth_session = new ADLC.Authentication.AuthenticatedSession(tenant);
             auth_session.Authenticate();
 
-            var adla_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(adla_account, auth_session);
+            var adla_client = new ADLC.Analytics.AnalyticsAccountClient(adla_account, auth_session);
             var adls_client = new ADLC.Store.StoreAccountClient(adls_account, auth_session);
-            var sub_client = new AzureDataLakeClient.Rm.SubscriptionClient(sub, auth_session);
+            var sub_client = new ADLC.Rm.SubscriptionClient(sub, auth_session);
 
             //Demo_GetExactlyOneJob(adla_client);
             //Demo_Get10OldestJobs(adla_client);
@@ -44,7 +44,7 @@ namespace ADL_Client_Demo
 
         private static void Demo_ListFilesAtRoot(ADLC.Store.StoreAccountClient adls_client)
         {
-            //var root = AzureDataLakeClient.Store.FsPath.Root; // same as "/"
+            //var root = ADLC.Store.FsPath.Root; // same as "/"
             var root = new ADLC.Store.FileSystem.FsPath("/Samples");
             var lfo = new ADLC.Store.FileSystem.ListFilesOptions();
             foreach (var page in adls_client.FileSystem.ListFilesPaged(root,lfo))
@@ -140,7 +140,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_Get5FailedJobs(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        private static void Demo_Get5FailedJobs(ADLC.Analytics.AnalyticsAccountClient adla_client)
         {
             var opts = new ADLC.Analytics.Jobs.GetJobsOptions();
             opts.Top = 5;
@@ -152,7 +152,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmitedInLast2hours(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        private static void Demo_GetJobsSubmitedInLast2hours(ADLC.Analytics.AnalyticsAccountClient adla_client)
         {
             var opts = new ADLC.Analytics.Jobs.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(2));
@@ -160,7 +160,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmitedSinceMidnight(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        private static void Demo_GetJobsSubmitedSinceMidnight(ADLC.Analytics.AnalyticsAccountClient adla_client)
         {
             var opts = new ADLC.Analytics.Jobs.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.SinceLocalMidnight());
@@ -168,7 +168,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetTop10MostExpensiveSubmitedInLast24hours(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        private static void Demo_GetTop10MostExpensiveSubmitedInLast24hours(ADLC.Analytics.AnalyticsAccountClient adla_client)
         {
             var opts = new ADLC.Analytics.Jobs.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(24));
@@ -177,7 +177,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void PrintJobs(IEnumerable<AzureDataLakeClient.Analytics.Jobs.JobInfo> jobs)
+        private static void PrintJobs(IEnumerable<ADLC.Analytics.Jobs.JobInfo> jobs)
         {
             foreach (var job in jobs)
             {
@@ -192,7 +192,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListLinkedDataLakeStoreAccounts(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        private static void Demo_ListLinkedDataLakeStoreAccounts(ADLC.Analytics.AnalyticsAccountClient adla_client)
         {
             var storage_accounts = adla_client.Management.ListLinkedDataLakeStoreAccounts().ToList();
             foreach (var i in storage_accounts)
@@ -203,7 +203,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(AzureDataLakeClient.Rm.SubscriptionClient sub_client)
+        private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(ADLC.Rm.SubscriptionClient sub_client)
         {
             var storage_accounts = sub_client.ListAnalyticsAccounts().ToList();
             foreach (var i in storage_accounts)
@@ -215,7 +215,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDatabases(AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_client)
+        private static void Demo_ListDatabases(ADLC.Analytics.AnalyticsAccountClient adla_client)
         {
             var databases = adla_client.Catalog.ListDatabases().ToList();
             foreach (var i in databases)
@@ -227,7 +227,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeStoreAccountsInSubscription(AzureDataLakeClient.Rm.SubscriptionClient sub_client)
+        private static void Demo_ListDataLakeStoreAccountsInSubscription(ADLC.Rm.SubscriptionClient sub_client)
         {
             var storage_accounts = sub_client.ListStoreAccounts().ToList();
             foreach (var i in storage_accounts)
