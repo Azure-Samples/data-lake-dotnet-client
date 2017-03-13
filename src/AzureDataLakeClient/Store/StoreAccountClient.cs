@@ -13,7 +13,7 @@ namespace AzureDataLakeClient.Store
         public readonly FileSystemCommands FileSystem;
 
         public StoreAccountClient(StoreAccount store, AuthenticatedSession authSession) :
-            base(store.Name,authSession)
+            base(authSession)
         {
             this._StoreAccount = store;
             this._FileSystemRest  = new StoreFileSystemRestWrapper(authSession.Credentials);

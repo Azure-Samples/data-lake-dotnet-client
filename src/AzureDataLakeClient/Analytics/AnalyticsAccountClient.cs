@@ -16,7 +16,7 @@ namespace AzureDataLakeClient.Analytics
         public readonly ManagementCommands Management;
 
         public AnalyticsAccountClient(AnalyticsAccount account, AuthenticatedSession authSession) :
-            base(account.Name, authSession)
+            base(authSession)
         {
             this._JobRest = new AnalyticsJobsRestWrapper(this.AuthenticatedSession.Credentials);
             this._CatalogRest = new AnalyticsCatalogRestWrapper(this.AuthenticatedSession.Credentials);
