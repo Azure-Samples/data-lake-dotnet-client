@@ -1,10 +1,22 @@
 ﻿namespace AzureDataLakeClient.OData.Utils
 {
-    public enum FilterCategory
+    public enum DateTimeFilterCategory
     {
         Empty,
-        Range,
         IsNull,
-        IsNotNull
+        IsNotNull,
+        Range
+    }
+
+    public enum StringFilterCategory
+    {
+        Empty,
+        IsNull,
+        IsNotNull,
+        IsOneOf,
+        BeginsWith,
+        EndWith,
+        Contains
     }
 }
+ 

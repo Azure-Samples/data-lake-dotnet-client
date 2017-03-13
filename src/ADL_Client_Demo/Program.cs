@@ -71,7 +71,7 @@ namespace ADL_Client_Demo
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
-            opts.Filter.Submitter.OneOf(adla_client.AuthenticatedSession.Token.DisplayableId);
+            opts.Filter.Submitter.IsOneOf(adla_client.AuthenticatedSession.Token.DisplayableId);
 
             var jobs = adla_client.Jobs.GetJobs(opts);
 
@@ -83,7 +83,7 @@ namespace ADL_Client_Demo
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
-            opts.Filter.Submitter.OneOf("mrys@microsoft.com", "saveenr@microsoft.com");
+            opts.Filter.Submitter.IsOneOf("mrys@microsoft.com", "saveenr@microsoft.com");
 
             var jobs = adla_client.Jobs.GetJobs(opts);
 
@@ -175,7 +175,6 @@ namespace ADL_Client_Demo
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 2;
             opts.Filter.StartTime.IsNull();
-            opts.Filter.StartTime.Name = "FOOOOO";
             var jobs = adla_client.Jobs.GetJobs(opts).ToList();
             PrintJobs(jobs);
         }

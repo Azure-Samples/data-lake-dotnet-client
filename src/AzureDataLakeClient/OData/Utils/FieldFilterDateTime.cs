@@ -7,39 +7,38 @@ namespace AzureDataLakeClient.OData.Utils
     {
         private RangeDateTime range;
         public bool Inclusive;
-        private FilterCategory category;
-        public string Name = "U";
+        private DateTimeFilterCategory Category;
 
         public FieldFilterDateTime(ExprField field) :
             base(field)
         {
             this.Inclusive = true;
-            this.category = FilterCategory.Empty;
+            this.Category = DateTimeFilterCategory.Empty;
         }
 
         public void InRange(RangeDateTime range)
         {
-            this.category = FilterCategory.Range;
+            this.Category = DateTimeFilterCategory.Range;
             this.range = range;
         }
 
         public void IsNull()
         {
-            this.category = FilterCategory.IsNull;
+            this.Category = DateTimeFilterCategory.IsNull;
         }
 
         public void IsNotNull()
         {
-            this.category = FilterCategory.IsNotNull;
+            this.Category = DateTimeFilterCategory.IsNotNull;
         }
 
         public override Expr ToExpression()
         {
-            if (this.category == FilterCategory.Empty)
+            if (this.Category == DateTimeFilterCategory.Empty)
             {
                 return null;
             }
-            else if (this.category == FilterCategory.Range)
+            else if (this.Category == DateTimeFilterCategory.Range)
             {
                 // The range must have at least one bound
                 if (!this.range.IsBounded)
@@ -68,23 +67,18 @@ namespace AzureDataLakeClient.OData.Utils
 
                 return expr_and;
             }
-            else if (this.category ==  FilterCategory.IsNull)
+            else if (this.Category ==  DateTimeFilterCategory.IsNull)
             {
-                var op = ComparisonOperation.Equals;
-                var expr_null = new ExprNull();
-                var expr_compare = Expr.GetExprComparison(this.expr_field, expr_null, op);
-                return expr_compare;                
+                return CreateIsNullExpr();
             }
-            else if (this.category == FilterCategory.IsNotNull)
+            else if (this.Category == DateTimeFilterCategory.IsNotNull)
             {
-                var op = ComparisonOperation.NotEquals;
-                var expr_null = new ExprNull();
-                var expr_compare = Expr.GetExprComparison(this.expr_field, expr_null, op);
-                return expr_compare;
+                return CreateIsNotNullExpr();
             }
             else
             {
-                throw new System.ArgumentException("Unhandled filter category");
+                string msg = string.Format("Unhandled datetime filter category: \"{0}\"", this.Category);
+                throw new System.ArgumentException(msg);
             }
         }
     }
