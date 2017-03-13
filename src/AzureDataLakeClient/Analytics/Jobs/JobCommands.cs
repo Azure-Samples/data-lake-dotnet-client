@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
-using ADL = Microsoft.Azure.Management.DataLake;
+using MSD_ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Analytics.Jobs
 {
@@ -19,7 +18,7 @@ namespace AzureDataLakeClient.Analytics.Jobs
             this._adlaJobRestWrapper = c;
         }
 
-        public ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
+        public MSD_ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
         {
             var job = this._adlaJobRestWrapper.JobGet(this.account, jobid);
             return job;
@@ -27,7 +26,7 @@ namespace AzureDataLakeClient.Analytics.Jobs
 
         public IEnumerable<JobInfo> GetJobs(GetJobsOptions options)
         {
-            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<ADL.Analytics.Models.JobInformation>();
+            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSD_ADL.Analytics.Models.JobInformation>();
 
             // if users requests top, set the value appropriately relative to the page size
             if ((options.Top > 0) && (options.Top <= JobCommands.ADLJobPageSize))
@@ -47,7 +46,7 @@ namespace AzureDataLakeClient.Analytics.Jobs
             }
         }
 
-        public ADL.Analytics.Models.JobInformation SubmitJob(SubmitJobOptions options)
+        public MSD_ADL.Analytics.Models.JobInformation SubmitJob(SubmitJobOptions options)
         {
             // If caller doesn't provide a guid, then create a new one
             if (options.JobID == default(System.Guid))
@@ -66,12 +65,12 @@ namespace AzureDataLakeClient.Analytics.Jobs
             return job_info;
         }
 
-        public ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
+        public MSD_ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
             return this._adlaJobRestWrapper.GetStatistics(this.account, jobid);
         }
 
-        public ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
+        public MSD_ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
             return this._adlaJobRestWrapper.GetDebugDataPath(this.account, jobid);
         }

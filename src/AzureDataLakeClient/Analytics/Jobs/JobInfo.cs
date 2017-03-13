@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Azure.Management.DataLake.Analytics.Models;
+using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AzureDataLakeClient.Analytics.Jobs
 {
@@ -10,17 +10,17 @@ namespace AzureDataLakeClient.Analytics.Jobs
         public readonly string LogFolder;
         public readonly int? AUs;
         public readonly DateTimeOffset? EndTime;
-        public readonly IList<JobErrorDetails> ErrorMessage;
+        public readonly IList<MSADLA.Models.JobErrorDetails> ErrorMessage;
         public readonly Guid? Id;
         public readonly IList<string> LogFilePatterns;
         public readonly int? Priority;
-        public readonly JobProperties Properties;
-        public readonly JobResult? Result;
+        public readonly MSADLA.Models.JobProperties Properties;
+        public readonly MSADLA.Models.JobResult? Result;
         public readonly DateTimeOffset? StartTime;
-        public readonly JobState? State ;
-        public readonly IList<JobStateAuditRecord> StateAuditRecords;
+        public readonly MSADLA.Models.JobState? State ;
+        public readonly IList<MSADLA.Models.JobStateAuditRecord> StateAuditRecords;
         public readonly DateTimeOffset? SubmitTime;
-        public readonly JobType Type;
+        public readonly MSADLA.Models.JobType Type;
         public readonly string Submitter;
 
         public readonly AnalyticsAccount Account;
@@ -62,7 +62,7 @@ namespace AzureDataLakeClient.Analytics.Jobs
             }
         }
 
-        public JobInfo(JobInformation job, AnalyticsAccount acct)
+        internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccount acct)
         {
             this.Account = acct;
             this.Name = job.Name;

@@ -1,6 +1,5 @@
-using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.OData;
-using Microsoft.Azure.Management.DataLake.Analytics.Models;
+using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AzureDataLakeClient.Analytics.Jobs
 {
@@ -13,8 +12,8 @@ namespace AzureDataLakeClient.Analytics.Jobs
         public OData.Utils.FieldFilterDateTime EndTime;
         public OData.Utils.FieldFilterInteger DegreeOfParallelism;
         public OData.Utils.FieldFilterInteger Priority;
-        public OData.Utils.FieldFilterEnum<JobState> State;
-        public OData.Utils.FieldFilterEnum<JobResult> Result;
+        public OData.Utils.FieldFilterEnum<MSADLA.Models.JobState> State;
+        public OData.Utils.FieldFilterEnum<MSADLA.Models.JobResult> Result;
 
         public JobListFilter()
         {
@@ -27,8 +26,8 @@ namespace AzureDataLakeClient.Analytics.Jobs
             this.EndTime = new OData.Utils.FieldFilterDateTime(fields.field_endtime);
             this.DegreeOfParallelism = new OData.Utils.FieldFilterInteger(fields.field_degreeofparallelism);
             this.Priority = new OData.Utils.FieldFilterInteger(fields.field_priority);
-            this.State = new OData.Utils.FieldFilterEnum<JobState>(fields.field_state);
-            this.Result = new OData.Utils.FieldFilterEnum<JobResult>(fields.field_result);
+            this.State = new OData.Utils.FieldFilterEnum<MSADLA.Models.JobState>(fields.field_state);
+            this.Result = new OData.Utils.FieldFilterEnum<MSADLA.Models.JobResult>(fields.field_result);
         }
 
         public string ToFilterString()
