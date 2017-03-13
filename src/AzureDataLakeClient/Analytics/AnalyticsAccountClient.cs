@@ -5,7 +5,7 @@ using AzureDataLakeClient.Rest;
 
 namespace AzureDataLakeClient.Analytics
 {
-    public class AnalyticsAccountClient : AccountClientBase
+    public class AnalyticsAccountClient : AzureDataLakeClient.ClientBase
     {
         private AnalyticsJobsRestWrapper _JobRest;
         private AnalyticsCatalogRestWrapper _CatalogRest;

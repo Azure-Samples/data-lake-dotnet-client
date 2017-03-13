@@ -1,14 +1,11 @@
-using AzureDataLakeClient.Authentication;
-
 namespace AzureDataLakeClient
 {
     public class ClientBase
     {
-        public AuthenticatedSession AuthenticatedSession;
+        public AzureDataLakeClient.Authentication.AuthenticatedSession AuthenticatedSession;
 
-        public ClientBase(AuthenticatedSession auth_session)
+        public ClientBase(AzureDataLakeClient.Authentication.AuthenticatedSession auth_session)
         {
             this.AuthenticatedSession = auth_session;
         }
     }
-}

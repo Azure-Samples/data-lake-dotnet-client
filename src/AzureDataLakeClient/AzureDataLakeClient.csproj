@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsAccount.cs" />
     <Compile Include="Analytics\Jobs\JobInfo.cs" />
+    <Compile Include="ClientBase.cs" />
     <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
@@ -124,7 +125,6 @@
     <Compile Include="Analytics\Jobs\JobListSorting.cs" />
     <Compile Include="Analytics\Jobs\ManagementCommands.cs" />
     <Compile Include="Authentication\Tenant.cs" />
-    <Compile Include="ClientBase.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
     <Compile Include="OData\ExprDay.cs" />
     <Compile Include="OData\ExprEndsWith.cs" />
@@ -194,7 +194,6 @@
     <Compile Include="Analytics\Jobs\SubmitJobOptions.cs" />
     <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Analytics\Jobs\GetJobsOptions.cs" />
-    <Compile Include="AccountClientBase.cs" />
     <Compile Include="Rm\SubscriptionClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />
