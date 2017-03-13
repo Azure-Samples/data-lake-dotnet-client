@@ -257,8 +257,9 @@ namespace ADL_Client_Demo
             opts.Top = 300;
 
             opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
+            opts.Filter.StartTime.IsNotNull();
 
-            var failed_jobs = adla_client.Jobs.GetJobs(opts).Where( j=> j.StartTime != null ).ToList();
+            var failed_jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             var results = from job in failed_jobs
                           group job by job.Submitter into job_group
