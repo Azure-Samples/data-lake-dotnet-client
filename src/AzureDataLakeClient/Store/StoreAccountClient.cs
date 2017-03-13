@@ -6,18 +6,18 @@ namespace AzureDataLakeClient.Store
 {
     public class StoreAccountClient : AccountClientBase
     {
-        private StoreFileSystemRestWrapper _fsRestClientWrapper;
-        private StoreManagementRestWrapper _mgmt_rest_client;
-        private StoreAccount _store;
+        private StoreFileSystemRestWrapper _FileSystemRest;
+        private StoreManagementRestWrapper _StoreAccountMgmtRest;
+        private StoreAccount _StoreAccount;
 
         public readonly FileSystemCommands FileSystem;
 
         public StoreAccountClient(StoreAccount store, AuthenticatedSession authSession) :
             base(store.Name,authSession)
         {
-            this._store = store;
-            this._fsRestClientWrapper  = new StoreFileSystemRestWrapper(authSession.Credentials);
-            this.FileSystem = new FileSystemCommands(this._store, this._fsRestClientWrapper);
+            this._StoreAccount = store;
+            this._FileSystemRest  = new StoreFileSystemRestWrapper(authSession.Credentials);
+            this.FileSystem = new FileSystemCommands(this._StoreAccount, this._FileSystemRest);
 
         }
 
