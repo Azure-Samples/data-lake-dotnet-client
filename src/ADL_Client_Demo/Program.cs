@@ -25,23 +25,23 @@ namespace ADL_Client_Demo
 
             Demo_Jobs_List_NeverStarted(adla_client);
 
-            //Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla_client);
-            //Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
-            //Demo_Jobs_List_Recent(adla_client);
-            //Demo_Jobs_List_SingleMostRecent(adla_client);
-            //Demo_Jobs_List_Oldest(adla_client);
-            //Demo_Jobs_List_Failed(adla_client);
-            //Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla_client);
-            //Demo_Jobs_List_SubmittedBy_Users(adla_client);
-            //Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla_client);
-            //Demo_Jobs_List_SubmittedBy_UserBeginsWith(adla_client);
-            //Demo_Jobs_List_SubmittedBy_UserContains(adla_client);
-            //Demo_Jobs_List_MostExpensive_In_Last24hours(adla_client);
-            //Demo_Catalog_ListDatabases(adla_client);
-            //Demo_Catalog_ListDataLakeStoreAccountsInSubscription(sub_client);
-            //Demo_AnalyticsAccount_List_LinkedStoreAccounts(adla_client);
-            //Demo_FileSystem_ListFilesAtRoot(adls_client);            
-            //Demo_Subscription_List_AnalyticsAccounts(sub_client);
+            Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla_client);
+            Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
+            Demo_Jobs_List_Recent(adla_client);
+            Demo_Jobs_List_SingleMostRecent(adla_client);
+            Demo_Jobs_List_Oldest(adla_client);
+            Demo_Jobs_List_Failed(adla_client);
+            Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla_client);
+            Demo_Jobs_List_SubmittedBy_Users(adla_client);
+            Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla_client);
+            Demo_Jobs_List_SubmittedBy_UserBeginsWith(adla_client);
+            Demo_Jobs_List_SubmittedBy_UserContains(adla_client);
+            Demo_Jobs_List_MostExpensive_In_Last24hours(adla_client);
+            Demo_Catalog_ListDatabases(adla_client);
+            Demo_Catalog_ListDataLakeStoreAccountsInSubscription(sub_client);
+            Demo_AnalyticsAccount_List_LinkedStoreAccounts(adla_client);
+            Demo_FileSystem_ListFilesAtRoot(adls_client);            
+            Demo_Subscription_List_AnalyticsAccounts(sub_client);
         }
 
         private static void Demo_FileSystem_ListFilesAtRoot(ADLC.StoreAccountClient adls_client)
@@ -146,7 +146,7 @@ namespace ADL_Client_Demo
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 5;
 
-            opts.Filter.Result.OneOf(MS_ADLA.Models.JobResult.Failed);
+            opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
 
             var jobs = adla_client.Jobs.GetJobs(opts);
 
@@ -256,7 +256,7 @@ namespace ADL_Client_Demo
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 300;
 
-            opts.Filter.Result.OneOf(MS_ADLA.Models.JobResult.Failed);
+            opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
 
             var failed_jobs = adla_client.Jobs.GetJobs(opts).Where( j=> j.StartTime != null ).ToList();
 

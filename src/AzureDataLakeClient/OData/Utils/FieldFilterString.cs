@@ -55,7 +55,7 @@ namespace AzureDataLakeClient.OData.Utils
                 }
                 return expr_or;
             }
-            else if (this.Category == StringFilterCategory.IsOneOf && this.values != null)
+            else if (this.Category == StringFilterCategory.Contains && this.values != null)
             {
                 var expr_or = new ExprLogicalOr();
 
@@ -116,7 +116,7 @@ namespace AzureDataLakeClient.OData.Utils
             }
             else
             {
-                string msg = string.Format("Unhandled datetime filter category: \"{0}\"", this.Category);
+                string msg = string.Format("Unhandled string filter category: \"{0}\"", this.Category);
                 throw new System.ArgumentException(msg);
             }
         }

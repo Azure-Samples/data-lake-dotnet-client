@@ -95,7 +95,7 @@ namespace ADL_Client_Tests.Analytics
             this.Initialize();
             var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 30;
-            getjobs_options.Filter.State.OneOf(JobState.Ended);
+            getjobs_options.Filter.State.IsOneOf(JobState.Ended);
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
             if (jobs.Count > 0)
@@ -113,7 +113,7 @@ namespace ADL_Client_Tests.Analytics
             this.Initialize();
             var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 30;
-            getjobs_options.Filter.State.OneOf(JobState.Running);
+            getjobs_options.Filter.State.IsOneOf(JobState.Running);
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
             if (jobs.Count > 0)
@@ -131,8 +131,8 @@ namespace ADL_Client_Tests.Analytics
             this.Initialize();
             var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 30;
-            getjobs_options.Filter.State.OneOf( JobState.Ended);
-            getjobs_options.Filter.Result.OneOf( JobResult.Failed);
+            getjobs_options.Filter.State.IsOneOf( JobState.Ended);
+            getjobs_options.Filter.Result.IsOneOf( JobResult.Failed);
 
             var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
             if (jobs.Count > 0)

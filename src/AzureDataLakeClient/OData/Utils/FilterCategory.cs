@@ -27,5 +27,13 @@
         IsOneOf,
         InRange
     }
+
+    public enum EnumFilterCategory
+    {
+        NoFilter,
+        IsNull,
+        IsNotNull,
+        IsOneOf
+    }
 }
  
