@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AzureDataLakeClient.Analytics.Jobs;
-using AzureDataLakeClient.Rm;
 using AzureDataLakeClient.Store;
 using AzureDataLakeClient.Store.FileSystem;
 using ADLA=Microsoft.Azure.Management.DataLake.Analytics;
@@ -24,7 +23,7 @@ namespace ADL_Client_Demo
 
             var adla_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(adla_account, auth_session);
             var adls_client = new StoreAccountClient(adls_account, auth_session);
-            var sub_client = new SubscriptionClient(sub, auth_session);
+            var sub_client = new AzureDataLakeClient.Rm.SubscriptionClient(sub, auth_session);
 
             //Demo_GetExactlyOneJob(adla_client);
             //Demo_Get10OldestJobs(adla_client);
@@ -206,7 +205,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(SubscriptionClient sub_client)
+        private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(AzureDataLakeClient.Rm.SubscriptionClient sub_client)
         {
             var storage_accounts = sub_client.ListAnalyticsAccounts().ToList();
             foreach (var i in storage_accounts)
@@ -230,7 +229,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeStoreAccountsInSubscription(SubscriptionClient sub_client)
+        private static void Demo_ListDataLakeStoreAccountsInSubscription(AzureDataLakeClient.Rm.SubscriptionClient sub_client)
         {
             var storage_accounts = sub_client.ListStoreAccounts().ToList();
             foreach (var i in storage_accounts)
