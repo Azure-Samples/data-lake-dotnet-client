@@ -138,9 +138,19 @@ namespace AzureDataLakeClient.Rest
             string @select = null;
             bool? count = null;
 
-
             var page = this._client.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, @select, count);
             foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTableType>(page, p => this._client.Catalog.ListTableTypesNext(p.NextPageLink)))
+            {
+                yield return proc;
+            }
+        }
+
+        public IEnumerable<MSADLA.Models.USqlTablePartition> ListTablePartitions(AnalyticsAccount account, string dbname, string schema, string tablename)
+        {
+            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlTableType>();
+
+            var page = this._client.Catalog.ListTablePartitions(account.Name, dbname, schema, tablename);
+            foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTablePartition>(page, p => this._client.Catalog.ListTablePartitionsNext(p.NextPageLink)))
             {
                 yield return proc;
             }
