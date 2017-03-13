@@ -2,21 +2,30 @@
 {
     public enum DateTimeFilterCategory
     {
-        Empty,
+        NoFilter,
         IsNull,
         IsNotNull,
-        Range
+        InRange
     }
 
     public enum StringFilterCategory
     {
-        Empty,
+        NoFilter,
         IsNull,
         IsNotNull,
         IsOneOf,
         BeginsWith,
         EndWith,
         Contains
+    }
+
+    public enum IntegerFilterCategory
+    {
+        NoFilter,
+        IsNull,
+        IsNotNull,
+        IsOneOf,
+        InRange
     }
 }
  

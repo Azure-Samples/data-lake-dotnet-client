@@ -14,7 +14,7 @@ namespace AzureDataLakeClient.OData.Utils
         public FieldFilterString(ExprField field) :
             base(field)
         {
-            this.Category = StringFilterCategory.Empty;
+            this.Category = StringFilterCategory.NoFilter;
         }
 
         public void IsOneOf(params string[] items)
@@ -102,7 +102,7 @@ namespace AzureDataLakeClient.OData.Utils
                 }
                 return expr_or;
             }
-            else if (this.Category == StringFilterCategory.Empty)
+            else if (this.Category == StringFilterCategory.NoFilter)
             {
                 return null;
             }

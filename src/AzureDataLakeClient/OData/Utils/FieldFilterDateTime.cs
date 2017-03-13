@@ -13,12 +13,12 @@ namespace AzureDataLakeClient.OData.Utils
             base(field)
         {
             this.Inclusive = true;
-            this.Category = DateTimeFilterCategory.Empty;
+            this.Category = DateTimeFilterCategory.NoFilter;
         }
 
         public void InRange(RangeDateTime range)
         {
-            this.Category = DateTimeFilterCategory.Range;
+            this.Category = DateTimeFilterCategory.InRange;
             this.range = range;
         }
 
@@ -34,11 +34,11 @@ namespace AzureDataLakeClient.OData.Utils
 
         public override Expr ToExpression()
         {
-            if (this.Category == DateTimeFilterCategory.Empty)
+            if (this.Category == DateTimeFilterCategory.NoFilter)
             {
                 return null;
             }
-            else if (this.Category == DateTimeFilterCategory.Range)
+            else if (this.Category == DateTimeFilterCategory.InRange)
             {
                 // The range must have at least one bound
                 if (!this.range.IsBounded)
