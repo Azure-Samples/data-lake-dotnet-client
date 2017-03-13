@@ -37,6 +37,7 @@ namespace AzureDataLakeClient.Jobs
             odata_query.OrderBy = options.Sorting.CreateOrderByString();
             odata_query.Filter = options.Filter.ToFilterString();
 
+            System.Console.WriteLine(odata_query.Filter);
 
             var jobs = this._adlaJobRestWrapper.JobList(this.account, odata_query, options.Top);
             foreach (var job in jobs)

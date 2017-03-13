@@ -23,9 +23,10 @@ namespace ADL_Client_Demo
             var adls_client = new ADLC.StoreAccountClient(adls_account, auth_session);
             var sub_client = new ADLC.SubscriptionClient(sub, auth_session);
 
-            Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla_client);
-            Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
+            Demo_Jobs_List_NeverStarted(adla_client);
 
+            //Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla_client);
+            //Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
             //Demo_Jobs_List_Recent(adla_client);
             //Demo_Jobs_List_SingleMostRecent(adla_client);
             //Demo_Jobs_List_Oldest(adla_client);
@@ -152,6 +153,7 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
+
         private static void Demo_GetJobsSubmitedInLast2hours(ADLC.AnalyticsAccountClient adla_client)
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
@@ -165,6 +167,16 @@ namespace ADL_Client_Demo
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(ADLC.OData.Utils.RangeDateTime.SinceLocalMidnight());
             var jobs = adla_client.Jobs.GetJobs(opts);
+            PrintJobs(jobs);
+        }
+
+        private static void Demo_Jobs_List_NeverStarted(ADLC.AnalyticsAccountClient adla_client)
+        {
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Top = 2;
+            opts.Filter.StartTime.IsNull();
+            opts.Filter.StartTime.Name = "FOOOOO";
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
             PrintJobs(jobs);
         }
 
@@ -186,6 +198,7 @@ namespace ADL_Client_Demo
                 Console.WriteLine("AUs = {0}", job.AUs);
                 Console.WriteLine("Priority = {0}", job.Priority);
                 Console.WriteLine("Result = {0}; State = {1}", job.Result, job.State);
+                Console.WriteLine("StartTime = {0} ", job.SubmitTime);
                 Console.WriteLine("SubmitTime = {0} [ Local = {1} ] ", job.SubmitTime.Value, job.SubmitTime.Value.ToLocalTime());
                 Console.WriteLine("Submitter = {0}", job.Submitter);
                 Console.WriteLine("AUHours = {0}", job.AUSeconds / (60.0 * 60.0));
