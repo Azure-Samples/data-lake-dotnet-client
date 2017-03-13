@@ -1,5 +1,6 @@
 ﻿using System;
 using AzureDataLakeClient.Store;
+using AzureDataLakeClient.Store.FileSystem;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ADL_Client_Tests.Store
@@ -16,7 +17,7 @@ namespace ADL_Client_Tests.Store
 
             var fname1 = dir.Append("foo.txt");
 
-            var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
+            var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
 
             this.adls_account_client.FileSystem.Create(fname1, "Hello", cfo);
@@ -36,7 +37,7 @@ namespace ADL_Client_Tests.Store
 
             var fname1 = dir.Append("foo.txt");
 
-            var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
+            var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
 
             this.adls_account_client.FileSystem.Create(fname1, "Hello", cfo);
@@ -64,7 +65,7 @@ namespace ADL_Client_Tests.Store
 
             var fname1 = dir.Append("foo.txt");
 
-            var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
+            var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
 
             this.adls_account_client.FileSystem.Create(fname1, "Hello", cfo);
@@ -86,7 +87,7 @@ namespace ADL_Client_Tests.Store
 
         private FsPath create_test_dir()
         {
-            var dir = new AzureDataLakeClient.Store.FsPath("/test_adl_demo_client");
+            var dir = new FsPath("/test_adl_demo_client");
 
             if (this.adls_account_client.FileSystem.Exists(dir))
             {

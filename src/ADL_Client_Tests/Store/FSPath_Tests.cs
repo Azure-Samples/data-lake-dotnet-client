@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AzureDataLakeClient.Store.FileSystem;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ADL_Client_Tests.Store
 {
@@ -8,10 +9,10 @@ namespace ADL_Client_Tests.Store
         [TestMethod]
         public void FSPath_Constructor_Root()
         {
-            var p0 = new AzureDataLakeClient.Store.FsPath("/");
+            var p0 = new FsPath("/");
             Assert.AreEqual("/",p0.ToString());
 
-            var p1 = AzureDataLakeClient.Store.FsPath.Root;
+            var p1 = FsPath.Root;
             Assert.AreEqual("/", p1.ToString());
 
             Assert.AreEqual(p1.ToString(), p1.ToString());
@@ -23,7 +24,7 @@ namespace ADL_Client_Tests.Store
             bool caught = false;
             try
             {
-                var p0 = new AzureDataLakeClient.Store.FsPath(null);
+                var p0 = new FsPath(null);
             }
             catch (System.ArgumentNullException exc)
             {
@@ -39,7 +40,7 @@ namespace ADL_Client_Tests.Store
             bool caught = false;
             try
             {
-                var p0 = new AzureDataLakeClient.Store.FsPath("");
+                var p0 = new FsPath("");
             }
             catch (System.ArgumentOutOfRangeException exc)
             {
@@ -53,7 +54,7 @@ namespace ADL_Client_Tests.Store
         [TestMethod]
         public void FSPath_Constructor_Combine_Rooted()
         {
-            var p0 = new AzureDataLakeClient.Store.FsPath("/");
+            var p0 = new FsPath("/");
             var p1 = p0.Append("foo");
             var p2 = p0.Append("foo/bar");
             Assert.AreEqual("/", p0.ToString());
@@ -67,7 +68,7 @@ namespace ADL_Client_Tests.Store
         [TestMethod]
         public void FSPath_Constructor_Combine_Unrooted()
         {
-            var p0 = new AzureDataLakeClient.Store.FsPath("test");
+            var p0 = new FsPath("test");
             var p1 = p0.Append("foo");
             var p2 = p0.Append("foo/bar");
             Assert.AreEqual("test", p0.ToString());

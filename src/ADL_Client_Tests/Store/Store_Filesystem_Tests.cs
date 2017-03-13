@@ -1,4 +1,5 @@
 ﻿using AzureDataLakeClient.Store;
+using AzureDataLakeClient.Store.FileSystem;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ADL_Client_Tests.Store
@@ -14,10 +15,10 @@ namespace ADL_Client_Tests.Store
             int page_count = 0;
             int child_count = 0;
 
-            var lfo = new AzureDataLakeClient.Store.ListFilesOptions();
+            var lfo = new ListFilesOptions();
             lfo.PageSize = 4;
 
-            var pages = this.adls_account_client.FileSystem.ListFilesRecursivePaged(AzureDataLakeClient.Store.FsPath.Root, lfo);
+            var pages = this.adls_account_client.FileSystem.ListFilesRecursivePaged(FsPath.Root, lfo);
             foreach (var page in pages)
             {
                 foreach (var child in page.FileItems)
@@ -44,10 +45,10 @@ namespace ADL_Client_Tests.Store
             int page_count = 0;
             int child_count = 0;
 
-            var lfo = new AzureDataLakeClient.Store.ListFilesOptions();
+            var lfo = new ListFilesOptions();
             lfo.PageSize = 4;
 
-            var pages = this.adls_account_client.FileSystem.ListFilesPaged(AzureDataLakeClient.Store.FsPath.Root, lfo);
+            var pages = this.adls_account_client.FileSystem.ListFilesPaged(FsPath.Root, lfo);
             foreach (var page in pages)
             {
                 foreach (var fileitem in page.FileItems)
@@ -67,7 +68,7 @@ namespace ADL_Client_Tests.Store
             var dir = create_test_dir();
             
             var fname = dir.Append("foo.txt");
-            var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
+            var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
             this.adls_account_client.FileSystem.Create(fname, "HelloWorld", cfo);
             Assert.IsTrue( this.adls_account_client.FileSystem.Exists(fname));
@@ -96,7 +97,7 @@ namespace ADL_Client_Tests.Store
             var fname2 = dir.Append("bar.txt");
             var fname3 = dir.Append("beer.txt");
 
-            var cfo = new AzureDataLakeClient.Store.CreateFileOptions();
+            var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
 
             this.adls_account_client.FileSystem.Create(fname1, "Hello", cfo);
@@ -116,7 +117,7 @@ namespace ADL_Client_Tests.Store
 
         private FsPath create_test_dir()
         {
-            var dir = new AzureDataLakeClient.Store.FsPath("/test_adl_demo_client");
+            var dir = new FsPath("/test_adl_demo_client");
 
             if (this.adls_account_client.FileSystem.Exists(dir))
             {

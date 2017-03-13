@@ -1,4 +1,5 @@
-﻿using AzureDataLakeClient.Store;
+﻿using AzureDataLakeClient.Rm;
+using AzureDataLakeClient.Store;
 
 namespace ADL_Client_Tests
 {
@@ -11,7 +12,7 @@ namespace ADL_Client_Tests
         public AzureDataLakeClient.Analytics.AnalyticsAccountClient adla_account_client;
         public StoreAccountClient adls_account_client;
         
-        public AzureDataLakeClient.SubscriptionClient sub_client;
+        public SubscriptionClient sub_client;
         public AzureDataLakeClient.Rm.Subscription sub;
         public AzureDataLakeClient.Rm.ResourceGroup rg;
 
@@ -32,7 +33,7 @@ namespace ADL_Client_Tests
 
                 this.adls_account_client = new StoreAccountClient(store_account, auth_session);
                 this.adla_account_client = new AzureDataLakeClient.Analytics.AnalyticsAccountClient(analytics_account, auth_session);
-                this.sub_client = new AzureDataLakeClient.SubscriptionClient(sub, auth_session);
+                this.sub_client = new SubscriptionClient(sub, auth_session);
 
             }
         }
