@@ -63,7 +63,7 @@ namespace AzureDataLakeClient.Rest
             jobprops.Script = options.ScriptText;
 
             var jobType = Microsoft.Azure.Management.DataLake.Analytics.Models.JobType.USql;
-            int priority = 1;
+            int priority = 1000; // 1000 is default priority for a new job
             int dop = 1;
 
             var parameters = new Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation(
