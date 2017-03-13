@@ -43,7 +43,7 @@ namespace AzureDataLakeClient.Rm
 
         public ADL.Analytics.Models.DataLakeAnalyticsAccount GetAnalyticsAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
-            return this._adlaAccountMgmtClientWrapper.GetAccount(account.ResourceGroup, account.GetUri());
+            return this._adlaAccountMgmtClientWrapper.GetAccount(account.ResourceGroup, account);
         }
 
         public ADL.Store.Models.DataLakeStoreAccount GetStoreAccount(AzureDataLakeClient.Store.StoreAccount account)
@@ -53,7 +53,7 @@ namespace AzureDataLakeClient.Rm
 
         public bool ExistsAnalyticsAccount(AzureDataLakeClient.Analytics.AnalyticsAccount account)
         {
-            return this._adlaAccountMgmtClientWrapper.ExistsAccount(account.ResourceGroup, account.GetUri());
+            return this._adlaAccountMgmtClientWrapper.ExistsAccount(account.ResourceGroup, account);
         }
 
         public bool ExistsStoreAccount(AzureDataLakeClient.Store.StoreAccount account)

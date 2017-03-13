@@ -113,10 +113,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsAccount.cs" />
+    <Compile Include="Analytics\Jobs\JobInfo.cs" />
     <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
-    <Compile Include="Analytics\AnalyticsAccountUri.cs" />
     <Compile Include="Analytics\Catalog\CatalogCommands.cs" />
     <Compile Include="Analytics\Extensions\AnalyticsExtensions.cs" />
     <Compile Include="Analytics\Jobs\JobCommands.cs" />
@@ -189,7 +189,6 @@
     <Compile Include="Store\StoreAccount.cs" />
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
-    <Compile Include="Store\StoreUri.cs" />
     <Compile Include="Store\FileSystem\UploadOptions.cs" />
     <Compile Include="StringUtil.cs" />
     <Compile Include="Analytics\Jobs\SubmitJobOptions.cs" />

@@ -22,7 +22,7 @@ namespace AzureDataLakeClient.Analytics
             this._adlaCatalogRestClientWrapper = new AnalyticsCatalogRestWrapper(this.AuthenticatedSession.Credentials);
             this._adlaAcctmgmtClientWrapper = new AnalyticsAccountManagmentRestWrapper(account.Subscription, authSession.Credentials);
 
-            this.Jobs = new JobCommands(account, this._adlaJobRestWrapper, authSession);
+            this.Jobs = new JobCommands(account, this._adlaJobRestWrapper);
             this.Catalog = new CatalogCommands(account, this._adlaCatalogRestClientWrapper);
             this.Management = new ManagementCommands(account, this._adlaAcctmgmtClientWrapper);
         }

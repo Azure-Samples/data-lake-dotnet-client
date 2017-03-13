@@ -6,7 +6,6 @@ namespace AzureDataLakeClient.Analytics.Jobs
 {
     public class JobListFilter
     {
-        public bool SubmitterIsCurrentUser;
         public OData.Utils.FieldFilterString Name;
         public OData.Utils.FieldFilterString Submitter;
         public OData.Utils.FieldFilterDateTime SubmitTime;
@@ -32,9 +31,9 @@ namespace AzureDataLakeClient.Analytics.Jobs
             this.Result = new OData.Utils.FieldFilterEnum<JobResult>(fields.field_result);
         }
 
-        public string ToFilterString(Authentication.AuthenticatedSession auth_session)
+        public string ToFilterString()
         {
-            var expr_and = ToExpression(auth_session);
+            var expr_and = ToExpression();
 
             var writer = new ExpressionWriter();
             writer.Append(expr_and);
@@ -42,7 +41,7 @@ namespace AzureDataLakeClient.Analytics.Jobs
             return text;
         }
 
-        private Expr ToExpression(AuthenticatedSession auth_session)
+        private Expr ToExpression()
         {
             var expr_and = new ExprLogicalAnd();
             var col_submitter = new OData.ExprField("submitter");
@@ -55,16 +54,6 @@ namespace AzureDataLakeClient.Analytics.Jobs
             expr_and.Add(this.State?.ToExpression());
             expr_and.Add(this.Result?.ToExpression());
 
-            if (this.SubmitterIsCurrentUser)
-            {
-                var exprStringLiteral = new OData.ExprLiteralString(auth_session.Token.DisplayableId);
-
-                var expr0 = new OData.ExprToLower(col_submitter);
-                var expr1 = new OData.ExprToLower(exprStringLiteral);
-
-                var expr_compare = new ExprEquals(expr0, expr1);
-                expr_and.Add(expr_compare);
-            }
             return expr_and;
         }
     }

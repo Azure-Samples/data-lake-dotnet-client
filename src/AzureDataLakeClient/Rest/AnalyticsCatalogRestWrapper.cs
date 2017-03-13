@@ -16,13 +16,13 @@ namespace AzureDataLakeClient.Rest
             this._client = new Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsCatalogManagementClient(creds);
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.USqlDatabase GetDatabase(AnalyticsAccountUri account, string name)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.USqlDatabase GetDatabase(AnalyticsAccount account, string name)
         {
             var db = this._client.Catalog.GetDatabase(account.Name, name);
             return db;
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlDatabase> ListDatabases(AnalyticsAccountUri account)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlDatabase> ListDatabases(AnalyticsAccount account)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlDatabase>();
 
@@ -36,7 +36,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlAssemblyClr> ListAssemblies(AnalyticsAccountUri account, string dbname)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlAssemblyClr> ListAssemblies(AnalyticsAccount account, string dbname)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlAssembly>();
 
@@ -50,7 +50,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlExternalDataSource> ListExternalDatasources(AnalyticsAccountUri account, string dbname)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlExternalDataSource> ListExternalDatasources(AnalyticsAccount account, string dbname)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlExternalDataSource>();
 
@@ -64,7 +64,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlProcedure> ListProcedures(AnalyticsAccountUri account, string dbname, string schema)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlProcedure> ListProcedures(AnalyticsAccount account, string dbname, string schema)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlProcedure>();
 
@@ -78,7 +78,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlSchema> ListSchemas(AnalyticsAccountUri account, string dbname)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlSchema> ListSchemas(AnalyticsAccount account, string dbname)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlSchema>();
             string @select = null;
@@ -91,7 +91,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlView> ListViews(AnalyticsAccountUri account,string dbname, string schema)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlView> ListViews(AnalyticsAccount account,string dbname, string schema)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlView>();
             string @select = null;
@@ -105,7 +105,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTable> ListTables(AnalyticsAccountUri account, string dbname, string schema)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTable> ListTables(AnalyticsAccount account, string dbname, string schema)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTable>();
             string @select = null;
@@ -118,7 +118,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlType> ListTypes(AnalyticsAccountUri account, string dbname, string schema)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlType> ListTypes(AnalyticsAccount account, string dbname, string schema)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlType>();
             string @select = null;
@@ -132,7 +132,7 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTableType> ListTableTypes(AnalyticsAccountUri account, string dbname, string schema)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTableType> ListTableTypes(AnalyticsAccount account, string dbname, string schema)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlTableType>();
             string @select = null;
@@ -146,27 +146,27 @@ namespace AzureDataLakeClient.Rest
             }
         }
 
-        public void CreateCredential(AnalyticsAccountUri account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
+        public void CreateCredential(AnalyticsAccount account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
         {
             this._client.Catalog.CreateCredential(account.Name, dbname, credname, create_parameters);
         }
 
-        public void DeleteCredential(AnalyticsAccountUri account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
+        public void DeleteCredential(AnalyticsAccount account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
         {
             this._client.Catalog.DeleteCredential(account.Name, dbname, credname);
         }
 
-        public void UpdateCredential(AnalyticsAccountUri account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
+        public void UpdateCredential(AnalyticsAccount account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
         {
             this._client.Catalog.UpdateCredential(account.Name, dbname, credname, update_parameters);
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.USqlCredential GetCredential(AnalyticsAccountUri account, string dbname, string credname)
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.USqlCredential GetCredential(AnalyticsAccount account, string dbname, string credname)
         {
             return this._client.Catalog.GetCredential(account.Name, dbname, credname);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlCredential> ListCredential(AnalyticsAccountUri account, string dbname)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlCredential> ListCredential(AnalyticsAccount account, string dbname)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlCredential>();
             string @select = null;

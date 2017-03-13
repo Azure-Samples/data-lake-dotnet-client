@@ -41,28 +41,28 @@ namespace AzureDataLakeClient.Store.FileSystem
 
         public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, ListFilesOptions options)
         {
-            return this._fsRestClientWrapper.ListFilesPaged(this.Account.GetUri(), path, options);
+            return this._fsRestClientWrapper.ListFilesPaged(this.Account, path, options);
         }
 
         public void CreateDirectory(FsPath path)
         {
-            this._fsRestClientWrapper.Mkdirs(this.Account.GetUri(), path);
+            this._fsRestClientWrapper.Mkdirs(this.Account, path);
         }
 
         public void Delete(FsPath path)
         {
-            _fsRestClientWrapper.Delete(this.Account.GetUri(), path);
+            _fsRestClientWrapper.Delete(this.Account, path);
         }
 
         public void Delete(FsPath path, bool recursive)
         {
-            _fsRestClientWrapper.Delete(this.Account.GetUri(), path, recursive);
+            _fsRestClientWrapper.Delete(this.Account, path, recursive);
         }
 
         public void Create(FsPath path, byte[] bytes, CreateFileOptions options)
         {
             var memstream = new System.IO.MemoryStream(bytes);
-            _fsRestClientWrapper.Create(this.Account.GetUri(), path, memstream, options);
+            _fsRestClientWrapper.Create(this.Account, path, memstream, options);
         }
 
         public void Create(FsPath path, string content, CreateFileOptions options)
@@ -73,7 +73,7 @@ namespace AzureDataLakeClient.Store.FileSystem
 
         public FsFileStatus GetFileStatus(FsPath path)
         {
-            return this._fsRestClientWrapper.GetFileStatus(this.Account.GetUri(), path);
+            return this._fsRestClientWrapper.GetFileStatus(this.Account, path);
         }
 
         public FsFileStatus TryGetFileInformation(FsPath path)
@@ -138,49 +138,49 @@ namespace AzureDataLakeClient.Store.FileSystem
 
         public FsAcl GetAclStatus(FsPath path)
         {
-            var acl_result = this._fsRestClientWrapper.GetAclStatus(this.Account.GetUri(), path);
+            var acl_result = this._fsRestClientWrapper.GetAclStatus(this.Account, path);
             return acl_result;
         }
 
         public void ModifyAclEntries(FsPath path, FsAclEntry entry)
         {
-            this._fsRestClientWrapper.ModifyAclEntries(this.Account.GetUri(), path, entry);
+            this._fsRestClientWrapper.ModifyAclEntries(this.Account, path, entry);
         }
 
         public void ModifyAclEntries(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this._fsRestClientWrapper.ModifyAclEntries(this.Account.GetUri(), path, entries);
+            this._fsRestClientWrapper.ModifyAclEntries(this.Account, path, entries);
         }
 
         public void SetAcl(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this._fsRestClientWrapper.SetAcl(this.Account.GetUri(), path, entries);
+            this._fsRestClientWrapper.SetAcl(this.Account, path, entries);
         }
 
         public void RemoveAcl(FsPath path)
         {
-            this._fsRestClientWrapper.RemoveAcl(this.Account.GetUri(), path);
+            this._fsRestClientWrapper.RemoveAcl(this.Account, path);
         }
 
         public void RemoveDefaultAcl(FsPath path)
         {
-            this._fsRestClientWrapper.RemoveDefaultAcl(this.Account.GetUri(), path);
+            this._fsRestClientWrapper.RemoveDefaultAcl(this.Account, path);
         }
 
         public System.IO.Stream Open(FsPath path)
         {
-            return this._fsRestClientWrapper.Open(this.Account.GetUri(), path);
+            return this._fsRestClientWrapper.Open(this.Account, path);
         }
 
         public System.IO.StreamReader OpenText(FsPath path)
         {
-            var s = this._fsRestClientWrapper.Open(this.Account.GetUri(), path);
+            var s = this._fsRestClientWrapper.Open(this.Account, path);
             return new System.IO.StreamReader(s);
         }
 
         public System.IO.Stream Open(FsPath path, long offset, long bytesToRead)
         {
-            return this._fsRestClientWrapper.Open(this.Account.GetUri(), path, bytesToRead, offset);
+            return this._fsRestClientWrapper.Open(this.Account, path, bytesToRead, offset);
         }
 
         public void Upload(LocalPath src_path, FsPath dest_path, UploadOptions options)
@@ -193,7 +193,7 @@ namespace AzureDataLakeClient.Store.FileSystem
 
         public void Download(FsPath src_path, LocalPath dest_path, DownloadOptions options)
         {
-            using (var stream = this._fsRestClientWrapper.Open(this.Account.GetUri(), src_path))
+            using (var stream = this._fsRestClientWrapper.Open(this.Account, src_path))
             {
                 var filemode = options.Append ? System.IO.FileMode.Append : System.IO.FileMode.Create;
                 using (var fileStream = new System.IO.FileStream(dest_path.ToString(), filemode))
@@ -208,7 +208,7 @@ namespace AzureDataLakeClient.Store.FileSystem
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this._fsRestClientWrapper.Append(this.Account.GetUri(), file, stream);
+                this._fsRestClientWrapper.Append(this.Account, file, stream);
             }
         }
 
@@ -216,48 +216,48 @@ namespace AzureDataLakeClient.Store.FileSystem
         {
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this._fsRestClientWrapper.Append(this.Account.GetUri(), file, stream);
+                this._fsRestClientWrapper.Append(this.Account, file, stream);
             }
         }
 
         public void Concat(IEnumerable<FsPath> src_paths, FsPath dest_path)
         {
-            this._fsRestClientWrapper.Concat(this.Account.GetUri(), src_paths, dest_path);
+            this._fsRestClientWrapper.Concat(this.Account, src_paths, dest_path);
         }
 
         public void ClearFileExpiry(FsPath path)
         {
-            this._fsRestClientWrapper.SetFileExpiryNever(this.Account.GetUri(), path);
+            this._fsRestClientWrapper.SetFileExpiryNever(this.Account, path);
         }
 
         public void SetFileExpiryAbsolute(FsPath path, System.DateTimeOffset expiretime)
         {
-            this._fsRestClientWrapper.SetFileExpiry(this.Account.GetUri(), path, expiretime);
+            this._fsRestClientWrapper.SetFileExpiry(this.Account, path, expiretime);
         }
 
         public void SetFileExpiryRelativeToNow(FsPath path, System.TimeSpan timespan)
         {
-            this._fsRestClientWrapper.SetFileExpiryRelativeToNow(this.Account.GetUri(), path, timespan);
+            this._fsRestClientWrapper.SetFileExpiryRelativeToNow(this.Account, path, timespan);
         }
 
         public void SetFileExpiryRelativeToCreationDate(FsPath path, System.TimeSpan timespan)
         {
-            this._fsRestClientWrapper.SetFileExpiryRelativeToCreationDate(this.Account.GetUri(), path, timespan);
+            this._fsRestClientWrapper.SetFileExpiryRelativeToCreationDate(this.Account, path, timespan);
         }
 
         public ContentSummary GetContentSummary(FsPath path)
         {
-            return this._fsRestClientWrapper.GetContentSummary(this.Account.GetUri(), path);
+            return this._fsRestClientWrapper.GetContentSummary(this.Account, path);
         }
 
         public void SetOwner(FsPath path, string owner, string group)
         {
-            this._fsRestClientWrapper.SetOwner(this.Account.GetUri(), path, owner, group);
+            this._fsRestClientWrapper.SetOwner(this.Account, path, owner, group);
         }
 
         public void Move(FsPath src_path, FsPath dest_path)
         {
-            this._fsRestClientWrapper.Move(this.Account.GetUri(), src_path, dest_path);
+            this._fsRestClientWrapper.Move(this.Account, src_path, dest_path);
         }
 
     }

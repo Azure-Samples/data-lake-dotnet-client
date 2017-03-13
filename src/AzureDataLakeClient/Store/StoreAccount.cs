@@ -12,11 +12,6 @@ namespace AzureDataLakeClient.Store
             this.Subscription = sub;
             this.ResourceGroup = rg;
         }
-
-        public StoreUri GetUri()
-        {
-            return new StoreUri(this.Name);
-        }
     }
 }
 
