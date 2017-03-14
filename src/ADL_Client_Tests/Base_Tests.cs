@@ -1,5 +1,4 @@
 ﻿using ADLC = AzureDataLakeClient;
-using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Tests
 {
@@ -7,33 +6,31 @@ namespace ADL_Client_Tests
     {
         private bool init;
 
-        public ADLC.Authentication.AuthenticatedSession auth_session;
-
-        public ADLC.AnalyticsClient adla_account_client;
-        public ADLC.StoreClient AdlsClient;
-        
-        public ADLC.ResourceClient sub_client;
-        public ADLC.Subscription sub;
-        public ADLC.ResourceGroup rg;
+        public ADLC.Authentication.AuthenticatedSession AuthenticatedSession;
+        public ADLC.AnalyticsClient AnalyticsClient;
+        public ADLC.StoreClient StoreClient;        
+        public ADLC.ResourceClient ResourceClient;
+        public ADLC.Subscription Subscription;
+        public ADLC.ResourceGroup ResourceGroup;
 
         public void Initialize()
         {
             if (this.init == false)
             {
                 var tenant = new ADLC.Authentication.Tenant("microsoft.onmicrosoft.com");
-                this.auth_session = new ADLC.Authentication.AuthenticatedSession(tenant);
-                auth_session.Authenticate();
+                this.AuthenticatedSession = new ADLC.Authentication.AuthenticatedSession(tenant);
+                AuthenticatedSession.Authenticate();
 
-                this.sub = new ADLC.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
-                this.rg = new ADLC.ResourceGroup("InsightsServices");
+                this.Subscription = new ADLC.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
+                this.ResourceGroup = new ADLC.ResourceGroup("InsightsServices");
 
-                var store_account = new ADLC.StoreAccount("datainsightsadhoc",sub,rg);
-                var analytics_account = new ADLC.AnalyticsAccount("datainsightsadhoc", sub, rg);
+                var store_account = new ADLC.StoreAccount("datainsightsadhoc",Subscription,ResourceGroup);
+                var analytics_account = new ADLC.AnalyticsAccount("datainsightsadhoc", Subscription, ResourceGroup);
                 this.init = true;
 
-                this.AdlsClient = new ADLC.StoreClient(store_account, auth_session);
-                this.adla_account_client = new ADLC.AnalyticsClient(analytics_account, auth_session);
-                this.sub_client = new ADLC.ResourceClient(sub, auth_session);
+                this.StoreClient = new ADLC.StoreClient(store_account, AuthenticatedSession);
+                this.AnalyticsClient = new ADLC.AnalyticsClient(analytics_account, AuthenticatedSession);
+                this.ResourceClient = new ADLC.ResourceClient(Subscription, AuthenticatedSession);
 
             }
         }

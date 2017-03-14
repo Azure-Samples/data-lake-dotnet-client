@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Rest;
 using ADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Catalog

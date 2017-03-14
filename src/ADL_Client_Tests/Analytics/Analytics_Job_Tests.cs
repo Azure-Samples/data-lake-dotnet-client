@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using AzureDataLakeClient.Jobs;
-using ADLC=AzureDataLakeClient;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,7 +14,7 @@ namespace ADL_Client_Tests.Analytics
             this.Initialize();
             var getjobs_options = new GetJobsOptions();
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             Assert.IsTrue(jobs.Count>2);
         }
 
@@ -27,7 +26,7 @@ namespace ADL_Client_Tests.Analytics
             var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = 100;
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             Assert.AreEqual(100,jobs.Count);
         }
 
@@ -38,7 +37,7 @@ namespace ADL_Client_Tests.Analytics
             var getjobs_options = new GetJobsOptions();
             getjobs_options.Top = JobCommands.ADLJobPageSize;
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             Assert.AreEqual(JobCommands.ADLJobPageSize, jobs.Count);
         }
 
@@ -50,7 +49,7 @@ namespace ADL_Client_Tests.Analytics
             var top = JobCommands.ADLJobPageSize + (JobCommands.ADLJobPageSize/2);
             getjobs_options.Top = top;
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             Assert.AreEqual(top,jobs.Count);
         }
 
@@ -67,7 +66,7 @@ namespace ADL_Client_Tests.Analytics
             getjobs_options.Sorting.Field = jobfields.field_degreeofparallelism;
             getjobs_options.Sorting.Direction = OrderByDirection.Descending;
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             foreach (var job in jobs)
             {
                 System.Console.WriteLine("submitter{0} dop {1}", job.Submitter, job.AUs);
@@ -81,11 +80,11 @@ namespace ADL_Client_Tests.Analytics
             var sjo = new SubmitJobOptions();
             sjo.ScriptText = "FOOBAR";
             sjo.JobName = "Test Job";
-            var ji = this.adla_account_client.Jobs.SubmitJob(sjo);
+            var ji = this.AnalyticsClient.Jobs.SubmitJob(sjo);
 
             System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.Id, ji.SubmitTime);
 
-            var ji2 = this.adla_account_client.Jobs.GetJob(ji.Id.Value);
+            var ji2 = this.AnalyticsClient.Jobs.GetJob(ji.Id.Value);
 
             Assert.AreEqual(ji.Name, ji2.Name);
         }
@@ -98,7 +97,7 @@ namespace ADL_Client_Tests.Analytics
             getjobs_options.Top = 30;
             getjobs_options.Filter.State.IsOneOf(JobState.Ended);
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             if (jobs.Count > 0)
             {
                 foreach (var job in jobs)
@@ -116,7 +115,7 @@ namespace ADL_Client_Tests.Analytics
             getjobs_options.Top = 30;
             getjobs_options.Filter.State.IsOneOf(JobState.Running);
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             if (jobs.Count > 0)
             {
                 foreach (var job in jobs)
@@ -135,7 +134,7 @@ namespace ADL_Client_Tests.Analytics
             getjobs_options.Filter.State.IsOneOf( JobState.Ended);
             getjobs_options.Filter.Result.IsOneOf( JobResult.Failed);
 
-            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.GetJobs(getjobs_options).ToList();
             if (jobs.Count > 0)
             {
                 foreach (var job in jobs)

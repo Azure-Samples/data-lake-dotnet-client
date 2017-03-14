@@ -1,7 +1,6 @@
 using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
 using MSAZURERM = Microsoft.Azure.Management.ResourceManager;
-using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Azure.Management.ResourceManager;
 

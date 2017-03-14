@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsAccount.cs" />
+    <Compile Include="Jobs\JobExtendedInfo.cs" />
     <Compile Include="Jobs\JobReference.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
     <Compile Include="Rm\AnalyticsResourceCommands.cs" />
