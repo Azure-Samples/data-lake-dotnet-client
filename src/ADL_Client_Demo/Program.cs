@@ -110,7 +110,7 @@ namespace ADL_Client_Demo
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 1;
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -121,7 +121,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.Submitter.IsOneOf(adla_client.AuthenticatedSession.Token.DisplayableId);
 
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -133,7 +133,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.Submitter.IsOneOf("mrys@microsoft.com", "saveenr@microsoft.com");
 
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -144,7 +144,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.Submitter.BeginsWith("saa");
 
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -155,7 +155,7 @@ namespace ADL_Client_Demo
             opts.Top = 10;
             opts.Filter.Submitter.Contains("eenr");
 
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -170,7 +170,7 @@ namespace ADL_Client_Demo
             opts.Sorting.Direction = ADLC.Jobs.OrderByDirection.Descending;
             opts.Sorting.Field = jobfields.field_submittime;
 
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -184,7 +184,7 @@ namespace ADL_Client_Demo
             opts.Sorting.Direction = ADLC.Jobs.OrderByDirection.Ascending;
             opts.Sorting.Field = jobfields.field_submittime;
 
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -196,7 +196,7 @@ namespace ADL_Client_Demo
 
             opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
 
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
             PrintJobs(jobs);
         }
@@ -206,7 +206,7 @@ namespace ADL_Client_Demo
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(ADLC.OData.Utils.RangeDateTime.InTheLastNHours(2));
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
             PrintJobs(jobs);
         }
 
@@ -214,7 +214,7 @@ namespace ADL_Client_Demo
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(ADLC.OData.Utils.RangeDateTime.SinceLocalMidnight());
-            var jobs = adla_client.Jobs.GetJobs(opts);
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
             PrintJobs(jobs);
         }
 
@@ -223,7 +223,7 @@ namespace ADL_Client_Demo
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 2;
             opts.Filter.StartTime.IsNull();
-            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList().ToList();
             PrintJobs(jobs);
         }
 

@@ -67,7 +67,8 @@ namespace ADL_Client_Tests.Analytics
             getjobs_options.Sorting.Field = jobfields.field_degreeofparallelism;
             getjobs_options.Sorting.Direction = OrderByDirection.Descending;
 
-            foreach (var job in this.adla_account_client.Jobs.GetJobs(getjobs_options))
+            var jobs = this.adla_account_client.Jobs.GetJobs(getjobs_options).ToList();
+            foreach (var job in jobs)
             {
                 System.Console.WriteLine("submitter{0} dop {1}", job.Submitter, job.AUs);
             }
