@@ -23,25 +23,25 @@ namespace ADL_Client_Demo
             var adls_client = new ADLC.StoreClient(adls_account, auth_session);
             var res_client = new ADLC.ResourceClient(sub, auth_session);
 
-            Demo_Jobs_List_NeverStarted(adla_client);
-
-            Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla_client);
-            Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
-            Demo_Jobs_List_Recent(adla_client);
-            Demo_Jobs_List_SingleMostRecent(adla_client);
-            Demo_Jobs_List_Oldest(adla_client);
-            Demo_Jobs_List_Failed(adla_client);
-            Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla_client);
-            Demo_Jobs_List_SubmittedBy_Users(adla_client);
-            Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla_client);
-            Demo_Jobs_List_SubmittedBy_UserBeginsWith(adla_client);
-            Demo_Jobs_List_SubmittedBy_UserContains(adla_client);
-            Demo_Jobs_List_MostExpensive_In_Last24hours(adla_client);
-            Demo_Catalog_ListDatabases(adla_client);
-            Demo_Catalog_ListDataLakeStoreAccountsInSubscription(res_client);
-            Demo_AnalyticsAccount_List_LinkedStoreAccounts(adla_client);
-            Demo_FileSystem_ListFilesAtRoot(adls_client);            
-            Demo_Subscription_List_AnalyticsAccounts(res_client);
+            //Demo_Jobs_List_NeverStarted(adla_client);
+            //Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla_client);
+            //Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
+            //Demo_Jobs_List_Recent(adla_client);
+            //Demo_Jobs_List_SingleMostRecent(adla_client);
+            //Demo_Jobs_List_Oldest(adla_client);
+            //Demo_Jobs_List_Failed(adla_client);
+            //Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla_client);
+            //Demo_Jobs_List_SubmittedBy_Users(adla_client);
+            //Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla_client);
+            //Demo_Jobs_List_SubmittedBy_UserBeginsWith(adla_client);
+            //Demo_Jobs_List_SubmittedBy_UserContains(adla_client);
+            //Demo_Jobs_List_MostExpensive_In_Last24hours(adla_client);
+            //Demo_Catalog_ListDatabases(adla_client);
+            //Demo_Resource_ListDataLakeStoreAccountsInSubscription(res_client);
+            //Demo_AnalyticsAccount_List_LinkedStoreAccounts(adla_client);
+            //Demo_FileSystem_ListFilesAtRoot(adls_client);            
+            //Demo_Subscription_List_AnalyticsAccounts(res_client);
+            Demo_Resource_ListResourceGroups(res_client);
         }
 
         private static void Demo_FileSystem_ListFilesAtRoot(ADLC.StoreClient adls_client)
@@ -239,7 +239,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_Catalog_ListDataLakeStoreAccountsInSubscription(ADLC.ResourceClient res_client)
+        private static void Demo_Resource_ListDataLakeStoreAccountsInSubscription(ADLC.ResourceClient res_client)
         {
             var storage_accounts = res_client.Store.ListAccounts().ToList();
             foreach (var i in storage_accounts)
@@ -250,6 +250,18 @@ namespace ADL_Client_Demo
                 Console.WriteLine("Type = {0}", i.Type);
             }
         }
+
+        private static void Demo_Resource_ListResourceGroups(ADLC.ResourceClient res_client)
+        {
+            var rgs = res_client.ListResourceGroups().ToList();
+            foreach (var i in rgs)
+            {
+                Console.WriteLine("----------------");
+                Console.WriteLine("Name = {0}", i.Name);
+                Console.WriteLine("Location = {0}", i.Location);
+            }
+        }
+
 
         private static void Demo_Jobs_Summarize_FailedAUHours_By_Submitter(ADLC.AnalyticsClient adla_client)
         {
