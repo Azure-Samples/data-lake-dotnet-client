@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AzureDataLakeClient.Authentication;
 using AzureDataLakeClient.Rest;
+using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
 namespace AzureDataLakeClient
 {
@@ -17,17 +18,17 @@ namespace AzureDataLakeClient
             this.auth = authSession;
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccounts()
         {
             return this._adls_account_mgmt_client.ListAccounts();
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts(ResourceGroup resource_group)
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccounts(ResourceGroup resource_group)
         {
             return this._adls_account_mgmt_client.ListAccountsByResourceGroup(resource_group);
         }
 
-        public Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount GetAccount(StoreAccount account)
+        public MSADLS.Models.DataLakeStoreAccount GetAccount(StoreAccount account)
         {
             return this._adls_account_mgmt_client.GetAccount(account);
         }
