@@ -186,7 +186,7 @@ namespace AzureDataLakeClient.FileSystem
         public void Upload(LocalPath src_path, FsPath dest_path, UploadOptions options)
         {
             var parameters = new Microsoft.Azure.Management.DataLake.StoreUploader.UploadParameters(src_path.ToString(), dest_path.ToString(), this.Account.Name, isOverwrite: options.Force);
-            var frontend = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreFrontEndAdapter(this.Account.Name, this._fsRestClientWrapper._adls_filesys_rest_client);
+            var frontend = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreFrontEndAdapter(this.Account.Name, this._fsRestClientWrapper.RestClient);
             var uploader = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreUploader(parameters, frontend);
             uploader.Execute();
         }

@@ -7,18 +7,16 @@ namespace AzureDataLakeClient.Rest
 {
     public class AnalyticsJobsRestWrapper
     {
-        private MSADLA.DataLakeAnalyticsJobManagementClient _client;
-        private Microsoft.Rest.ServiceClientCredentials _creds;
+        public MSADLA.DataLakeAnalyticsJobManagementClient RestClient;
 
         public AnalyticsJobsRestWrapper(Microsoft.Rest.ServiceClientCredentials creds)
         {
-            this._creds = creds;
-            this._client = new MSADLA.DataLakeAnalyticsJobManagementClient(this._creds);
+            this.RestClient = new MSADLA.DataLakeAnalyticsJobManagementClient(creds);
         }
 
         public MSADLA.Models.JobInformation JobGet(AnalyticsAccount analyticsaccount, System.Guid jobid)
         {
-            var job = this._client.Job.Get(analyticsaccount.Name, jobid);
+            var job = this.RestClient.Job.Get(analyticsaccount.Name, jobid);
             return job;
         }
 
@@ -30,11 +28,11 @@ namespace AzureDataLakeClient.Rest
             bool? opt_count = null;
 
             int item_count = 0;
-            var page = this._client.Job.List(account.Name, odata_query, opt_select, opt_count);
+            var page = this.RestClient.Job.List(account.Name, odata_query, opt_select, opt_count);
             foreach (
                 var job in
                 RestUtil.EnumItemsInPages<MSADLA.Models.JobInformation>(page,
-                    p => this._client.Job.ListNext(p.NextPageLink)))
+                    p => this.RestClient.Job.ListNext(p.NextPageLink)))
             {
                 yield return job;
                 item_count++;
@@ -50,20 +48,20 @@ namespace AzureDataLakeClient.Rest
         public JobInfo JobCreate(AnalyticsAccount account, SubmitJobOptions options)
         {
             var job_props = options.CreateNewJobProperties();
-            var job_info = this._client.Job.Create(account.Name, options.JobID, job_props);
+            var job_info = this.RestClient.Job.Create(account.Name, options.JobID, job_props);
             var j = new JobInfo(job_info, account);
             return j;
         }
 
         public MSADLA.Models.JobStatistics GetStatistics(AnalyticsAccount account, System.Guid jobid)
         {
-            var stats = this._client.Job.GetStatistics(account.Name, jobid);
+            var stats = this.RestClient.Job.GetStatistics(account.Name, jobid);
             return stats;
         }
 
         public MSADLA.Models.JobDataPath GetDebugDataPath(AnalyticsAccount account, System.Guid jobid)
         {
-            var jobdatapath = this._client.Job.GetDebugDataPath(account.Name, jobid);
+            var jobdatapath = this.RestClient.Job.GetDebugDataPath(account.Name, jobid);
             return jobdatapath;
         }
     }

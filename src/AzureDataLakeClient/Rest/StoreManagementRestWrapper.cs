@@ -5,19 +5,19 @@ namespace AzureDataLakeClient.Rest
 {
     public class StoreManagementRestWrapper
     {
-        private Microsoft.Azure.Management.DataLake.Store.DataLakeStoreAccountManagementClient _rest_client;
+        public readonly Microsoft.Azure.Management.DataLake.Store.DataLakeStoreAccountManagementClient RestClient;
 
         public StoreManagementRestWrapper(Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
-            this._rest_client = new DataLakeStoreAccountManagementClient(creds);
-            this._rest_client.SubscriptionId = sub.Id;
+            this.RestClient = new DataLakeStoreAccountManagementClient(creds);
+            this.RestClient.SubscriptionId = sub.Id;
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()
         {
-            var page = this._rest_client.Account.List();
+            var page = this.RestClient.Account.List();
             foreach (var acc in RestUtil.EnumItemsInPages(page,
-                p => this._rest_client.Account.ListNext(p.NextPageLink)))
+                p => this.RestClient.Account.ListNext(p.NextPageLink)))
             {
                 yield return acc;
             }
@@ -25,10 +25,10 @@ namespace AzureDataLakeClient.Rest
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccountsByResourceGroup(ResourceGroup resource_group)
         {
-            var page = this._rest_client.Account.ListByResourceGroup(resource_group.Name);
+            var page = this.RestClient.Account.ListByResourceGroup(resource_group.Name);
 
             foreach (var acc in RestUtil.EnumItemsInPages(page,
-                p => this._rest_client.Account.ListByResourceGroupNext(p.NextPageLink)))
+                p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink)))
             {
                 yield return acc;
             }
@@ -36,22 +36,22 @@ namespace AzureDataLakeClient.Rest
 
         public Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount GetAccount(StoreAccount account)
         {
-            return this._rest_client.Account.Get(account.ResourceGroup.Name, account.Name);
+            return this.RestClient.Account.Get(account.ResourceGroup.Name, account.Name);
         }
 
         public void Update(StoreAccount account, Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
-            this._rest_client.Account.Update(account.ResourceGroup.Name, account.Name, parameters);
+            this.RestClient.Account.Update(account.ResourceGroup.Name, account.Name, parameters);
         }
 
         public void Delete(StoreAccount account)
         {
-            this._rest_client.Account.Delete(account.ResourceGroup.Name, account.Name);
+            this.RestClient.Account.Delete(account.ResourceGroup.Name, account.Name);
         }
 
         public bool Exists(StoreAccount account)
         {
-            return this._rest_client.Account.Exists(account.ResourceGroup.Name, account.Name);
+            return this.RestClient.Account.Exists(account.ResourceGroup.Name, account.Name);
         }
 
     }
