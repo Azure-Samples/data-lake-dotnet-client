@@ -66,6 +66,16 @@ namespace AzureDataLakeClient.Catalog
             return this._adlaCatalogRestClientWrapper.ListTableTypes(this.account, dbname, schema);
         }
 
+        public IEnumerable<ADL.Analytics.Models.USqlTablePartition> ListTablePartitions(string dbname, string schema, string tablename)
+        {
+            return this._adlaCatalogRestClientWrapper.ListTablePartitions(this.account, dbname, schema, tablename);
+        }
+
+        public IEnumerable<ADL.Analytics.Models.USqlTableStatistics> ListTableStatistics(string dbname, string schema, string tablename)
+        {
+            return this._adlaCatalogRestClientWrapper.ListTableStatistics(this.account, dbname, schema, tablename);
+        }
+
         public void CreateCredential(string dbname, string credname, ADL.Analytics.Models.DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
         {
             this._adlaCatalogRestClientWrapper.CreateCredential(this.account, dbname, credname, create_parameters);

@@ -109,8 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsAccount.cs" />
+    <Compile Include="AnalyticsResourceCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
     <Compile Include="ClientBase.cs" />
+    <Compile Include="OData\Utils\FilterCategory.cs" />
     <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
@@ -186,11 +188,12 @@
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="FileSystem\UploadOptions.cs" />
+    <Compile Include="StoreResourceCommands.cs" />
     <Compile Include="StringUtil.cs" />
     <Compile Include="Jobs\SubmitJobOptions.cs" />
     <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Jobs\GetJobsOptions.cs" />
-    <Compile Include="SubscriptionClient.cs" />
+    <Compile Include="ResourceClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />
     <Compile Include="FileSystem\FsAcl.cs" />
@@ -200,8 +203,8 @@
     <Compile Include="Subscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileSystem\FsFileStatusPage.cs" />
-    <Compile Include="AnalyticsAccountClient.cs" />
-    <Compile Include="StoreAccountClient.cs" />
+    <Compile Include="AnalyticsClient.cs" />
+    <Compile Include="StoreClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

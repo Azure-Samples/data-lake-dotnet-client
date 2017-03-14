@@ -9,10 +9,10 @@ namespace ADL_Client_Tests
 
         public ADLC.Authentication.AuthenticatedSession auth_session;
 
-        public ADLC.AnalyticsAccountClient adla_account_client;
-        public ADLC.StoreAccountClient adls_account_client;
+        public ADLC.AnalyticsClient adla_account_client;
+        public ADLC.StoreClient AdlsClient;
         
-        public ADLC.SubscriptionClient sub_client;
+        public ADLC.ResourceClient sub_client;
         public ADLC.Subscription sub;
         public ADLC.ResourceGroup rg;
 
@@ -31,9 +31,9 @@ namespace ADL_Client_Tests
                 var analytics_account = new ADLC.AnalyticsAccount("datainsightsadhoc", sub, rg);
                 this.init = true;
 
-                this.adls_account_client = new ADLC.StoreAccountClient(store_account, auth_session);
-                this.adla_account_client = new ADLC.AnalyticsAccountClient(analytics_account, auth_session);
-                this.sub_client = new ADLC.SubscriptionClient(sub, auth_session);
+                this.AdlsClient = new ADLC.StoreClient(store_account, auth_session);
+                this.adla_account_client = new ADLC.AnalyticsClient(analytics_account, auth_session);
+                this.sub_client = new ADLC.ResourceClient(sub, auth_session);
 
             }
         }

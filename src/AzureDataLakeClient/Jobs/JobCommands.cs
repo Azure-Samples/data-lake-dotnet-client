@@ -18,10 +18,12 @@ namespace AzureDataLakeClient.Jobs
             this._adlaJobRestWrapper = c;
         }
 
-        public MSD_ADL.Analytics.Models.JobInformation GetJob(System.Guid jobid)
+        public JobInfo GetJob(System.Guid jobid)
         {
             var job = this._adlaJobRestWrapper.JobGet(this.account, jobid);
-            return job;
+
+            var j = new JobInfo(job, this.account);
+            return j;
         }
 
         public IEnumerable<JobInfo> GetJobs(GetJobsOptions options)
@@ -37,7 +39,6 @@ namespace AzureDataLakeClient.Jobs
             odata_query.OrderBy = options.Sorting.CreateOrderByString();
             odata_query.Filter = options.Filter.ToFilterString();
 
-
             var jobs = this._adlaJobRestWrapper.JobList(this.account, odata_query, options.Top);
             foreach (var job in jobs)
             {
@@ -46,7 +47,7 @@ namespace AzureDataLakeClient.Jobs
             }
         }
 
-        public MSD_ADL.Analytics.Models.JobInformation SubmitJob(SubmitJobOptions options)
+        public JobInfo SubmitJob(SubmitJobOptions options)
         {
             // If caller doesn't provide a guid, then create a new one
             if (options.JobID == default(System.Guid))
@@ -62,6 +63,7 @@ namespace AzureDataLakeClient.Jobs
             }
 
             var job_info = this._adlaJobRestWrapper.JobCreate(this.account, options);
+
             return job_info;
         }
 

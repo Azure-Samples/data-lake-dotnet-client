@@ -85,9 +85,9 @@ namespace AzureDataLakeClient.Rest
             bool? count = null;
 
             var page = this._client.Catalog.ListSchemas(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlSchema>(page, p => this._client.Catalog.ListSchemasNext(p.NextPageLink)))
+            foreach (var schema in RestUtil.EnumItemsInPages<MSADLA.Models.USqlSchema>(page, p => this._client.Catalog.ListSchemasNext(p.NextPageLink)))
             {
-                yield return proc;
+                yield return schema;
             }
         }
 
@@ -99,9 +99,9 @@ namespace AzureDataLakeClient.Rest
 
 
             var page = this._client.Catalog.ListViews(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlView>(page, p => this._client.Catalog.ListViewsNext(p.NextPageLink)))
+            foreach (var view in RestUtil.EnumItemsInPages<MSADLA.Models.USqlView>(page, p => this._client.Catalog.ListViewsNext(p.NextPageLink)))
             {
-                yield return proc;
+                yield return view;
             }
         }
 
@@ -112,9 +112,9 @@ namespace AzureDataLakeClient.Rest
             bool? count = null;
 
             var page = this._client.Catalog.ListTables(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTable>(page, p => this._client.Catalog.ListTablesNext(p.NextPageLink)))
+            foreach (var table in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTable>(page, p => this._client.Catalog.ListTablesNext(p.NextPageLink)))
             {
-                yield return proc;
+                yield return table;
             }
         }
 
@@ -126,9 +126,9 @@ namespace AzureDataLakeClient.Rest
 
 
             var page = this._client.Catalog.ListTypes(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlType>(page, p => this._client.Catalog.ListTypesNext(p.NextPageLink)))
+            foreach (var type in RestUtil.EnumItemsInPages<MSADLA.Models.USqlType>(page, p => this._client.Catalog.ListTypesNext(p.NextPageLink)))
             {
-                yield return proc;
+                yield return type;
             }
         }
 
@@ -138,11 +138,32 @@ namespace AzureDataLakeClient.Rest
             string @select = null;
             bool? count = null;
 
-
             var page = this._client.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTableType>(page, p => this._client.Catalog.ListTableTypesNext(p.NextPageLink)))
+            foreach (var tabletype in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTableType>(page, p => this._client.Catalog.ListTableTypesNext(p.NextPageLink)))
             {
-                yield return proc;
+                yield return tabletype;
+            }
+        }
+
+        public IEnumerable<MSADLA.Models.USqlTablePartition> ListTablePartitions(AnalyticsAccount account, string dbname, string schema, string tablename)
+        {
+            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlTableType>();
+
+            var page = this._client.Catalog.ListTablePartitions(account.Name, dbname, schema, tablename);
+            foreach (var part in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTablePartition>(page, p => this._client.Catalog.ListTablePartitionsNext(p.NextPageLink)))
+            {
+                yield return part;
+            }
+        }
+
+        public IEnumerable<MSADLA.Models.USqlTableStatistics> ListTableStatistics(AnalyticsAccount account, string dbname, string schema, string tablename)
+        {
+            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlTableType>();
+
+            var page = this._client.Catalog.ListTableStatistics(account.Name, dbname, schema, tablename);
+            foreach (var stats in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTableStatistics>(page, p => this._client.Catalog.ListTableStatisticsNext(p.NextPageLink)))
+            {
+                yield return stats;
             }
         }
 

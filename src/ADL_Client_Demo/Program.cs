@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AzureDataLakeClient.FileSystem;
-using AzureDataLakeClient.Jobs;
 using ADLC = AzureDataLakeClient;
 using MS_ADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
@@ -21,34 +19,36 @@ namespace ADL_Client_Demo
             var auth_session = new ADLC.Authentication.AuthenticatedSession(tenant);
             auth_session.Authenticate();
 
-            var adla_client = new ADLC.AnalyticsAccountClient(adla_account, auth_session);
-            var adls_client = new ADLC.StoreAccountClient(adls_account, auth_session);
-            var sub_client = new ADLC.SubscriptionClient(sub, auth_session);
+            var adla_client = new ADLC.AnalyticsClient(adla_account, auth_session);
+            var adls_client = new ADLC.StoreClient(adls_account, auth_session);
+            var res_client = new ADLC.ResourceClient(sub, auth_session);
 
-            //Demo_GetExactlyOneJob(adla_client);
-            //Demo_Get10OldestJobs(adla_client);
-            //Demo_Get10MostRecentJobs(adla_client);
-            //Demo_Get5FailedJobs(adla_client);
-            //Demo_GetJobsSubmittedByMe(adla_client);
-            //Demo_GetJobsSubmittedByUsers(adla_client);
-            //Demo_GetJobsSubmitedSinceMidnight(adla_client);
-            //Demo_GetJobs_Submitter_Begins_With(adla_client);
-            //Demo_GetJobs_Submitter_Contains(adla_client);
-            Demo_GetTop10MostExpensiveSubmitedInLast24hours(adla_client);
-            //
-            //Demo_ListFilesAtRoot(adls_client);
-            //Demo_ListLinkedDataLakeStoreAccounts(adla_client);
-            //
-            //Demo_ListDataLakeAnalyticsAccountsInSubscription(sub_client);
-            //Demo_ListDatabases(adla_client);
-            //Demo_ListDataLakeStoreAccountsInSubscription(sub_client);
+            Demo_Jobs_List_NeverStarted(adla_client);
+
+            Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla_client);
+            Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
+            Demo_Jobs_List_Recent(adla_client);
+            Demo_Jobs_List_SingleMostRecent(adla_client);
+            Demo_Jobs_List_Oldest(adla_client);
+            Demo_Jobs_List_Failed(adla_client);
+            Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla_client);
+            Demo_Jobs_List_SubmittedBy_Users(adla_client);
+            Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla_client);
+            Demo_Jobs_List_SubmittedBy_UserBeginsWith(adla_client);
+            Demo_Jobs_List_SubmittedBy_UserContains(adla_client);
+            Demo_Jobs_List_MostExpensive_In_Last24hours(adla_client);
+            Demo_Catalog_ListDatabases(adla_client);
+            Demo_Catalog_ListDataLakeStoreAccountsInSubscription(res_client);
+            Demo_AnalyticsAccount_List_LinkedStoreAccounts(adla_client);
+            Demo_FileSystem_ListFilesAtRoot(adls_client);            
+            Demo_Subscription_List_AnalyticsAccounts(res_client);
         }
 
-        private static void Demo_ListFilesAtRoot(ADLC.StoreAccountClient adls_client)
+        private static void Demo_FileSystem_ListFilesAtRoot(ADLC.StoreClient adls_client)
         {
             //var root = ADLC.Store.FsPath.Root; // same as "/"
-            var root = new FsPath("/Samples");
-            var lfo = new ListFilesOptions();
+            var root = new ADLC.FileSystem.FsPath("/Samples");
+            var lfo = new ADLC.FileSystem.ListFilesOptions();
             foreach (var page in adls_client.FileSystem.ListFilesPaged(root,lfo))
             {
                 foreach (var fileitemn in page.FileItems)
@@ -56,23 +56,22 @@ namespace ADL_Client_Demo
                     Console.WriteLine("path={0} filename={1}",page.Path,fileitemn.PathSuffix);                    
                 }
             }
-
         }
 
-        private static void Demo_GetExactlyOneJob(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_SingleMostRecent(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 1;
             var jobs = adla_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmittedByAuthenticatedUser(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_SubmittedBy_AuthenticatedUser(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
-            opts.Filter.Submitter.OneOf(adla_client.AuthenticatedSession.Token.DisplayableId);
+            opts.Filter.Submitter.IsOneOf(adla_client.AuthenticatedSession.Token.DisplayableId);
 
             var jobs = adla_client.Jobs.GetJobs(opts);
 
@@ -80,20 +79,20 @@ namespace ADL_Client_Demo
         }
 
 
-        private static void Demo_GetJobsSubmittedByUsers(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_SubmittedBy_Users(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
-            opts.Filter.Submitter.OneOf("mrys@microsoft.com", "saveenr@microsoft.com");
+            opts.Filter.Submitter.IsOneOf("mrys@microsoft.com", "saveenr@microsoft.com");
 
             var jobs = adla_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobs_Submitter_Begins_With(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_SubmittedBy_UserBeginsWith(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
             opts.Filter.Submitter.BeginsWith("saa");
 
@@ -102,9 +101,9 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobs_Submitter_Contains(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_SubmittedBy_UserContains(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
             opts.Filter.Submitter.Contains("eenr");
 
@@ -114,13 +113,13 @@ namespace ADL_Client_Demo
         }
 
 
-        private static void Demo_Get10MostRecentJobs(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_Recent(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
 
-            var jobfields = new JobListFields();
-            opts.Sorting.Direction = OrderByDirection.Descending;
+            var jobfields = new ADLC.Jobs.JobListFields();
+            opts.Sorting.Direction = ADLC.Jobs.OrderByDirection.Descending;
             opts.Sorting.Field = jobfields.field_submittime;
 
             var jobs = adla_client.Jobs.GetJobs(opts);
@@ -128,13 +127,13 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_Get10OldestJobs(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_Oldest(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 10;
 
-            var jobfields = new JobListFields();
-            opts.Sorting.Direction = OrderByDirection.Ascending;
+            var jobfields = new ADLC.Jobs.JobListFields();
+            opts.Sorting.Direction = ADLC.Jobs.OrderByDirection.Ascending;
             opts.Sorting.Field = jobfields.field_submittime;
 
             var jobs = adla_client.Jobs.GetJobs(opts);
@@ -142,44 +141,54 @@ namespace ADL_Client_Demo
             PrintJobs(jobs);
         }
 
-        private static void Demo_Get5FailedJobs(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_Failed(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 5;
 
-            opts.Filter.Result.OneOf(MS_ADLA.Models.JobResult.Failed);
+            opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
 
             var jobs = adla_client.Jobs.GetJobs(opts);
 
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmitedInLast2hours(ADLC.AnalyticsAccountClient adla_client)
+
+        private static void Demo_GetJobsSubmitedInLast2hours(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
-            opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(2));
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Filter.SubmitTime.InRange(ADLC.OData.Utils.RangeDateTime.InTheLastNHours(2));
             var jobs = adla_client.Jobs.GetJobs(opts);
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetJobsSubmitedSinceMidnight(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_SubmittedBetween_MidnightAndNow(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
-            opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.SinceLocalMidnight());
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Filter.SubmitTime.InRange(ADLC.OData.Utils.RangeDateTime.SinceLocalMidnight());
             var jobs = adla_client.Jobs.GetJobs(opts);
             PrintJobs(jobs);
         }
 
-        private static void Demo_GetTop10MostExpensiveSubmitedInLast24hours(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Jobs_List_NeverStarted(ADLC.AnalyticsClient adla_client)
         {
-            var opts = new GetJobsOptions();
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Top = 2;
+            opts.Filter.StartTime.IsNull();
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
+            PrintJobs(jobs);
+        }
+
+        private static void Demo_Jobs_List_MostExpensive_In_Last24hours(ADLC.AnalyticsClient adla_client)
+        {
+            var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(24));
             var jobs = adla_client.Jobs.GetJobs(opts).OrderByDescending(j=>j.AUSeconds).Take(10).ToList();
 
             PrintJobs(jobs);
         }
 
-        private static void PrintJobs(IEnumerable<JobInfo> jobs)
+        private static void PrintJobs(IEnumerable<ADLC.Jobs.JobInfo> jobs)
         {
             foreach (var job in jobs)
             {
@@ -188,13 +197,14 @@ namespace ADL_Client_Demo
                 Console.WriteLine("AUs = {0}", job.AUs);
                 Console.WriteLine("Priority = {0}", job.Priority);
                 Console.WriteLine("Result = {0}; State = {1}", job.Result, job.State);
+                Console.WriteLine("StartTime = {0} ", job.SubmitTime);
                 Console.WriteLine("SubmitTime = {0} [ Local = {1} ] ", job.SubmitTime.Value, job.SubmitTime.Value.ToLocalTime());
                 Console.WriteLine("Submitter = {0}", job.Submitter);
                 Console.WriteLine("AUHours = {0}", job.AUSeconds / (60.0 * 60.0));
             }
         }
 
-        private static void Demo_ListLinkedDataLakeStoreAccounts(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_AnalyticsAccount_List_LinkedStoreAccounts(ADLC.AnalyticsClient adla_client)
         {
             var storage_accounts = adla_client.Management.ListLinkedDataLakeStoreAccounts().ToList();
             foreach (var i in storage_accounts)
@@ -205,9 +215,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeAnalyticsAccountsInSubscription(ADLC.SubscriptionClient sub_client)
+        private static void Demo_Subscription_List_AnalyticsAccounts(ADLC.ResourceClient res_client)
         {
-            var storage_accounts = sub_client.ListAnalyticsAccounts().ToList();
+            var storage_accounts = res_client.Analytics.ListAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
@@ -217,7 +227,7 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDatabases(ADLC.AnalyticsAccountClient adla_client)
+        private static void Demo_Catalog_ListDatabases(ADLC.AnalyticsClient adla_client)
         {
             var databases = adla_client.Catalog.ListDatabases().ToList();
             foreach (var i in databases)
@@ -229,9 +239,9 @@ namespace ADL_Client_Demo
             }
         }
 
-        private static void Demo_ListDataLakeStoreAccountsInSubscription(ADLC.SubscriptionClient sub_client)
+        private static void Demo_Catalog_ListDataLakeStoreAccountsInSubscription(ADLC.ResourceClient res_client)
         {
-            var storage_accounts = sub_client.ListStoreAccounts().ToList();
+            var storage_accounts = res_client.Store.ListAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
@@ -240,5 +250,68 @@ namespace ADL_Client_Demo
                 Console.WriteLine("Type = {0}", i.Type);
             }
         }
+
+        private static void Demo_Jobs_Summarize_FailedAUHours_By_Submitter(ADLC.AnalyticsClient adla_client)
+        {
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Top = 300;
+
+            opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
+            opts.Filter.StartTime.IsNotNull();
+
+            var failed_jobs = adla_client.Jobs.GetJobs(opts).ToList();
+
+            var results = from job in failed_jobs
+                          group job by job.Submitter into job_group
+                          select new 
+                          {
+                              Submitter = job_group.Key,
+                              Count = job_group.Count(),
+                              AUHours = job_group.Sum( j=> j.AUSeconds)/(60.0*60.0),
+                          };
+
+            foreach (var i in results)
+            {
+                Console.WriteLine("----------------");
+                Console.WriteLine("Submitter = {0}", i.Submitter);
+                Console.WriteLine("NumJobs = {0}", i.Count);
+                Console.WriteLine("AU Hours = {0}", i.AUHours);
+            }
+
+        }
+
+        private static void Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(ADLC.AnalyticsClient adla_client)
+        {
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Top = 300;
+
+            //opts.Filter.Result.OneOf(MS_ADLA.Models.JobResult.Failed);
+
+            var jobs = adla_client.Jobs.GetJobs(opts).Where(j => j.StartTime != null).ToList();
+
+            var results = from job in jobs
+                          group job by 
+                            new {   job.Result,
+                                    job.Submitter }  
+                            into job_group
+                          select new
+                          {
+                              Submitter = job_group.Key.Submitter,
+                              Result = job_group.Key.Result,
+                              Count = job_group.Count(),
+                              AUHours = job_group.Sum(j => j.AUSeconds) / (60.0 * 60.0),
+                          };
+
+            foreach (var i in results)
+            {
+                Console.WriteLine("----------------");
+                Console.WriteLine("Submitter = {0}", i.Submitter);
+                Console.WriteLine("Result = {0}", i.Result);
+                Console.WriteLine("NumJobs = {0}", i.Count);
+                Console.WriteLine("AU Hours = {0}", i.AUHours);
+            }
+
+        }
+
     }
 }
