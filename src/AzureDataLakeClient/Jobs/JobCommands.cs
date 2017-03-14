@@ -9,18 +9,18 @@ namespace AzureDataLakeClient.Jobs
     {
         public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
 
-        private AnalyticsJobsRestWrapper _adlaJobRestWrapper;
         private AnalyticsAccount account;
+        AnalyticsRestClients clients;
 
-        public JobCommands(AnalyticsAccount a, AnalyticsJobsRestWrapper c)
+        public JobCommands(AnalyticsAccount a, AnalyticsRestClients clients)
         {
             this.account = a;
-            this._adlaJobRestWrapper = c;
+            this.clients = clients;
         }
 
         public JobInfo GetJob(System.Guid jobid)
         {
-            var job = this._adlaJobRestWrapper.JobGet(this.account, jobid);
+            var job = this.clients._JobRest.JobGet(this.account, jobid);
 
             var j = new JobInfo(job, this.account);
             return j;
@@ -39,7 +39,7 @@ namespace AzureDataLakeClient.Jobs
             odata_query.OrderBy = options.Sorting.CreateOrderByString();
             odata_query.Filter = options.Filter.ToFilterString();
 
-            var jobs = this._adlaJobRestWrapper.JobList(this.account, odata_query, options.Top);
+            var jobs = this.clients._JobRest.JobList(this.account, odata_query, options.Top);
             foreach (var job in jobs)
             {
                 var j = new JobInfo(job, this.account);
@@ -62,19 +62,19 @@ namespace AzureDataLakeClient.Jobs
                 options.JobName = "USQL " + System.DateTimeOffset.Now.ToString();
             }
 
-            var job_info = this._adlaJobRestWrapper.JobCreate(this.account, options);
+            var job_info = this.clients._JobRest.JobCreate(this.account, options);
 
             return job_info;
         }
 
         public MSD_ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            return this._adlaJobRestWrapper.GetStatistics(this.account, jobid);
+            return this.clients._JobRest.GetStatistics(this.account, jobid);
         }
 
         public MSD_ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            return this._adlaJobRestWrapper.GetDebugDataPath(this.account, jobid);
+            return this.clients._JobRest.GetDebugDataPath(this.account, jobid);
         }
 
 
