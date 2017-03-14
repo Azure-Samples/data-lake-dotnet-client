@@ -10,10 +10,10 @@ namespace AzureDataLakeClient
         private readonly StoreManagementRestWrapper _adls_account_mgmt_client;
         public readonly Subscription Subscription;
 
-        public AnalyticsResourceCommands(Subscription subscription, AuthenticatedSession authSession, AnalyticsAccountManagmentRestWrapper w1 )
+        public AnalyticsResourceCommands(Subscription subscription, AuthenticatedSession authSession, AnalyticsAccountManagmentRestWrapper adla_rest )
         {
             this.Subscription = subscription;
-            this._adlaAccountMgmtClientWrapper = w1;
+            this._adlaAccountMgmtClientWrapper = adla_rest;
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccount> ListAccounts()
