@@ -26,6 +26,22 @@ namespace AzureDataLakeClient.Jobs
             return j;
         }
 
+        public JobInfo GetJobExtendedInfo(System.Guid jobid)
+        {
+            var job = this.clients._JobRest.JobGet(this.account, jobid);
+            
+            var jop_Info = new JobInfo(job, this.account);
+
+            var statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
+            var debugpaths = clients._JobRest.GetDebugDataPath(this.account, jobid);
+
+            jop_Info.ExtendedInfo.Statistics = statistics;
+            jop_Info.ExtendedInfo.DebugDataPath = debugpaths;
+
+            return jop_Info;
+        }
+
+
         public IEnumerable<JobInfo> GetJobs(GetJobsOptions options)
         {
             var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSD_ADL.Analytics.Models.JobInformation>();

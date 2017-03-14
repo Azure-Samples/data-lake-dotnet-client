@@ -93,17 +93,28 @@ namespace ADL_Client_Demo
         private static void Demo_Jobs_GetJobUrl(ADLC.AnalyticsClient adla_client)
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
-            opts.Top = 1;
-            var job = adla_client.Jobs.GetJobs(opts).First();
+            opts.Top = 3;
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
-            var joblink = job.GetJobReference();
+            foreach (var job in jobs)
+            {
+                var joblink = job.GetJobReference();
 
-            string joburi_string = joblink.GetUri();
-            string job_portal_link_string = joblink.GetAzurePortalLink();
-                
-            Console.WriteLine(joburi_string);
-            Console.WriteLine();
-            Console.WriteLine(job_portal_link_string);
+                string joburi_string = joblink.GetUri();
+                string job_portal_link_string = joblink.GetAzurePortalLink();
+
+                Console.WriteLine(joburi_string);
+                Console.WriteLine(job_portal_link_string);
+                Console.WriteLine(job.CompileTime);
+
+                if (job.ExtendedInfo.StateAuditRecords!=null)
+                {
+                    foreach (var r in job.ExtendedInfo.StateAuditRecords)
+                    {
+                        Console.WriteLine("{0}", r.NewState);
+                    }
+                }
+            }
         }
 
 
