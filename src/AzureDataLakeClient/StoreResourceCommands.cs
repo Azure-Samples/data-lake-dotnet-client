@@ -8,11 +8,13 @@ namespace AzureDataLakeClient
     {
         private readonly StoreManagementRestWrapper _adls_account_mgmt_client;
         public readonly Subscription Subscription;
+        private AuthenticatedSession auth;
 
         public StoreResourceCommands(Subscription subscription, AuthenticatedSession authSession, StoreManagementRestWrapper adls_rest)
         {
             this.Subscription = subscription;
             this._adls_account_mgmt_client = adls_rest;
+            this.auth = authSession;
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()
