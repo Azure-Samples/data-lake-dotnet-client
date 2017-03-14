@@ -21,10 +21,6 @@ namespace AzureDataLakeClient
 
     public class AnalyticsClient : AzureDataLakeClient.ClientBase
     {
-        private readonly AnalyticsJobsRestWrapper _JobRest;
-        private readonly AnalyticsCatalogRestWrapper _CatalogRest;
-        private readonly AnalyticsAccountManagmentRestWrapper _AdlaAccountMgmtRest;
-
         public readonly JobCommands Jobs;
         public readonly CatalogCommands Catalog;
         public readonly ManagementCommands Management;

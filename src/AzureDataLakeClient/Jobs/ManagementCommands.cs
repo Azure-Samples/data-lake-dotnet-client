@@ -1,62 +1,61 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Authentication;
 
 namespace AzureDataLakeClient.Jobs
 {
     public class ManagementCommands
     {
-        private AnalyticsAccount account;
-        public AnalyticsRestClients clients;
+        private readonly AnalyticsAccount AnalyticsAccount;
+        public readonly AnalyticsRestClients RestClients;
 
-        public ManagementCommands(AnalyticsAccount a, AnalyticsRestClients c)
+        public ManagementCommands(AnalyticsAccount account, AnalyticsRestClients restclients)
         {
-            this.account = a;
-            this.clients = c;
+            this.AnalyticsAccount = account;
+            this.RestClients = restclients;
         }
 
         public void UpdateAccount(Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this.clients._AdlaAccountMgmtRest.UpdateAccount(this.account.ResourceGroup, account, parameters);
+            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount, parameters);
         }
 
         public void LinkBlobStorageAccount(string storage_account, Microsoft.Azure.Management.DataLake.Analytics.Models.AddStorageAccountParameters parameters)
         {
-            this.clients._AdlaAccountMgmtRest.AddStorageAccount(this.account.ResourceGroup, account, storage_account, parameters);
+            this.RestClients._AdlaAccountMgmtRest.AddStorageAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account, parameters);
         }
 
         public void LinkDataLakeStoreAccount(string storage_account, Microsoft.Azure.Management.DataLake.Analytics.Models.AddDataLakeStoreParameters parameters)
         {
-            this.clients._AdlaAccountMgmtRest.AddDataLakeStoreAccount(this.account.ResourceGroup, account, storage_account, parameters);
+            this.RestClients._AdlaAccountMgmtRest.AddDataLakeStoreAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account, parameters);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeStoreAccountInfo> ListLinkedDataLakeStoreAccounts()
         {
-            return this.clients._AdlaAccountMgmtRest.ListStoreAccounts(this.account.ResourceGroup, account);
+            return this.RestClients._AdlaAccountMgmtRest.ListStoreAccounts(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageAccountInfo> ListLinkedBlobStorageAccounts()
         {
-            return this.clients._AdlaAccountMgmtRest.ListStorageAccounts(account.ResourceGroup, account);
+            return this.RestClients._AdlaAccountMgmtRest.ListStorageAccounts(AnalyticsAccount.ResourceGroup, AnalyticsAccount);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageContainer> ListLinkedBlobStorageContainers(string storage_account)
         {
-            return this.clients._AdlaAccountMgmtRest.ListStorageContainers(account.ResourceGroup, account, storage_account);
+            return this.RestClients._AdlaAccountMgmtRest.ListStorageContainers(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account);
         }
 
         public void UnlinkBlobStorageAccount(string storage_account)
         {
-            this.clients._AdlaAccountMgmtRest.DeleteStorageAccount(account.ResourceGroup, account, storage_account);
+            this.RestClients._AdlaAccountMgmtRest.DeleteStorageAccount(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account);
         }
 
         public void UnlinkDataLakeStoreAccount(string storage_account)
         {
-            this.clients._AdlaAccountMgmtRest.DeleteDataLakeStoreAccount(account.ResourceGroup, account, storage_account);
+            this.RestClients._AdlaAccountMgmtRest.DeleteDataLakeStoreAccount(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.SasTokenInfo> ListBlobStorageSasTokens(string storage_account, string container)
         {
-            return this.clients._AdlaAccountMgmtRest.ListSasTokens(account.ResourceGroup, account, storage_account, container);
+            return this.RestClients._AdlaAccountMgmtRest.ListSasTokens(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account, container);
         }
 
     }
