@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsAccount.cs" />
+    <Compile Include="AnalyticsRestClients.cs" />
     <Compile Include="Rm\AnalyticsResourceCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
     <Compile Include="ClientBase.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="FileSystem\UploadOptions.cs" />
     <Compile Include="Rm\StoreResourceCommands.cs" />
+    <Compile Include="StoreRestClients.cs" />
     <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Jobs\SubmitJobOptions.cs" />
     <Compile Include="Rest\RestUtil.cs" />
