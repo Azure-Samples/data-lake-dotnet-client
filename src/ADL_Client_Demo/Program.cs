@@ -96,9 +96,10 @@ namespace ADL_Client_Demo
             opts.Top = 1;
             var job = adla_client.Jobs.GetJobs(opts).First();
 
+            var joblink = job.GetJobReference();
 
-            string joburi_string = job.GetUri();
-            string job_portal_link_string = job.GetAzurePortalLink();
+            string joburi_string = joblink.GetUri();
+            string job_portal_link_string = joblink.GetAzurePortalLink();
                 
             Console.WriteLine(joburi_string);
             Console.WriteLine();
