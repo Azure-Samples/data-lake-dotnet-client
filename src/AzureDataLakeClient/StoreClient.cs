@@ -6,8 +6,9 @@ namespace AzureDataLakeClient
 {
     public class StoreClient : ClientBase
     {
-        private StoreFileSystemRestWrapper _FileSystemRest;
-        private StoreManagementRestWrapper _StoreAccountMgmtRest;
+        private readonly StoreFileSystemRestWrapper _FileSystemRest;
+        private readonly StoreManagementRestWrapper _StoreAccountMgmtRest;
+
         private StoreAccount _StoreAccount;
 
         public readonly FileSystemCommands FileSystem;

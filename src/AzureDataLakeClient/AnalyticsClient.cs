@@ -7,9 +7,9 @@ namespace AzureDataLakeClient
 {
     public class AnalyticsClient : AzureDataLakeClient.ClientBase
     {
-        private AnalyticsJobsRestWrapper _JobRest;
-        private AnalyticsCatalogRestWrapper _CatalogRest;
-        private AnalyticsAccountManagmentRestWrapper _AdlaAccountMgmtRest;
+        private readonly AnalyticsJobsRestWrapper _JobRest;
+        private readonly AnalyticsCatalogRestWrapper _CatalogRest;
+        private readonly AnalyticsAccountManagmentRestWrapper _AdlaAccountMgmtRest;
 
         public readonly JobCommands Jobs;
         public readonly CatalogCommands Catalog;
@@ -25,6 +25,6 @@ namespace AzureDataLakeClient
             this.Jobs = new JobCommands(account, this._JobRest);
             this.Catalog = new CatalogCommands(account, this._CatalogRest);
             this.Management = new ManagementCommands(account, this._AdlaAccountMgmtRest);
-        }
+        }        
     }
 }
