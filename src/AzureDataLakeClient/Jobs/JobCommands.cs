@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using AzureDataLakeClient.Rest;
-using MSD_ADL = Microsoft.Azure.Management.DataLake;
+using MSADL = Microsoft.Azure.Management.DataLake;
 
 namespace AzureDataLakeClient.Jobs
 {
@@ -10,9 +9,9 @@ namespace AzureDataLakeClient.Jobs
         public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
 
         private AnalyticsAccount account;
-        AnalyticsRestClients clients;
+        private AnalyticsRestClients clients;
 
-        public JobCommands(AnalyticsAccount a, AnalyticsRestClients clients)
+        internal JobCommands(AnalyticsAccount a, AnalyticsRestClients clients)
         {
             this.account = a;
             this.clients = clients;
@@ -44,7 +43,7 @@ namespace AzureDataLakeClient.Jobs
 
         public IEnumerable<JobInfo> GetJobs(GetJobsOptions options)
         {
-            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSD_ADL.Analytics.Models.JobInformation>();
+            var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSADL.Analytics.Models.JobInformation>();
 
             // if users requests top, set the value appropriately relative to the page size
             if ((options.Top > 0) && (options.Top <= JobCommands.ADLJobPageSize))
@@ -83,12 +82,12 @@ namespace AzureDataLakeClient.Jobs
             return job_info;
         }
 
-        public MSD_ADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
+        public MSADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
             return this.clients._JobRest.GetStatistics(this.account, jobid);
         }
 
-        public MSD_ADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
+        public MSADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
             return this.clients._JobRest.GetDebugDataPath(this.account, jobid);
         }

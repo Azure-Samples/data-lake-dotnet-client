@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ADLC = AzureDataLakeClient;
-using MS_ADLA = Microsoft.Azure.Management.DataLake.Analytics;
+using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Demo
 {
@@ -206,7 +206,7 @@ namespace ADL_Client_Demo
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 5;
 
-            opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
+            opts.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Failed);
 
             var jobs = adla_client.Jobs.GetJobs(opts).ToList();
 
@@ -328,7 +328,7 @@ namespace ADL_Client_Demo
             var opts = new ADLC.Jobs.GetJobsOptions();
             opts.Top = 300;
 
-            opts.Filter.Result.IsOneOf(MS_ADLA.Models.JobResult.Failed);
+            opts.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Failed);
             opts.Filter.StartTime.IsNotNull();
 
             var failed_jobs = adla_client.Jobs.GetJobs(opts).ToList();

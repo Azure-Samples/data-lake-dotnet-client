@@ -1,5 +1,5 @@
 ﻿using ADLC = AzureDataLakeClient;
-using MS_ADLA = Microsoft.Azure.Management.DataLake.Analytics;
+using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Tests
 {

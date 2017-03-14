@@ -122,7 +122,6 @@
     <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
     <Compile Include="Catalog\CatalogCommands.cs" />
-    <Compile Include="Extensions\AnalyticsExtensions.cs" />
     <Compile Include="Jobs\JobCommands.cs" />
     <Compile Include="Jobs\JobListFields.cs" />
     <Compile Include="Jobs\JobListSorting.cs" />
