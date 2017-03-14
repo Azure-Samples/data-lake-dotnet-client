@@ -23,12 +23,14 @@ namespace ADL_Client_Demo
             var adls_client = new ADLC.StoreClient(adls_account, auth_session);
             var res_client = new ADLC.ResourceClient(sub, auth_session);
 
-            Demo_Job_Summaries(adla_client);
-            Demo_Job_Listing(adla_client);
-            Demo_Catalog(adla_client);
-            Demo_Analytics_Account_Management(adla_client);
-            Demo_FileSystem(adls_client);
-            Demo_Resource_Managementr(res_client);
+            Demo_Jobs_GetJobUrl(adla_client);
+
+            //Demo_Job_Summaries(adla_client);
+            //Demo_Job_Listing(adla_client);
+            //Demo_Catalog(adla_client);
+            //Demo_Analytics_Account_Management(adla_client);
+            //Demo_FileSystem(adls_client);
+            //Demo_Resource_Managementr(res_client);
         }
 
         private static void Demo_Analytics_Account_Management(ADLC.AnalyticsClient adla_client)
@@ -87,6 +89,22 @@ namespace ADL_Client_Demo
                 }
             }
         }
+
+        private static void Demo_Jobs_GetJobUrl(ADLC.AnalyticsClient adla_client)
+        {
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Top = 1;
+            var job = adla_client.Jobs.GetJobs(opts).First();
+
+
+            string joburi_string = job.GetUri();
+            string job_portal_link_string = job.GetAzurePortalLink();
+                
+            Console.WriteLine(joburi_string);
+            Console.WriteLine();
+            Console.WriteLine(job_portal_link_string);
+        }
+
 
         private static void Demo_Jobs_List_SingleMostRecent(ADLC.AnalyticsClient adla_client)
         {

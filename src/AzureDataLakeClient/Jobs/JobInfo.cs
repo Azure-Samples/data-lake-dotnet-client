@@ -62,6 +62,19 @@ namespace AzureDataLakeClient.Jobs
             }
         }
 
+
+        public string GetUri()
+        {
+            string joburi_string = $"https://{this.Account.Name}.azuredatalakeanalytics.net/jobs/{this.Id}?api-version=2015-10-01-preview";
+            return joburi_string;
+        }
+
+        public string GetAzurePortalLink()
+        {
+            string job_portal_link_string = $"https://portal.azure.com/#blade/Microsoft_Azure_DataLakeAnalytics/SqlIpJobDetailsBlade/accountId/%2Fsubscriptions%2F{this.Account.Subscription.Id}%2FresourceGroups%2F{this.Account.ResourceGroup.Name}%2Fproviders%2FMicrosoft.DataLakeAnalytics%2Faccounts%2F{this.Account.Name}/jobId/{this.Id}";
+            return job_portal_link_string;
+        }
+
         internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccount acct)
         {
             this.Account = acct;
