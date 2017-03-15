@@ -6,7 +6,7 @@ namespace AdlClient
         public Subscription Subscription;
         public ResourceGroup ResourceGroup;
 
-        public StoreAccount(string name, Subscription sub, ResourceGroup rg)
+        public StoreAccount(Subscription sub, ResourceGroup rg, string name)
         {
             this.Name = name;
             this.Subscription = sub;

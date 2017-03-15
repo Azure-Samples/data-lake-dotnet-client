@@ -24,8 +24,8 @@ namespace ADL_Client_Tests
                 this.Subscription = new ADLC.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
                 this.ResourceGroup = new ADLC.ResourceGroup("InsightsServices");
 
-                var store_account = new ADLC.StoreAccount("datainsightsadhoc",Subscription,ResourceGroup);
-                var analytics_account = new ADLC.AnalyticsAccount("datainsightsadhoc", Subscription, ResourceGroup);
+                var store_account = new ADLC.StoreAccount(Subscription,ResourceGroup, "datainsightsadhoc");
+                var analytics_account = new ADLC.AnalyticsAccount(Subscription, ResourceGroup, "datainsightsadhoc");
                 this.init = true;
 
                 this.StoreClient = new ADLC.StoreClient(store_account, AuthenticatedSession);

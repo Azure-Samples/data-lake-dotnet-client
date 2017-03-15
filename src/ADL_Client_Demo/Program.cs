@@ -11,28 +11,34 @@ namespace ADL_Client_Demo
     {
         private static void Main(string[] args)
         {
+            // Collect info about the Azure resources needed for this demo
             var sub = new ADLC.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
             var rg = new ADLC.ResourceGroup("InsightServices");
-            var adla_account = new ADLC.AnalyticsAccount("datainsightsadhoc", sub, rg); // change this to an ADL Analytics account you have access to 
-            var adls_account = new ADLC.StoreAccount("datainsightsadhoc", sub, rg); // change this to an ADL Store account you have access to 
+            var adla_account = new ADLC.AnalyticsAccount(sub, rg, "datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
+            var adls_account = new ADLC.StoreAccount(sub, rg, "datainsightsadhoc"); // change this to an ADL Store account you have access to 
 
+            // Setup authentication for this demo
             var tenant = new ADLC.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
-            var auth_session = new ADLC.Authentication.AuthenticatedSession(tenant);
-            auth_session.Authenticate();
+            var auth = new ADLC.Authentication.AuthenticatedSession(tenant);
+            auth.Authenticate();
 
-            var adla_client = new ADLC.AnalyticsClient(adla_account, auth_session);
-            var adls_client = new ADLC.StoreClient(adls_account, auth_session);
-            var res_client = new ADLC.ResourceClient(sub, auth_session);
+            // Create the clients
+            var adla_client = new ADLC.AnalyticsClient(adla_account, auth);
+            var adls_client = new ADLC.StoreClient(adls_account, auth);
+            var res_client = new ADLC.ResourceClient(sub, auth);
+
+            // ------------------------------
+            // Run the Demo
+            // ------------------------------
 
             Demo_JobsDetails(adla_client);
-            // Demo_Jobs_GetJobUrl(adla_client);
-
-            //Demo_Job_Summaries(adla_client);
-            //Demo_Job_Listing(adla_client);
-            //Demo_Catalog(adla_client);
-            //Demo_Analytics_Account_Management(adla_client);
-            //Demo_FileSystem(adls_client);
-            //Demo_Resource_Managementr(res_client);
+            Demo_Jobs_GetJobUrl(adla_client);
+            Demo_Job_Summaries(adla_client);
+            Demo_Job_Listing(adla_client);
+            Demo_Catalog(adla_client);
+            Demo_Analytics_Account_Management(adla_client);
+            Demo_FileSystem(adls_client);
+            Demo_Resource_Managementr(res_client);
         }
 
         private static void Demo_JobsDetails(ADLC.AnalyticsClient adla_client)

@@ -6,7 +6,7 @@
         public Subscription Subscription;
         public ResourceGroup ResourceGroup;
 
-        public AnalyticsAccount(string name, Subscription sub, ResourceGroup rg)
+        public AnalyticsAccount(Subscription sub, ResourceGroup rg, string name)
         {
             this.Name = name;
             this.Subscription = sub;
