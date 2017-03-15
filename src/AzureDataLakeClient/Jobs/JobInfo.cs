@@ -18,8 +18,6 @@ namespace AzureDataLakeClient.Jobs
         public readonly MSADLA.Models.JobType Type;
         public readonly string Submitter;
 
-        public readonly JobExtendedInfo ExtendedInfo;
-
 
         public readonly AnalyticsAccount Account;
 
@@ -60,45 +58,6 @@ namespace AzureDataLakeClient.Jobs
             }
         }
 
-        public TimeSpan? CompileTime
-        {
-            get
-            {
-                if (this.ExtendedInfo==null)
-                {
-                    return null;
-                }
-
-                if (this.ExtendedInfo.StateAuditRecords == null)
-                {
-                    return null;
-                }
-
-                var elapsed = new TimeSpan();
-                bool found_compiling = false;
-
-                for (int i = 0; i < this.ExtendedInfo.StateAuditRecords.Count; i++)
-                {
-
-                    var r = this.ExtendedInfo.StateAuditRecords[i];
-                    if (r.NewState == "Preparing.Compiling")
-                    {
-                        found_compiling = true;
-                        var r2 = this.ExtendedInfo.StateAuditRecords[i + 1];
-
-                        var delta = r2.TimeStamp.Value - r.TimeStamp.Value;
-                        elapsed = elapsed + delta;
-                    }
-                }
-
-                if (found_compiling)
-                {
-                    return elapsed;
-                }
-
-                return null;
-            }
-        }
 
         public JobReference GetJobReference()
         {
@@ -121,7 +80,6 @@ namespace AzureDataLakeClient.Jobs
             this.Type = job.Type;
             this.Submitter = job.Submitter;
 
-            this.ExtendedInfo = new JobExtendedInfo(job);
         }
     }
 }

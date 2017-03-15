@@ -17,27 +17,28 @@ namespace AzureDataLakeClient.Jobs
             this.clients = clients;
         }
 
-        public JobInfo GetJob(System.Guid jobid)
+        public JobDetails GetJobDetails(System.Guid jobid, bool extendedInfo)
         {
             var job = this.clients._JobRest.JobGet(this.account, jobid);
 
-            var j = new JobInfo(job, this.account);
-            return j;
-        }
+            var jobinfo = new JobInfo(job, this.account);
 
-        public JobInfo GetJobExtendedInfo(System.Guid jobid)
-        {
-            var job = this.clients._JobRest.JobGet(this.account, jobid);
-            
-            var jop_Info = new JobInfo(job, this.account);
+            var jobdetails = new JobDetails();
+            jobdetails.JobInfo = jobinfo;
 
-            var statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
-            var debugpaths = clients._JobRest.GetDebugDataPath(this.account, jobid);
+            jobdetails.StateAuditRecords = job.StateAuditRecords;
+            jobdetails.Properties = job.Properties;
 
-            jop_Info.ExtendedInfo.Statistics = statistics;
-            jop_Info.ExtendedInfo.DebugDataPath = debugpaths;
+            if (extendedInfo)
+            {
+                jobdetails.ExtendedJobInfo = new ExtendedJobInfo();
+                jobdetails.ExtendedJobInfo.Statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
 
-            return jop_Info;
+                // jobdetails.ExtendedJobInfo.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
+            }
+
+
+            return jobdetails;
         }
 
 

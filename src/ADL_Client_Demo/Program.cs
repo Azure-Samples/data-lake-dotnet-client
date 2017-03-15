@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using ADLC = AzureDataLakeClient;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
@@ -23,7 +24,8 @@ namespace ADL_Client_Demo
             var adls_client = new ADLC.StoreClient(adls_account, auth_session);
             var res_client = new ADLC.ResourceClient(sub, auth_session);
 
-            Demo_Jobs_GetJobUrl(adla_client);
+            Demo_JobsDetails(adla_client);
+            // Demo_Jobs_GetJobUrl(adla_client);
 
             //Demo_Job_Summaries(adla_client);
             //Demo_Job_Listing(adla_client);
@@ -31,6 +33,18 @@ namespace ADL_Client_Demo
             //Demo_Analytics_Account_Management(adla_client);
             //Demo_FileSystem(adls_client);
             //Demo_Resource_Managementr(res_client);
+        }
+
+        private static void Demo_JobsDetails(ADLC.AnalyticsClient adla_client)
+        {
+            var opts = new ADLC.Jobs.GetJobsOptions();
+            opts.Top = 5;
+            opts.Filter.State.IsOneOf( JobState.Ended );
+            opts.Filter.Result.IsOneOf( JobResult.Succeeded );
+            var jobs = adla_client.Jobs.GetJobs(opts).ToList();
+
+            var first_job = jobs[0];
+            var jobdetails = adla_client.Jobs.GetJobDetails(first_job.Id.Value, true);
         }
 
         private static void Demo_Analytics_Account_Management(ADLC.AnalyticsClient adla_client)
@@ -105,15 +119,6 @@ namespace ADL_Client_Demo
 
                 Console.WriteLine(joburi_string);
                 Console.WriteLine(job_portal_link_string);
-                Console.WriteLine(job.CompileTime);
-
-                if (job.ExtendedInfo.StateAuditRecords!=null)
-                {
-                    foreach (var r in job.ExtendedInfo.StateAuditRecords)
-                    {
-                        Console.WriteLine("{0}", r.NewState);
-                    }
-                }
             }
         }
 
