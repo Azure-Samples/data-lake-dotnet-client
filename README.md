@@ -11,6 +11,14 @@ The AzureDataLakeClient C# library wraps the use of the Azure Data Lake SDKs to 
 
 This sample is not intended to use in production code; it is published to illustrate real-world use of the Azure Data Lake APIs. 
 
+## NuGet Package
+
+The pre-built binaries are available via NuGet:[AzureDataLake.Client](https://www.nuget.org/packages/AzureDataLake.Client)
+
+## Usage
+
+The [Demo program here](https://github.com/Azure-Samples/data-lake-dotnet-client/blob/master/src/) illustrates how to use the package.
+
 ## Resources
 
 * [Azure Data Lake homepage](http://azure.github.io/AzureDataLake/)
