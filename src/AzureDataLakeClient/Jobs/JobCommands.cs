@@ -28,14 +28,13 @@ namespace AdlClient.Jobs
 
             jobdetails.StateAuditRecords = job.StateAuditRecords;
             jobdetails.Properties = job.Properties;
+            jobdetails.ErrorMessage = job.ErrorMessage;
+            jobdetails.LogFilePatterns = job.LogFilePatterns;
 
             if (extendedInfo)
             {
                 jobdetails.ExtendedJobInfo = new ExtendedJobInfo();
                 jobdetails.ExtendedJobInfo.Statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
-
-                jobdetails.ExtendedJobInfo.ErrorMessage = job.ErrorMessage;
-                jobdetails.ExtendedJobInfo.LogFilePatterns = job.LogFilePatterns;
 
                 // jobdetails.ExtendedJobInfo.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
