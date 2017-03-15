@@ -8,7 +8,7 @@ namespace ADL_Client_Tests.Store
         [TestMethod]
         public void Field_0()
         {
-            var e0 = new AzureDataLakeClient.OData.ExprField("foo");
+            var e0 = new AdlClient.OData.ExprField("foo");
             var s = e0.ToExpressionString();
             Assert.AreEqual("foo", s);
         }
@@ -16,9 +16,9 @@ namespace ADL_Client_Tests.Store
         [TestMethod]
         public void Field_1()
         {
-            var e0 = new AzureDataLakeClient.OData.ExprField("foo");
-            var e1 = new AzureDataLakeClient.OData.ExprField("bar");
-            var e2 = new AzureDataLakeClient.OData.ExprLogicalAnd(e0,e1);
+            var e0 = new AdlClient.OData.ExprField("foo");
+            var e1 = new AdlClient.OData.ExprField("bar");
+            var e2 = new AdlClient.OData.ExprLogicalAnd(e0,e1);
 
             var s = e2.ToExpressionString();
             Assert.AreEqual("(foo and bar)",s);
@@ -27,8 +27,8 @@ namespace ADL_Client_Tests.Store
         [TestMethod]
         public void Field_2()
         {
-            var e0 = new AzureDataLakeClient.OData.ExprField("foo");
-            var e2 = new AzureDataLakeClient.OData.ExprLogicalAnd(e0);
+            var e0 = new AdlClient.OData.ExprField("foo");
+            var e2 = new AdlClient.OData.ExprLogicalAnd(e0);
 
             var s = e2.ToExpressionString();
             Assert.AreEqual("foo", s);

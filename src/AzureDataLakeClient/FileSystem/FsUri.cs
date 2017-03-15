@@ -1,6 +1,6 @@
 using System;
 
-namespace AzureDataLakeClient.FileSystem
+namespace AdlClient.FileSystem
 {
     public class FsUri
     {

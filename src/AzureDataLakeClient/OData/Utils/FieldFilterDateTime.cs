@@ -1,6 +1,6 @@
-using AzureDataLakeClient.OData.Enums;
+using AdlClient.OData.Enums;
 
-namespace AzureDataLakeClient.OData.Utils
+namespace AdlClient.OData.Utils
 {
 
     public class FieldFilterDateTime : FieldFilter

@@ -1,7 +1,7 @@
-using AzureDataLakeClient.Authentication;
-using AzureDataLakeClient.FileSystem;
+using AdlClient.Authentication;
+using AdlClient.FileSystem;
 
-namespace AzureDataLakeClient
+namespace AdlClient
 {
     public class StoreClient : ClientBase
     {

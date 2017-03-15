@@ -1,10 +1,10 @@
-using AzureDataLakeClient.Authentication;
-using AzureDataLakeClient.Rest;
 using MSAZURERM = Microsoft.Azure.Management.ResourceManager;
 using System.Collections.Generic;
+using AdlClient.Authentication;
+using AdlClient.Rest;
 using Microsoft.Azure.Management.ResourceManager;
 
-namespace AzureDataLakeClient
+namespace AdlClient
 {
     public class ResourceClient: ClientBase
     {

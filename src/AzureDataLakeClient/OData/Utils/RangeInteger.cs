@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.OData.Utils
+namespace AdlClient.OData.Utils
 {
     public class RangeInteger
     {

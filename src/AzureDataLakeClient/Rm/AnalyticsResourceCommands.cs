@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Authentication;
-using AzureDataLakeClient.Rest;
+using AdlClient.Authentication;
+using AdlClient.Rest;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AzureDataLakeClient
+namespace AdlClient
 {
     public class AnalyticsResourceCommands
     {

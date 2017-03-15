@@ -1,5 +1,5 @@
 
-namespace AzureDataLakeClient.OData.Utils
+namespace AdlClient.OData.Utils
 {
     public abstract class FieldFilter
     {

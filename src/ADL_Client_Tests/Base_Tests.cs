@@ -1,4 +1,4 @@
-﻿using ADLC = AzureDataLakeClient;
+﻿using ADLC = AdlClient;
 
 namespace ADL_Client_Tests
 {

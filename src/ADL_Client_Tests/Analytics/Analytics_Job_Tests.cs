@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using AzureDataLakeClient.Jobs;
+using AdlClient.Jobs;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

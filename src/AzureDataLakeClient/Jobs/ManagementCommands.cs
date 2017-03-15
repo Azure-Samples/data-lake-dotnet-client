@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AzureDataLakeClient.Jobs
+namespace AdlClient.Jobs
 {
     public class ManagementCommands
     {

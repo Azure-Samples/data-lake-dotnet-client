@@ -11,7 +11,7 @@ namespace ADL_Client_Tests.Store
         public void Get_AD_Tenant_ID()
         {
             this.Initialize();
-            var directory = AzureDataLakeClient.Authentication.Directory.Resolve("microsoft.com");
+            var directory = AdlClient.Authentication.Directory.Resolve("microsoft.com");
             string tenantid = directory.TenantId;
         }
 

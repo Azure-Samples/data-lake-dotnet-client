@@ -6,8 +6,8 @@
     <ProjectGuid>{E8EC589D-3220-41CE-AC89-AA5EB9BAFF98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ADL_Client_Tests</RootNamespace>
-    <AssemblyName>ADL_Client_Tests</AssemblyName>
+    <RootNamespace>TestAdlClient</RootNamespace>
+    <AssemblyName>TestAdlClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -147,9 +147,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AzureDataLakeClient\AzureDataLakeClient.csproj">
+    <ProjectReference Include="..\AzureDataLakeClient\AdlClient.csproj">
       <Project>{b255d8ff-3031-43b5-8044-aa944dd62c36}</Project>
-      <Name>AzureDataLakeClient</Name>
+      <Name>AdlClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

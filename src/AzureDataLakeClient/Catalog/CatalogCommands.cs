@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Catalog
+namespace AdlClient.Catalog
 {
     public class CatalogCommands
     {

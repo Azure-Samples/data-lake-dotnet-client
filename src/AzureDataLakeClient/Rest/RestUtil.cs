@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Rest.Azure;
 
-namespace AzureDataLakeClient.Rest
+namespace AdlClient.Rest
 {
     public class RestUtil
     {

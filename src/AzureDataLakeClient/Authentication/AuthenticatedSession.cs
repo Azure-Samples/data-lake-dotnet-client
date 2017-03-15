@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using REST = Microsoft.Rest.Azure;
 
-namespace AzureDataLakeClient.Authentication
+namespace AdlClient.Authentication
 {
     public class AuthenticatedSession
     {

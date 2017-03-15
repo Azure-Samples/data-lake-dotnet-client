@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient
+namespace AdlClient
 {
     public static class StringUtil
     {

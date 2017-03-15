@@ -1,6 +1,6 @@
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AzureDataLakeClient.Jobs
+namespace AdlClient.Jobs
 {
     public class SubmitJobOptions
     {

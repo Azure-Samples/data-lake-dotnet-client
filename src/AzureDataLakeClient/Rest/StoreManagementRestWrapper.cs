@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Store;
 
-namespace AzureDataLakeClient.Rest
+namespace AdlClient.Rest
 {
     public class StoreManagementRestWrapper
     {

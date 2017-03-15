@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
-using ADLC = AzureDataLakeClient;
+using ADLC = AdlClient;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace ADL_Client_Demo
@@ -247,7 +247,7 @@ namespace ADL_Client_Demo
         private static void Demo_Jobs_List_MostExpensive_In_Last24hours(ADLC.AnalyticsClient adla_client)
         {
             var opts = new ADLC.Jobs.GetJobsOptions();
-            opts.Filter.SubmitTime.InRange(AzureDataLakeClient.OData.Utils.RangeDateTime.InTheLastNHours(24));
+            opts.Filter.SubmitTime.InRange(AdlClient.OData.Utils.RangeDateTime.InTheLastNHours(24));
             var jobs = adla_client.Jobs.GetJobs(opts).OrderByDescending(j=>j.AUSeconds).Take(10).ToList();
 
             PrintJobs(jobs);

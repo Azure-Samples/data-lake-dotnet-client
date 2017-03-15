@@ -3,7 +3,7 @@ using Microsoft.Azure.Management.DataLake.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AzureDataLakeClient.Rest
+namespace AdlClient.Rest
 {
     public class AnalyticsCatalogRestWrapper
     {

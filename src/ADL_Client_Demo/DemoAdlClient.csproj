@@ -7,8 +7,8 @@
     <ProjectGuid>{97349649-6A7D-414E-8B6D-7B23678D3C4D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ADL_Client_Demo</RootNamespace>
-    <AssemblyName>ADL_Client_Demo</AssemblyName>
+    <RootNamespace>DemoAdlClient</RootNamespace>
+    <AssemblyName>DemoAdlClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -121,9 +121,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AzureDataLakeClient\AzureDataLakeClient.csproj">
+    <ProjectReference Include="..\AzureDataLakeClient\AdlClient.csproj">
       <Project>{b255d8ff-3031-43b5-8044-aa944dd62c36}</Project>
-      <Name>AzureDataLakeClient</Name>
+      <Name>AdlClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

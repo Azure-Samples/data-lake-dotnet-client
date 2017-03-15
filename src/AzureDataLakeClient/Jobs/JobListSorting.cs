@@ -1,8 +1,10 @@
-namespace AzureDataLakeClient.Jobs
+using AdlClient.OData;
+
+namespace AdlClient.Jobs
 {
     public class JobListSorting
     {
-        public AzureDataLakeClient.OData.ExprField Field;
+        public ExprField Field;
         public OrderByDirection Direction;
         
         public string CreateOrderByString()

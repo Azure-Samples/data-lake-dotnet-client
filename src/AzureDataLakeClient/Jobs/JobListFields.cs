@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.Jobs
+namespace AdlClient.Jobs
 {
     public class JobListFields
     {

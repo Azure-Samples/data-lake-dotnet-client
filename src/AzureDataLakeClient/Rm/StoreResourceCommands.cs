@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Authentication;
-using AzureDataLakeClient.Rest;
+using AdlClient.Authentication;
+using AdlClient.Rest;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
-namespace AzureDataLakeClient
+namespace AdlClient
 {
     public class StoreResourceCommands
     {

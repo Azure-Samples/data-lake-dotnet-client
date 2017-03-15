@@ -1,10 +1,10 @@
-using AzureDataLakeClient.Authentication;
-using AzureDataLakeClient.Catalog;
-using AzureDataLakeClient.Jobs;
+using AdlClient.Authentication;
+using AdlClient.Catalog;
+using AdlClient.Jobs;
 
-namespace AzureDataLakeClient
+namespace AdlClient
 {
-    public class AnalyticsClient : AzureDataLakeClient.ClientBase
+    public class AnalyticsClient : ClientBase
     {
         public readonly JobCommands Jobs;
         public readonly CatalogCommands Catalog;

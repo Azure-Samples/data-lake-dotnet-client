@@ -1,7 +1,7 @@
-﻿using AzureDataLakeClient.Authentication;
-using AzureDataLakeClient.Rest;
+﻿using AdlClient.Authentication;
+using AdlClient.Rest;
 
-namespace AzureDataLakeClient
+namespace AdlClient
 {
     public class AnalyticsRestClients
     {

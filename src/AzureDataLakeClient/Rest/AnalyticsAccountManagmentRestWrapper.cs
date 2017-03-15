@@ -2,7 +2,7 @@
 using Microsoft.Azure.Management.DataLake.Analytics; // have to have this using clause to get the extension methods
 using MSADL = Microsoft.Azure.Management.DataLake;
 
-namespace AzureDataLakeClient.Rest
+namespace AdlClient.Rest
 {
     public class AnalyticsAccountManagmentRestWrapper
     {

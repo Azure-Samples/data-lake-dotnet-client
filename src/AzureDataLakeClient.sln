@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADL_Client_Tests", "ADL_Client_Tests\ADL_Client_Tests.csproj", "{E8EC589D-3220-41CE-AC89-AA5EB9BAFF98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAdlClient", "ADL_Client_Tests\TestAdlClient.csproj", "{E8EC589D-3220-41CE-AC89-AA5EB9BAFF98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADL_Client_Demo", "ADL_Client_Demo\ADL_Client_Demo.csproj", "{97349649-6A7D-414E-8B6D-7B23678D3C4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAdlClient", "ADL_Client_Demo\DemoAdlClient.csproj", "{97349649-6A7D-414E-8B6D-7B23678D3C4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDataLakeClient", "AzureDataLakeClient\AzureDataLakeClient.csproj", "{B255D8FF-3031-43B5-8044-AA944DD62C36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlClient", "AzureDataLakeClient\AdlClient.csproj", "{B255D8FF-3031-43B5-8044-AA944DD62C36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

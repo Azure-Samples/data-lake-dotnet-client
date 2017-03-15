@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AzureDataLakeClient.Jobs
+namespace AdlClient.Jobs
 {
     public class JobReference
     {

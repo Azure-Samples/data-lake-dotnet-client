@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Jobs;
+using AdlClient.Jobs;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AzureDataLakeClient.Rest
+namespace AdlClient.Rest
 {
     public class AnalyticsJobsRestWrapper
     {

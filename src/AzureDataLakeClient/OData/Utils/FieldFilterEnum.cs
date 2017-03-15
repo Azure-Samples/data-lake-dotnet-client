@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.OData.Enums;
+using AdlClient.OData.Enums;
 
-namespace AzureDataLakeClient.OData.Utils
+namespace AdlClient.OData.Utils
 {
     public class FieldFilterEnum<T> : FieldFilter where T : struct, System.IComparable, System.IConvertible, System.IFormattable 
     {

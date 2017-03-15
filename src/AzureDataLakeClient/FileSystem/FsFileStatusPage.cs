@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AzureDataLakeClient.FileSystem
+namespace AdlClient.FileSystem
 {
     public class FsFileStatusPage
     {

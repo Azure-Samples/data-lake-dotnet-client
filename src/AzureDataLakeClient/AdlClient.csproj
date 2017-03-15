@@ -7,8 +7,8 @@
     <ProjectGuid>{B255D8FF-3031-43B5-8044-AA944DD62C36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AzureDataLakeClient</RootNamespace>
-    <AssemblyName>AzureDataLakeClient</AssemblyName>
+    <RootNamespace>AdlClient</RootNamespace>
+    <AssemblyName>AdlClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.FileSystem
+namespace AdlClient.FileSystem
 {
     public class CreateFileOptions
     {
