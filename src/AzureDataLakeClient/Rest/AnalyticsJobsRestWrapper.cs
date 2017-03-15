@@ -25,12 +25,6 @@ namespace AdlClient.Rest
             this.RestClient.Job.Cancel(analyticsaccount.Name, jobid);
         }
 
-        public MSADLA.Models.JobInformation JobBuild(AnalyticsAccount analyticsaccount, MSADLA.Models.JobInformation parameters)
-        {
-            var j = this.RestClient.Job.Build(analyticsaccount.Name, parameters);
-            return j;
-        }
-
         public bool JobExists(AnalyticsAccount analyticsaccount, System.Guid jobid)
         {
             return this.RestClient.Job.Exists(analyticsaccount.Name, jobid);
@@ -68,6 +62,15 @@ namespace AdlClient.Rest
             var j = new JobInfo(job_info, account);
             return j;
         }
+
+        public JobInfo JobBuild(AnalyticsAccount account, SubmitJobOptions options)
+        {
+            var job_props = options.CreateNewJobProperties();
+            var job_info = this.RestClient.Job.Build(account.Name, job_props);
+            var j = new JobInfo(job_info, account);
+            return j;
+        }
+
 
         public MSADLA.Models.JobStatistics GetStatistics(AnalyticsAccount account, System.Guid jobid)
         {

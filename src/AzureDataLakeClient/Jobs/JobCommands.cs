@@ -65,6 +65,13 @@ namespace AdlClient.Jobs
 
         public JobInfo SubmitJob(SubmitJobOptions options)
         {
+            FixupOptions(options);
+            var job_info = this.clients._JobRest.JobCreate(this.account, options);
+            return job_info;
+        }
+
+        private static void FixupOptions(SubmitJobOptions options)
+        {
             // If caller doesn't provide a guid, then create a new one
             if (options.JobID == default(System.Guid))
             {
@@ -77,9 +84,12 @@ namespace AdlClient.Jobs
                 // TODO: Handle the date part of the name nicely
                 options.JobName = "USQL " + System.DateTimeOffset.Now.ToString();
             }
+        }
 
-            var job_info = this.clients._JobRest.JobCreate(this.account, options);
-
+        public JobInfo BuildJob(SubmitJobOptions options)
+        {
+            FixupOptions(options);
+            var job_info = this.clients._JobRest.JobBuild(this.account, options);
             return job_info;
         }
 
