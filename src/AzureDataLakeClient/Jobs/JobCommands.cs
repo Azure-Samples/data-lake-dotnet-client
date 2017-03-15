@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MSADL = Microsoft.Azure.Management.DataLake;
 
 namespace AdlClient.Jobs
 {
-
     public class JobCommands
     {
         public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
@@ -37,10 +37,8 @@ namespace AdlClient.Jobs
                 // jobdetails.ExtendedJobInfo.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
 
-
             return jobdetails;
         }
-
 
         public IEnumerable<JobInfo> GetJobs(GetJobsOptions options)
         {
@@ -55,12 +53,13 @@ namespace AdlClient.Jobs
             odata_query.OrderBy = options.Sorting.CreateOrderByString();
             odata_query.Filter = options.Filter.ToFilterString();
 
+            // enumerate the job objects
             var jobs = this.clients._JobRest.JobList(this.account, odata_query, options.Top);
-            foreach (var job in jobs)
-            {
-                var j = new JobInfo(job, this.account);
-                yield return j;
-            }
+
+            // convert them to the JobInfo
+            var jobinfos = jobs.Select(j => new JobInfo(j, this.account));
+
+            return jobinfos;
         }
 
         public JobInfo SubmitJob(SubmitJobOptions options)
