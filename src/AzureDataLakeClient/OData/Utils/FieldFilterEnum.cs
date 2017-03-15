@@ -1,27 +1,42 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.OData.Enums;
+using AdlClient.OData.Enums;
 
-namespace AzureDataLakeClient.OData.Utils
+namespace AdlClient.OData.Utils
 {
     public class FieldFilterEnum<T> : FieldFilter where T : struct, System.IComparable, System.IConvertible, System.IFormattable 
     {
         private List<T> one_of_value;
         public bool Not;
+        private EnumFilterCategory Category;
 
         public FieldFilterEnum(ExprField field) :
             base(field)
         {
+            this.Category = EnumFilterCategory.NoFilter;
         }
 
-        public void OneOf(params T[] items)
+        public void IsOneOf(params T[] items)
         {
             this.one_of_value = new List<T>(items.Length);
-            this.one_of_value.AddRange(items);    
+            this.one_of_value.AddRange(items);
+            this.Category = EnumFilterCategory.IsOneOf;
         }
 
         public override Expr ToExpression()
         {
-            if (this.one_of_value != null && this.one_of_value.Count > 0)
+            if (this.Category == EnumFilterCategory.NoFilter)
+            {
+                return null;
+            }
+            else if (this.Category == EnumFilterCategory.IsNull)
+            {
+                return this.CreateIsNullExpr();
+            }
+            else if (this.Category == EnumFilterCategory.IsNotNull)
+            {
+                return this.CreateIsNotNullExpr();
+            }
+            else if (this.Category == EnumFilterCategory.IsOneOf)
             {
                 var expr_or = new ExprLogicalOr();
                 foreach (var item in this.one_of_value)
@@ -43,7 +58,12 @@ namespace AzureDataLakeClient.OData.Utils
                     return expr_or;
                 }
             }
-            return null;
+            else
+            {
+                string msg = string.Format("Unhandled datetime enum category: \"{0}\"", this.Category);
+                throw new System.ArgumentException(msg);
+
+            }
         }
 
         public static string GetEnumDescription(System.Enum value)

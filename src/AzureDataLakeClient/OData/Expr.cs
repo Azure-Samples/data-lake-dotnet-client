@@ -1,6 +1,6 @@
-using AzureDataLakeClient.OData.Enums;
+using AdlClient.OData.Enums;
 
-namespace AzureDataLakeClient.OData
+namespace AdlClient.OData
 {
     public abstract class Expr
     {

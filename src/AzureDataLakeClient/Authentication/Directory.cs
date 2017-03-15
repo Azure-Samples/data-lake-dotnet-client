@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace AzureDataLakeClient.Authentication
+namespace AdlClient.Authentication
 {
 
     public class Directory

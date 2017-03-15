@@ -1,4 +1,4 @@
-﻿namespace AzureDataLakeClient.Authentication
+﻿namespace AdlClient.Authentication
 {
     public class Tenant
     {

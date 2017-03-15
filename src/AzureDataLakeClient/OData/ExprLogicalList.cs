@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AzureDataLakeClient.OData
+namespace AdlClient.OData
 {
     public abstract class ExprLogicalList : Expr
     {

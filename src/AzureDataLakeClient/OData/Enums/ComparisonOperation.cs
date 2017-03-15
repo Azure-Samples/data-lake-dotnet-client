@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.OData.Enums
+namespace AdlClient.OData.Enums
 {
     public enum ComparisonOperation
     {

@@ -1,5 +1,4 @@
-﻿using AzureDataLakeClient.Store;
-using AzureDataLakeClient.Store.FileSystem;
+﻿using AdlClient.FileSystem;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ADL_Client_Tests.Store
@@ -18,7 +17,7 @@ namespace ADL_Client_Tests.Store
             var lfo = new ListFilesOptions();
             lfo.PageSize = 4;
 
-            var pages = this.adls_account_client.FileSystem.ListFilesRecursivePaged(FsPath.Root, lfo);
+            var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(FsPath.Root, lfo);
             foreach (var page in pages)
             {
                 foreach (var child in page.FileItems)
@@ -48,7 +47,7 @@ namespace ADL_Client_Tests.Store
             var lfo = new ListFilesOptions();
             lfo.PageSize = 4;
 
-            var pages = this.adls_account_client.FileSystem.ListFilesPaged(FsPath.Root, lfo);
+            var pages = this.StoreClient.FileSystem.ListFilesPaged(FsPath.Root, lfo);
             foreach (var page in pages)
             {
                 foreach (var fileitem in page.FileItems)
@@ -70,20 +69,20 @@ namespace ADL_Client_Tests.Store
             var fname = dir.Append("foo.txt");
             var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
-            this.adls_account_client.FileSystem.Create(fname, "HelloWorld", cfo);
-            Assert.IsTrue( this.adls_account_client.FileSystem.Exists(fname));
-            var fi = this.adls_account_client.FileSystem.GetFileStatus(fname);
+            this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
+            Assert.IsTrue( this.StoreClient.FileSystem.Exists(fname));
+            var fi = this.StoreClient.FileSystem.GetFileStatus(fname);
             Assert.AreEqual(10,fi.Length);
 
-            using (var s = this.adls_account_client.FileSystem.OpenText(fname))
+            using (var s = this.StoreClient.FileSystem.OpenText(fname))
             {
                 var content = s.ReadToEnd();
                 Assert.AreEqual("HelloWorld",content);
             }
 
-            this.adls_account_client.FileSystem.Delete(dir,true);
-            Assert.IsFalse(this.adls_account_client.FileSystem.Exists(fname));
-            Assert.IsFalse(this.adls_account_client.FileSystem.Exists(dir));
+            this.StoreClient.FileSystem.Delete(dir,true);
+            Assert.IsFalse(this.StoreClient.FileSystem.Exists(fname));
+            Assert.IsFalse(this.StoreClient.FileSystem.Exists(dir));
 
         }
 
@@ -100,18 +99,18 @@ namespace ADL_Client_Tests.Store
             var cfo = new CreateFileOptions();
             cfo.Overwrite = true;
 
-            this.adls_account_client.FileSystem.Create(fname1, "Hello", cfo);
-            this.adls_account_client.FileSystem.Create(fname2, "World", cfo);          
-            this.adls_account_client.FileSystem.Concat(new [] { fname1, fname2 },fname3);
-            using (var s = this.adls_account_client.FileSystem.OpenText(fname3))
+            this.StoreClient.FileSystem.Create(fname1, "Hello", cfo);
+            this.StoreClient.FileSystem.Create(fname2, "World", cfo);          
+            this.StoreClient.FileSystem.Concat(new [] { fname1, fname2 },fname3);
+            using (var s = this.StoreClient.FileSystem.OpenText(fname3))
             {
                 var content = s.ReadToEnd();
                 Assert.AreEqual("HelloWorld", content);
             }
 
-            this.adls_account_client.FileSystem.Delete(dir, true);
-            Assert.IsFalse(this.adls_account_client.FileSystem.Exists(fname1));
-            Assert.IsFalse(this.adls_account_client.FileSystem.Exists(dir));
+            this.StoreClient.FileSystem.Delete(dir, true);
+            Assert.IsFalse(this.StoreClient.FileSystem.Exists(fname1));
+            Assert.IsFalse(this.StoreClient.FileSystem.Exists(dir));
 
         }
 
@@ -119,14 +118,14 @@ namespace ADL_Client_Tests.Store
         {
             var dir = new FsPath("/test_adl_demo_client");
 
-            if (this.adls_account_client.FileSystem.Exists(dir))
+            if (this.StoreClient.FileSystem.Exists(dir))
             {
-                this.adls_account_client.FileSystem.Delete(dir, true);
+                this.StoreClient.FileSystem.Delete(dir, true);
             }
 
-            this.adls_account_client.FileSystem.CreateDirectory(dir);
+            this.StoreClient.FileSystem.CreateDirectory(dir);
 
-            if (!this.adls_account_client.FileSystem.Exists(dir))
+            if (!this.StoreClient.FileSystem.Exists(dir))
             {
                 Assert.Fail();
             }

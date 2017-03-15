@@ -1,6 +1,6 @@
-using AzureDataLakeClient.Authentication;
+using AdlClient.Authentication;
 
-namespace AzureDataLakeClient
+namespace AdlClient
 {
     public class ClientBase
     {

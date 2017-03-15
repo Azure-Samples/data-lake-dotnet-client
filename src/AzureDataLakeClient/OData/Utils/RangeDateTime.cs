@@ -1,6 +1,6 @@
 using System;
 
-namespace AzureDataLakeClient.OData.Utils
+namespace AdlClient.OData.Utils
 {
     public class RangeDateTime
     {

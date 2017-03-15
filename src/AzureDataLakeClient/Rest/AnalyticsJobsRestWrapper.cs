@@ -1,40 +1,48 @@
 using System.Collections.Generic;
-using AzureDataLakeClient.Analytics;
-using AzureDataLakeClient.Analytics.Jobs;
+using AdlClient.Jobs;
 using Microsoft.Azure.Management.DataLake.Analytics;
+using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AzureDataLakeClient.Rest
+namespace AdlClient.Rest
 {
     public class AnalyticsJobsRestWrapper
     {
-        private Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsJobManagementClient _client;
-        private Microsoft.Rest.ServiceClientCredentials _creds;
+        public MSADLA.DataLakeAnalyticsJobManagementClient RestClient;
 
         public AnalyticsJobsRestWrapper(Microsoft.Rest.ServiceClientCredentials creds)
         {
-            this._creds = creds;
-            this._client = new Microsoft.Azure.Management.DataLake.Analytics.DataLakeAnalyticsJobManagementClient(this._creds);
+            this.RestClient = new MSADLA.DataLakeAnalyticsJobManagementClient(creds);
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobGet(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        public MSADLA.Models.JobInformation JobGet(AnalyticsAccount analyticsaccount, System.Guid jobid)
         {
-            var job = this._client.Job.Get(analyticsaccount.Name, jobid);
+            var job = this.RestClient.Job.Get(analyticsaccount.Name, jobid);
             return job;
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> JobList(AnalyticsAccount account,
-            Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation> odata_query, int top)
+        public void JobCancel(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        {
+            this.RestClient.Job.Cancel(analyticsaccount.Name, jobid);
+        }
+
+        public bool JobExists(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        {
+            return this.RestClient.Job.Exists(analyticsaccount.Name, jobid);
+        }
+
+        public IEnumerable<MSADLA.Models.JobInformation> JobList(AnalyticsAccount account,
+            Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.JobInformation> odata_query, int top)
         {
             // Other parameters
             string opt_select = null;
             bool? opt_count = null;
 
             int item_count = 0;
-            var page = this._client.Job.List(account.Name, odata_query, opt_select, opt_count);
+            var page = this.RestClient.Job.List(account.Name, odata_query, opt_select, opt_count);
             foreach (
                 var job in
-                RestUtil.EnumItemsInPages<Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation>(page,
-                    p => this._client.Job.ListNext(p.NextPageLink)))
+                RestUtil.EnumItemsInPages<MSADLA.Models.JobInformation>(page,
+                    p => this.RestClient.Job.ListNext(p.NextPageLink)))
             {
                 yield return job;
                 item_count++;
@@ -47,44 +55,32 @@ namespace AzureDataLakeClient.Rest
 
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation JobCreate(AnalyticsAccount account
-            , SubmitJobOptions options)
+        public JobInfo JobCreate(AnalyticsAccount account, SubmitJobOptions options)
         {
-            var parameters = CreateNewJobProperties(options);
-            var job_info = this._client.Job.Create(account.Name, options.JobID, parameters);
-
-            return job_info;
-
+            var job_props = options.ToJobInformationObject();
+            var job_info = this.RestClient.Job.Create(account.Name, options.JobId, job_props);
+            var j = new JobInfo(job_info, account);
+            return j;
         }
 
-        private static Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation CreateNewJobProperties(SubmitJobOptions options)
+        public JobInfo JobBuild(AnalyticsAccount account, SubmitJobOptions options)
         {
-            var jobprops = new Microsoft.Azure.Management.DataLake.Analytics.Models.USqlJobProperties();
-            jobprops.Script = options.ScriptText;
-
-            var jobType = Microsoft.Azure.Management.DataLake.Analytics.Models.JobType.USql;
-            int priority = 1000; // 1000 is default priority for a new job
-            int dop = 1;
-
-            var parameters = new Microsoft.Azure.Management.DataLake.Analytics.Models.JobInformation(
-                name: options.JobName,
-                type: jobType,
-                properties: jobprops,
-                priority: priority,
-                degreeOfParallelism: dop,
-                jobId: options.JobID);
-            return parameters;
+            var job_props = options.ToJobInformationObject();
+            var job_info = this.RestClient.Job.Build(account.Name, job_props);
+            var j = new JobInfo(job_info, account);
+            return j;
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobStatistics GetStatistics(AnalyticsAccount account, System.Guid jobid)
+
+        public MSADLA.Models.JobStatistics GetStatistics(AnalyticsAccount account, System.Guid jobid)
         {
-            var stats = this._client.Job.GetStatistics(account.Name, jobid);
+            var stats = this.RestClient.Job.GetStatistics(account.Name, jobid);
             return stats;
         }
 
-        public Microsoft.Azure.Management.DataLake.Analytics.Models.JobDataPath GetDebugDataPath(AnalyticsAccount account, System.Guid jobid)
+        public MSADLA.Models.JobDataPath GetDebugDataPath(AnalyticsAccount account, System.Guid jobid)
         {
-            var jobdatapath = this._client.Job.GetDebugDataPath(account.Name, jobid);
+            var jobdatapath = this.RestClient.Job.GetDebugDataPath(account.Name, jobid);
             return jobdatapath;
         }
     }

@@ -1,4 +1,4 @@
-namespace AzureDataLakeClient.OData
+namespace AdlClient.OData
 {
     public class ExprReplace : ExprFunction
     {
