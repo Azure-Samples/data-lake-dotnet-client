@@ -57,15 +57,15 @@ namespace AdlClient.Rest
 
         public JobInfo JobCreate(AnalyticsAccount account, SubmitJobOptions options)
         {
-            var job_props = options.CreateNewJobProperties();
-            var job_info = this.RestClient.Job.Create(account.Name, options.JobID, job_props);
+            var job_props = options.ToJobInformationObject();
+            var job_info = this.RestClient.Job.Create(account.Name, options.JobId, job_props);
             var j = new JobInfo(job_info, account);
             return j;
         }
 
         public JobInfo JobBuild(AnalyticsAccount account, SubmitJobOptions options)
         {
-            var job_props = options.CreateNewJobProperties();
+            var job_props = options.ToJobInformationObject();
             var job_info = this.RestClient.Job.Build(account.Name, job_props);
             var j = new JobInfo(job_info, account);
             return j;

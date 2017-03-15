@@ -5,33 +5,26 @@ namespace AdlClient.Jobs
 {
     public class JobInfo
     {
-        public readonly string Name;
-        public readonly string LogFolder;
-        public readonly int? AUs;
-        public readonly DateTimeOffset? EndTime;
+        // things that identify the job
         public readonly Guid? Id;
-        public readonly int? Priority;
-        public readonly MSADLA.Models.JobResult? Result;
-        public readonly DateTimeOffset? StartTime;
-        public readonly MSADLA.Models.JobState? State ;
-        public readonly DateTimeOffset? SubmitTime;
-        public readonly MSADLA.Models.JobType Type;
-        public readonly string Submitter;
-
-
         public readonly AnalyticsAccount Account;
 
-        public TimeSpan? QueueDuration
-        {
-            get
-            {
-                if (this.SubmitTime.HasValue && this.StartTime.HasValue)
-                {
-                    return this.StartTime.Value- this.SubmitTime.Value;
-                }
-                return null;
-            }
-        }
+        // Information about the job provided by user
+        public readonly string Name;
+        public readonly int? AUs;
+        public readonly int? Priority;
+        public readonly string Submitter;
+        public readonly MSADLA.Models.JobType Type;
+
+        // State and Timings of the Job
+        public readonly MSADLA.Models.JobResult? Result;
+        public readonly MSADLA.Models.JobState? State ;
+        public readonly DateTimeOffset? SubmitTime;
+        public readonly DateTimeOffset? StartTime;
+        public readonly DateTimeOffset? EndTime;
+
+        // Deubgging Resources
+        public readonly string LogFolder;
 
         public TimeSpan? ExecutionDuration
         {
@@ -79,7 +72,6 @@ namespace AdlClient.Jobs
             this.SubmitTime = job.SubmitTime;
             this.Type = job.Type;
             this.Submitter = job.Submitter;
-
         }
     }
 }

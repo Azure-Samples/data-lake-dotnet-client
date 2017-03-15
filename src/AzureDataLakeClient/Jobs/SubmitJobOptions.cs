@@ -4,13 +4,13 @@ namespace AdlClient.Jobs
 {
     public class SubmitJobOptions
     {
-        public System.Guid JobID;
+        public System.Guid JobId;
         public string JobName;
         public string ScriptText;
         public int? AUs;
         public int? Priorty;
 
-        public MSADLA.Models.JobInformation CreateNewJobProperties()
+        public MSADLA.Models.JobInformation ToJobInformationObject()
         {
             var jobprops = new MSADLA.Models.USqlJobProperties();
             jobprops.Script = this.ScriptText;
@@ -24,9 +24,8 @@ namespace AdlClient.Jobs
                 properties: jobprops,
                 priority: this.Priorty,
                 degreeOfParallelism: this.AUs,
-                jobId: this.JobID);
+                jobId: this.JobId);
             return job_info;
         }
     }
-
 }

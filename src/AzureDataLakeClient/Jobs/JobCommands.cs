@@ -34,6 +34,9 @@ namespace AdlClient.Jobs
                 jobdetails.ExtendedJobInfo = new ExtendedJobInfo();
                 jobdetails.ExtendedJobInfo.Statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
 
+                jobdetails.ExtendedJobInfo.ErrorMessage = job.ErrorMessage;
+                jobdetails.ExtendedJobInfo.LogFilePatterns = job.LogFilePatterns;
+
                 // jobdetails.ExtendedJobInfo.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
 
@@ -72,9 +75,9 @@ namespace AdlClient.Jobs
         private static void FixupOptions(SubmitJobOptions options)
         {
             // If caller doesn't provide a guid, then create a new one
-            if (options.JobID == default(System.Guid))
+            if (options.JobId == default(System.Guid))
             {
-                options.JobID = System.Guid.NewGuid();
+                options.JobId = System.Guid.NewGuid();
             }
 
             // if caller doesn't provide a name, then create one automativally
