@@ -20,6 +20,22 @@ namespace AdlClient.Rest
             return job;
         }
 
+        public void JobCancel(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        {
+            this.RestClient.Job.Cancel(analyticsaccount.Name, jobid);
+        }
+
+        public MSADLA.Models.JobInformation JobBuild(AnalyticsAccount analyticsaccount, MSADLA.Models.JobInformation parameters)
+        {
+            var j = this.RestClient.Job.Build(analyticsaccount.Name, parameters);
+            return j;
+        }
+
+        public bool JobExists(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        {
+            return this.RestClient.Job.Exists(analyticsaccount.Name, jobid);
+        }
+
         public IEnumerable<MSADLA.Models.JobInformation> JobList(AnalyticsAccount account,
             Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.JobInformation> odata_query, int top)
         {
