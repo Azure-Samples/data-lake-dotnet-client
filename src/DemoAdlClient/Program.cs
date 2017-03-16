@@ -10,22 +10,21 @@ namespace DemoAdlClient
     {
         private static void Main(string[] args)
         {
+            // Setup authentication for this demo
+            var auth = new AdlClient.Authentication.AuthenticatedSession("microsoft.onmicrosoft.com"); // change this to YOUR tenant
+            auth.Authenticate();
+
             // Collect info about the Azure resources needed for this demo
             string subid = "045c28ea-c686-462f-9081-33c34e871ba3";
             string rg = "InsightServices";
-            var adla_account = new AdlClient.AnalyticsAccount(subid, rg, "datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
-            var adls_account = new AdlClient.StoreAccount(subid, rg, "datainsightsadhoc"); // change this to an ADL Store account you have access to 
-
-            // Setup authentication for this demo
-            var tenant = "microsoft.onmicrosoft.com"; // change this to YOUR tenant
-            var auth = new AdlClient.Authentication.AuthenticatedSession(tenant);
-            auth.Authenticate();
+            string adla_account = "datainsightsadhoc";
+            string adls_account = "datainsightsadhoc";
 
             // Create the clients
-            var adla = new AdlClient.AnalyticsClient(adla_account, auth);
-            var adls = new AdlClient.StoreClient(adls_account, auth);
             var az = new AdlClient.AzureClient(auth);
-
+            var adla = az.Analytics.ConnectToAccount(subid, rg, adla_account);
+            var adls = az.Store.ConnectToAccount(subid, rg, adls_account);
+            
             // ------------------------------
             // Run the Demo
             // ------------------------------

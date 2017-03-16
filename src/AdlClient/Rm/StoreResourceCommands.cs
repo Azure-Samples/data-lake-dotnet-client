@@ -7,11 +7,11 @@ namespace AdlClient
 {
     public class StoreResourceCommands
     {
-        private AuthenticatedSession auth;
+        private AuthenticatedSession _auth;
 
         public StoreResourceCommands(AuthenticatedSession authSession)
         {
-            this.auth = authSession;
+            this._auth = authSession;
         }
 
         public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInSubscription(string subid)
@@ -22,7 +22,7 @@ namespace AdlClient
 
         private DataLakeStoreAccountManagementClient _get_account_mgmt_client(string subid)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
+            var client = new MSADLS.DataLakeStoreAccountManagementClient(this._auth.Credentials);
             client.SubscriptionId = subid;
             return client;
         }
@@ -55,6 +55,13 @@ namespace AdlClient
         {
             var client = _get_account_mgmt_client(account.SubscriptionId);
             return client.Account.Exists(account.ResourceGroup, account.Name);
+        }
+
+        public AdlClient.StoreClient ConnectToAccount(string subid, string rg, string account)
+        {
+            var acct = new AdlClient.StoreAccount(subid,rg,account);
+            var client = new AdlClient.StoreClient(acct,this._auth);
+            return client;
         }
     }
 }

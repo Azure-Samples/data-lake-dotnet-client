@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AdlClient.Authentication;
-using AdlClient.Rest;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
@@ -55,6 +54,13 @@ namespace AdlClient
         public bool AccountExists(AnalyticsAccount account)
         {
             return this.AccountExists(account.SubscriptionId, account.ResourceGroup, account.Name);
+        }
+
+        public AdlClient.AnalyticsClient ConnectToAccount(string subid, string rg, string account)
+        {
+            var acct = new AdlClient.AnalyticsAccount(subid, rg, account);
+            var adla = new AdlClient.AnalyticsClient(acct, this._auth);
+            return adla;
         }
     }
 }
