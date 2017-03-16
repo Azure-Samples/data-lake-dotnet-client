@@ -24,20 +24,43 @@ namespace DemoAdlClient
             // Create the clients
             var adla = new AdlClient.AnalyticsClient(adla_account, auth);
             var adls = new AdlClient.StoreClient(adls_account, auth);
-            var az = new AdlClient.AzureClient(sub, auth);
+            var az = new AdlClient.AzureClient(auth);
 
             // ------------------------------
             // Run the Demo
             // ------------------------------
 
-            Demo_JobsDetails(adla);
-            Demo_Jobs_GetJobUrl(adla);
-            Demo_Job_Summaries(adla);
-            Demo_Job_Listing(adla);
-            Demo_Catalog(adla);
-            Demo_Analytics_Account_Management(adla);
-            Demo_FileSystem(adls);
-            Demo_Resource_Managementr(az);
+            Demo_ListMySubscriptions(az);
+            Demo_ListMyResourceGroups(az);
+
+            //Demo_JobsDetails(adla);
+            //Demo_Jobs_GetJobUrl(adla);
+            //Demo_Job_Summaries(adla);
+            //Demo_Job_Listing(adla);
+            //Demo_Catalog(adla);
+            //Demo_Analytics_Account_Management(adla);
+            //Demo_FileSystem(adls);
+            //Demo_Resource_Managementr(az);
+        }
+
+        private static void Demo_ListMySubscriptions(AdlClient.AzureClient az)
+        {
+            var subs = az.ListSubscriptions();
+            foreach (var sub in subs)
+            {
+                Console.WriteLine("Sub: {0} {1}",sub.DisplayName, sub.Id);
+            }
+        }
+
+        private static void Demo_ListMyResourceGroups(AdlClient.AzureClient az)
+        {
+            var subs = az.ListSubscriptions();
+            var sub = subs.First();
+            var rgs = az.ListResourceGroups(sub.SubscriptionId);
+            foreach (var rg in rgs)
+            {
+                Console.WriteLine("Sub: {0}", rg.Name);
+            }
         }
 
         private static void Demo_JobsDetails(AdlClient.AnalyticsClient adla)
@@ -66,7 +89,6 @@ namespace DemoAdlClient
         {
             Demo_Resource_List_AnalyticsAccounts(az);
             Demo_Resource_ListDataLakeStoreAccountsInSubscription(az);
-            Demo_Resource_ListResourceGroups(az);
         }
 
         private static void Demo_Catalog(AdlClient.AnalyticsClient adla)
@@ -321,16 +343,7 @@ namespace DemoAdlClient
             }
         }
 
-        private static void Demo_Resource_ListResourceGroups(AdlClient.AzureClient az)
-        {
-            var rgs = az.ListResourceGroups().ToList();
-            foreach (var i in rgs)
-            {
-                Console.WriteLine("----------------");
-                Console.WriteLine("Name = {0}", i.Name);
-                Console.WriteLine("Location = {0}", i.Location);
-            }
-        }
+
 
 
         private static void Demo_Jobs_Summarize_FailedAUHours_By_Submitter(AdlClient.AnalyticsClient adla)

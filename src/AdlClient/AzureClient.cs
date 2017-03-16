@@ -10,27 +10,37 @@ namespace AdlClient
         private readonly AdlClient.Rest.StoreManagementRestWrapper _adlsAccountMgmtClient;
         private MSAZURERM.ResourceManagementClient _RmClient;
 
-        public readonly Subscription Subscription;
         public readonly AnalyticsResourceCommands Analytics;
         public readonly StoreResourceCommands Store;
 
-        public AzureClient(Subscription sub, AdlClient.Authentication.AuthenticatedSession auth) :
+        public AzureClient(AdlClient.Authentication.AuthenticatedSession auth) :
             base(auth)
         {
-            this.Subscription = sub;
-            this._adlaAccountMgmtClientWrapper = new AdlClient.Rest.AnalyticsAccountManagmentRestWrapper(sub, auth.Credentials);
-            this._adlsAccountMgmtClient = new AdlClient.Rest.StoreManagementRestWrapper(sub, auth.Credentials);
-
-            this.Analytics = new AnalyticsResourceCommands(sub, auth, _adlaAccountMgmtClientWrapper);
-            this.Store = new StoreResourceCommands(sub,auth,this._adlsAccountMgmtClient);
+            this.Analytics = new AnalyticsResourceCommands(auth);
+            this.Store = new StoreResourceCommands(auth);
 
             this._RmClient = new MSAZURERM.ResourceManagementClient(auth.Credentials);
-            this._RmClient.SubscriptionId = sub.Id;
         }
 
-        public IEnumerable<MSAZURERM.Models.ResourceGroup> ListResourceGroups()
+
+        public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()
         {
-            var rgs = this._RmClient.ResourceGroups.List();
+            var sub_client = new MSAZURERM.SubscriptionClient(this.AuthenticatedSession.Credentials);
+
+            var subs = sub_client.Subscriptions.List();
+            foreach (var sub in subs)
+            {
+                yield return sub;
+            }
+        }
+
+        // ----------
+        public IEnumerable<MSAZURERM.Models.ResourceGroup> ListResourceGroups(string subid)
+        {
+            var rm_client = new MSAZURERM.ResourceManagementClient(this.AuthenticatedSession.Credentials);
+            rm_client.SubscriptionId = subid;
+
+            var rgs = rm_client.ResourceGroups.List();
             foreach (var rg in rgs)
             {
                 yield return rg;

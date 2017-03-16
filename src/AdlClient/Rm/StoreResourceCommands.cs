@@ -11,10 +11,8 @@ namespace AdlClient
         public readonly Subscription Subscription;
         private AuthenticatedSession auth;
 
-        public StoreResourceCommands(Subscription subscription, AuthenticatedSession authSession, StoreManagementRestWrapper adls_rest)
+        public StoreResourceCommands(AuthenticatedSession authSession)
         {
-            this.Subscription = subscription;
-            this._adls_account_mgmt_client = adls_rest;
             this.auth = authSession;
         }
 
