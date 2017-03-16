@@ -13,7 +13,7 @@ namespace AdlClient
         {
             this._JobRest = new AnalyticsJobsRestWrapper(authSession.Credentials);
             this._CatalogRest = new AnalyticsCatalogRestWrapper(authSession.Credentials);
-            this._AdlaAccountMgmtRest = new AnalyticsAccountManagmentRestWrapper(account.Subscription, authSession.Credentials);
+            this._AdlaAccountMgmtRest = new AnalyticsAccountManagmentRestWrapper(account.SubscriptionId, authSession.Credentials);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace AdlClient.Jobs
             string uri =
                 string.Format(
                     "https://portal.azure.com/#blade/Microsoft_Azure_DataLakeAnalytics/SqlIpJobDetailsBlade/accountId/%2Fsubscriptions%2F{0}%2FresourceGroups%2F{1}%2Fproviders%2FMicrosoft.DataLakeAnalytics%2Faccounts%2F{2}/jobId/{3}",
-                    this.Account.Subscription, this.Account.ResourceGroup, this.Account.Name, this.Id);
+                    this.Account.SubscriptionId, this.Account.ResourceGroup, this.Account.Name, this.Id);
             return uri;
         }
     }

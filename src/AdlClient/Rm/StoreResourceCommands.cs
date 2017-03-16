@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using AdlClient.Authentication;
-using AdlClient.Rest;
 using Microsoft.Azure.Management.DataLake.Store;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
-using MSAZURERM = Microsoft.Azure.Management.ResourceManager;
 
 namespace AdlClient
 {
@@ -16,48 +14,45 @@ namespace AdlClient
             this.auth = authSession;
         }
 
-        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInSubscription(string sub)
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInSubscription(string subid)
         {
             var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = sub;
+            client.SubscriptionId = subid;
             return client.Account.List();
         }
 
-        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInResourceGroup(string sub, string resource_group)
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInResourceGroup(string subid, string rg)
         {
             var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = sub;
-            return client.Account.ListByResourceGroup(resource_group);
+            client.SubscriptionId = subid;
+            return client.Account.ListByResourceGroup(rg);
         }
 
-        public MSADLS.Models.DataLakeStoreAccount GetAccount(string sub, string resource_group, string account)
+        public MSADLS.Models.DataLakeStoreAccount GetAccount(string subid, string rg, string account)
         {
             var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = sub;
-            return client.Account.Get(resource_group, account);
+            client.SubscriptionId = subid;
+            return client.Account.Get(rg, account);
         }
 
         public MSADLS.Models.DataLakeStoreAccount GetAccount(StoreAccount account)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = account.Subscription;
-            return client.Account.Get(account.ResourceGroup, account.Name);
+            return this.GetAccount(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
 
 
-        public bool AccountExsists(string sub, string resource_group, string account)
+        public bool AccountExsists(string subid, string rg, string account)
         {
             var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = sub;
-            return client.Account.Exists(resource_group, account);
+            client.SubscriptionId = subid;
+            return client.Account.Exists(rg, account);
         }
 
         public bool AccountExsists(StoreAccount account)
         {
             var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = account.Subscription;
+            client.SubscriptionId = account.SubscriptionId;
             return client.Account.Exists(account.ResourceGroup, account.Name);
         }
-
     }
 }

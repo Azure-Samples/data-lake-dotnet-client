@@ -8,8 +8,6 @@ namespace AdlClient
 {
     public class AnalyticsResourceCommands
     {
-        private readonly AnalyticsAccountManagmentRestWrapper _adlaAccountMgmtClientWrapper;
-
         private AuthenticatedSession _auth;
 
         public AnalyticsResourceCommands(AuthenticatedSession auth)
@@ -17,47 +15,43 @@ namespace AdlClient
             this._auth = auth;
         }
 
-        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsInSubscription(string sub)
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsInSubscription(string subid)
         {
             var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(_auth.Credentials);
-            client.SubscriptionId = sub;
+            client.SubscriptionId = subid;
             return client.Account.List();
         }
 
-        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsResourceGroup(string sub, string resource_group)
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsResourceGroup(string subid, string rg)
         {
             var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(_auth.Credentials);
-            client.SubscriptionId = sub;
-            return client.Account.ListByResourceGroup(resource_group);
+            client.SubscriptionId = subid;
+            return client.Account.ListByResourceGroup(rg);
         }
 
-        public MSADLA.Models.DataLakeAnalyticsAccount GetAccount(string sub, string resource_group, string account)
+        public MSADLA.Models.DataLakeAnalyticsAccount GetAccount(string sub, string rg, string account)
         {
             var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(_auth.Credentials);
             client.SubscriptionId = sub;
-            return client.Account.Get(resource_group, account);
+            return client.Account.Get(rg, account);
         }
 
 
         public MSADLA.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccount account)
         {
-            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(_auth.Credentials);
-            client.SubscriptionId = account.Subscription;
-            return client.Account.Get(account.ResourceGroup, account.Name);
+            return this.GetAccount(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
 
-        public bool AccountExists(string sub, string resource_group, string account)
+        public bool AccountExists(string subid, string rg, string account)
         {
             var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(_auth.Credentials);
-            client.SubscriptionId = sub;
-            return client.Account.Exists(resource_group, account);
+            client.SubscriptionId = subid;
+            return client.Account.Exists(rg, account);
         }
 
         public bool AccountExists(AnalyticsAccount account)
         {
-            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(_auth.Credentials);
-            client.SubscriptionId = account.Subscription;
-            return client.Account.Exists(account.ResourceGroup, account.Name);
+            return this.AccountExists(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
     }
 }
