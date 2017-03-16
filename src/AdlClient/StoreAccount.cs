@@ -2,9 +2,9 @@ namespace AdlClient
 {
     public class StoreAccount
     {
-        public string Name;
-        public Subscription Subscription;
-        public ResourceGroup ResourceGroup;
+        public readonly string Name;
+        public readonly Subscription Subscription;
+        public readonly ResourceGroup ResourceGroup;
 
         public StoreAccount(Subscription sub, ResourceGroup rg, string name)
         {

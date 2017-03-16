@@ -20,6 +20,5 @@ namespace AdlClient
             this(id.ToString())
         {
         }
-
     }
 }
