@@ -60,7 +60,7 @@ namespace ADL_Client_Demo
 
         private static void Demo_FileSystem(ADLC.StoreClient adls_client)
         {
-            Demo_FileSystem_ListFilesAtRoot(adls_client);
+            Demo_FileSystem_ListFilesInFolder(adls_client);
         }
 
         private static void Demo_Resource_Managementr(ADLC.ResourceClient res_client)
@@ -96,12 +96,12 @@ namespace ADL_Client_Demo
             Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla_client);
         }
 
-        private static void Demo_FileSystem_ListFilesAtRoot(ADLC.StoreClient adls_client)
+        private static void Demo_FileSystem_ListFilesInFolder(ADLC.StoreClient adls_client)
         {
-            //var root = ADLC.Store.FsPath.Root; // same as "/"
-            var root = new ADLC.FileSystem.FsPath("/Samples");
+            //var folder = ADLC.Store.FsPath.Root; // same as "/"
+            var folder = new ADLC.FileSystem.FsPath("/Samples");
             var lfo = new ADLC.FileSystem.ListFilesOptions();
-            foreach (var page in adls_client.FileSystem.ListFilesPaged(root,lfo))
+            foreach (var page in adls_client.FileSystem.ListFilesPaged(folder,lfo))
             {
                 foreach (var fileitemn in page.FileItems)
                 {
