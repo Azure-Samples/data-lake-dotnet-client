@@ -1,7 +1,7 @@
 using AdlClient.FileSystem;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ADL_Client_Tests.Store
+namespace TestAdlClient.Store
 {
     [TestClass]
     public class FSPermissions_Tests : Base_Tests

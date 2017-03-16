@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ADL_Client_Tests.Analytics
+namespace TestAdlClient.Analytics
 {
     [TestClass]
     public class Analytics_Catalog_Tests : Base_Tests

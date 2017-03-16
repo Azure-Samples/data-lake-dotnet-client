@@ -1,6 +1,6 @@
 ﻿using ADLC = AdlClient;
 
-namespace ADL_Client_Tests
+namespace TestAdlClient
 {
     public class Base_Tests
     {

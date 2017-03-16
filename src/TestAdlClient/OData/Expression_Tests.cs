@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ADL_Client_Tests.Store
+namespace TestAdlClient.Store
 {
     [TestClass]
     public class Expression_Tests : Base_Tests

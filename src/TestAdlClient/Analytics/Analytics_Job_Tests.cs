@@ -3,7 +3,7 @@ using AdlClient.Jobs;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ADL_Client_Tests.Analytics
+namespace TestAdlClient.Analytics
 {
     [TestClass]
     public class Analytics_Job_Tests : Base_Tests

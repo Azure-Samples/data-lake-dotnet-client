@@ -147,7 +147,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AzureDataLakeClient\AdlClient.csproj">
+    <ProjectReference Include="..\AdlClient\AdlClient.csproj">
       <Project>{b255d8ff-3031-43b5-8044-aa944dd62c36}</Project>
       <Name>AdlClient</Name>
     </ProjectReference>
