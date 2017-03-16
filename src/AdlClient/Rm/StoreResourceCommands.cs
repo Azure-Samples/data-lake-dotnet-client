@@ -16,22 +16,26 @@ namespace AdlClient
 
         public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInSubscription(string subid)
         {
+            var client = _get_account_mgmt_client(subid);
+            return client.Account.List();
+        }
+
+        private DataLakeStoreAccountManagementClient _get_account_mgmt_client(string subid)
+        {
             var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
             client.SubscriptionId = subid;
-            return client.Account.List();
+            return client;
         }
 
         public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInResourceGroup(string subid, string rg)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = subid;
+            var client = _get_account_mgmt_client(subid);
             return client.Account.ListByResourceGroup(rg);
         }
 
         public MSADLS.Models.DataLakeStoreAccount GetAccount(string subid, string rg, string account)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = subid;
+            var client = _get_account_mgmt_client(subid);
             return client.Account.Get(rg, account);
         }
 
@@ -43,15 +47,13 @@ namespace AdlClient
 
         public bool AccountExsists(string subid, string rg, string account)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = subid;
+            var client = _get_account_mgmt_client(subid);
             return client.Account.Exists(rg, account);
         }
 
         public bool AccountExsists(StoreAccount account)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.auth.Credentials);
-            client.SubscriptionId = account.SubscriptionId;
+            var client = _get_account_mgmt_client(account.SubscriptionId);
             return client.Account.Exists(account.ResourceGroup, account.Name);
         }
     }

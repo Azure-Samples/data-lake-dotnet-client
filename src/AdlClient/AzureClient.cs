@@ -6,10 +6,6 @@ namespace AdlClient
 {
     public class AzureClient: ClientBase
     {
-        private readonly AdlClient.Rest.AnalyticsAccountManagmentRestWrapper _adlaAccountMgmtClientWrapper;
-        private readonly AdlClient.Rest.StoreManagementRestWrapper _adlsAccountMgmtClient;
-        private MSAZURERM.ResourceManagementClient _RmClient;
-
         public readonly AnalyticsResourceCommands Analytics;
         public readonly StoreResourceCommands Store;
 
@@ -18,10 +14,7 @@ namespace AdlClient
         {
             this.Analytics = new AnalyticsResourceCommands(auth);
             this.Store = new StoreResourceCommands(auth);
-
-            this._RmClient = new MSAZURERM.ResourceManagementClient(auth.Credentials);
         }
-
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()
         {
