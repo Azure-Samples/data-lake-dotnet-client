@@ -5,7 +5,7 @@ namespace AdlClient.Jobs
     public class ListJobSorting
     {
         public ExprField Field;
-        public ListJobOrderyByDirection Direction;
+        public AdlClient.OData.Enums.OrderByDirection Direction;
         
         public string CreateOrderByString()
         {
@@ -19,9 +19,9 @@ namespace AdlClient.Jobs
             return null;
         }
 
-        private static string DirectionToString(ListJobOrderyByDirection direction)
+        private static string DirectionToString(AdlClient.OData.Enums.OrderByDirection direction)
         {
-            var dir = (direction == ListJobOrderyByDirection.Ascending) ? "asc" : "desc";
+            var dir = (direction == AdlClient.OData.Enums.OrderByDirection.Ascending) ? "asc" : "desc";
             return dir;
         }
     }

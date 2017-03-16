@@ -64,7 +64,7 @@ namespace ADL_Client_Tests.Analytics
             var getjobs_options = new ListJobOptions();
             getjobs_options.Top = 30;
             getjobs_options.Sorting.Field = jobfields.field_degreeofparallelism;
-            getjobs_options.Sorting.Direction = ListJobOrderyByDirection.Descending;
+            getjobs_options.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
             foreach (var job in jobs)

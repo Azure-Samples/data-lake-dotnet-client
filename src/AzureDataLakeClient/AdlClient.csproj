@@ -177,7 +177,7 @@
     <Compile Include="OData\ExprLogicalOr.cs" />
     <Compile Include="OData\ExprGroup.cs" />
     <Compile Include="OData\ExprRaw.cs" />
-    <Compile Include="Jobs\ListJobOrderyByDirection.cs" />
+    <Compile Include="OData\Enums\OrderByDirection.cs" />
     <Compile Include="Jobs\ListJobOrderByFields.cs" />
     <Compile Include="OData\Utils\RangeInteger.cs" />
     <Compile Include="ResourceGroup.cs" />

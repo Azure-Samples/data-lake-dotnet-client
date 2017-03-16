@@ -189,7 +189,7 @@ namespace DemoAdlClient
             opts.Top = 10;
 
             var jobfields = new AdlClient.Jobs.ListJobFields();
-            opts.Sorting.Direction = AdlClient.Jobs.ListJobOrderyByDirection.Descending;
+            opts.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
             opts.Sorting.Field = jobfields.field_submittime;
 
             var jobs = adla_client.Jobs.ListJobs(opts).ToList();
@@ -203,7 +203,7 @@ namespace DemoAdlClient
             opts.Top = 10;
 
             var jobfields = new AdlClient.Jobs.ListJobFields();
-            opts.Sorting.Direction = AdlClient.Jobs.ListJobOrderyByDirection.Ascending;
+            opts.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Ascending;
             opts.Sorting.Field = jobfields.field_submittime;
 
             var jobs = adla_client.Jobs.ListJobs(opts).ToList();
