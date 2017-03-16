@@ -6,9 +6,9 @@ namespace AdlClient
     {
         public AuthenticatedSession AuthenticatedSession;
 
-        public ClientBase(AuthenticatedSession auth_session)
+        public ClientBase(AuthenticatedSession auth)
         {
-            this.AuthenticatedSession = auth_session;
+            this.AuthenticatedSession = auth;
         }
     }
 }

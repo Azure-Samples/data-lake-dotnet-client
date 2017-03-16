@@ -7,30 +7,30 @@ namespace AdlClient
     public class AzureClient: ClientBase
     {
         private readonly AdlClient.Rest.AnalyticsAccountManagmentRestWrapper _adlaAccountMgmtClientWrapper;
-        private readonly AdlClient.Rest.StoreManagementRestWrapper _adls_account_mgmt_client;
-        private MSAZURERM.ResourceManagementClient rmclient;
+        private readonly AdlClient.Rest.StoreManagementRestWrapper _adlsAccountMgmtClient;
+        private MSAZURERM.ResourceManagementClient _RmClient;
 
         public readonly Subscription Subscription;
         public readonly AnalyticsResourceCommands Analytics;
         public readonly StoreResourceCommands Store;
 
-        public AzureClient(Subscription subscription, AdlClient.Authentication.AuthenticatedSession authSession) :
-            base(authSession)
+        public AzureClient(Subscription sub, AdlClient.Authentication.AuthenticatedSession auth) :
+            base(auth)
         {
-            this.Subscription = subscription;
-            this._adlaAccountMgmtClientWrapper = new AdlClient.Rest.AnalyticsAccountManagmentRestWrapper(subscription, authSession.Credentials);
-            this._adls_account_mgmt_client = new AdlClient.Rest.StoreManagementRestWrapper(subscription, authSession.Credentials);
+            this.Subscription = sub;
+            this._adlaAccountMgmtClientWrapper = new AdlClient.Rest.AnalyticsAccountManagmentRestWrapper(sub, auth.Credentials);
+            this._adlsAccountMgmtClient = new AdlClient.Rest.StoreManagementRestWrapper(sub, auth.Credentials);
 
-            this.Analytics = new AnalyticsResourceCommands(subscription, authSession, _adlaAccountMgmtClientWrapper);
-            this.Store = new StoreResourceCommands(subscription,authSession,this._adls_account_mgmt_client);
+            this.Analytics = new AnalyticsResourceCommands(sub, auth, _adlaAccountMgmtClientWrapper);
+            this.Store = new StoreResourceCommands(sub,auth,this._adlsAccountMgmtClient);
 
-            this.rmclient = new MSAZURERM.ResourceManagementClient(authSession.Credentials);
-            this.rmclient.SubscriptionId = subscription.Id;
+            this._RmClient = new MSAZURERM.ResourceManagementClient(auth.Credentials);
+            this._RmClient.SubscriptionId = sub.Id;
         }
 
         public IEnumerable<MSAZURERM.Models.ResourceGroup> ListResourceGroups()
         {
-            var rgs = this.rmclient.ResourceGroups.List();
+            var rgs = this._RmClient.ResourceGroups.List();
             foreach (var rg in rgs)
             {
                 yield return rg;
