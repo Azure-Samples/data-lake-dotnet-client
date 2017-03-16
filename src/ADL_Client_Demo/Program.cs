@@ -24,7 +24,7 @@ namespace DemoAdlClient
             // Create the clients
             var adla_client = new AdlClient.AnalyticsClient(adla_account, auth);
             var adls_client = new AdlClient.StoreClient(adls_account, auth);
-            var res_client = new AdlClient.ResourceClient(sub, auth);
+            var az_client = new AdlClient.AzureClient(sub, auth);
 
             // ------------------------------
             // Run the Demo
@@ -37,7 +37,7 @@ namespace DemoAdlClient
             Demo_Catalog(adla_client);
             Demo_Analytics_Account_Management(adla_client);
             Demo_FileSystem(adls_client);
-            Demo_Resource_Managementr(res_client);
+            Demo_Resource_Managementr(az_client);
         }
 
         private static void Demo_JobsDetails(AdlClient.AnalyticsClient adla_client)
@@ -62,7 +62,7 @@ namespace DemoAdlClient
             Demo_FileSystem_ListFilesInFolder(adls_client);
         }
 
-        private static void Demo_Resource_Managementr(AdlClient.ResourceClient res_client)
+        private static void Demo_Resource_Managementr(AdlClient.AzureClient res_client)
         {
             Demo_Resource_List_AnalyticsAccounts(res_client);
             Demo_Resource_ListDataLakeStoreAccountsInSubscription(res_client);
@@ -285,7 +285,7 @@ namespace DemoAdlClient
             }
         }
 
-        private static void Demo_Resource_List_AnalyticsAccounts(AdlClient.ResourceClient res_client)
+        private static void Demo_Resource_List_AnalyticsAccounts(AdlClient.AzureClient res_client)
         {
             var storage_accounts = res_client.Analytics.ListAccounts().ToList();
             foreach (var i in storage_accounts)
@@ -309,7 +309,7 @@ namespace DemoAdlClient
             }
         }
 
-        private static void Demo_Resource_ListDataLakeStoreAccountsInSubscription(AdlClient.ResourceClient res_client)
+        private static void Demo_Resource_ListDataLakeStoreAccountsInSubscription(AdlClient.AzureClient res_client)
         {
             var storage_accounts = res_client.Store.ListAccounts().ToList();
             foreach (var i in storage_accounts)
@@ -321,7 +321,7 @@ namespace DemoAdlClient
             }
         }
 
-        private static void Demo_Resource_ListResourceGroups(AdlClient.ResourceClient res_client)
+        private static void Demo_Resource_ListResourceGroups(AdlClient.AzureClient res_client)
         {
             var rgs = res_client.ListResourceGroups().ToList();
             foreach (var i in rgs)

@@ -9,7 +9,7 @@ namespace ADL_Client_Tests
         public ADLC.Authentication.AuthenticatedSession AuthenticatedSession;
         public ADLC.AnalyticsClient AnalyticsClient;
         public ADLC.StoreClient StoreClient;        
-        public ADLC.ResourceClient ResourceClient;
+        public ADLC.AzureClient AzureClient;
         public ADLC.Subscription Subscription;
         public ADLC.ResourceGroup ResourceGroup;
 
@@ -30,7 +30,7 @@ namespace ADL_Client_Tests
 
                 this.StoreClient = new ADLC.StoreClient(store_account, AuthenticatedSession);
                 this.AnalyticsClient = new ADLC.AnalyticsClient(analytics_account, AuthenticatedSession);
-                this.ResourceClient = new ADLC.ResourceClient(Subscription, AuthenticatedSession);
+                this.AzureClient = new ADLC.AzureClient(Subscription, AuthenticatedSession);
 
             }
         }

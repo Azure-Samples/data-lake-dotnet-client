@@ -200,7 +200,7 @@
     <Compile Include="Jobs\SubmitJobOptions.cs" />
     <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Jobs\ListJobOptions.cs" />
-    <Compile Include="ResourceClient.cs" />
+    <Compile Include="AzureClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />
     <Compile Include="FileSystem\FsAcl.cs" />

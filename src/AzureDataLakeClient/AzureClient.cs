@@ -6,7 +6,7 @@ using Microsoft.Azure.Management.ResourceManager;
 
 namespace AdlClient
 {
-    public class ResourceClient: ClientBase
+    public class AzureClient: ClientBase
     {
         private readonly AnalyticsAccountManagmentRestWrapper _adlaAccountMgmtClientWrapper;
         private readonly StoreManagementRestWrapper _adls_account_mgmt_client;
@@ -17,7 +17,7 @@ namespace AdlClient
         public AnalyticsResourceCommands Analytics;
         public StoreResourceCommands Store;
 
-        public ResourceClient(Subscription subscription, AuthenticatedSession authSession) :
+        public AzureClient(Subscription subscription, AuthenticatedSession authSession) :
             base(authSession)
         {
             this.Subscription = subscription;
