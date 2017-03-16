@@ -3,10 +3,10 @@
     public class AnalyticsAccount
     {
         public string Name;
-        public Subscription Subscription;
-        public ResourceGroup ResourceGroup;
+        public string Subscription;
+        public string ResourceGroup;
 
-        public AnalyticsAccount(Subscription sub, ResourceGroup rg, string name)
+        public AnalyticsAccount(string sub, string rg, string name)
         {
             this.Name = name;
             this.Subscription = sub;

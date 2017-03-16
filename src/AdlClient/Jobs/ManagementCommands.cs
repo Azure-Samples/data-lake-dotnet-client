@@ -30,32 +30,32 @@ namespace AdlClient.Jobs
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeStoreAccountInfo> ListLinkedDataLakeStoreAccounts()
         {
-            return this.RestClients._AdlaAccountMgmtRest.ListStoreAccounts(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount);
+            return this.RestClients._AdlaAccountMgmtRest.ListStoreAccounts(AnalyticsAccount);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageAccountInfo> ListLinkedBlobStorageAccounts()
         {
-            return this.RestClients._AdlaAccountMgmtRest.ListStorageAccounts(AnalyticsAccount.ResourceGroup, AnalyticsAccount);
+            return this.RestClients._AdlaAccountMgmtRest.ListStorageAccounts(AnalyticsAccount);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageContainer> ListLinkedBlobStorageContainers(string storage_account)
         {
-            return this.RestClients._AdlaAccountMgmtRest.ListStorageContainers(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account);
+            return this.RestClients._AdlaAccountMgmtRest.ListStorageContainers(AnalyticsAccount, storage_account);
         }
 
         public void UnlinkBlobStorageAccount(string storage_account)
         {
-            this.RestClients._AdlaAccountMgmtRest.DeleteStorageAccount(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account);
+            this.RestClients._AdlaAccountMgmtRest.DeleteStorageAccount(AnalyticsAccount, storage_account);
         }
 
         public void UnlinkDataLakeStoreAccount(string storage_account)
         {
-            this.RestClients._AdlaAccountMgmtRest.DeleteDataLakeStoreAccount(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account);
+            this.RestClients._AdlaAccountMgmtRest.DeleteDataLakeStoreAccount(AnalyticsAccount, storage_account);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.SasTokenInfo> ListBlobStorageSasTokens(string storage_account, string container)
         {
-            return this.RestClients._AdlaAccountMgmtRest.ListSasTokens(AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account, container);
+            return this.RestClients._AdlaAccountMgmtRest.ListSasTokens(AnalyticsAccount, storage_account, container);
         }
 
     }

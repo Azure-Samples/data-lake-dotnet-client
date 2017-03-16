@@ -11,8 +11,8 @@ namespace TestAdlClient
         public ADLC.AnalyticsClient AnalyticsClient;
         public ADLC.StoreClient StoreClient;        
         public ADLC.AzureClient AzureClient;
-        public ADLC.Subscription Subscription;
-        public ADLC.ResourceGroup ResourceGroup;
+        public string Subscription;
+        public string ResourceGroup;
 
         public void Initialize()
         {
@@ -22,8 +22,8 @@ namespace TestAdlClient
                 this.AuthenticatedSession = new ADLC.Authentication.AuthenticatedSession(tenant);
                 AuthenticatedSession.Authenticate();
 
-                this.Subscription = new ADLC.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
-                this.ResourceGroup = new ADLC.ResourceGroup("InsightsServices");
+                this.Subscription = "045c28ea-c686-462f-9081-33c34e871ba3";
+                this.ResourceGroup = "InsightsServices";
 
                 var store_account = new ADLC.StoreAccount(Subscription,ResourceGroup, "datainsightsadhoc");
                 var analytics_account = new ADLC.AnalyticsAccount(Subscription, ResourceGroup, "datainsightsadhoc");

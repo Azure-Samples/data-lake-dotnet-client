@@ -7,10 +7,10 @@ namespace AdlClient.Rest
     {
         public readonly Microsoft.Azure.Management.DataLake.Store.DataLakeStoreAccountManagementClient RestClient;
 
-        public StoreManagementRestWrapper(Subscription sub, Microsoft.Rest.ServiceClientCredentials creds)
+        public StoreManagementRestWrapper(string sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
             this.RestClient = new DataLakeStoreAccountManagementClient(creds);
-            this.RestClient.SubscriptionId = sub.Id;
+            this.RestClient.SubscriptionId = sub;
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()
@@ -23,9 +23,9 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccountsByResourceGroup(ResourceGroup resource_group)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccountsByResourceGroup(string resource_group)
         {
-            var page = this.RestClient.Account.ListByResourceGroup(resource_group.Name);
+            var page = this.RestClient.Account.ListByResourceGroup(resource_group);
 
             foreach (var acc in RestUtil.EnumItemsInPages(page,
                 p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink)))
@@ -36,22 +36,22 @@ namespace AdlClient.Rest
 
         public Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount GetAccount(StoreAccount account)
         {
-            return this.RestClient.Account.Get(account.ResourceGroup.Name, account.Name);
+            return this.RestClient.Account.Get(account.ResourceGroup, account.Name);
         }
 
         public void Update(StoreAccount account, Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
-            this.RestClient.Account.Update(account.ResourceGroup.Name, account.Name, parameters);
+            this.RestClient.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
         public void Delete(StoreAccount account)
         {
-            this.RestClient.Account.Delete(account.ResourceGroup.Name, account.Name);
+            this.RestClient.Account.Delete(account.ResourceGroup, account.Name);
         }
 
         public bool Exists(StoreAccount account)
         {
-            return this.RestClient.Account.Exists(account.ResourceGroup.Name, account.Name);
+            return this.RestClient.Account.Exists(account.ResourceGroup, account.Name);
         }
 
     }

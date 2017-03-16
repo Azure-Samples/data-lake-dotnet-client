@@ -180,7 +180,6 @@
     <Compile Include="OData\Enums\OrderByDirection.cs" />
     <Compile Include="Jobs\ListJobOrderByFields.cs" />
     <Compile Include="OData\Utils\RangeInteger.cs" />
-    <Compile Include="ResourceGroup.cs" />
     <Compile Include="FileSystem\AclType.cs" />
     <Compile Include="FileSystem\CreateFileOptions.cs" />
     <Compile Include="FileSystem\DownloadOptions.cs" />
@@ -207,7 +206,6 @@
     <Compile Include="FileSystem\FsAclEntry.cs" />
     <Compile Include="FileSystem\FsPath.cs" />
     <Compile Include="FileSystem\FsPermission.cs" />
-    <Compile Include="Subscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileSystem\FsFileStatusPage.cs" />
     <Compile Include="AnalyticsClient.cs" />

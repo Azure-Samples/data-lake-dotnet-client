@@ -11,8 +11,8 @@ namespace DemoAdlClient
         private static void Main(string[] args)
         {
             // Collect info about the Azure resources needed for this demo
-            var sub = new AdlClient.Subscription("045c28ea-c686-462f-9081-33c34e871ba3");
-            var rg = new AdlClient.ResourceGroup("InsightServices");
+            var sub = "045c28ea-c686-462f-9081-33c34e871ba3";
+            var rg = "InsightServices";
             var adla_account = new AdlClient.AnalyticsAccount(sub, rg, "datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
             var adls_account = new AdlClient.StoreAccount(sub, rg, "datainsightsadhoc"); // change this to an ADL Store account you have access to 
 
@@ -309,7 +309,9 @@ namespace DemoAdlClient
 
         private static void Demo_Resource_List_AnalyticsAccounts(AdlClient.AzureClient az)
         {
-            var storage_accounts = az.Analytics.ListAccounts().ToList();
+            var sub = "045c28ea-c686-462f-9081-33c34e871ba3";
+
+            var storage_accounts = az.Analytics.ListAccountsInSubscription(sub).ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
@@ -333,7 +335,9 @@ namespace DemoAdlClient
 
         private static void Demo_Resource_ListDataLakeStoreAccountsInSubscription(AdlClient.AzureClient az)
         {
-            var storage_accounts = az.Store.ListAccounts().ToList();
+            var sub = "045c28ea-c686-462f-9081-33c34e871ba3";
+
+            var storage_accounts = az.Store.ListAccountsInSubscription(sub).ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");
