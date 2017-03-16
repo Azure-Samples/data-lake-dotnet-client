@@ -17,7 +17,7 @@ namespace DemoAdlClient
             var adls_account = new AdlClient.StoreAccount(subid, rg, "datainsightsadhoc"); // change this to an ADL Store account you have access to 
 
             // Setup authentication for this demo
-            var tenant = new AdlClient.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
+            var tenant = "microsoft.onmicrosoft.com"; // change this to YOUR tenant
             var auth = new AdlClient.Authentication.AuthenticatedSession(tenant);
             auth.Authenticate();
 

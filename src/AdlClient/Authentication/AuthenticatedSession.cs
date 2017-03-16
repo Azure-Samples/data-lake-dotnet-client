@@ -8,10 +8,10 @@ namespace AdlClient.Authentication
     public class AuthenticatedSession
     {
         public Microsoft.Rest.ServiceClientCredentials Credentials;
-        public Tenant Tenant;
+        public string Tenant;
         public TokenCacheItem Token;
 
-        public AuthenticatedSession(Tenant tenant)
+        public AuthenticatedSession(string tenant)
         {
             this.Tenant = tenant;
         }
@@ -33,7 +33,7 @@ namespace AdlClient.Authentication
         public void Authenticate()
         {
 
-            string domain = this.Tenant.Domain; // if you want it to automatically use a tenant use "common" - but this can pick the an unintended tenant so it is best to be explicit
+            string domain = this.Tenant; // if you want it to automatically use a tenant use "common" - but this can pick the an unintended tenant so it is best to be explicit
             string client_id = "1950a258-227b-4e31-a9cf-717495945fc2"; // Re-use the Azure PowerShell client id, in production code you should create your own client id
 
             var client_redirect = new System.Uri("urn:ietf:wg:oauth:2.0:oob");
@@ -96,7 +96,7 @@ namespace AdlClient.Authentication
         private string GetTokenCachePath()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string basefname = "AzureDataLakeClient_[" + this.Tenant.Domain+ "].tokencache";
+            string basefname = "AzureDataLakeClient_[" + this.Tenant + "].tokencache";
             var tokenCachePath = System.IO.Path.Combine(path, basefname);
             return tokenCachePath;
         }

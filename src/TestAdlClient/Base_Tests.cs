@@ -18,7 +18,7 @@ namespace TestAdlClient
         {
             if (this.init == false)
             {
-                var tenant = new ADLC.Authentication.Tenant("microsoft.onmicrosoft.com");
+                string tenant = "microsoft.onmicrosoft.com";
                 this.AuthenticatedSession = new ADLC.Authentication.AuthenticatedSession(tenant);
                 AuthenticatedSession.Authenticate();
 

@@ -128,7 +128,6 @@
     <Compile Include="Jobs\ListJobFields.cs" />
     <Compile Include="Jobs\ListJobSorting.cs" />
     <Compile Include="Jobs\ManagementCommands.cs" />
-    <Compile Include="Authentication\Tenant.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
     <Compile Include="OData\ExprDay.cs" />
     <Compile Include="OData\ExprEndsWith.cs" />
