@@ -129,6 +129,7 @@
   <ItemGroup>
     <Compile Include="Analytics\Analytics_Catalog_Tests.cs" />
     <Compile Include="Analytics\Analytics_Management_Tests.cs" />
+    <Compile Include="AzTests.cs" />
     <Compile Include="Base_Tests.cs" />
     <Compile Include="Analytics\Analytics_Job_Tests.cs" />
     <Compile Include="OData\Expression_Tests.cs" />

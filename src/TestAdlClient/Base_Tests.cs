@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ADLC = AdlClient;
+﻿using ADLC = AdlClient;
 
 namespace TestAdlClient
 {
@@ -33,21 +32,5 @@ namespace TestAdlClient
 
             }
         }
-    }
-
-
-    [TestClass]
-    public class AzTests : Base_Tests
-    {
-        [TestMethod]
-        public void ListSUbscriptions()
-        {
-            this.Initialize();
-            //foreach (var db in this.AzureClient.ListResourceGroups())
-            //{
-            //    System.Console.WriteLine("DB {0}", db.Name);
-            //}
-        }
-
     }
 }
