@@ -1,18 +1,15 @@
-using AdlClient.Authentication;
-using AdlClient.FileSystem;
-
 namespace AdlClient
 {
     public class StoreClient : ClientBase
     {
         public readonly StoreRestClients RestClients;
-        public readonly FileSystemCommands FileSystem;
+        public readonly AdlClient.FileSystem.FileSystemCommands FileSystem;
 
-        public StoreClient(StoreAccount store, AuthenticatedSession authSession) :
+        public StoreClient(StoreAccount store, AdlClient.Authentication.AuthenticatedSession authSession) :
             base(authSession)
         {
             this.RestClients = new StoreRestClients(store, authSession);
-            this.FileSystem = new FileSystemCommands(store, RestClients);
+            this.FileSystem = new AdlClient.FileSystem.FileSystemCommands(store, RestClients);
         }
     }
 }
