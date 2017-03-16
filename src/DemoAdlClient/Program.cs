@@ -11,10 +11,10 @@ namespace DemoAdlClient
         private static void Main(string[] args)
         {
             // Collect info about the Azure resources needed for this demo
-            var sub = "045c28ea-c686-462f-9081-33c34e871ba3";
-            var rg = "InsightServices";
-            var adla_account = new AdlClient.AnalyticsAccount(sub, rg, "datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
-            var adls_account = new AdlClient.StoreAccount(sub, rg, "datainsightsadhoc"); // change this to an ADL Store account you have access to 
+            string subid = "045c28ea-c686-462f-9081-33c34e871ba3";
+            string rg = "InsightServices";
+            var adla_account = new AdlClient.AnalyticsAccount(subid, rg, "datainsightsadhoc"); // change this to an ADL Analytics account you have access to 
+            var adls_account = new AdlClient.StoreAccount(subid, rg, "datainsightsadhoc"); // change this to an ADL Store account you have access to 
 
             // Setup authentication for this demo
             var tenant = new AdlClient.Authentication.Tenant("microsoft.onmicrosoft.com"); // change this to YOUR tenant
