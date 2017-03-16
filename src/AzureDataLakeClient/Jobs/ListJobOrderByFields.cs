@@ -1,6 +1,6 @@
 namespace AdlClient.Jobs
 {
-    public enum JobOrderByField
+    public enum ListJobOrderByFields
     {
         None,
         SubmitTime,

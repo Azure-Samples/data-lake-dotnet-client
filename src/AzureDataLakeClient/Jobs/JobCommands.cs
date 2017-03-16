@@ -33,16 +33,16 @@ namespace AdlClient.Jobs
 
             if (extendedInfo)
             {
-                jobdetails.ExtendedJobInfo = new ExtendedJobInfo();
-                jobdetails.ExtendedJobInfo.Statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
+                jobdetails.JobDetailsExtended = new JobDetailsExtended();
+                jobdetails.JobDetailsExtended.Statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
 
-                // jobdetails.ExtendedJobInfo.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
+                // jobdetails.JobDetailsExtended.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
 
             return jobdetails;
         }
 
-        public IEnumerable<JobInfo> GetJobs(GetJobsOptions options)
+        public IEnumerable<JobInfo> ListJobs(ListJobOptions options)
         {
             var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSADL.Analytics.Models.JobInformation>();
 

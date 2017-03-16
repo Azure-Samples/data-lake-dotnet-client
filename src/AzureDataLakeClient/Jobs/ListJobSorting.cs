@@ -2,10 +2,10 @@ using AdlClient.OData;
 
 namespace AdlClient.Jobs
 {
-    public class JobListSorting
+    public class ListJobSorting
     {
         public ExprField Field;
-        public OrderByDirection Direction;
+        public ListJobOrderyByDirection Direction;
         
         public string CreateOrderByString()
         {
@@ -19,9 +19,9 @@ namespace AdlClient.Jobs
             return null;
         }
 
-        private static string DirectionToString(OrderByDirection direction)
+        private static string DirectionToString(ListJobOrderyByDirection direction)
         {
-            var dir = (direction == OrderByDirection.Ascending) ? "asc" : "desc";
+            var dir = (direction == ListJobOrderyByDirection.Ascending) ? "asc" : "desc";
             return dir;
         }
     }

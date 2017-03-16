@@ -12,6 +12,6 @@ namespace AdlClient.Jobs
         public IList<Microsoft.Azure.Management.DataLake.Analytics.Models.JobStateAuditRecord> StateAuditRecords;
         public Microsoft.Azure.Management.DataLake.Analytics.Models.JobProperties Properties;
 
-        public ExtendedJobInfo ExtendedJobInfo;
+        public JobDetailsExtended JobDetailsExtended;
     }
 }

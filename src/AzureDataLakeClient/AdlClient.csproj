@@ -112,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsAccount.cs" />
-    <Compile Include="Jobs\ExtendedJobInfo.cs" />
+    <Compile Include="Jobs\JobDetailsExtended.cs" />
     <Compile Include="Jobs\JobDetails.cs" />
     <Compile Include="Jobs\JobReference.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
@@ -125,8 +125,8 @@
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
     <Compile Include="Catalog\CatalogCommands.cs" />
     <Compile Include="Jobs\JobCommands.cs" />
-    <Compile Include="Jobs\JobListFields.cs" />
-    <Compile Include="Jobs\JobListSorting.cs" />
+    <Compile Include="Jobs\ListJobFields.cs" />
+    <Compile Include="Jobs\ListJobSorting.cs" />
     <Compile Include="Jobs\ManagementCommands.cs" />
     <Compile Include="Authentication\Tenant.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
@@ -162,7 +162,7 @@
     <Compile Include="OData\Utils\FieldFilterInteger.cs" />
     <Compile Include="OData\Utils\FieldFilterEnum.cs" />
     <Compile Include="OData\Utils\FieldFilterString.cs" />
-    <Compile Include="Jobs\JobListFilter.cs" />
+    <Compile Include="Jobs\ListJobFilter.cs" />
     <Compile Include="OData\Enums\ComparisonOperation.cs" />
     <Compile Include="OData\ExpressionWriter.cs" />
     <Compile Include="OData\ExprField.cs" />
@@ -177,8 +177,8 @@
     <Compile Include="OData\ExprLogicalOr.cs" />
     <Compile Include="OData\ExprGroup.cs" />
     <Compile Include="OData\ExprRaw.cs" />
-    <Compile Include="Jobs\OrderByDirection.cs" />
-    <Compile Include="Jobs\JobOrderByField.cs" />
+    <Compile Include="Jobs\ListJobOrderyByDirection.cs" />
+    <Compile Include="Jobs\ListJobOrderByFields.cs" />
     <Compile Include="OData\Utils\RangeInteger.cs" />
     <Compile Include="ResourceGroup.cs" />
     <Compile Include="FileSystem\AclType.cs" />
@@ -199,7 +199,7 @@
     <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Jobs\SubmitJobOptions.cs" />
     <Compile Include="Rest\RestUtil.cs" />
-    <Compile Include="Jobs\GetJobsOptions.cs" />
+    <Compile Include="Jobs\ListJobOptions.cs" />
     <Compile Include="ResourceClient.cs" />
     <Compile Include="Authentication\Directory.cs" />
     <Compile Include="Authentication\AuthenticatedSession.cs" />

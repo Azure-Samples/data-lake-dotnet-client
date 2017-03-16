@@ -1,6 +1,6 @@
 namespace AdlClient.Jobs
 {
-    public enum OrderByDirection
+    public enum ListJobOrderyByDirection
     {
         Ascending,
         Descending

@@ -1,6 +1,6 @@
 namespace AdlClient.Jobs
 {
-    public class JobListFields
+    public class ListJobFields
     {
         public OData.ExprField field_submitter = new OData.ExprField("submitter");
         public OData.ExprField field_name = new OData.ExprField("name");
