@@ -8,12 +8,11 @@ namespace AdlClient
     {
         private readonly AdlClient.Rest.AnalyticsAccountManagmentRestWrapper _adlaAccountMgmtClientWrapper;
         private readonly AdlClient.Rest.StoreManagementRestWrapper _adls_account_mgmt_client;
+        private MSAZURERM.ResourceManagementClient rmclient;
+
         public readonly Subscription Subscription;
-
-        MSAZURERM.ResourceManagementClient rmclient;
-
-        public AnalyticsResourceCommands Analytics;
-        public StoreResourceCommands Store;
+        public readonly AnalyticsResourceCommands Analytics;
+        public readonly StoreResourceCommands Store;
 
         public AzureClient(Subscription subscription, AdlClient.Authentication.AuthenticatedSession authSession) :
             base(authSession)
