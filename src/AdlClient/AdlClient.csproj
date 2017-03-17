@@ -199,7 +199,7 @@
     <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Jobs\ListJobOptions.cs" />
     <Compile Include="AzureClient.cs" />
-    <Compile Include="Authentication\AuthenticatedSession.cs" />
+    <Compile Include="Authentication.cs" />
     <Compile Include="FileSystem\FsAcl.cs" />
     <Compile Include="FileSystem\FsAclEntry.cs" />
     <Compile Include="FileSystem\FsPath.cs" />
@@ -213,6 +213,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

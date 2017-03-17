@@ -1,5 +1,4 @@
-﻿using AdlClient.Authentication;
-using AdlClient.Rest;
+﻿using AdlClient.Rest;
 
 namespace AdlClient
 {
@@ -9,7 +8,7 @@ namespace AdlClient
         public readonly AnalyticsCatalogRestWrapper _CatalogRest;
         public readonly AnalyticsAccountManagmentRestWrapper _AdlaAccountMgmtRest;
 
-        public AnalyticsRestClients(AnalyticsAccount account, AuthenticatedSession authSession)
+        public AnalyticsRestClients(AnalyticsAccount account, Authentication authSession)
         {
             this._JobRest = new AnalyticsJobsRestWrapper(authSession.Credentials);
             this._CatalogRest = new AnalyticsCatalogRestWrapper(authSession.Credentials);

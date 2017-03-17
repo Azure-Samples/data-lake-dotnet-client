@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AdlClient.Authentication;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
@@ -7,9 +6,9 @@ namespace AdlClient
 {
     public class AnalyticsManagementCommands
     {
-        private AuthenticatedSession _auth;
+        private Authentication _auth;
 
-        public AnalyticsManagementCommands(AuthenticatedSession auth)
+        public AnalyticsManagementCommands(Authentication auth)
         {
             this._auth = auth;
         }

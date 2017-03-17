@@ -9,7 +9,7 @@ namespace AdlClient
         public readonly AnalyticsManagementCommands Analytics;
         public readonly StoreManagementCommands Store;
 
-        public AzureClient(AdlClient.Authentication.AuthenticatedSession auth) :
+        public AzureClient(Authentication auth) :
             base(auth)
         {
             this.Analytics = new AnalyticsManagementCommands(auth);
@@ -18,7 +18,7 @@ namespace AdlClient
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()
         {
-            var sub_client = new MSAZURERM.SubscriptionClient(this.AuthenticatedSession.Credentials);
+            var sub_client = new MSAZURERM.SubscriptionClient(this.Authentication.Credentials);
 
             var subs = sub_client.Subscriptions.List();
             foreach (var sub in subs)
@@ -30,7 +30,7 @@ namespace AdlClient
         // ----------
         public IEnumerable<MSAZURERM.Models.ResourceGroup> ListResourceGroups(string subid)
         {
-            var rm_client = new MSAZURERM.ResourceManagementClient(this.AuthenticatedSession.Credentials);
+            var rm_client = new MSAZURERM.ResourceManagementClient(this.Authentication.Credentials);
             rm_client.SubscriptionId = subid;
 
             var rgs = rm_client.ResourceGroups.List();

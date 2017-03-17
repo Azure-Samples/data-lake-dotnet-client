@@ -5,7 +5,7 @@ namespace AdlClient
         public readonly StoreRestClients RestClients;
         public readonly AdlClient.FileSystem.FileSystemCommands FileSystem;
 
-        public StoreClient(StoreAccount store, AdlClient.Authentication.AuthenticatedSession auth) :
+        public StoreClient(StoreAccount store, Authentication auth) :
             base(auth)
         {
             this.RestClients = new StoreRestClients(store, auth);

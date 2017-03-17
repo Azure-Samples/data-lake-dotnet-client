@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Azure.Management.DataLake.Analytics.Models;
+using AdlClient;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace DemoAdlClient
@@ -11,7 +11,7 @@ namespace DemoAdlClient
         private static void Main(string[] args)
         {
             // Setup authentication for this demo
-            var auth = new AdlClient.Authentication.AuthenticatedSession("microsoft.onmicrosoft.com"); // change this to YOUR tenant
+            var auth = new Authentication("microsoft.onmicrosoft.com"); // change this to YOUR tenant
             auth.Authenticate();
 
             // Collect info about the Azure resources needed for this demo
@@ -32,14 +32,15 @@ namespace DemoAdlClient
             Demo_ListMySubscriptions(az);
             Demo_ListMyResourceGroups(az);
 
-            //Demo_JobsDetails(adla);
-            //Demo_Jobs_GetJobUrl(adla);
-            //Demo_Job_Summaries(adla);
-            //Demo_Job_Listing(adla);
-            //Demo_Catalog(adla);
-            //Demo_Analytics_Account_Management(adla);
-            //Demo_FileSystem(adls);
-            //Demo_Resource_Managementr(az);
+            Demo_JobsDetails(adla);
+            Demo_Jobs_GetJobUrl(adla);
+
+            RunDemos_Job_Summaries(adla);
+            RunDemos_Job_Listing(adla);
+            RunDemos_Catalog(adla);
+            RunDemos_Analytics_Account_Management(adla);
+            RunDemos_FileSystem(adls);
+            RunDemos_Resource_Managementr(az);
         }
 
         private static void Demo_ListMySubscriptions(AdlClient.AzureClient az)
@@ -66,41 +67,42 @@ namespace DemoAdlClient
         {
             var opts = new AdlClient.Jobs.ListJobOptions();
             opts.Top = 5;
-            opts.Filter.State.IsOneOf( JobState.Ended );
-            opts.Filter.Result.IsOneOf( JobResult.Succeeded );
+            opts.Filter.State.IsOneOf( MSADLA.Models.JobState.Ended );
+            opts.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Succeeded );
             var jobs = adla.Jobs.ListJobs(opts).ToList();
 
             var first_job = jobs[0];
             var jobdetails = adla.Jobs.GetJobDetails(first_job.Id.Value, true);
         }
 
-        private static void Demo_Analytics_Account_Management(AdlClient.AnalyticsClient adla)
+        private static void RunDemos_Analytics_Account_Management(AdlClient.AnalyticsClient adla)
         {
             Demo_AnalyticsAccount_List_LinkedStoreAccounts(adla);
         }
 
-        private static void Demo_FileSystem(AdlClient.StoreClient adla)
+        private static void RunDemos_FileSystem(AdlClient.StoreClient adla)
         {
             Demo_FileSystem_ListFilesInFolder(adla);
         }
 
-        private static void Demo_Resource_Managementr(AdlClient.AzureClient az)
+        private static void RunDemos_Resource_Managementr(AdlClient.AzureClient az)
         {
             Demo_Resource_List_AnalyticsAccounts(az);
             Demo_Resource_ListDataLakeStoreAccountsInSubscription(az);
         }
 
-        private static void Demo_Catalog(AdlClient.AnalyticsClient adla)
+        private static void RunDemos_Catalog(AdlClient.AnalyticsClient adla)
         {
             Demo_Catalog_ListDatabases(adla);
         }
 
-        private static void Demo_Job_Listing(AdlClient.AnalyticsClient adla)
+        private static void RunDemos_Job_Listing(AdlClient.AnalyticsClient adla)
         {
             Demo_Jobs_List_NeverStarted(adla);
             Demo_Jobs_List_Recent(adla);
             Demo_Jobs_List_SingleMostRecent(adla);
             Demo_Jobs_List_Oldest(adla);
+            Demo_Jobs_List_Oldest_from_Submitter(adla);
             Demo_Jobs_List_Failed(adla);
             Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla);
             Demo_Jobs_List_SubmittedBy_Users(adla);
@@ -110,7 +112,7 @@ namespace DemoAdlClient
             Demo_Jobs_List_MostExpensive_In_Last24hours(adla);
         }
 
-        private static void Demo_Job_Summaries(AdlClient.AnalyticsClient adla)
+        private static void RunDemos_Job_Summaries(AdlClient.AnalyticsClient adla)
         {
             Demo_Jobs_Summarize_FailedAUHours_By_Submitter(adla);
             Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(adla);
@@ -162,7 +164,7 @@ namespace DemoAdlClient
         {
             var opts = new AdlClient.Jobs.ListJobOptions();
             opts.Top = 10;
-            opts.Filter.Submitter.IsOneOf(adla.AuthenticatedSession.Token.DisplayableId);
+            opts.Filter.Submitter.IsOneOf(adla.Authentication.Token.DisplayableId);
 
             var jobs = adla.Jobs.ListJobs(opts).ToList();
 
@@ -231,6 +233,23 @@ namespace DemoAdlClient
 
             PrintJobs(jobs);
         }
+
+        private static void Demo_Jobs_List_Oldest_from_Submitter(AdlClient.AnalyticsClient adla)
+        {
+            var opts = new AdlClient.Jobs.ListJobOptions();
+            opts.Top = 1;
+
+            var jobfields = new AdlClient.Jobs.ListJobFields();
+            opts.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Ascending;
+            opts.Sorting.Field = jobfields.field_submittime;
+
+            opts.Filter.Submitter.Contains("saveenr");
+
+            var jobs = adla.Jobs.ListJobs(opts).ToList();
+
+            PrintJobs(jobs);
+        }
+
 
         private static void Demo_Jobs_List_Failed(AdlClient.AnalyticsClient adla)
         {

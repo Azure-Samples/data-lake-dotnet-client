@@ -1,17 +1,17 @@
 using System;
 using System.Linq;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using MSAD = Microsoft.IdentityModel.Clients.ActiveDirectory;
 using REST = Microsoft.Rest.Azure;
 
-namespace AdlClient.Authentication
+namespace AdlClient
 {
-    public class AuthenticatedSession
+    public class Authentication
     {
         public Microsoft.Rest.ServiceClientCredentials Credentials;
         public string Tenant;
-        public TokenCacheItem Token;
+        public MSAD.TokenCacheItem Token;
 
-        public AuthenticatedSession(string tenant)
+        public Authentication(string tenant)
         {
             this.Tenant = tenant;
         }
@@ -87,7 +87,7 @@ namespace AdlClient.Authentication
 
         }
 
-        private static void SaveTokenCache(TokenCache token_cache, string filename)
+        private static void SaveTokenCache(MSAD.TokenCache token_cache, string filename)
         {
             var bytes = token_cache.Serialize();
             System.IO.File.WriteAllBytes(filename, bytes);

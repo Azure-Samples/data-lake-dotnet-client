@@ -1,14 +1,12 @@
-using AdlClient.Authentication;
-
 namespace AdlClient
 {
     public class ClientBase
     {
-        public AuthenticatedSession AuthenticatedSession;
+        public Authentication Authentication;
 
-        public ClientBase(AuthenticatedSession auth)
+        public ClientBase(Authentication auth)
         {
-            this.AuthenticatedSession = auth;
+            this.Authentication = auth;
         }
     }
 }

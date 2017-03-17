@@ -1,4 +1,3 @@
-using AdlClient.Authentication;
 using AdlClient.Catalog;
 using AdlClient.Jobs;
 
@@ -12,7 +11,7 @@ namespace AdlClient
 
         public AnalyticsRestClients RestClients;
 
-        public AnalyticsClient(AnalyticsAccount account, AuthenticatedSession auth) :
+        public AnalyticsClient(AnalyticsAccount account, Authentication auth) :
             base(auth)
         {
             this.RestClients = new AnalyticsRestClients(account, auth);

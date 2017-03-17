@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AdlClient.Authentication;
 using Microsoft.Azure.Management.DataLake.Store;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
@@ -7,9 +6,9 @@ namespace AdlClient
 {
     public class StoreManagementCommands
     {
-        private AuthenticatedSession _auth;
+        private Authentication _auth;
 
-        public StoreManagementCommands(AuthenticatedSession authSession)
+        public StoreManagementCommands(Authentication authSession)
         {
             this._auth = authSession;
         }
