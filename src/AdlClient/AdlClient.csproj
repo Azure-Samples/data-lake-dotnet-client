@@ -116,7 +116,7 @@
     <Compile Include="Jobs\JobDetails.cs" />
     <Compile Include="Jobs\JobReference.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
-    <Compile Include="Rm\AnalyticsResourceCommands.cs" />
+    <Compile Include="Management\AnalyticsManagementCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="OData\Utils\FilterCategory.cs" />
@@ -192,7 +192,7 @@
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="FileSystem\UploadOptions.cs" />
-    <Compile Include="Rm\StoreResourceCommands.cs" />
+    <Compile Include="Management\StoreManagementCommands.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />
     <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Jobs\SubmitJobOptions.cs" />

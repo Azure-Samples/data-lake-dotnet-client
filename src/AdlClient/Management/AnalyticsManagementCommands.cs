@@ -5,11 +5,11 @@ using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient
 {
-    public class AnalyticsResourceCommands
+    public class AnalyticsManagementCommands
     {
         private AuthenticatedSession _auth;
 
-        public AnalyticsResourceCommands(AuthenticatedSession auth)
+        public AnalyticsManagementCommands(AuthenticatedSession auth)
         {
             this._auth = auth;
         }

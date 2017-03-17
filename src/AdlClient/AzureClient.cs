@@ -6,14 +6,14 @@ namespace AdlClient
 {
     public class AzureClient: ClientBase
     {
-        public readonly AnalyticsResourceCommands Analytics;
-        public readonly StoreResourceCommands Store;
+        public readonly AnalyticsManagementCommands Analytics;
+        public readonly StoreManagementCommands Store;
 
         public AzureClient(AdlClient.Authentication.AuthenticatedSession auth) :
             base(auth)
         {
-            this.Analytics = new AnalyticsResourceCommands(auth);
-            this.Store = new StoreResourceCommands(auth);
+            this.Analytics = new AnalyticsManagementCommands(auth);
+            this.Store = new StoreManagementCommands(auth);
         }
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()

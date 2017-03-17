@@ -5,11 +5,11 @@ using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
 namespace AdlClient
 {
-    public class StoreResourceCommands
+    public class StoreManagementCommands
     {
         private AuthenticatedSession _auth;
 
-        public StoreResourceCommands(AuthenticatedSession authSession)
+        public StoreManagementCommands(AuthenticatedSession authSession)
         {
             this._auth = authSession;
         }
