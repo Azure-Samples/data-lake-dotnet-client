@@ -5,15 +5,6 @@ namespace TestAdlClient.Store
     [TestClass]
     public class Store_Management_Tests : Base_Tests
     {
- 
-
-        [TestMethod]
-        public void Get_AD_Tenant_ID()
-        {
-            this.Initialize();
-            var directory = AdlClient.Authentication.Directory.Resolve("microsoft.com");
-            string tenantid = directory.TenantId;
-        }
 
         [TestMethod]
         public void List_ADLS_Accounts()
