@@ -11,9 +11,9 @@ namespace AdlClient.Jobs
             this.Filter = new ListJobFilter();
             this.Sorting = new ListJobSorting();
 
-            var jobfields = new ListJobFields();
+            var jobfields = new JobFields();
             this.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
-            this.Sorting.Field = jobfields.field_submittime;
+            this.Sorting.Field = jobfields.SubmitTime;
         }
     }
 }

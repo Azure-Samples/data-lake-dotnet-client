@@ -59,17 +59,17 @@ namespace TestAdlClient.Analytics
         {
             this.Initialize();
 
-            var jobfields = new ListJobFields();
+            var jobfields = new JobFields();
 
             var getjobs_options = new ListJobOptions();
             getjobs_options.Top = 30;
-            getjobs_options.Sorting.Field = jobfields.field_degreeofparallelism;
+            getjobs_options.Sorting.Field = jobfields.DegreeOfParallelism;
             getjobs_options.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
             foreach (var job in jobs)
             {
-                System.Console.WriteLine("submitter{0} dop {1}", job.Submitter, job.AUs);
+                System.Console.WriteLine("submitter{0} dop {1}", job.Submitter, job.DegreeOfParallelism);
             }
         }
 

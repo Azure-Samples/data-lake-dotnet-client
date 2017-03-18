@@ -125,7 +125,7 @@
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
     <Compile Include="Catalog\CatalogCommands.cs" />
     <Compile Include="Jobs\JobCommands.cs" />
-    <Compile Include="Jobs\ListJobFields.cs" />
+    <Compile Include="Jobs\JobFields.cs" />
     <Compile Include="Jobs\ListJobSorting.cs" />
     <Compile Include="Jobs\ManagementCommands.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
