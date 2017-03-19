@@ -84,7 +84,7 @@ namespace TestAdlClient.Analytics
 
             System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.Id, ji.SubmitTime);
 
-            var ji2 = this.AnalyticsClient.Jobs.GetJobDetails(ji.Id.Value,false);
+            var ji2 = this.AnalyticsClient.Jobs.GetJobDetails(ji.Id,false);
 
             Assert.AreEqual(ji.Name, ji2.JobInfo.Name);
         }
