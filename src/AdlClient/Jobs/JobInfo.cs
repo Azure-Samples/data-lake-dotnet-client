@@ -11,7 +11,7 @@ namespace AdlClient.Jobs
 
         // Information about the job provided by user
         public readonly string Name;
-        public readonly int? AUs;
+        public readonly int? DegreeOfParallelism;
         public readonly int? Priority;
         public readonly string Submitter;
         public readonly MSADLA.Models.JobType Type;
@@ -43,9 +43,9 @@ namespace AdlClient.Jobs
             get
             {
                 var dur = this.ExecutionDuration;
-                if (this.AUs.HasValue && dur.HasValue)
+                if (this.DegreeOfParallelism.HasValue && dur.HasValue)
                 {
-                    return (this.AUs.Value * dur.Value.TotalSeconds);
+                    return (this.DegreeOfParallelism.Value * dur.Value.TotalSeconds);
                 }
                 return null;
             }
@@ -62,7 +62,7 @@ namespace AdlClient.Jobs
             this.Account = acct;
             this.Name = job.Name;
             this.LogFolder = job.LogFolder;
-            this.AUs = job.DegreeOfParallelism;
+            this.DegreeOfParallelism = job.DegreeOfParallelism;
             this.EndTime = job.EndTime;
             this.Id = job.JobId.Value;
             this.Priority = job.Priority;

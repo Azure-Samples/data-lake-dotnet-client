@@ -17,17 +17,17 @@ namespace AdlClient.Jobs
 
         public ListJobFilter()
         {
-            var fields = new ListJobFields();
+            var fields = new JobFields();
 
-            this.Submitter = new OData.Utils.FieldFilterString(fields.field_submitter);
-            this.Name = new OData.Utils.FieldFilterString(fields.field_name);
-            this.SubmitTime = new OData.Utils.FieldFilterDateTime(fields.field_submittime);
-            this.StartTime = new OData.Utils.FieldFilterDateTime(fields.field_starttime);
-            this.EndTime = new OData.Utils.FieldFilterDateTime(fields.field_endtime);
-            this.DegreeOfParallelism = new OData.Utils.FieldFilterInteger(fields.field_degreeofparallelism);
-            this.Priority = new OData.Utils.FieldFilterInteger(fields.field_priority);
-            this.State = new OData.Utils.FieldFilterEnum<MSADLA.Models.JobState>(fields.field_state);
-            this.Result = new OData.Utils.FieldFilterEnum<MSADLA.Models.JobResult>(fields.field_result);
+            this.Submitter = new OData.Utils.FieldFilterString(fields.Submitter);
+            this.Name = new OData.Utils.FieldFilterString(fields.Name);
+            this.SubmitTime = new OData.Utils.FieldFilterDateTime(fields.SubmitTime);
+            this.StartTime = new OData.Utils.FieldFilterDateTime(fields.StartTime);
+            this.EndTime = new OData.Utils.FieldFilterDateTime(fields.EndTime);
+            this.DegreeOfParallelism = new OData.Utils.FieldFilterInteger(fields.DegreeOfParallelism);
+            this.Priority = new OData.Utils.FieldFilterInteger(fields.Priority);
+            this.State = new OData.Utils.FieldFilterEnum<MSADLA.Models.JobState>(fields.State);
+            this.Result = new OData.Utils.FieldFilterEnum<MSADLA.Models.JobResult>(fields.Result);
         }
 
         public string ToFilterString()

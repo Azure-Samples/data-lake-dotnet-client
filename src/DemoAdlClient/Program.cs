@@ -210,9 +210,9 @@ namespace DemoAdlClient
             var opts = new AdlClient.Jobs.ListJobOptions();
             opts.Top = 10;
 
-            var jobfields = new AdlClient.Jobs.ListJobFields();
+            var jobfields = new AdlClient.Jobs.JobFields();
             opts.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
-            opts.Sorting.Field = jobfields.field_submittime;
+            opts.Sorting.Field = jobfields.SubmitTime;
 
             var jobs = adla.Jobs.ListJobs(opts).ToList();
 
@@ -224,9 +224,9 @@ namespace DemoAdlClient
             var opts = new AdlClient.Jobs.ListJobOptions();
             opts.Top = 10;
 
-            var jobfields = new AdlClient.Jobs.ListJobFields();
+            var jobfields = new AdlClient.Jobs.JobFields();
             opts.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Ascending;
-            opts.Sorting.Field = jobfields.field_submittime;
+            opts.Sorting.Field = jobfields.SubmitTime;
 
             var jobs = adla.Jobs.ListJobs(opts).ToList();
 
@@ -238,9 +238,9 @@ namespace DemoAdlClient
             var opts = new AdlClient.Jobs.ListJobOptions();
             opts.Top = 1;
 
-            var jobfields = new AdlClient.Jobs.ListJobFields();
+            var jobfields = new AdlClient.Jobs.JobFields();
             opts.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Ascending;
-            opts.Sorting.Field = jobfields.field_submittime;
+            opts.Sorting.Field = jobfields.SubmitTime;
 
             opts.Filter.Submitter.Contains("saveenr");
 
@@ -303,7 +303,7 @@ namespace DemoAdlClient
             {
                 Console.WriteLine("------------------------------------------------------------");
                 Console.WriteLine("Name = {0}", job.Name);
-                Console.WriteLine("AUs = {0}", job.AUs);
+                Console.WriteLine("AUs = {0}", job.DegreeOfParallelism);
                 Console.WriteLine("Priority = {0}", job.Priority);
                 Console.WriteLine("Result = {0}; State = {1}", job.Result, job.State);
                 Console.WriteLine("StartTime = {0} ", job.SubmitTime);
