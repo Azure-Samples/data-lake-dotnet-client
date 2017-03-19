@@ -59,6 +59,14 @@ namespace AdlClient.Jobs
 
         internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccount acct)
         {
+            // this method is only meant to be called for JobInformation
+            // objects that come back from list jobs or from get job
+
+            if (!job.JobId.HasValue)
+            {
+                throw new System.ArgumentException("job's id is null");
+            }
+
             this.Account = acct;
             this.Name = job.Name;
             this.LogFolder = job.LogFolder;
