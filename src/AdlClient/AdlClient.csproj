@@ -115,6 +115,7 @@
     <Compile Include="Jobs\JobDetailsExtended.cs" />
     <Compile Include="Jobs\JobDetails.cs" />
     <Compile Include="Jobs\JobReference.cs" />
+    <Compile Include="Jobs\LinkedStorageCommands.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
     <Compile Include="Management\AnalyticsManagementCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
