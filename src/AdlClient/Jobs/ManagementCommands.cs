@@ -2,7 +2,7 @@ namespace AdlClient.Jobs
 {
     public class ManagementCommands
     {
-        private readonly AnalyticsAccount AnalyticsAccount;
+        public readonly AnalyticsAccount AnalyticsAccount;
         public readonly AnalyticsRestClients RestClients;
         public readonly LinkedStorageCommands LinkedStorage;
 
@@ -10,7 +10,6 @@ namespace AdlClient.Jobs
         {
             this.AnalyticsAccount = account;
             this.RestClients = restclients;
-
             this.LinkedStorage = new LinkedStorageCommands(account,restclients);
         }
 

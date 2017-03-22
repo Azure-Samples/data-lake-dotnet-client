@@ -4,7 +4,7 @@ namespace AdlClient.Jobs
 {
     public class LinkedStorageCommands
     {
-        private readonly AnalyticsAccount AnalyticsAccount;
+        public readonly AnalyticsAccount AnalyticsAccount;
         public readonly AnalyticsRestClients RestClients;
 
         public LinkedStorageCommands(AnalyticsAccount account, AnalyticsRestClients restclients)
