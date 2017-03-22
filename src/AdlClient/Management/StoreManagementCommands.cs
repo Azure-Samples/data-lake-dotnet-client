@@ -55,12 +55,5 @@ namespace AdlClient
             var client = _get_account_mgmt_client(account.SubscriptionId);
             return client.Account.Exists(account.ResourceGroup, account.Name);
         }
-
-        public AdlClient.StoreClient ConnectToAccount(string subid, string rg, string account)
-        {
-            var acct = new AdlClient.StoreAccount(subid,rg,account);
-            var client = new AdlClient.StoreClient(acct,this._auth);
-            return client;
-        }
     }
 }

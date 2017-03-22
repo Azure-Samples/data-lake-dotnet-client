@@ -55,11 +55,5 @@ namespace AdlClient
             return this.AccountExists(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
 
-        public AdlClient.AnalyticsClient ConnectToAccount(string subid, string rg, string account)
-        {
-            var acct = new AdlClient.AnalyticsAccount(subid, rg, account);
-            var adla = new AdlClient.AnalyticsClient(acct, this._auth);
-            return adla;
-        }
     }
 }

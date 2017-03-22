@@ -16,13 +16,17 @@ namespace DemoAdlClient
             // Collect info about the Azure resources needed for this demo
             string subid = "045c28ea-c686-462f-9081-33c34e871ba3";
             string rg = "InsightServices";
-            string adla_account = "datainsightsadhoc";
-            string adls_account = "datainsightsadhoc";
+            string adla_name = "datainsightsadhoc";
+            string adls_name = "datainsightsadhoc";
+
+            // Identify the accounts
+            var adla_account = new AdlClient.AnalyticsAccount(subid, rg, adla_name);
+            var adls_account = new AdlClient.StoreAccount(subid, rg, adls_name);
 
             // Create the clients
             var az = new AdlClient.AzureClient(auth);
-            var adla = az.Analytics.ConnectToAccount(subid, rg, adla_account);
-            var adls = az.Store.ConnectToAccount(subid, rg, adls_account);
+            var adla = new AdlClient.AnalyticsClient(auth, adla_account);
+            var adls = new AdlClient.StoreClient(auth, adls_account);
             
             // ------------------------------
             // Run the Demo
