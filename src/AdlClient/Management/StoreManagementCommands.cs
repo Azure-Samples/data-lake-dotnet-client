@@ -59,7 +59,7 @@ namespace AdlClient
         public AdlClient.StoreClient ConnectToAccount(string subid, string rg, string account)
         {
             var acct = new AdlClient.StoreAccountRef(subid,rg,account);
-            var client = new AdlClient.StoreClient(acct,this._auth);
+            var client = new AdlClient.StoreClient(this._auth, acct);
             return client;
         }
     }

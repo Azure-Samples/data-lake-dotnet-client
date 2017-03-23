@@ -8,7 +8,7 @@ namespace AdlClient
         public readonly StoreManagementRestWrapper StoreAccountMgmtRest;
         public readonly StoreAccountRef Store;
 
-        public StoreRestClients(StoreAccountRef store, Authentication authSession)
+        public StoreRestClients(Authentication authSession, StoreAccountRef store)
         {
             this.Store = store;
             this.FileSystemRest = new StoreFileSystemRestWrapper(authSession.Credentials);

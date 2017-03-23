@@ -11,10 +11,10 @@ namespace AdlClient
 
         public AnalyticsRestClients RestClients;
 
-        public AnalyticsClient(AnalyticsAccountRef account, Authentication auth) :
+        public AnalyticsClient(Authentication auth, AnalyticsAccountRef account) :
             base(auth)
         {
-            this.RestClients = new AnalyticsRestClients(account, auth);
+            this.RestClients = new AnalyticsRestClients(auth, account);
 
             this.Jobs = new JobCommands(account, this.RestClients);
             this.Catalog = new CatalogCommands(account, this.RestClients);

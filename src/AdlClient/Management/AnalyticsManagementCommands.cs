@@ -58,7 +58,7 @@ namespace AdlClient
         public AdlClient.AnalyticsClient ConnectToAccount(string subid, string rg, string account)
         {
             var acct = new AdlClient.AnalyticsAccountRef(subid, rg, account);
-            var adla = new AdlClient.AnalyticsClient(acct, this._auth);
+            var adla = new AdlClient.AnalyticsClient(this._auth, acct);
             return adla;
         }
     }
