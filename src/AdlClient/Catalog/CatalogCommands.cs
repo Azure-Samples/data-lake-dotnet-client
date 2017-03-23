@@ -5,10 +5,10 @@ namespace AdlClient.Catalog
 {
     public class CatalogCommands
     {
-        private AnalyticsAccount account;
+        private AnalyticsAccountRef account;
         AnalyticsRestClients clients;
 
-        public CatalogCommands(AnalyticsAccount a, AnalyticsRestClients c)
+        public CatalogCommands(AnalyticsAccountRef a, AnalyticsRestClients c)
         {
             this.account = a;
             this.clients = c;

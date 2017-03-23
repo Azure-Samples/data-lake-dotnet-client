@@ -11,7 +11,7 @@ namespace AdlClient
 
         public AnalyticsRestClients RestClients;
 
-        public AnalyticsClient(AnalyticsAccount account, Authentication auth) :
+        public AnalyticsClient(AnalyticsAccountRef account, Authentication auth) :
             base(auth)
         {
             this.RestClients = new AnalyticsRestClients(account, auth);

@@ -4,10 +4,10 @@ namespace AdlClient.Jobs
 {
     public class ManagementCommands
     {
-        private readonly AnalyticsAccount AnalyticsAccount;
+        private readonly AnalyticsAccountRef AnalyticsAccount;
         public readonly AnalyticsRestClients RestClients;
 
-        public ManagementCommands(AnalyticsAccount account, AnalyticsRestClients restclients)
+        public ManagementCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
         {
             this.AnalyticsAccount = account;
             this.RestClients = restclients;

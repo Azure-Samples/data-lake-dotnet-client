@@ -6,9 +6,9 @@ namespace AdlClient.FileSystem
     public class FileSystemCommands 
     {
         public StoreRestClients RestClients;
-        private StoreAccount Store;
+        private StoreAccountRef Store;
 
-        public FileSystemCommands(StoreAccount store,StoreRestClients restclients)
+        public FileSystemCommands(StoreAccountRef store,StoreRestClients restclients)
         {
             this.Store = store;
             this.RestClients = restclients;

@@ -111,10 +111,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyticsAccount.cs" />
+    <Compile Include="AnalyticsAccountRef.cs" />
     <Compile Include="Jobs\JobDetailsExtended.cs" />
     <Compile Include="Jobs\JobDetails.cs" />
-    <Compile Include="Jobs\JobReference.cs" />
+    <Compile Include="Jobs\JobRef.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
     <Compile Include="Management\AnalyticsManagementCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
@@ -188,7 +188,7 @@
     <Compile Include="FileSystem\ListFilesOptions.cs" />
     <Compile Include="FileSystem\LocalPath.cs" />
     <Compile Include="FileSystem\FsUnixTime.cs" />
-    <Compile Include="StoreAccount.cs" />
+    <Compile Include="StoreAccountRef.cs" />
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="FileSystem\UploadOptions.cs" />

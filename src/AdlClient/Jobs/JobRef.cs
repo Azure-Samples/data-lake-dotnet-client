@@ -2,12 +2,12 @@
 
 namespace AdlClient.Jobs
 {
-    public class JobReference
+    public class JobRef
     {
-        public readonly AnalyticsAccount Account;
+        public readonly AnalyticsAccountRef Account;
         public readonly Guid Id;
 
-        public JobReference( Guid id, AnalyticsAccount account)
+        public JobRef( Guid id, AnalyticsAccountRef account)
         {
             this.Id = id;
             this.Account = account;

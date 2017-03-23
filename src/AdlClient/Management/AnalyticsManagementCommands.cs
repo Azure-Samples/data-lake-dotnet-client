@@ -39,7 +39,7 @@ namespace AdlClient
         }
 
 
-        public MSADLA.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccount account)
+        public MSADLA.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccountRef account)
         {
             return this.GetAccount(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
@@ -50,14 +50,14 @@ namespace AdlClient
             return client.Account.Exists(rg, account);
         }
 
-        public bool AccountExists(AnalyticsAccount account)
+        public bool AccountExists(AnalyticsAccountRef account)
         {
             return this.AccountExists(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
 
         public AdlClient.AnalyticsClient ConnectToAccount(string subid, string rg, string account)
         {
-            var acct = new AdlClient.AnalyticsAccount(subid, rg, account);
+            var acct = new AdlClient.AnalyticsAccountRef(subid, rg, account);
             var adla = new AdlClient.AnalyticsClient(acct, this._auth);
             return adla;
         }

@@ -14,23 +14,23 @@ namespace AdlClient.Rest
             this.RestClient = new MSADLA.DataLakeAnalyticsJobManagementClient(creds);
         }
 
-        public MSADLA.Models.JobInformation JobGet(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        public MSADLA.Models.JobInformation JobGet(AnalyticsAccountRef analyticsaccount, System.Guid jobid)
         {
             var job = this.RestClient.Job.Get(analyticsaccount.Name, jobid);
             return job;
         }
 
-        public void JobCancel(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        public void JobCancel(AnalyticsAccountRef analyticsaccount, System.Guid jobid)
         {
             this.RestClient.Job.Cancel(analyticsaccount.Name, jobid);
         }
 
-        public bool JobExists(AnalyticsAccount analyticsaccount, System.Guid jobid)
+        public bool JobExists(AnalyticsAccountRef analyticsaccount, System.Guid jobid)
         {
             return this.RestClient.Job.Exists(analyticsaccount.Name, jobid);
         }
 
-        public IEnumerable<MSADLA.Models.JobInformation> JobList(AnalyticsAccount account,
+        public IEnumerable<MSADLA.Models.JobInformation> JobList(AnalyticsAccountRef account,
             Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.JobInformation> odata_query, int top)
         {
             // Other parameters
@@ -55,7 +55,7 @@ namespace AdlClient.Rest
 
         }
 
-        public JobInfo JobCreate(AnalyticsAccount account, SubmitJobOptions options)
+        public JobInfo JobCreate(AnalyticsAccountRef account, SubmitJobOptions options)
         {
             var job_props = options.ToJobInformationObject();
             var job_info = this.RestClient.Job.Create(account.Name, options.JobId, job_props);
@@ -63,7 +63,7 @@ namespace AdlClient.Rest
             return j;
         }
 
-        public JobInfo JobBuild(AnalyticsAccount account, SubmitJobOptions options)
+        public JobInfo JobBuild(AnalyticsAccountRef account, SubmitJobOptions options)
         {
             var job_props = options.ToJobInformationObject();
             var job_info = this.RestClient.Job.Build(account.Name, job_props);
@@ -72,13 +72,13 @@ namespace AdlClient.Rest
         }
 
 
-        public MSADLA.Models.JobStatistics GetStatistics(AnalyticsAccount account, System.Guid jobid)
+        public MSADLA.Models.JobStatistics GetStatistics(AnalyticsAccountRef account, System.Guid jobid)
         {
             var stats = this.RestClient.Job.GetStatistics(account.Name, jobid);
             return stats;
         }
 
-        public MSADLA.Models.JobDataPath GetDebugDataPath(AnalyticsAccount account, System.Guid jobid)
+        public MSADLA.Models.JobDataPath GetDebugDataPath(AnalyticsAccountRef account, System.Guid jobid)
         {
             var jobdatapath = this.RestClient.Job.GetDebugDataPath(account.Name, jobid);
             return jobdatapath;

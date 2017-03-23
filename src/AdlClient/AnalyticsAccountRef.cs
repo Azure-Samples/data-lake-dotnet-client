@@ -1,12 +1,12 @@
 ﻿namespace AdlClient
 {
-    public class AnalyticsAccount
+    public class AnalyticsAccountRef
     {
-        public string Name;
         public string SubscriptionId;
         public string ResourceGroup;
+        public string Name;
 
-        public AnalyticsAccount(string sub, string rg, string name)
+        public AnalyticsAccountRef(string sub, string rg, string name)
         {
             this.Name = name;
             this.SubscriptionId = sub;

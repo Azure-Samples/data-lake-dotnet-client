@@ -7,7 +7,7 @@ namespace AdlClient.Jobs
     {
         // things that identify the job
         public readonly Guid? Id;
-        public readonly AnalyticsAccount Account;
+        public readonly AnalyticsAccountRef Account;
 
         // Information about the job provided by user
         public readonly string Name;
@@ -52,12 +52,12 @@ namespace AdlClient.Jobs
         }
 
 
-        public JobReference GetJobReference()
+        public JobRef GetJobReference()
         {
-            return new JobReference(this.Id.Value, this.Account);
+            return new JobRef(this.Id.Value, this.Account);
         }       
 
-        internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccount acct)
+        internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccountRef acct)
         {
             this.Account = acct;
             this.Name = job.Name;

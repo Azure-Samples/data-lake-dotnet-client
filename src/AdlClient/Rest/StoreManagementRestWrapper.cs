@@ -34,22 +34,22 @@ namespace AdlClient.Rest
             }
         }
 
-        public Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount GetAccount(StoreAccount account)
+        public Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount GetAccount(StoreAccountRef account)
         {
             return this.RestClient.Account.Get(account.ResourceGroup, account.Name);
         }
 
-        public void Update(StoreAccount account, Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
+        public void Update(StoreAccountRef account, Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
             this.RestClient.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
-        public void Delete(StoreAccount account)
+        public void Delete(StoreAccountRef account)
         {
             this.RestClient.Account.Delete(account.ResourceGroup, account.Name);
         }
 
-        public bool Exists(StoreAccount account)
+        public bool Exists(StoreAccountRef account)
         {
             return this.RestClient.Account.Exists(account.ResourceGroup, account.Name);
         }
