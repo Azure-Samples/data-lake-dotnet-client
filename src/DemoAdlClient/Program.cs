@@ -123,7 +123,6 @@ namespace DemoAdlClient
 
         private static void Demo_FileSystem_ListFilesInFolder(AdlClient.StoreClient adls)
         {
-            //var folder = ADLC.Store.FsPath.Root; // same as "/"
             var folder = new AdlClient.FileSystem.FsPath("/Samples");
             var lfo = new AdlClient.FileSystem.ListFilesOptions();
             foreach (var page in adls.FileSystem.ListFilesPaged(folder,lfo))

@@ -1,15 +1,14 @@
-﻿using ADLC = AdlClient;
-
+﻿
 namespace TestAdlClient
 {
     public class Base_Tests
     {
         private bool init;
 
-        public ADLC.Authentication Authentication;
-        public ADLC.AnalyticsClient AnalyticsClient;
-        public ADLC.StoreClient StoreClient;        
-        public ADLC.AzureClient AzureClient;
+        public AdlClient.Authentication Authentication;
+        public AdlClient.AnalyticsClient AnalyticsClient;
+        public AdlClient.StoreClient StoreClient;        
+        public AdlClient.AzureClient AzureClient;
         public string SubscriptionId;
         public string ResourceGroup;
 
@@ -18,7 +17,7 @@ namespace TestAdlClient
             if (this.init == false)
             {
                 string tenant = "microsoft.onmicrosoft.com";
-                this.Authentication = new ADLC.Authentication(tenant);
+                this.Authentication = new AdlClient.Authentication(tenant);
                 Authentication.Authenticate();
 
                 this.SubscriptionId = "045c28ea-c686-462f-9081-33c34e871ba3";
