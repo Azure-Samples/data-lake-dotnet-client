@@ -20,8 +20,8 @@ namespace DemoAdlClient
             string adls_name = "datainsightsadhoc";
 
             // Identify the accounts
-            var adla_account = new AdlClient.AnalyticsAccount(subid, rg, adla_name);
-            var adls_account = new AdlClient.StoreAccount(subid, rg, adls_name);
+            var adla_account = new AdlClient.AnalyticsAccountRef(subid, rg, adla_name);
+            var adls_account = new AdlClient.StoreAccountRef(subid, rg, adls_name);
 
             // Create the clients
             var az = new AdlClient.AzureClient(auth);

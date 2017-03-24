@@ -2,20 +2,15 @@ using System.Collections.Generic;
 
 namespace AdlClient.Jobs
 {
-    public class ManagementCommands
+    public class LinkedStoreCommands
     {
         private readonly AnalyticsAccountRef AnalyticsAccount;
         public readonly AnalyticsRestClients RestClients;
 
-        public ManagementCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
+        public LinkedStoreCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
         {
             this.AnalyticsAccount = account;
             this.RestClients = restclients;
-        }
-
-        public void UpdateAccount(Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
-        {
-            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount, parameters);
         }
 
         public void LinkBlobStorageAccount(string storage_account, Microsoft.Azure.Management.DataLake.Analytics.Models.AddStorageAccountParameters parameters)
@@ -28,17 +23,17 @@ namespace AdlClient.Jobs
             this.RestClients._AdlaAccountMgmtRest.AddDataLakeStoreAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account, parameters);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeStoreAccountInfo> ListLinkedDataLakeStoreAccounts()
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeStoreAccountInfo> ListDataLakeStoreAccounts()
         {
             return this.RestClients._AdlaAccountMgmtRest.ListStoreAccounts(AnalyticsAccount);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageAccountInfo> ListLinkedBlobStorageAccounts()
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageAccountInfo> ListBlobStorageAccounts()
         {
             return this.RestClients._AdlaAccountMgmtRest.ListStorageAccounts(AnalyticsAccount);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageContainer> ListLinkedBlobStorageContainers(string storage_account)
+        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageContainer> ListBlobStorageContainers(string storage_account)
         {
             return this.RestClients._AdlaAccountMgmtRest.ListStorageContainers(AnalyticsAccount, storage_account);
         }
@@ -58,5 +53,27 @@ namespace AdlClient.Jobs
             return this.RestClients._AdlaAccountMgmtRest.ListSasTokens(AnalyticsAccount, storage_account, container);
         }
 
+    }
+
+
+    public class ManagementCommands
+    {
+        public readonly AnalyticsAccountRef AnalyticsAccount;
+        public readonly AnalyticsRestClients RestClients;
+        public readonly LinkedStoreCommands LinkedStorage;
+
+        public ManagementCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
+        {
+            this.AnalyticsAccount = account;
+            this.RestClients = restclients;
+            this.LinkedStorage  = new LinkedStoreCommands(account,restclients);
+        }
+
+        public void UpdateAccount(
+            Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
+        {
+            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount,
+                parameters);
+        }
     }
 }
