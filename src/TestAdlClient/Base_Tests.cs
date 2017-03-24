@@ -24,9 +24,12 @@ namespace TestAdlClient
                 this.SubscriptionId = "045c28ea-c686-462f-9081-33c34e871ba3";
                 this.ResourceGroup = "InsightsServices";
 
+                var adla_account = new AdlClient.AnalyticsAccount(this.SubscriptionId, this.ResourceGroup, "datainsightsadhoc");
+                var adls_account = new AdlClient.StoreAccount(this.SubscriptionId, this.ResourceGroup, "datainsightsadhoc");
+
                 this.AzureClient = new AdlClient.AzureClient(this.Authentication);
-                this.StoreClient = this.AzureClient.Store.ConnectToAccount(SubscriptionId, ResourceGroup, "datainsightsadhoc");
-                this.AnalyticsClient = this.AzureClient.Analytics.ConnectToAccount(SubscriptionId, ResourceGroup, "datainsightsadhoc");
+                this.StoreClient = new AdlClient.StoreClient(this.Authentication, adls_account);
+                this.AnalyticsClient = new AdlClient.AnalyticsClient(this.Authentication, adla_account);
 
                 this.init = true;
 
