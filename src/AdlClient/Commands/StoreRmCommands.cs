@@ -43,7 +43,6 @@ namespace AdlClient.Commands
             return this.GetAccount(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
 
-
         public bool AccountExists(string subid, string rg, string account)
         {
             var client = _get_account_mgmt_client(subid);
@@ -54,13 +53,6 @@ namespace AdlClient.Commands
         {
             var client = _get_account_mgmt_client(account.SubscriptionId);
             return client.Account.Exists(account.ResourceGroup, account.Name);
-        }
-
-        public AdlClient.StoreClient ConnectToAccount(string subid, string rg, string account)
-        {
-            var acct = new AdlClient.StoreAccountRef(subid,rg,account);
-            var client = new AdlClient.StoreClient(this._auth, acct);
-            return client;
         }
     }
 }
