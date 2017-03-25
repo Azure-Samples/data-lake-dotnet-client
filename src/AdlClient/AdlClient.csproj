@@ -115,20 +115,20 @@
     <Compile Include="Jobs\JobDetailsExtended.cs" />
     <Compile Include="Jobs\JobDetails.cs" />
     <Compile Include="Jobs\JobRef.cs" />
-    <Compile Include="LinkedStoreCommands.cs" />
+    <Compile Include="Commands\LinkedStoreCommands.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
-    <Compile Include="Rm\AnalyticsManagementCommands.cs" />
+    <Compile Include="Commands\AnalyticsManagementCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="OData\Utils\FilterCategory.cs" />
     <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
-    <Compile Include="Catalog\CatalogCommands.cs" />
-    <Compile Include="Jobs\JobCommands.cs" />
+    <Compile Include="Commands\CatalogCommands.cs" />
+    <Compile Include="Commands\JobCommands.cs" />
     <Compile Include="Jobs\JobFields.cs" />
     <Compile Include="Jobs\ListJobSorting.cs" />
-    <Compile Include="AnalyticsAccountManagementCommands.cs" />
+    <Compile Include="Commands\AnalyticsAccountManagementCommands.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
     <Compile Include="OData\ExprDay.cs" />
     <Compile Include="OData\ExprEndsWith.cs" />
@@ -183,7 +183,7 @@
     <Compile Include="FileSystem\AclType.cs" />
     <Compile Include="FileSystem\CreateFileOptions.cs" />
     <Compile Include="FileSystem\DownloadOptions.cs" />
-    <Compile Include="FileSystem\FileSystemCommands.cs" />
+    <Compile Include="Commands\FileSystemCommands.cs" />
     <Compile Include="FileSystem\FsFileStatus.cs" />
     <Compile Include="FileSystem\FsUri.cs" />
     <Compile Include="FileSystem\ListFilesOptions.cs" />
@@ -193,7 +193,7 @@
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="FileSystem\UploadOptions.cs" />
-    <Compile Include="Rm\StoreManagementCommands.cs" />
+    <Compile Include="Commands\StoreManagementCommands.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />
     <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Jobs\SubmitJobOptions.cs" />
@@ -214,7 +214,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Rm\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

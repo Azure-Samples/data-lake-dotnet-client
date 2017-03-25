@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdlClient.Jobs;
 using MSADL = Microsoft.Azure.Management.DataLake;
 
-namespace AdlClient.Jobs
+namespace AdlClient.Commands
 {
     public class JobCommands
     {

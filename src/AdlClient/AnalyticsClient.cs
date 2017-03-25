@@ -1,4 +1,4 @@
-using AdlClient.Catalog;
+using AdlClient.Commands;
 using AdlClient.Jobs;
 
 namespace AdlClient

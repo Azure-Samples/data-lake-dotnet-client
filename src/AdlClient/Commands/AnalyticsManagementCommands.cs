@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AdlClient
+namespace AdlClient.Commands
 {
     public class AnalyticsManagementCommands
     {

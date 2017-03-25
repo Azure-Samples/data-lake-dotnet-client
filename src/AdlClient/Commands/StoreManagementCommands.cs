@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Store;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
-namespace AdlClient
+namespace AdlClient.Commands
 {
     public class StoreManagementCommands
     {

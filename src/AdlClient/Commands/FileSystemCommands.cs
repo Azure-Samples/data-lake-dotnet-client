@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using AdlClient.FileSystem;
 using Microsoft.Azure.Management.DataLake.Store.Models;
 
-namespace AdlClient.FileSystem
+namespace AdlClient.Commands
 {
     public class FileSystemCommands 
     {

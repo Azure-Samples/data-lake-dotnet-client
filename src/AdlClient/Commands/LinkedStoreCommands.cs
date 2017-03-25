@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AdlClient
+namespace AdlClient.Commands
 {
     public class LinkedStoreCommands
     {

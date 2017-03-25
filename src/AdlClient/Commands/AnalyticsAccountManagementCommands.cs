@@ -1,5 +1,5 @@
 
-namespace AdlClient
+namespace AdlClient.Commands
 {
     public class AnalyticsAccountManagementCommands
     {
