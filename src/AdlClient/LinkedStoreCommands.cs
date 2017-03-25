@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AdlClient.Jobs
+namespace AdlClient
 {
     public class LinkedStoreCommands
     {
