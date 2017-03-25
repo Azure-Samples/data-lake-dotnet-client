@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using AdlClient.FileSystem;
-using Microsoft.Azure.Management.DataLake.Store.Models;
+using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
 namespace AdlClient.Commands
 {
@@ -84,7 +84,7 @@ namespace AdlClient.Commands
                 var info = this.GetFileStatus(path);
                 return info;
             }
-            catch (Microsoft.Azure.Management.DataLake.Store.Models.AdlsErrorException ex)
+            catch (MSADLS.Models.AdlsErrorException ex)
             {
                 if (ex.Body.RemoteException is Microsoft.Azure.Management.DataLake.Store.Models.AdlsFileNotFoundException ||
                     ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -109,7 +109,7 @@ namespace AdlClient.Commands
                 return false;
             }
 
-            if (filestat.Type == FileType.DIRECTORY)
+            if (filestat.Type == MSADLS.Models.FileType.DIRECTORY)
             {
                 return false;
             }
@@ -127,7 +127,7 @@ namespace AdlClient.Commands
             }
 
 
-            if (info.Type == FileType.FILE)
+            if (info.Type == MSADLS.Models.FileType.FILE)
             {
                 return false;
             }
@@ -246,20 +246,19 @@ namespace AdlClient.Commands
             this.RestClients.FileSystemRest.SetFileExpiryRelativeToCreationDate(this.Store, path, timespan);
         }
 
-        public ContentSummary GetContentSummary(FsPath path)
+        public MSADLS.Models.ContentSummary GetContentSummary(FsPath path)
         {
             return this.RestClients.FileSystemRest.GetContentSummary(this.Store, path);
         }
 
-        public void SetOwner(FsPath path, string owner, string group)
+        public void SetOwner(FsPath path, string user, string group)
         {
-            this.RestClients.FileSystemRest.SetOwner(this.Store, path, owner, group);
+            this.RestClients.FileSystemRest.SetOwner(this.Store, path, user, group);
         }
 
         public void Move(FsPath src_path, FsPath dest_path)
         {
             this.RestClients.FileSystemRest.Move(this.Store, src_path, dest_path);
         }
-
     }
 }
