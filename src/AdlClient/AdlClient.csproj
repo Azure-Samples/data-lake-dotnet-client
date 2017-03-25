@@ -189,6 +189,7 @@
     <Compile Include="FileSystem\ListFilesOptions.cs" />
     <Compile Include="FileSystem\LocalPath.cs" />
     <Compile Include="FileSystem\FsUnixTime.cs" />
+    <Compile Include="Commands\StoreAccountCommands.cs" />
     <Compile Include="StoreAccountRef.cs" />
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />

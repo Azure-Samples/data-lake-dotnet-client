@@ -14,7 +14,7 @@ namespace AdlClient.Commands
             this.LinkedStorage  = new LinkedStoreCommands(account,restclients);
         }
 
-        public void UpdateAccount(
+        public void Update(
             Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
             this.RestClients._AdlaAccountMgmtRest.UpdateAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount,
