@@ -44,7 +44,7 @@ namespace AdlClient.Commands
         }
 
 
-        public bool AccountExsists(string subid, string rg, string account)
+        public bool AccountExists(string subid, string rg, string account)
         {
             var client = _get_account_mgmt_client(subid);
             return client.Account.Exists(rg, account);
