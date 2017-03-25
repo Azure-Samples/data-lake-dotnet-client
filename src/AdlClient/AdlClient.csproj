@@ -193,7 +193,7 @@
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="FileSystem\UploadOptions.cs" />
-    <Compile Include="Commands\StoreManagementCommands.cs" />
+    <Compile Include="Commands\StoreRmCommands.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />
     <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Jobs\SubmitJobOptions.cs" />

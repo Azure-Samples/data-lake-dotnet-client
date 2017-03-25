@@ -8,13 +8,13 @@ namespace AdlClient
     public class AzureClient: ClientBase
     {
         public readonly AnalyticsRmCommands Analytics;
-        public readonly StoreManagementCommands Store;
+        public readonly StoreRmCommands Store;
 
         public AzureClient(Authentication auth) :
             base(auth)
         {
             this.Analytics = new AnalyticsRmCommands(auth);
-            this.Store = new StoreManagementCommands(auth);
+            this.Store = new StoreRmCommands(auth);
         }
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()
