@@ -318,7 +318,7 @@ namespace DemoAdlClient
 
         private static void Demo_AnalyticsAccount_List_LinkedStoreAccounts(AdlClient.AnalyticsClient adla)
         {
-            var storage_accounts = adla.AccountManagement.LinkedStorage.ListDataLakeStoreAccounts().ToList();
+            var storage_accounts = adla.Account.LinkedStorage.ListDataLakeStoreAccounts().ToList();
             foreach (var i in storage_accounts)
             {
                 Console.WriteLine("----------------");

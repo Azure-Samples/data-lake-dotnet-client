@@ -7,7 +7,7 @@ namespace AdlClient
     {
         public readonly JobCommands Jobs;
         public readonly CatalogCommands Catalog;
-        public readonly AnalyticsAccountManagementCommands AccountManagement;
+        public readonly AnalyticsAccountCommands Account;
 
         public AnalyticsRestClients RestClients;
 
@@ -18,7 +18,7 @@ namespace AdlClient
 
             this.Jobs = new JobCommands(account, this.RestClients);
             this.Catalog = new CatalogCommands(account, this.RestClients);
-            this.AccountManagement = new AnalyticsAccountManagementCommands(account, this.RestClients);
+            this.Account = new AnalyticsAccountCommands(account, this.RestClients);
         }        
     }
 }

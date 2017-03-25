@@ -7,13 +7,13 @@ namespace AdlClient
 {
     public class AzureClient: ClientBase
     {
-        public readonly AnalyticsManagementCommands Analytics;
+        public readonly AnalyticsRmCommands Analytics;
         public readonly StoreManagementCommands Store;
 
         public AzureClient(Authentication auth) :
             base(auth)
         {
-            this.Analytics = new AnalyticsManagementCommands(auth);
+            this.Analytics = new AnalyticsRmCommands(auth);
             this.Store = new StoreManagementCommands(auth);
         }
 

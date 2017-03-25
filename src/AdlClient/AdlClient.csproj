@@ -117,7 +117,7 @@
     <Compile Include="Jobs\JobRef.cs" />
     <Compile Include="Commands\LinkedStoreCommands.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
-    <Compile Include="Commands\AnalyticsManagementCommands.cs" />
+    <Compile Include="Commands\AnalyticsRmCommands.cs" />
     <Compile Include="Jobs\JobInfo.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="OData\Utils\FilterCategory.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="Commands\JobCommands.cs" />
     <Compile Include="Jobs\JobFields.cs" />
     <Compile Include="Jobs\ListJobSorting.cs" />
-    <Compile Include="Commands\AnalyticsAccountManagementCommands.cs" />
+    <Compile Include="Commands\AnalyticsAccountCommands.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
     <Compile Include="OData\ExprDay.cs" />
     <Compile Include="OData\ExprEndsWith.cs" />
