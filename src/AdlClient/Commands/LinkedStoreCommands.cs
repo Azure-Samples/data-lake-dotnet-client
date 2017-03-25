@@ -8,7 +8,7 @@ namespace AdlClient.Commands
     public class LinkedStoreCommands
     {
         private readonly AnalyticsAccountRef AnalyticsAccount;
-        public readonly AnalyticsRestClients RestClients;
+        private readonly AnalyticsRestClients RestClients;
 
         public LinkedStoreCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
         {

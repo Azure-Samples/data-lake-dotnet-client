@@ -5,8 +5,8 @@ namespace AdlClient.Commands
 {
     public class CatalogCommands
     {
-        private AnalyticsAccountRef _account;
-        AnalyticsRestClients _restclients;
+        private readonly AnalyticsAccountRef _account;
+        private readonly AnalyticsRestClients _restclients;
 
         public CatalogCommands(AnalyticsAccountRef accout, AnalyticsRestClients restclients)
         {

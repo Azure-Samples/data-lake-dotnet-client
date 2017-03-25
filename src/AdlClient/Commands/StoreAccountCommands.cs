@@ -4,8 +4,8 @@ namespace AdlClient.Commands
 {
     public class StoreAccountCommands
     {
-        public readonly StoreAccountRef StoreAccount;
-        public readonly StoreRestClients RestClients;
+        private readonly StoreAccountRef StoreAccount;
+        private readonly StoreRestClients RestClients;
 
         public StoreAccountCommands(StoreAccountRef account, StoreRestClients restclients)
         {
