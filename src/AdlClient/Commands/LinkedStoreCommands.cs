@@ -15,12 +15,12 @@ namespace AdlClient.Commands
 
         public void LinkBlobStorageAccount(string storage_account, Microsoft.Azure.Management.DataLake.Analytics.Models.AddStorageAccountParameters parameters)
         {
-            this.RestClients._AdlaAccountMgmtRest.AddStorageAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account, parameters);
+            this.RestClients._AdlaAccountMgmtRest.AddStorageAccount(AnalyticsAccount, storage_account, parameters);
         }
 
         public void LinkDataLakeStoreAccount(string storage_account, Microsoft.Azure.Management.DataLake.Analytics.Models.AddDataLakeStoreParameters parameters)
         {
-            this.RestClients._AdlaAccountMgmtRest.AddDataLakeStoreAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount, storage_account, parameters);
+            this.RestClients._AdlaAccountMgmtRest.AddDataLakeStoreAccount(AnalyticsAccount, storage_account, parameters);
         }
 
         public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeStoreAccountInfo> ListDataLakeStoreAccounts()

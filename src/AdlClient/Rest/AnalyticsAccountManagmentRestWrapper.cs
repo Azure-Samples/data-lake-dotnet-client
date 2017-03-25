@@ -32,30 +32,30 @@ namespace AdlClient.Rest
             }
         }
 
-        public MSADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(string rg, AnalyticsAccountRef account)
+        public MSADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(AnalyticsAccountRef account)
         {
-            var adls_account = this.RestClient.Account.Get(rg, account.Name);
+            var adls_account = this.RestClient.Account.Get(account.ResourceGroup, account.Name);
             return adls_account;
         }
 
-        public bool ExistsAccount(string rg, AnalyticsAccountRef account_name)
+        public bool ExistsAccount(AnalyticsAccountRef account)
         {
-            return this.RestClient.Account.Exists(rg, account_name.Name);
+            return this.RestClient.Account.Exists(account.ResourceGroup, account.Name);
         }
 
-        public void UpdateAccount(string rg, AnalyticsAccountRef account, MSADL.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
+        public void UpdateAccount(AnalyticsAccountRef account, MSADL.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this.RestClient.Account.Update(rg, account.Name, parameters);
+            this.RestClient.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
-        public void AddStorageAccount(string rg, AnalyticsAccountRef account, string storage_account, MSADL.Analytics.Models.AddStorageAccountParameters parameters)
+        public void AddStorageAccount(AnalyticsAccountRef account, string storage_account, MSADL.Analytics.Models.AddStorageAccountParameters parameters)
         {
-            this.RestClient.StorageAccounts.Add(rg, account.Name, storage_account, parameters);
+            this.RestClient.StorageAccounts.Add(account.ResourceGroup, account.Name, storage_account, parameters);
         }
 
-        public void AddDataLakeStoreAccount(string rg, AnalyticsAccountRef account, string storage_account, MSADL.Analytics.Models.AddDataLakeStoreParameters parameters)
+        public void AddDataLakeStoreAccount(AnalyticsAccountRef account, string storage_account, MSADL.Analytics.Models.AddDataLakeStoreParameters parameters)
         {
-            this.RestClient.DataLakeStoreAccounts.Add(rg, account.Name, storage_account, parameters);
+            this.RestClient.DataLakeStoreAccounts.Add(account.ResourceGroup, account.Name, storage_account, parameters);
         }
 
         public IEnumerable<MSADL.Analytics.Models.DataLakeStoreAccountInfo> ListStoreAccounts(AnalyticsAccountRef account)

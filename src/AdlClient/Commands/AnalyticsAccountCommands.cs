@@ -17,8 +17,7 @@ namespace AdlClient.Commands
         public void Update(
             Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(this.AnalyticsAccount.ResourceGroup, AnalyticsAccount,
-                parameters);
+            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(AnalyticsAccount, parameters);
         }
     }
 }
