@@ -1,4 +1,5 @@
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
+
 namespace AdlClient.Commands
 {
     public class AnalyticsAccountCommands
