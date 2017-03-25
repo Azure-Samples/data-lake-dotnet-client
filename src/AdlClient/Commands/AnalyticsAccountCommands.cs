@@ -14,10 +14,16 @@ namespace AdlClient.Commands
             this.LinkedStorage  = new LinkedStoreCommands(account,restclients);
         }
 
+        public Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccount Get()
+        {
+            var acc = this.RestClients._AdlaAccountMgmtRest.GetAccount(this.AnalyticsAccount);
+            return acc;
+        }
+
         public void Update(
             Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(AnalyticsAccount, parameters);
+            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(this.AnalyticsAccount, parameters);
         }
     }
 }

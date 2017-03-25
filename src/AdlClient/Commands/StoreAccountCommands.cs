@@ -11,6 +11,13 @@ namespace AdlClient.Commands
             this.RestClients = restclients;
         }
 
+        public Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount Get()
+        {
+            var acc = this.RestClients.StoreAccountMgmtRest.GetAccount(this.StoreAccount);
+            return acc;
+        }
+
+
         public void Update(Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
             this.RestClients.StoreAccountMgmtRest.Update(this.StoreAccount, parameters);
