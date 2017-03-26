@@ -1,6 +1,6 @@
 namespace AdlClient.FileSystem
 {
-    public class UploadOptions
+    public class FileUploadParameters
     {
         public bool Force;
     }

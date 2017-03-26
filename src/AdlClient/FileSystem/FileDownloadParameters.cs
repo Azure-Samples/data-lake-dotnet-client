@@ -1,6 +1,6 @@
 namespace AdlClient.FileSystem
 {
-    public class DownloadOptions
+    public class FileDownloadParameters
     {
         public bool Append;
     }

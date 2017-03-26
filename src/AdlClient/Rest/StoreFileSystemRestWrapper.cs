@@ -31,7 +31,7 @@ namespace AdlClient.Rest
             var result = RestClient.FileSystem.Delete(store.Name, path.ToString(), recursive);
         }
 
-        public void Create(StoreAccountRef store, FsPath path, System.IO.Stream streamContents, CreateFileOptions options)
+        public void Create(StoreAccountRef store, FsPath path, System.IO.Stream streamContents, FileCreateParameters options)
         {
             RestClient.FileSystem.Create(store.Name, path.ToString(), streamContents, options.Overwrite);
         }
@@ -145,7 +145,7 @@ namespace AdlClient.Rest
             this.RestClient.FileSystem.Rename(store.Name, src_path.ToString(), dest_path.ToString());
         }
 
-        public IEnumerable<FsFileStatusPage> ListFilesPaged(StoreAccountRef store, FsPath path, ListFilesOptions options)
+        public IEnumerable<FsFileStatusPage> ListFilesPaged(StoreAccountRef store, FsPath path, FileListingParameters options)
         {
             string after = null;
             while (true)

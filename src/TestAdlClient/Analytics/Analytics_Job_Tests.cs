@@ -78,7 +78,7 @@ namespace TestAdlClient.Analytics
         public void Submit_Job_with_Syntax_Error()
         {
             this.Initialize();
-            var submit_parameters = new JobSubmissionParameters();
+            var submit_parameters = new JobSubmitParameters();
             submit_parameters.ScriptText = "FOOBAR";
             submit_parameters.JobName = "Test Job";
             var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);

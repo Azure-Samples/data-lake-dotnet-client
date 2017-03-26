@@ -124,7 +124,7 @@ namespace DemoAdlClient
         private static void Demo_FileSystem_ListFilesInFolder(AdlClient.StoreClient adls)
         {
             var folder = new AdlClient.FileSystem.FsPath("/Samples");
-            var lfo = new AdlClient.FileSystem.ListFilesOptions();
+            var lfo = new AdlClient.FileSystem.FileListingParameters();
             foreach (var page in adls.FileSystem.ListFilesPaged(folder,lfo))
             {
                 foreach (var fileitemn in page.FileItems)

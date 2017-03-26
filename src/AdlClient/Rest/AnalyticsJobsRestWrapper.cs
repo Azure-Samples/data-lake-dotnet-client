@@ -55,7 +55,7 @@ namespace AdlClient.Rest
 
         }
 
-        public JobInfo JobCreate(AnalyticsAccountRef account, JobSubmissionParameters parameters)
+        public JobInfo JobCreate(AnalyticsAccountRef account, JobSubmitParameters parameters)
         {
             var job_props = parameters.ToJobInformationObject();
             var job_info = this.RestClient.Job.Create(account.Name, parameters.JobId, job_props);
@@ -63,7 +63,7 @@ namespace AdlClient.Rest
             return j;
         }
 
-        public JobInfo JobBuild(AnalyticsAccountRef account, JobSubmissionParameters parameters)
+        public JobInfo JobBuild(AnalyticsAccountRef account, JobSubmitParameters parameters)
         {
             var job_props = parameters.ToJobInformationObject();
             var job_info = this.RestClient.Job.Build(account.Name, job_props);

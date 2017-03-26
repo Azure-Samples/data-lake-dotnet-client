@@ -1,6 +1,6 @@
 namespace AdlClient.FileSystem
 {
-    public class ListFilesOptions
+    public class FileListingParameters
     {
         public int PageSize = 100;
     }

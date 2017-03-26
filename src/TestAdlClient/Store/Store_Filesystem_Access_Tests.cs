@@ -38,7 +38,7 @@ namespace TestAdlClient.Store
                 this.StoreClient.FileSystem.Delete(fname);
             }
 
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
@@ -86,7 +86,7 @@ namespace TestAdlClient.Store
                 this.StoreClient.FileSystem.Delete(fname);
             }
 
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
@@ -120,7 +120,7 @@ namespace TestAdlClient.Store
                 this.StoreClient.FileSystem.Delete(fname);
             }
 
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
 

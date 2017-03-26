@@ -1,6 +1,6 @@
 namespace AdlClient.FileSystem
 {
-    public class CreateFileOptions
+    public class FileCreateParameters
     {
         public bool Overwrite;
     }
