@@ -3,7 +3,7 @@ using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Jobs
 {
-    public class ListJobFilter
+    public class JobListingFilter
     {
         public readonly OData.Utils.FieldFilterString Name;
         public readonly OData.Utils.FieldFilterString Submitter;
@@ -15,7 +15,7 @@ namespace AdlClient.Jobs
         public readonly OData.Utils.FieldFilterEnum<MSADLA.Models.JobState> State;
         public readonly OData.Utils.FieldFilterEnum<MSADLA.Models.JobResult> Result;
 
-        public ListJobFilter()
+        public JobListingFilter()
         {
             var fields = new JobFields();
 

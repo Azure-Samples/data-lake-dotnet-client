@@ -127,7 +127,7 @@
     <Compile Include="Commands\CatalogCommands.cs" />
     <Compile Include="Commands\JobCommands.cs" />
     <Compile Include="Jobs\JobFields.cs" />
-    <Compile Include="Jobs\ListJobSorting.cs" />
+    <Compile Include="Jobs\JobListingSorting.cs" />
     <Compile Include="Commands\AnalyticsAccountCommands.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
     <Compile Include="OData\ExprDay.cs" />
@@ -162,7 +162,7 @@
     <Compile Include="OData\Utils\FieldFilterInteger.cs" />
     <Compile Include="OData\Utils\FieldFilterEnum.cs" />
     <Compile Include="OData\Utils\FieldFilterString.cs" />
-    <Compile Include="Jobs\ListJobFilter.cs" />
+    <Compile Include="Jobs\JobListingFilter.cs" />
     <Compile Include="OData\Enums\ComparisonOperation.cs" />
     <Compile Include="OData\ExpressionWriter.cs" />
     <Compile Include="OData\ExprField.cs" />
@@ -178,7 +178,7 @@
     <Compile Include="OData\ExprGroup.cs" />
     <Compile Include="OData\ExprRaw.cs" />
     <Compile Include="OData\Enums\OrderByDirection.cs" />
-    <Compile Include="Jobs\ListJobOrderByFields.cs" />
+    <Compile Include="Jobs\JobListingFields.cs" />
     <Compile Include="OData\Utils\RangeInteger.cs" />
     <Compile Include="FileSystem\AclType.cs" />
     <Compile Include="FileSystem\CreateFileOptions.cs" />
@@ -197,9 +197,9 @@
     <Compile Include="Commands\StoreRmCommands.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />
     <Compile Include="Utilities\StringUtil.cs" />
-    <Compile Include="Jobs\SubmitJobOptions.cs" />
+    <Compile Include="Jobs\JobSubmissionParameters.cs" />
     <Compile Include="Rest\RestUtil.cs" />
-    <Compile Include="Jobs\ListJobOptions.cs" />
+    <Compile Include="Jobs\JobListingParameters.cs" />
     <Compile Include="AzureClient.cs" />
     <Compile Include="Authentication.cs" />
     <Compile Include="FileSystem\FsAcl.cs" />

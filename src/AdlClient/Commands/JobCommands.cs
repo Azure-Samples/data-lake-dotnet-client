@@ -43,21 +43,21 @@ namespace AdlClient.Commands
             return jobdetails;
         }
 
-        public IEnumerable<JobInfo> ListJobs(ListJobOptions options)
+        public IEnumerable<JobInfo> ListJobs(JobListingParameters parameters)
         {
             var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSADL.Analytics.Models.JobInformation>();
 
             // if users requests top, set the value appropriately relative to the page size
-            if ((options.Top > 0) && (options.Top <= JobCommands.ADLJobPageSize))
+            if ((parameters.Top > 0) && (parameters.Top <= JobCommands.ADLJobPageSize))
             {
-                odata_query.Top = options.Top;
+                odata_query.Top = parameters.Top;
             }
 
-            odata_query.OrderBy = options.Sorting.CreateOrderByString();
-            odata_query.Filter = options.Filter.ToFilterString();
+            odata_query.OrderBy = parameters.Sorting.CreateOrderByString();
+            odata_query.Filter = parameters.Filter.ToFilterString();
 
             // enumerate the job objects
-            var jobs = this.clients._JobRest.JobList(this.account, odata_query, options.Top);
+            var jobs = this.clients._JobRest.JobList(this.account, odata_query, parameters.Top);
 
             // convert them to the JobInfo
             var jobinfos = jobs.Select(j => new JobInfo(j, this.account));
@@ -65,33 +65,33 @@ namespace AdlClient.Commands
             return jobinfos;
         }
 
-        public JobInfo SubmitJob(SubmitJobOptions options)
+        public JobInfo SubmitJob(JobSubmissionParameters parameters)
         {
-            FixupOptions(options);
-            var job_info = this.clients._JobRest.JobCreate(this.account, options);
+            FixupOptions(parameters);
+            var job_info = this.clients._JobRest.JobCreate(this.account, parameters);
             return job_info;
         }
 
-        private static void FixupOptions(SubmitJobOptions options)
+        private static void FixupOptions(JobSubmissionParameters parameters)
         {
             // If caller doesn't provide a guid, then create a new one
-            if (options.JobId == default(System.Guid))
+            if (parameters.JobId == default(System.Guid))
             {
-                options.JobId = System.Guid.NewGuid();
+                parameters.JobId = System.Guid.NewGuid();
             }
 
             // if caller doesn't provide a name, then create one automativally
-            if (options.JobName == null)
+            if (parameters.JobName == null)
             {
                 // TODO: Handle the date part of the name nicely
-                options.JobName = "USQL " + System.DateTimeOffset.Now.ToString();
+                parameters.JobName = "USQL " + System.DateTimeOffset.Now.ToString();
             }
         }
 
-        public JobInfo BuildJob(SubmitJobOptions options)
+        public JobInfo BuildJob(JobSubmissionParameters parameters)
         {
-            FixupOptions(options);
-            var job_info = this.clients._JobRest.JobBuild(this.account, options);
+            FixupOptions(parameters);
+            var job_info = this.clients._JobRest.JobBuild(this.account, parameters);
             return job_info;
         }
 

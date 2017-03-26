@@ -2,7 +2,7 @@ using AdlClient.OData;
 
 namespace AdlClient.Jobs
 {
-    public class ListJobSorting
+    public class JobListingSorting
     {
         public ExprField Field;
         public AdlClient.OData.Enums.OrderByDirection Direction;

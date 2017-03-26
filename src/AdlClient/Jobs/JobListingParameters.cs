@@ -1,15 +1,15 @@
 namespace AdlClient.Jobs
 {
-    public class ListJobOptions
+    public class JobListingParameters
     {
         public int Top=100; // 300 is the ADLA limit
-        public ListJobFilter Filter;
-        public ListJobSorting Sorting;
+        public JobListingFilter Filter;
+        public JobListingSorting Sorting;
 
-        public ListJobOptions()
+        public JobListingParameters()
         {
-            this.Filter = new ListJobFilter();
-            this.Sorting = new ListJobSorting();
+            this.Filter = new JobListingFilter();
+            this.Sorting = new JobListingSorting();
 
             var jobfields = new JobFields();
             this.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
