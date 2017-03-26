@@ -30,7 +30,7 @@ namespace AdlClient.Commands
 
                     foreach (var item in page.FileItems)
                     {
-                        if (item.Type == Microsoft.Azure.Management.DataLake.Store.Models.FileType.DIRECTORY)
+                        if (item.Type == MSADLS.Models.FileType.DIRECTORY)
                         {
                             var new_path = cur_path.Append(item.PathSuffix);
                             queue.Enqueue(new_path);
@@ -86,7 +86,7 @@ namespace AdlClient.Commands
             }
             catch (MSADLS.Models.AdlsErrorException ex)
             {
-                if (ex.Body.RemoteException is Microsoft.Azure.Management.DataLake.Store.Models.AdlsFileNotFoundException ||
+                if (ex.Body.RemoteException is MSADLS.Models.AdlsFileNotFoundException ||
                     ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
                     return null;

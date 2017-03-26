@@ -36,7 +36,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlAssemblyClr> ListAssemblies(AnalyticsAccountRef account, string dbname)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlAssembly>();
+            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlAssembly>();
 
             string @select = null;
             bool? count = null;
@@ -48,7 +48,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlExternalDataSource> ListExternalDatasources(AnalyticsAccountRef account, string dbname)
+        public IEnumerable<MSADLA.Models.USqlExternalDataSource> ListExternalDatasources(AnalyticsAccountRef account, string dbname)
         {
             var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlExternalDataSource>();
 
@@ -89,9 +89,9 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlView> ListViews(AnalyticsAccountRef account,string dbname, string schema)
+        public IEnumerable<MSADLA.Models.USqlView> ListViews(AnalyticsAccountRef account,string dbname, string schema)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<Microsoft.Azure.Management.DataLake.Analytics.Models.USqlView>();
+            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlView>();
             string @select = null;
             bool? count = null;
 

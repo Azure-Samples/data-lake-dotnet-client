@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
 namespace AdlClient.FileSystem
 {
@@ -12,7 +13,7 @@ namespace AdlClient.FileSystem
 
         public List<FsAclEntry> Entries;
 
-        public FsAcl(Microsoft.Azure.Management.DataLake.Store.Models.AclStatus acl)
+        public FsAcl(MSADLS.Models.AclStatus acl)
         {
             this.Group = acl.Group;
             this.Owner = acl.Owner;
