@@ -4,24 +4,24 @@ namespace AdlClient.Commands
 {
     public class StoreAccountCommands
     {
-        private readonly StoreAccountRef StoreAccount;
-        private readonly StoreRestClients RestClients;
+        public readonly StoreAccountRef Account;
+        public readonly StoreRestClients RestClients;
 
         public StoreAccountCommands(StoreAccountRef account, StoreRestClients restclients)
         {
-            this.StoreAccount = account;
+            this.Account = account;
             this.RestClients = restclients;
         }
 
         public MSADLS.Models.DataLakeStoreAccount Get()
         {
-            var acc = this.RestClients.StoreAccountMgmtRest.GetAccount(this.StoreAccount);
+            var acc = this.RestClients.StoreAccountMgmtRest.GetAccount(this.Account);
             return acc;
         }
 
         public void Update(MSADLS.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
-            this.RestClients.StoreAccountMgmtRest.Update(this.StoreAccount, parameters);
+            this.RestClients.StoreAccountMgmtRest.Update(this.Account, parameters);
         }
     }
 }

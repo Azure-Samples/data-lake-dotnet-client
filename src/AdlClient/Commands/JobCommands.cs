@@ -7,22 +7,22 @@ namespace AdlClient.Commands
 {
     public class JobCommands
     {
-        public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
+        public readonly AnalyticsAccountRef Account;
+        public readonly AnalyticsRestClients RestClients;
 
-        private readonly AnalyticsAccountRef account;
-        private readonly AnalyticsRestClients clients;
+        public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
 
         internal JobCommands(AnalyticsAccountRef a, AnalyticsRestClients clients)
         {
-            this.account = a;
-            this.clients = clients;
+            this.Account = a;
+            this.RestClients = clients;
         }
 
         public JobDetails GetJobDetails(System.Guid jobid, bool extendedInfo)
         {
-            var job = this.clients._JobRest.JobGet(this.account, jobid);
+            var job = this.RestClients._JobRest.JobGet(this.Account, jobid);
 
-            var jobinfo = new JobInfo(job, this.account);
+            var jobinfo = new JobInfo(job, this.Account);
 
             var jobdetails = new JobDetails();
             jobdetails.JobInfo = jobinfo;
@@ -35,7 +35,7 @@ namespace AdlClient.Commands
             if (extendedInfo)
             {
                 jobdetails.JobDetailsExtended = new JobDetailsExtended();
-                jobdetails.JobDetailsExtended.Statistics = this.clients._JobRest.GetStatistics(this.account, jobid);
+                jobdetails.JobDetailsExtended.Statistics = this.RestClients._JobRest.GetStatistics(this.Account, jobid);
 
                 // jobdetails.JobDetailsExtended.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
@@ -57,10 +57,10 @@ namespace AdlClient.Commands
             odata_query.Filter = parameters.Filter.ToFilterString();
 
             // enumerate the job objects
-            var jobs = this.clients._JobRest.JobList(this.account, odata_query, parameters.Top);
+            var jobs = this.RestClients._JobRest.JobList(this.Account, odata_query, parameters.Top);
 
             // convert them to the JobInfo
-            var jobinfos = jobs.Select(j => new JobInfo(j, this.account));
+            var jobinfos = jobs.Select(j => new JobInfo(j, this.Account));
 
             return jobinfos;
         }
@@ -68,7 +68,7 @@ namespace AdlClient.Commands
         public JobInfo SubmitJob(JobSubmitParameters parameters)
         {
             FixupSubmitParameters(parameters);
-            var job_info = this.clients._JobRest.JobCreate(this.account, parameters);
+            var job_info = this.RestClients._JobRest.JobCreate(this.Account, parameters);
             return job_info;
         }
 
@@ -91,18 +91,18 @@ namespace AdlClient.Commands
         public JobInfo BuildJob(JobSubmitParameters parameters)
         {
             FixupSubmitParameters(parameters);
-            var job_info = this.clients._JobRest.JobBuild(this.account, parameters);
+            var job_info = this.RestClients._JobRest.JobBuild(this.Account, parameters);
             return job_info;
         }
 
         public MSADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            return this.clients._JobRest.GetStatistics(this.account, jobid);
+            return this.RestClients._JobRest.GetStatistics(this.Account, jobid);
         }
 
         public MSADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            return this.clients._JobRest.GetDebugDataPath(this.account, jobid);
+            return this.RestClients._JobRest.GetDebugDataPath(this.Account, jobid);
         }
 
 

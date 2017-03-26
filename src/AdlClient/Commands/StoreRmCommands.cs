@@ -6,11 +6,11 @@ namespace AdlClient.Commands
 {
     public class StoreRmCommands
     {
-        private Authentication _auth;
+        public Authentication Authentication;
 
         public StoreRmCommands(Authentication authSession)
         {
-            this._auth = authSession;
+            this.Authentication = authSession;
         }
 
         public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInSubscription(string subid)
@@ -21,7 +21,7 @@ namespace AdlClient.Commands
 
         private DataLakeStoreAccountManagementClient _get_account_mgmt_client(string subid)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this._auth.Credentials);
+            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.Authentication.Credentials);
             client.SubscriptionId = subid;
             return client;
         }

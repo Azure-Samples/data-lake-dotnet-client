@@ -6,11 +6,11 @@ namespace AdlClient.Commands
 {
     public class AnalyticsRmCommands
     {
-        private readonly Authentication _auth;
+        private readonly Authentication Authentication;
 
         public AnalyticsRmCommands(Authentication auth)
         {
-            this._auth = auth;
+            this.Authentication = auth;
         }
 
         public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsInSubscription(string subid)
@@ -21,7 +21,7 @@ namespace AdlClient.Commands
 
         private DataLakeAnalyticsAccountManagementClient _get_acount_mgmt_client(string subid)
         {
-            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(_auth.Credentials);
+            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(Authentication.Credentials);
             client.SubscriptionId = subid;
             return client;
         }

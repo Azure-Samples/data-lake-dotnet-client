@@ -6,8 +6,8 @@ namespace AdlClient.Commands
 {
     public class FileSystemCommands 
     {
+        public readonly StoreAccountRef StoreAccount;
         public readonly StoreRestClients RestClients;
-        private readonly StoreAccountRef StoreAccount;
 
         public FileSystemCommands(StoreAccountRef account,StoreRestClients restclients)
         {
