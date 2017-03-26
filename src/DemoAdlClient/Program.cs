@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdlClient.Models;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace DemoAdlClient
@@ -124,8 +123,8 @@ namespace DemoAdlClient
 
         private static void Demo_FileSystem_ListFilesInFolder(AdlClient.StoreClient adls)
         {
-            var folder = new FsPath("/Samples");
-            var lfo = new FileListingParameters();
+            var folder = new AdlClient.Models.FsPath("/Samples");
+            var lfo = new AdlClient.Models.FileListingParameters();
             foreach (var page in adls.FileSystem.ListFilesPaged(folder,lfo))
             {
                 foreach (var fileitemn in page.FileItems)
