@@ -4,13 +4,13 @@
     {
         public readonly StoreFileSystemRestWrapper FileSystemRest;
         public readonly StoreManagementRestWrapper StoreAccountMgmtRest;
-        public readonly AdlClient.Models.StoreAccountRef Store;
+        public readonly AdlClient.Models.StoreAccountRef Account;
 
-        public StoreRestClients(Authentication authSession, AdlClient.Models.StoreAccountRef store)
+        public StoreRestClients(Authentication authSession, AdlClient.Models.StoreAccountRef account)
         {
-            this.Store = store;
+            this.Account = account;
             this.FileSystemRest = new StoreFileSystemRestWrapper(authSession.Credentials);
-            this.StoreAccountMgmtRest = new StoreManagementRestWrapper(store.SubscriptionId, authSession.Credentials);
+            this.StoreAccountMgmtRest = new StoreManagementRestWrapper(account.SubscriptionId, authSession.Credentials);
         }
     }
 }
