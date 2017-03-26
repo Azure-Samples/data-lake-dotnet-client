@@ -15,21 +15,21 @@ namespace AdlClient.OData.Utils
             this.Category = IntegerFilterCategory.NoFilter;    
         }
 
-        public void InRange(int lower, int upper)
+        public void IsInRange(int lower, int upper)
         {
             var r = new RangeInteger(lower,upper);
-            this.InRange(r);
-            this.Category = IntegerFilterCategory.InRange;
+            this.IsInRange(r);
+            this.Category = IntegerFilterCategory.IsInRange;
         }
 
-        public void InRange(RangeInteger range)
+        public void IsInRange(RangeInteger range)
         {
             this.range = range;
             this.one_of_list = null;
-            this.Category = IntegerFilterCategory.InRange;
+            this.Category = IntegerFilterCategory.IsInRange;
         }
 
-        public void OneOf(params int[] values)
+        public void IsOneOf(params int[] values)
         {
             this.range = null;
             this.one_of_list = new List<int>();
@@ -51,7 +51,7 @@ namespace AdlClient.OData.Utils
             {
                 return this.CreateIsNullExpr();
             }
-            else if (this.Category == IntegerFilterCategory.InRange)
+            else if (this.Category == IntegerFilterCategory.IsInRange)
             {
                 var expr_and = new ExprLogicalAnd();
                 if (this.range.UpperBound.HasValue)

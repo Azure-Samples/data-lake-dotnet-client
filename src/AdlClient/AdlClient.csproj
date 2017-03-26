@@ -116,11 +116,14 @@
     <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobRef.cs" />
     <Compile Include="Commands\LinkedStoreCommands.cs" />
+    <Compile Include="OData\Utils\DateTimeFilterCategory.cs" />
+    <Compile Include="OData\Utils\EnumFilterCategory.cs" />
+    <Compile Include="OData\Utils\IntegerFilterCategory.cs" />
+    <Compile Include="OData\Utils\StringFilterCategory.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
     <Compile Include="Commands\AnalyticsRmCommands.cs" />
     <Compile Include="Models\JobInfo.cs" />
     <Compile Include="ClientBase.cs" />
-    <Compile Include="OData\Utils\FilterCategory.cs" />
     <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
