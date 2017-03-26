@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Store;
+using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
 namespace AdlClient.Rest
 {
     public class StoreManagementRestWrapper
     {
-        public readonly Microsoft.Azure.Management.DataLake.Store.DataLakeStoreAccountManagementClient RestClient;
+        public readonly MSADLS.DataLakeStoreAccountManagementClient RestClient;
 
         public StoreManagementRestWrapper(string sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
@@ -13,7 +14,7 @@ namespace AdlClient.Rest
             this.RestClient.SubscriptionId = sub;
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccounts()
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccounts()
         {
             var page = this.RestClient.Account.List();
             foreach (var acc in RestUtil.EnumItemsInPages(page,
@@ -23,7 +24,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount> ListAccountsByResourceGroup(string resource_group)
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsByResourceGroup(string resource_group)
         {
             var page = this.RestClient.Account.ListByResourceGroup(resource_group);
 
@@ -34,22 +35,22 @@ namespace AdlClient.Rest
             }
         }
 
-        public Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccount GetAccount(StoreAccount account)
+        public MSADLS.Models.DataLakeStoreAccount GetAccount(AdlClient.Models.StoreAccountRef account)
         {
             return this.RestClient.Account.Get(account.ResourceGroup, account.Name);
         }
 
-        public void Update(StoreAccount account, Microsoft.Azure.Management.DataLake.Store.Models.DataLakeStoreAccountUpdateParameters parameters)
+        public void Update(AdlClient.Models.StoreAccountRef account, MSADLS.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
             this.RestClient.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
-        public void Delete(StoreAccount account)
+        public void Delete(AdlClient.Models.StoreAccountRef account)
         {
             this.RestClient.Account.Delete(account.ResourceGroup, account.Name);
         }
 
-        public bool Exists(StoreAccount account)
+        public bool Exists(AdlClient.Models.StoreAccountRef account)
         {
             return this.RestClient.Account.Exists(account.ResourceGroup, account.Name);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-using AdlClient.Jobs;
+using AdlClient.Commands;
+using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,9 +13,9 @@ namespace TestAdlClient.Analytics
         public void Verify_Default_Top()
         {
             this.Initialize();
-            var getjobs_options = new ListJobOptions();
+            var listing_parameters = new JobListingParameters();
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             Assert.IsTrue(jobs.Count>2);
         }
 
@@ -23,10 +24,10 @@ namespace TestAdlClient.Analytics
         public void Verify_Paging_1()
         {
             this.Initialize();
-            var getjobs_options = new ListJobOptions();
-            getjobs_options.Top = 100;
+            var listing_parameters = new JobListingParameters();
+            listing_parameters.Top = 100;
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             Assert.AreEqual(100,jobs.Count);
         }
 
@@ -34,10 +35,10 @@ namespace TestAdlClient.Analytics
         public void Verify_Paging_300()
         {
             this.Initialize();
-            var getjobs_options = new ListJobOptions();
-            getjobs_options.Top = JobCommands.ADLJobPageSize;
+            var listing_parameters = new JobListingParameters();
+            listing_parameters.Top = JobCommands.ADLJobPageSize;
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             Assert.AreEqual(JobCommands.ADLJobPageSize, jobs.Count);
         }
 
@@ -45,11 +46,11 @@ namespace TestAdlClient.Analytics
         public void Verify_Paging_400()
         {
             this.Initialize();
-            var getjobs_options = new ListJobOptions();
+            var listing_parameters = new JobListingParameters();
             var top = JobCommands.ADLJobPageSize + (JobCommands.ADLJobPageSize/2);
-            getjobs_options.Top = top;
+            listing_parameters.Top = top;
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             Assert.AreEqual(top,jobs.Count);
         }
 
@@ -61,12 +62,12 @@ namespace TestAdlClient.Analytics
 
             var jobfields = new JobFields();
 
-            var getjobs_options = new ListJobOptions();
-            getjobs_options.Top = 30;
-            getjobs_options.Sorting.Field = jobfields.DegreeOfParallelism;
-            getjobs_options.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
+            var listing_parameters = new JobListingParameters();
+            listing_parameters.Top = 30;
+            listing_parameters.Sorting.Field = jobfields.DegreeOfParallelism;
+            listing_parameters.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             foreach (var job in jobs)
             {
                 System.Console.WriteLine("submitter{0} dop {1}", job.Submitter, job.DegreeOfParallelism);
@@ -77,10 +78,10 @@ namespace TestAdlClient.Analytics
         public void Submit_Job_with_Syntax_Error()
         {
             this.Initialize();
-            var sjo = new SubmitJobOptions();
-            sjo.ScriptText = "FOOBAR";
-            sjo.JobName = "Test Job";
-            var ji = this.AnalyticsClient.Jobs.SubmitJob(sjo);
+            var submit_parameters = new JobSubmitParameters();
+            submit_parameters.ScriptText = "FOOBAR";
+            submit_parameters.JobName = "Test Job";
+            var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
 
             System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.Id, ji.SubmitTime);
 
@@ -93,11 +94,11 @@ namespace TestAdlClient.Analytics
         public void List_Jobs_Ended()
         {
             this.Initialize();
-            var getjobs_options = new ListJobOptions();
-            getjobs_options.Top = 30;
-            getjobs_options.Filter.State.IsOneOf(JobState.Ended);
+            var listing_parameters = new JobListingParameters();
+            listing_parameters.Top = 30;
+            listing_parameters.Filter.State.IsOneOf(JobState.Ended);
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             if (jobs.Count > 0)
             {
                 foreach (var job in jobs)
@@ -111,11 +112,11 @@ namespace TestAdlClient.Analytics
         public void List_Jobs_Running()
         {
             this.Initialize();
-            var getjobs_options = new ListJobOptions();
-            getjobs_options.Top = 30;
-            getjobs_options.Filter.State.IsOneOf(JobState.Running);
+            var listing_parameters = new JobListingParameters();
+            listing_parameters.Top = 30;
+            listing_parameters.Filter.State.IsOneOf(JobState.Running);
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             if (jobs.Count > 0)
             {
                 foreach (var job in jobs)
@@ -129,12 +130,12 @@ namespace TestAdlClient.Analytics
         public void List_Jobs_Ended_Failed()
         {
             this.Initialize();
-            var getjobs_options = new ListJobOptions();
-            getjobs_options.Top = 30;
-            getjobs_options.Filter.State.IsOneOf( JobState.Ended);
-            getjobs_options.Filter.Result.IsOneOf( JobResult.Failed);
+            var listing_parameters = new JobListingParameters();
+            listing_parameters.Top = 30;
+            listing_parameters.Filter.State.IsOneOf( JobState.Ended);
+            listing_parameters.Filter.Result.IsOneOf( JobResult.Failed);
 
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(getjobs_options).ToList();
+            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             if (jobs.Count > 0)
             {
                 foreach (var job in jobs)

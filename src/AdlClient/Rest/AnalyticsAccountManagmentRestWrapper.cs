@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics; // have to have this using clause to get the extension methods
-using MSADL = Microsoft.Azure.Management.DataLake;
+using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Rest
 {
     public class AnalyticsAccountManagmentRestWrapper
     {
-        public MSADL.Analytics.DataLakeAnalyticsAccountManagementClient RestClient;
+        public MSADLA.DataLakeAnalyticsAccountManagementClient RestClient;
 
         public AnalyticsAccountManagmentRestWrapper(string sub, Microsoft.Rest.ServiceClientCredentials creds)
         {
-            this.RestClient = new MSADL.Analytics.DataLakeAnalyticsAccountManagementClient(creds);
+            this.RestClient = new MSADLA.DataLakeAnalyticsAccountManagementClient(creds);
             this.RestClient.SubscriptionId = sub;
         }
 
-        public IEnumerable<MSADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccounts()
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccounts()
         {
             var initial_page = this.RestClient.Account.List();
             foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.Account.ListNext(p.NextPageLink)))
@@ -23,7 +23,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADL.Analytics.Models.DataLakeAnalyticsAccount> ListAccounts(string rg)
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccounts(string rg)
         {
             var initial_page = this.RestClient.Account.ListByResourceGroup(rg);
             foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink)))
@@ -32,33 +32,33 @@ namespace AdlClient.Rest
             }
         }
 
-        public MSADL.Analytics.Models.DataLakeAnalyticsAccount GetAccount(string rg, AnalyticsAccount account)
+        public MSADLA.Models.DataLakeAnalyticsAccount GetAccount(AdlClient.Models.AnalyticsAccountRef account)
         {
-            var adls_account = this.RestClient.Account.Get(rg, account.Name);
+            var adls_account = this.RestClient.Account.Get(account.ResourceGroup, account.Name);
             return adls_account;
         }
 
-        public bool ExistsAccount(string rg, AnalyticsAccount account_name)
+        public bool ExistsAccount(AdlClient.Models.AnalyticsAccountRef account)
         {
-            return this.RestClient.Account.Exists(rg, account_name.Name);
+            return this.RestClient.Account.Exists(account.ResourceGroup, account.Name);
         }
 
-        public void UpdateAccount(string rg, AnalyticsAccount account, MSADL.Analytics.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
+        public void UpdateAccount(AdlClient.Models.AnalyticsAccountRef account, MSADLA.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this.RestClient.Account.Update(rg, account.Name, parameters);
+            this.RestClient.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
-        public void AddStorageAccount(string rg, AnalyticsAccount account, string storage_account, MSADL.Analytics.Models.AddStorageAccountParameters parameters)
+        public void AddStorageAccount(AdlClient.Models.AnalyticsAccountRef account, string storage_account, MSADLA.Models.AddStorageAccountParameters parameters)
         {
-            this.RestClient.StorageAccounts.Add(rg, account.Name, storage_account, parameters);
+            this.RestClient.StorageAccounts.Add(account.ResourceGroup, account.Name, storage_account, parameters);
         }
 
-        public void AddDataLakeStoreAccount(string rg, AnalyticsAccount account, string storage_account, MSADL.Analytics.Models.AddDataLakeStoreParameters parameters)
+        public void AddDataLakeStoreAccount(AdlClient.Models.AnalyticsAccountRef account, string storage_account, MSADLA.Models.AddDataLakeStoreParameters parameters)
         {
-            this.RestClient.DataLakeStoreAccounts.Add(rg, account.Name, storage_account, parameters);
+            this.RestClient.DataLakeStoreAccounts.Add(account.ResourceGroup, account.Name, storage_account, parameters);
         }
 
-        public IEnumerable<MSADL.Analytics.Models.DataLakeStoreAccountInfo> ListStoreAccounts(AnalyticsAccount account)
+        public IEnumerable<MSADLA.Models.DataLakeStoreAccountInfo> ListStoreAccounts(AdlClient.Models.AnalyticsAccountRef account)
         {
             var initial_page = this.RestClient.DataLakeStoreAccounts.ListByAccount(account.ResourceGroup, account.Name);
             foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.DataLakeStoreAccounts.ListByAccountNext(p.NextPageLink)))
@@ -67,7 +67,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADL.Analytics.Models.StorageAccountInfo> ListStorageAccounts(AnalyticsAccount account)
+        public IEnumerable<MSADLA.Models.StorageAccountInfo> ListStorageAccounts(AdlClient.Models.AnalyticsAccountRef account)
         {
             var initial_page = this.RestClient.StorageAccounts.ListByAccount(account.ResourceGroup, account.Name);
             foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.StorageAccounts.ListByAccountNext(p.NextPageLink)))
@@ -76,7 +76,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADL.Analytics.Models.StorageContainer> ListStorageContainers(AnalyticsAccount account, string storage_account)
+        public IEnumerable<MSADLA.Models.StorageContainer> ListStorageContainers(AdlClient.Models.AnalyticsAccountRef account, string storage_account)
         {
             var initial_page = this.RestClient.StorageAccounts.ListStorageContainers(account.Name, account.Name, storage_account);
             foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.StorageAccounts.ListStorageContainersNext(p.NextPageLink)))
@@ -85,17 +85,17 @@ namespace AdlClient.Rest
             }
         }
 
-        public void DeleteStorageAccount(AnalyticsAccount account, string storage_account)
+        public void DeleteStorageAccount(AdlClient.Models.AnalyticsAccountRef account, string storage_account)
         {
             this.RestClient.StorageAccounts.Delete(account.ResourceGroup, account.Name, storage_account);
         }
 
-        public void DeleteDataLakeStoreAccount(AnalyticsAccount account, string storage_account)
+        public void DeleteDataLakeStoreAccount(AdlClient.Models.AnalyticsAccountRef account, string storage_account)
         {
             this.RestClient.DataLakeStoreAccounts.Delete(account.ResourceGroup, account.Name, storage_account);
         }
 
-        public IEnumerable<MSADL.Analytics.Models.SasTokenInfo> ListSasTokens(AnalyticsAccount account, string storage_account, string container)
+        public IEnumerable<MSADLA.Models.SasTokenInfo> ListSasTokens(AdlClient.Models.AnalyticsAccountRef account, string storage_account, string container)
         {
             var initial_page = this.RestClient.StorageAccounts.ListSasTokens(account.ResourceGroup, account.Name, storage_account, container);
             foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.StorageAccounts.ListSasTokensNext(p.NextPageLink)))

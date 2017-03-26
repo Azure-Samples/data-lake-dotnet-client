@@ -1,5 +1,5 @@
 ﻿using System;
-using AdlClient.FileSystem;
+using Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestAdlClient.Store
@@ -16,7 +16,7 @@ namespace TestAdlClient.Store
 
             var fname1 = dir.Append("foo.txt");
 
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
 
             this.StoreClient.FileSystem.Create(fname1, "Hello", cfo);
@@ -36,7 +36,7 @@ namespace TestAdlClient.Store
 
             var fname1 = dir.Append("foo.txt");
 
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
 
             this.StoreClient.FileSystem.Create(fname1, "Hello", cfo);
@@ -64,7 +64,7 @@ namespace TestAdlClient.Store
 
             var fname1 = dir.Append("foo.txt");
 
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
 
             this.StoreClient.FileSystem.Create(fname1, "Hello", cfo);

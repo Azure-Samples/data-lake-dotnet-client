@@ -1,4 +1,4 @@
-﻿using AdlClient.FileSystem;
+﻿using Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestAdlClient.Store
@@ -14,7 +14,7 @@ namespace TestAdlClient.Store
             int page_count = 0;
             int child_count = 0;
 
-            var lfo = new ListFilesOptions();
+            var lfo = new FileListingParameters();
             lfo.PageSize = 4;
 
             var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(FsPath.Root, lfo);
@@ -44,7 +44,7 @@ namespace TestAdlClient.Store
             int page_count = 0;
             int child_count = 0;
 
-            var lfo = new ListFilesOptions();
+            var lfo = new FileListingParameters();
             lfo.PageSize = 4;
 
             var pages = this.StoreClient.FileSystem.ListFilesPaged(FsPath.Root, lfo);
@@ -67,7 +67,7 @@ namespace TestAdlClient.Store
             var dir = create_test_dir();
             
             var fname = dir.Append("foo.txt");
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
             Assert.IsTrue( this.StoreClient.FileSystem.Exists(fname));
@@ -96,7 +96,7 @@ namespace TestAdlClient.Store
             var fname2 = dir.Append("bar.txt");
             var fname3 = dir.Append("beer.txt");
 
-            var cfo = new CreateFileOptions();
+            var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
 
             this.StoreClient.FileSystem.Create(fname1, "Hello", cfo);
