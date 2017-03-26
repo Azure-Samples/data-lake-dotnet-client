@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
+using MSODATA = Microsoft.Rest.Azure.OData;
 
 namespace AdlClient.Rest
 {
@@ -22,7 +23,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlDatabase> ListDatabases(AnalyticsAccountRef account)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlDatabase>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlDatabase>();
 
             string @select = null;
             bool? count = null;
@@ -36,7 +37,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlAssemblyClr> ListAssemblies(AnalyticsAccountRef account, string dbname)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlAssembly>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlAssembly>();
 
             string @select = null;
             bool? count = null;
@@ -50,7 +51,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlExternalDataSource> ListExternalDatasources(AnalyticsAccountRef account, string dbname)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlExternalDataSource>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlExternalDataSource>();
 
             string @select = null;
             bool? count = null;
@@ -64,7 +65,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlProcedure> ListProcedures(AnalyticsAccountRef account, string dbname, string schema)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlProcedure>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlProcedure>();
 
             string @select = null;
             bool? count = null;
@@ -78,7 +79,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlSchema> ListSchemas(AnalyticsAccountRef account, string dbname)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlSchema>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlSchema>();
             string @select = null;
             bool? count = null;
 
@@ -91,7 +92,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlView> ListViews(AnalyticsAccountRef account,string dbname, string schema)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlView>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlView>();
             string @select = null;
             bool? count = null;
 
@@ -105,7 +106,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlTable> ListTables(AnalyticsAccountRef account, string dbname, string schema)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlTable>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTable>();
             string @select = null;
             bool? count = null;
 
@@ -118,7 +119,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlType> ListTypes(AnalyticsAccountRef account, string dbname, string schema)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlType>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlType>();
             string @select = null;
             bool? count = null;
 
@@ -132,7 +133,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlTableType> ListTableTypes(AnalyticsAccountRef account, string dbname, string schema)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlTableType>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
             string @select = null;
             bool? count = null;
 
@@ -145,7 +146,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlTablePartition> ListTablePartitions(AnalyticsAccountRef account, string dbname, string schema, string tablename)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlTableType>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
 
             var page = this.RestClient.Catalog.ListTablePartitions(account.Name, dbname, schema, tablename);
             foreach (var part in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTablePartition>(page, p => this.RestClient.Catalog.ListTablePartitionsNext(p.NextPageLink)))
@@ -156,7 +157,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlTableStatistics> ListTableStatistics(AnalyticsAccountRef account, string dbname, string schema, string tablename)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlTableType>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
 
             var page = this.RestClient.Catalog.ListTableStatistics(account.Name, dbname, schema, tablename);
             foreach (var stats in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTableStatistics>(page, p => this.RestClient.Catalog.ListTableStatisticsNext(p.NextPageLink)))
@@ -187,7 +188,7 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.USqlCredential> ListCredential(AnalyticsAccountRef account, string dbname)
         {
-            var oDataQuery = new Microsoft.Rest.Azure.OData.ODataQuery<MSADLA.Models.USqlCredential>();
+            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlCredential>();
             string @select = null;
             bool? count = null;
 
