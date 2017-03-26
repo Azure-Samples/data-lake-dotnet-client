@@ -24,10 +24,10 @@ namespace AdlClient.Rest
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlDatabase>();
 
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListDatabases(account.Name, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListDatabases(account.Name, oDataQuery, select_cols, count);
             foreach (var db in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListDatabasesNext(p.NextPageLink)))
             {
                 yield return db;
@@ -38,10 +38,10 @@ namespace AdlClient.Rest
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlAssembly>();
 
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListAssemblies(account.Name, dbname, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListAssemblies(account.Name, dbname, oDataQuery, select_cols, count);
             foreach (var asm in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListAssembliesNext(p.NextPageLink)))
             {
                 yield return asm;
@@ -52,10 +52,10 @@ namespace AdlClient.Rest
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlExternalDataSource>();
 
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListExternalDataSources(account.Name, dbname, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListExternalDataSources(account.Name, dbname, oDataQuery, select_cols, count);
             foreach (var ds in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListExternalDataSourcesNext(p.NextPageLink)))
             {
                 yield return ds;
@@ -66,10 +66,10 @@ namespace AdlClient.Rest
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlProcedure>();
 
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListProcedures(account.Name, dbname, schema, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListProcedures(account.Name, dbname, schema, oDataQuery, select_cols, count);
             foreach (var proc in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListProceduresNext(p.NextPageLink)))
             {
                 yield return proc;
@@ -79,10 +79,10 @@ namespace AdlClient.Rest
         public IEnumerable<MSADLA.Models.USqlSchema> ListSchemas(AnalyticsAccountRef account, string dbname)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlSchema>();
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListSchemas(account.Name, dbname, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListSchemas(account.Name, dbname, oDataQuery, select_cols, count);
             foreach (var schema in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListSchemasNext(p.NextPageLink)))
             {
                 yield return schema;
@@ -92,11 +92,11 @@ namespace AdlClient.Rest
         public IEnumerable<MSADLA.Models.USqlView> ListViews(AnalyticsAccountRef account,string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlView>();
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
 
-            var page = this.RestClient.Catalog.ListViews(account.Name, dbname, schema, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListViews(account.Name, dbname, schema, oDataQuery, select_cols, count);
             foreach (var view in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListViewsNext(p.NextPageLink)))
             {
                 yield return view;
@@ -106,10 +106,10 @@ namespace AdlClient.Rest
         public IEnumerable<MSADLA.Models.USqlTable> ListTables(AnalyticsAccountRef account, string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTable>();
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListTables(account.Name, dbname, schema, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListTables(account.Name, dbname, schema, oDataQuery, select_cols, count);
             foreach (var table in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTablesNext(p.NextPageLink)))
             {
                 yield return table;
@@ -119,11 +119,11 @@ namespace AdlClient.Rest
         public IEnumerable<MSADLA.Models.USqlType> ListTypes(AnalyticsAccountRef account, string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlType>();
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
 
-            var page = this.RestClient.Catalog.ListTypes(account.Name, dbname, schema, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListTypes(account.Name, dbname, schema, oDataQuery, select_cols, count);
             foreach (var type in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTypesNext(p.NextPageLink)))
             {
                 yield return type;
@@ -133,10 +133,10 @@ namespace AdlClient.Rest
         public IEnumerable<MSADLA.Models.USqlTableType> ListTableTypes(AnalyticsAccountRef account, string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, select_cols, count);
             foreach (var tabletype in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTableTypesNext(p.NextPageLink)))
             {
                 yield return tabletype;
@@ -188,10 +188,10 @@ namespace AdlClient.Rest
         public IEnumerable<MSADLA.Models.USqlCredential> ListCredential(AnalyticsAccountRef account, string dbname)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlCredential>();
-            string @select = null;
+            string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListCredentials(account.Name, dbname, oDataQuery, @select, count);
+            var page = this.RestClient.Catalog.ListCredentials(account.Name, dbname, oDataQuery, select_cols, count);
             foreach (var cred in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListCredentialsNext(p.NextPageLink)))
             {
                 yield return cred;
