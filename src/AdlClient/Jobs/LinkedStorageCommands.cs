@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Jobs
 {
@@ -13,34 +14,29 @@ namespace AdlClient.Jobs
             this.RestClients = restclients;
         }
 
-        public void LinkBlobStorageAccount(string storage_account,
-            Microsoft.Azure.Management.DataLake.Analytics.Models.AddStorageAccountParameters parameters)
+        public void LinkBlobStorageAccount(string storage_account, MSADLA.Models.AddStorageAccountParameters parameters)
         {
             this.RestClients._AdlaAccountMgmtRest.AddStorageAccount(this.AnalyticsAccount.ResourceGroup,
                 AnalyticsAccount, storage_account, parameters);
         }
 
-        public void LinkDataLakeStoreAccount(string storage_account,
-            Microsoft.Azure.Management.DataLake.Analytics.Models.AddDataLakeStoreParameters parameters)
+        public void LinkDataLakeStoreAccount(string storage_account, MSADLA.Models.AddDataLakeStoreParameters parameters)
         {
             this.RestClients._AdlaAccountMgmtRest.AddDataLakeStoreAccount(this.AnalyticsAccount.ResourceGroup,
                 AnalyticsAccount, storage_account, parameters);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.DataLakeStoreAccountInfo>
-            ListDataLakeStoreAccounts()
+        public IEnumerable<MSADLA.Models.DataLakeStoreAccountInfo> ListDataLakeStoreAccounts()
         {
             return this.RestClients._AdlaAccountMgmtRest.ListStoreAccounts(AnalyticsAccount);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageAccountInfo>
-            ListBlobStorageAccounts()
+        public IEnumerable<MSADLA.Models.StorageAccountInfo> ListBlobStorageAccounts()
         {
             return this.RestClients._AdlaAccountMgmtRest.ListStorageAccounts(AnalyticsAccount);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.StorageContainer>
-            ListBlobStorageContainers(string storage_account)
+        public IEnumerable<MSADLA.Models.StorageContainer> ListBlobStorageContainers(string storage_account)
         {
             return this.RestClients._AdlaAccountMgmtRest.ListStorageContainers(AnalyticsAccount, storage_account);
         }
@@ -55,8 +51,7 @@ namespace AdlClient.Jobs
             this.RestClients._AdlaAccountMgmtRest.DeleteDataLakeStoreAccount(AnalyticsAccount, storage_account);
         }
 
-        public IEnumerable<Microsoft.Azure.Management.DataLake.Analytics.Models.SasTokenInfo> ListBlobStorageSasTokens(
-            string storage_account, string container)
+        public IEnumerable<MSADLA.Models.SasTokenInfo> ListBlobStorageSasTokens(string storage_account, string container)
         {
             return this.RestClients._AdlaAccountMgmtRest.ListSasTokens(AnalyticsAccount, storage_account, container);
         }
