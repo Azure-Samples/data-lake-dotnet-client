@@ -5,6 +5,7 @@ namespace AdlClient.Rest
 {
     public class RestUtil
     {
+        // This method is needed because the Azure .NET SDK does not yet support automatic enumeration of the next pages
         public static IEnumerable<T>EnumItemsInPages<T>(IPage<T> page, System.Func<IPage<T>, IPage<T>> f_get_next_page)
         {
             // Handle the first page
