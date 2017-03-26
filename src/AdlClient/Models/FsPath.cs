@@ -1,4 +1,4 @@
-namespace AdlClient.FileSystem
+namespace Models
 {
     public class FsPath
     {

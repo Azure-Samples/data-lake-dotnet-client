@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using AdlClient.FileSystem;
+using Models;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
 namespace AdlClient.Commands

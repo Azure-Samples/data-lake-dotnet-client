@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdlClient.FileSystem
+namespace Models
 {
     public class FsAclEntry
     {

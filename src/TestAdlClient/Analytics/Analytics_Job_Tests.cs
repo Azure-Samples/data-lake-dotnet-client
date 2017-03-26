@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AdlClient.Commands;
-using AdlClient.Jobs;
+using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

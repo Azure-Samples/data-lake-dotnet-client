@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using AdlClient.Jobs;
+using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 

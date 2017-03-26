@@ -1,4 +1,4 @@
-namespace AdlClient.Jobs
+namespace AdlClient.Models
 {
     public class JobListingParameters
     {

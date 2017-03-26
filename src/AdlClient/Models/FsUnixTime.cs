@@ -1,6 +1,6 @@
 using System;
 
-namespace AdlClient.FileSystem
+namespace Models
 {
     public struct FsUnixTime
     {

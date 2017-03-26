@@ -1,6 +1,6 @@
 using Microsoft.Azure.Management.DataLake.Store.Models;
 
-namespace AdlClient.FileSystem
+namespace Models
 {
     public class FsFileStatus
     {

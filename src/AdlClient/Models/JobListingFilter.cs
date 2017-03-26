@@ -1,7 +1,7 @@
 using AdlClient.OData;
 using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AdlClient.Jobs
+namespace AdlClient.Models
 {
     public class JobListingFilter
     {

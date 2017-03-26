@@ -1,6 +1,6 @@
 ﻿using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
-namespace AdlClient.Jobs
+namespace AdlClient.Models
 {
     public class JobDetailsExtended
     {

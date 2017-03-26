@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AdlClient.FileSystem
+namespace Models
 {
     public class FsFileStatusPage
     {

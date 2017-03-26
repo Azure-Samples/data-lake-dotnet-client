@@ -1,6 +1,6 @@
 using AdlClient.OData;
 
-namespace AdlClient.Jobs
+namespace AdlClient.Models
 {
     public class JobListingSorting
     {

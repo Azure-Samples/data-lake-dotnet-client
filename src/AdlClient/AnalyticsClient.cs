@@ -1,5 +1,5 @@
 using AdlClient.Commands;
-using AdlClient.Jobs;
+using AdlClient.Models;
 
 namespace AdlClient
 {

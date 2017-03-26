@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdlClient.Jobs
+namespace AdlClient.Models
 {
     public class JobRef
     {
