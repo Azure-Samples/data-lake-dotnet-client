@@ -109,6 +109,7 @@ namespace DemoAdlClient
             Demo_Jobs_List_Failed(adla);
             Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla);
             Demo_Jobs_List_SubmittedBy_Users(adla);
+            Demo_GetJobsSubmitedInLast2hours(adla);
             Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla);
             Demo_Jobs_List_SubmittedBy_UserBeginsWith(adla);
             Demo_Jobs_List_SubmittedBy_UserContains(adla);
