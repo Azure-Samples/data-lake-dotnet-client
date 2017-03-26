@@ -16,9 +16,9 @@ namespace AdlClient.OData.Utils
             this.Category = DateTimeFilterCategory.NoFilter;
         }
 
-        public void InRange(RangeDateTime range)
+        public void IsInRange(RangeDateTime range)
         {
-            this.Category = DateTimeFilterCategory.InRange;
+            this.Category = DateTimeFilterCategory.IsInRange;
             this.range = range;
         }
 
@@ -38,7 +38,7 @@ namespace AdlClient.OData.Utils
             {
                 return null;
             }
-            else if (this.Category == DateTimeFilterCategory.InRange)
+            else if (this.Category == DateTimeFilterCategory.IsInRange)
             {
                 // The range must have at least one bound
                 if (!this.range.IsBounded)
