@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics;
-using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
 using MSODATA = Microsoft.Rest.Azure.OData;
 
@@ -29,7 +28,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListDatabases(account.Name, oDataQuery, @select, count);
-            foreach (var db in RestUtil.EnumItemsInPages<MSADLA.Models.USqlDatabase>(page, p => this.RestClient.Catalog.ListDatabasesNext(p.NextPageLink)))
+            foreach (var db in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListDatabasesNext(p.NextPageLink)))
             {
                 yield return db;
             }
@@ -43,7 +42,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListAssemblies(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var asm in RestUtil.EnumItemsInPages<MSADLA.Models.USqlAssemblyClr>(page, p => this.RestClient.Catalog.ListAssembliesNext(p.NextPageLink)))
+            foreach (var asm in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListAssembliesNext(p.NextPageLink)))
             {
                 yield return asm;
             }
@@ -57,7 +56,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListExternalDataSources(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var ds in RestUtil.EnumItemsInPages<MSADLA.Models.USqlExternalDataSource>(page, p => this.RestClient.Catalog.ListExternalDataSourcesNext(p.NextPageLink)))
+            foreach (var ds in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListExternalDataSourcesNext(p.NextPageLink)))
             {
                 yield return ds;
             }
@@ -71,7 +70,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListProcedures(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var proc in RestUtil.EnumItemsInPages<MSADLA.Models.USqlProcedure>(page, p => this.RestClient.Catalog.ListProceduresNext(p.NextPageLink)))
+            foreach (var proc in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListProceduresNext(p.NextPageLink)))
             {
                 yield return proc;
             }
@@ -84,7 +83,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListSchemas(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var schema in RestUtil.EnumItemsInPages<MSADLA.Models.USqlSchema>(page, p => this.RestClient.Catalog.ListSchemasNext(p.NextPageLink)))
+            foreach (var schema in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListSchemasNext(p.NextPageLink)))
             {
                 yield return schema;
             }
@@ -98,7 +97,7 @@ namespace AdlClient.Rest
 
 
             var page = this.RestClient.Catalog.ListViews(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var view in RestUtil.EnumItemsInPages<MSADLA.Models.USqlView>(page, p => this.RestClient.Catalog.ListViewsNext(p.NextPageLink)))
+            foreach (var view in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListViewsNext(p.NextPageLink)))
             {
                 yield return view;
             }
@@ -111,7 +110,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListTables(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var table in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTable>(page, p => this.RestClient.Catalog.ListTablesNext(p.NextPageLink)))
+            foreach (var table in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTablesNext(p.NextPageLink)))
             {
                 yield return table;
             }
@@ -125,7 +124,7 @@ namespace AdlClient.Rest
 
 
             var page = this.RestClient.Catalog.ListTypes(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var type in RestUtil.EnumItemsInPages<MSADLA.Models.USqlType>(page, p => this.RestClient.Catalog.ListTypesNext(p.NextPageLink)))
+            foreach (var type in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTypesNext(p.NextPageLink)))
             {
                 yield return type;
             }
@@ -138,7 +137,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, @select, count);
-            foreach (var tabletype in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTableType>(page, p => this.RestClient.Catalog.ListTableTypesNext(p.NextPageLink)))
+            foreach (var tabletype in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTableTypesNext(p.NextPageLink)))
             {
                 yield return tabletype;
             }
@@ -149,7 +148,7 @@ namespace AdlClient.Rest
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
 
             var page = this.RestClient.Catalog.ListTablePartitions(account.Name, dbname, schema, tablename);
-            foreach (var part in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTablePartition>(page, p => this.RestClient.Catalog.ListTablePartitionsNext(p.NextPageLink)))
+            foreach (var part in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTablePartitionsNext(p.NextPageLink)))
             {
                 yield return part;
             }
@@ -160,23 +159,23 @@ namespace AdlClient.Rest
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
 
             var page = this.RestClient.Catalog.ListTableStatistics(account.Name, dbname, schema, tablename);
-            foreach (var stats in RestUtil.EnumItemsInPages<MSADLA.Models.USqlTableStatistics>(page, p => this.RestClient.Catalog.ListTableStatisticsNext(p.NextPageLink)))
+            foreach (var stats in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTableStatisticsNext(p.NextPageLink)))
             {
                 yield return stats;
             }
         }
 
-        public void CreateCredential(AnalyticsAccountRef account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
+        public void CreateCredential(AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
         {
             this.RestClient.Catalog.CreateCredential(account.Name, dbname, credname, create_parameters);
         }
 
-        public void DeleteCredential(AnalyticsAccountRef account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
+        public void DeleteCredential(AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
         {
             this.RestClient.Catalog.DeleteCredential(account.Name, dbname, credname);
         }
 
-        public void UpdateCredential(AnalyticsAccountRef account, string dbname, string credname, DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
+        public void UpdateCredential(AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
         {
             this.RestClient.Catalog.UpdateCredential(account.Name, dbname, credname, update_parameters);
         }
@@ -193,7 +192,7 @@ namespace AdlClient.Rest
             bool? count = null;
 
             var page = this.RestClient.Catalog.ListCredentials(account.Name, dbname, oDataQuery, @select, count);
-            foreach (var cred in RestUtil.EnumItemsInPages<MSADLA.Models.USqlCredential>(page, p => this.RestClient.Catalog.ListCredentialsNext(p.NextPageLink)))
+            foreach (var cred in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListCredentialsNext(p.NextPageLink)))
             {
                 yield return cred;
             }

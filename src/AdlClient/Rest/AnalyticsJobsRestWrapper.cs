@@ -41,8 +41,7 @@ namespace AdlClient.Rest
             var page = this.RestClient.Job.List(account.Name, odata_query, opt_select, opt_count);
             foreach (
                 var job in
-                RestUtil.EnumItemsInPages<MSADLA.Models.JobInformation>(page,
-                    p => this.RestClient.Job.ListNext(p.NextPageLink)))
+                RestUtil.EnumItemsInPages(page, p => this.RestClient.Job.ListNext(p.NextPageLink)))
             {
                 yield return job;
                 item_count++;
