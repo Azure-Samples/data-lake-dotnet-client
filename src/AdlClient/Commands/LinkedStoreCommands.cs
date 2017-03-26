@@ -5,10 +5,10 @@ namespace AdlClient.Commands
 {
     public class LinkedStoreCommands
     {
-        internal readonly AnalyticsAccountRef Account;
+        internal readonly AdlClient.Models.AnalyticsAccountRef Account;
         internal readonly AnalyticsRestClients RestClients;
 
-        internal LinkedStoreCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
+        internal LinkedStoreCommands(AdlClient.Models.AnalyticsAccountRef account, AnalyticsRestClients restclients)
         {
             this.Account = account;
             this.RestClients = restclients;

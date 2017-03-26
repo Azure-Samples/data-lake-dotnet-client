@@ -4,9 +4,9 @@
     {
         public readonly StoreFileSystemRestWrapper FileSystemRest;
         public readonly StoreManagementRestWrapper StoreAccountMgmtRest;
-        public readonly StoreAccountRef Store;
+        public readonly AdlClient.Models.StoreAccountRef Store;
 
-        public StoreRestClients(Authentication authSession, StoreAccountRef store)
+        public StoreRestClients(Authentication authSession, AdlClient.Models.StoreAccountRef store)
         {
             this.Store = store;
             this.FileSystemRest = new StoreFileSystemRestWrapper(authSession.Credentials);

@@ -111,7 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyticsAccountRef.cs" />
+    <Compile Include="Models\AnalyticsAccountRef.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobRef.cs" />
@@ -190,7 +190,7 @@
     <Compile Include="Models\FsLocalPath.cs" />
     <Compile Include="Models\FsUnixTime.cs" />
     <Compile Include="Commands\StoreAccountCommands.cs" />
-    <Compile Include="StoreAccountRef.cs" />
+    <Compile Include="Models\StoreAccountRef.cs" />
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="Models\FileUploadParameters.cs" />

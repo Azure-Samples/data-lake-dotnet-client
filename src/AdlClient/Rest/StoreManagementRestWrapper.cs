@@ -35,22 +35,22 @@ namespace AdlClient.Rest
             }
         }
 
-        public MSADLS.Models.DataLakeStoreAccount GetAccount(StoreAccountRef account)
+        public MSADLS.Models.DataLakeStoreAccount GetAccount(AdlClient.Models.StoreAccountRef account)
         {
             return this.RestClient.Account.Get(account.ResourceGroup, account.Name);
         }
 
-        public void Update(StoreAccountRef account, MSADLS.Models.DataLakeStoreAccountUpdateParameters parameters)
+        public void Update(AdlClient.Models.StoreAccountRef account, MSADLS.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
             this.RestClient.Account.Update(account.ResourceGroup, account.Name, parameters);
         }
 
-        public void Delete(StoreAccountRef account)
+        public void Delete(AdlClient.Models.StoreAccountRef account)
         {
             this.RestClient.Account.Delete(account.ResourceGroup, account.Name);
         }
 
-        public bool Exists(StoreAccountRef account)
+        public bool Exists(AdlClient.Models.StoreAccountRef account)
         {
             return this.RestClient.Account.Exists(account.ResourceGroup, account.Name);
         }

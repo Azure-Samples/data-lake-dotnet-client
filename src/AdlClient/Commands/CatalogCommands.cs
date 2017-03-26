@@ -5,10 +5,10 @@ namespace AdlClient.Commands
 {
     public class CatalogCommands
     {
-        internal readonly AnalyticsAccountRef Account;
+        internal readonly AdlClient.Models.AnalyticsAccountRef Account;
         internal readonly AnalyticsRestClients RestClients;
 
-        internal CatalogCommands(AnalyticsAccountRef accout, AnalyticsRestClients restclients)
+        internal CatalogCommands(AdlClient.Models.AnalyticsAccountRef accout, AnalyticsRestClients restclients)
         {
             this.Account = accout;
             this.RestClients = restclients;

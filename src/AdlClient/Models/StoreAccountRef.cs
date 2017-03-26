@@ -1,4 +1,4 @@
-namespace AdlClient
+namespace AdlClient.Models
 {
     public class StoreAccountRef
     {

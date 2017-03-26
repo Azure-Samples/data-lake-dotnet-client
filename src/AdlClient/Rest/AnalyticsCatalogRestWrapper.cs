@@ -14,13 +14,13 @@ namespace AdlClient.Rest
             this.RestClient = new MSADLA.DataLakeAnalyticsCatalogManagementClient(creds);
         }
 
-        public MSADLA.Models.USqlDatabase GetDatabase(AnalyticsAccountRef account, string name)
+        public MSADLA.Models.USqlDatabase GetDatabase(AdlClient.Models.AnalyticsAccountRef account, string name)
         {
             var db = this.RestClient.Catalog.GetDatabase(account.Name, name);
             return db;
         }
 
-        public IEnumerable<MSADLA.Models.USqlDatabase> ListDatabases(AnalyticsAccountRef account)
+        public IEnumerable<MSADLA.Models.USqlDatabase> ListDatabases(AdlClient.Models.AnalyticsAccountRef account)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlDatabase>();
 
@@ -34,7 +34,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlAssemblyClr> ListAssemblies(AnalyticsAccountRef account, string dbname)
+        public IEnumerable<MSADLA.Models.USqlAssemblyClr> ListAssemblies(AdlClient.Models.AnalyticsAccountRef account, string dbname)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlAssembly>();
 
@@ -48,7 +48,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlExternalDataSource> ListExternalDatasources(AnalyticsAccountRef account, string dbname)
+        public IEnumerable<MSADLA.Models.USqlExternalDataSource> ListExternalDatasources(AdlClient.Models.AnalyticsAccountRef account, string dbname)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlExternalDataSource>();
 
@@ -62,7 +62,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlProcedure> ListProcedures(AnalyticsAccountRef account, string dbname, string schema)
+        public IEnumerable<MSADLA.Models.USqlProcedure> ListProcedures(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlProcedure>();
 
@@ -76,7 +76,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlSchema> ListSchemas(AnalyticsAccountRef account, string dbname)
+        public IEnumerable<MSADLA.Models.USqlSchema> ListSchemas(AdlClient.Models.AnalyticsAccountRef account, string dbname)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlSchema>();
             string select_cols = null;
@@ -89,7 +89,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlView> ListViews(AnalyticsAccountRef account,string dbname, string schema)
+        public IEnumerable<MSADLA.Models.USqlView> ListViews(AdlClient.Models.AnalyticsAccountRef account,string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlView>();
             string select_cols = null;
@@ -103,7 +103,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlTable> ListTables(AnalyticsAccountRef account, string dbname, string schema)
+        public IEnumerable<MSADLA.Models.USqlTable> ListTables(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTable>();
             string select_cols = null;
@@ -116,7 +116,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlType> ListTypes(AnalyticsAccountRef account, string dbname, string schema)
+        public IEnumerable<MSADLA.Models.USqlType> ListTypes(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlType>();
             string select_cols = null;
@@ -130,7 +130,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlTableType> ListTableTypes(AnalyticsAccountRef account, string dbname, string schema)
+        public IEnumerable<MSADLA.Models.USqlTableType> ListTableTypes(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
             string select_cols = null;
@@ -143,7 +143,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlTablePartition> ListTablePartitions(AnalyticsAccountRef account, string dbname, string schema, string tablename)
+        public IEnumerable<MSADLA.Models.USqlTablePartition> ListTablePartitions(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema, string tablename)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
 
@@ -154,7 +154,7 @@ namespace AdlClient.Rest
             }
         }
 
-        public IEnumerable<MSADLA.Models.USqlTableStatistics> ListTableStatistics(AnalyticsAccountRef account, string dbname, string schema, string tablename)
+        public IEnumerable<MSADLA.Models.USqlTableStatistics> ListTableStatistics(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema, string tablename)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
 
@@ -165,27 +165,27 @@ namespace AdlClient.Rest
             }
         }
 
-        public void CreateCredential(AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
+        public void CreateCredential(AdlClient.Models.AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
         {
             this.RestClient.Catalog.CreateCredential(account.Name, dbname, credname, create_parameters);
         }
 
-        public void DeleteCredential(AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
+        public void DeleteCredential(AdlClient.Models.AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
         {
             this.RestClient.Catalog.DeleteCredential(account.Name, dbname, credname);
         }
 
-        public void UpdateCredential(AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
+        public void UpdateCredential(AdlClient.Models.AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
         {
             this.RestClient.Catalog.UpdateCredential(account.Name, dbname, credname, update_parameters);
         }
 
-        public MSADLA.Models.USqlCredential GetCredential(AnalyticsAccountRef account, string dbname, string credname)
+        public MSADLA.Models.USqlCredential GetCredential(AdlClient.Models.AnalyticsAccountRef account, string dbname, string credname)
         {
             return this.RestClient.Catalog.GetCredential(account.Name, dbname, credname);
         }
 
-        public IEnumerable<MSADLA.Models.USqlCredential> ListCredential(AnalyticsAccountRef account, string dbname)
+        public IEnumerable<MSADLA.Models.USqlCredential> ListCredential(AdlClient.Models.AnalyticsAccountRef account, string dbname)
         {
             var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlCredential>();
             string select_cols = null;

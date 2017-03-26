@@ -38,7 +38,7 @@ namespace AdlClient.Commands
             return client.Account.Get(rg, account);
         }
 
-        public MSADLS.Models.DataLakeStoreAccount GetAccount(StoreAccountRef account)
+        public MSADLS.Models.DataLakeStoreAccount GetAccount(AdlClient.Models.StoreAccountRef account)
         {
             return this.GetAccount(account.SubscriptionId, account.ResourceGroup, account.Name);
         }
@@ -49,7 +49,7 @@ namespace AdlClient.Commands
             return client.Account.Exists(rg, account);
         }
 
-        public bool AccountExsists(StoreAccountRef account)
+        public bool AccountExsists(AdlClient.Models.StoreAccountRef account)
         {
             var client = _get_account_mgmt_client(account.SubscriptionId);
             return client.Account.Exists(account.ResourceGroup, account.Name);
