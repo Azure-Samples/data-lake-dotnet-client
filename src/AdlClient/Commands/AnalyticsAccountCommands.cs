@@ -4,11 +4,12 @@ namespace AdlClient.Commands
 {
     public class AnalyticsAccountCommands
     {
-        public readonly AnalyticsAccountRef Account;
-        public readonly AnalyticsRestClients RestClients;
-        public readonly LinkedStoreCommands LinkedStorage;
+        internal readonly AnalyticsAccountRef Account;
+        internal readonly AnalyticsRestClients RestClients;
 
-        public AnalyticsAccountCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
+        public  readonly LinkedStoreCommands LinkedStorage;
+
+        internal AnalyticsAccountCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
         {
             this.Account = account;
             this.RestClients = restclients;

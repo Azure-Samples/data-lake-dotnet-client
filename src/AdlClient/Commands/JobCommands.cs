@@ -7,8 +7,8 @@ namespace AdlClient.Commands
 {
     public class JobCommands
     {
-        public readonly AnalyticsAccountRef Account;
-        public readonly AnalyticsRestClients RestClients;
+        internal readonly AnalyticsAccountRef Account;
+        internal readonly AnalyticsRestClients RestClients;
 
         public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
 

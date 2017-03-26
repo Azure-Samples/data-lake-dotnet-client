@@ -6,10 +6,10 @@ namespace AdlClient.Commands
 {
     public class FileSystemCommands 
     {
-        public readonly StoreAccountRef StoreAccount;
-        public readonly StoreRestClients RestClients;
+        internal readonly StoreAccountRef StoreAccount;
+        internal readonly StoreRestClients RestClients;
 
-        public FileSystemCommands(StoreAccountRef account,StoreRestClients restclients)
+        internal FileSystemCommands(StoreAccountRef account,StoreRestClients restclients)
         {
             this.StoreAccount = account;
             this.RestClients = restclients;

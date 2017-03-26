@@ -6,9 +6,9 @@ namespace AdlClient.Commands
 {
     public class AnalyticsRmCommands
     {
-        private readonly Authentication Authentication;
+        internal readonly Authentication Authentication;
 
-        public AnalyticsRmCommands(Authentication auth)
+        internal AnalyticsRmCommands(Authentication auth)
         {
             this.Authentication = auth;
         }

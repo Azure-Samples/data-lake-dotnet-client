@@ -1,16 +1,14 @@
 using System.Collections.Generic;
-
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
-
 
 namespace AdlClient.Commands
 {
     public class LinkedStoreCommands
     {
-        public readonly AnalyticsAccountRef Account;
-        public readonly AnalyticsRestClients RestClients;
+        internal readonly AnalyticsAccountRef Account;
+        internal readonly AnalyticsRestClients RestClients;
 
-        public LinkedStoreCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
+        internal LinkedStoreCommands(AnalyticsAccountRef account, AnalyticsRestClients restclients)
         {
             this.Account = account;
             this.RestClients = restclients;

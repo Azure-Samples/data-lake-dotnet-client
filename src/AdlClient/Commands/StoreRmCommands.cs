@@ -6,9 +6,9 @@ namespace AdlClient.Commands
 {
     public class StoreRmCommands
     {
-        public Authentication Authentication;
+        internal Authentication Authentication;
 
-        public StoreRmCommands(Authentication authSession)
+        internal StoreRmCommands(Authentication authSession)
         {
             this.Authentication = authSession;
         }
