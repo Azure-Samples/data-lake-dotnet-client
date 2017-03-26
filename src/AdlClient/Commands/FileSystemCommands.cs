@@ -258,7 +258,7 @@ namespace AdlClient.Commands
 
         public void Move(FsPath src_path, FsPath dest_path)
         {
-            this.RestClients.FileSystemRest.Move(this.StoreAccount, src_path, dest_path);
+            this.RestClients.FileSystemRest.Rename(this.StoreAccount, src_path, dest_path);
         }
     }
 }

@@ -140,7 +140,7 @@ namespace AdlClient.Rest
             this.RestClient.FileSystem.SetOwner(store.Name, path.ToString(), owner, group);
         }
 
-        public void Move(AdlClient.Models.StoreAccountRef store, FsPath src_path, FsPath dest_path)
+        public void Rename(AdlClient.Models.StoreAccountRef store, FsPath src_path, FsPath dest_path)
         {
             this.RestClient.FileSystem.Rename(store.Name, src_path.ToString(), dest_path.ToString());
         }
