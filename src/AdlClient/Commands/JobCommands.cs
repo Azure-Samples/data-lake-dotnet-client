@@ -10,8 +10,6 @@ namespace AdlClient.Commands
         internal readonly AnalyticsAccountRef Account;
         internal readonly AnalyticsRestClients RestClients;
 
-        public static int ADLJobPageSize = 300; // The maximum page size for ADLA list is 300
-
         internal JobCommands(AnalyticsAccountRef a, AnalyticsRestClients clients)
         {
             this.Account = a;
@@ -46,12 +44,6 @@ namespace AdlClient.Commands
         public IEnumerable<JobInfo> ListJobs(JobListingParameters parameters)
         {
             var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSADL.Analytics.Models.JobInformation>();
-
-            // if users requests top, set the value appropriately relative to the page size
-            if ((parameters.Top > 0) && (parameters.Top <= JobCommands.ADLJobPageSize))
-            {
-                odata_query.Top = parameters.Top;
-            }
 
             odata_query.OrderBy = parameters.Sorting.CreateOrderByString();
             odata_query.Filter = parameters.Filter.ToFilterString();

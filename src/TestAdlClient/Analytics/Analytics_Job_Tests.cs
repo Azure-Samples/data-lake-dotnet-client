@@ -36,22 +36,21 @@ namespace TestAdlClient.Analytics
         {
             this.Initialize();
             var listing_parameters = new JobListingParameters();
-            listing_parameters.Top = JobCommands.ADLJobPageSize;
+            listing_parameters.Top = 300;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
-            Assert.AreEqual(JobCommands.ADLJobPageSize, jobs.Count);
+            Assert.AreEqual(300, jobs.Count);
         }
 
         [TestMethod]
-        public void Verify_Paging_400()
+        public void Verify_Paging_450()
         {
             this.Initialize();
             var listing_parameters = new JobListingParameters();
-            var top = JobCommands.ADLJobPageSize + (JobCommands.ADLJobPageSize/2);
-            listing_parameters.Top = top;
+            listing_parameters.Top = 450;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
-            Assert.AreEqual(top,jobs.Count);
+            Assert.AreEqual(450, jobs.Count);
         }
 
 
