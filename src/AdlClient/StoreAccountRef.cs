@@ -6,10 +6,10 @@ namespace AdlClient
         public readonly string ResourceGroup;
         public readonly string Name;
 
-        public StoreAccountRef(string sub, string rg, string name)
+        public StoreAccountRef(string Id, string rg, string name)
         {
             this.Name = name;
-            this.SubscriptionId = sub;
+            this.SubscriptionId = Id;
             this.ResourceGroup = rg;
         }
     }

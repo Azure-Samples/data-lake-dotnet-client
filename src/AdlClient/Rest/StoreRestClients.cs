@@ -1,6 +1,4 @@
-﻿using AdlClient.Rest;
-
-namespace AdlClient
+﻿namespace AdlClient.Rest
 {
     public class StoreRestClients
     {

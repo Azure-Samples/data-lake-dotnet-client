@@ -6,11 +6,11 @@
         public string ResourceGroup;
         public string Name;
 
-        public AnalyticsAccountRef(string sub, string rg, string name)
+        public AnalyticsAccountRef(string subid, string rg, string name)
         {
-            this.Name = name;
-            this.SubscriptionId = sub;
+            this.SubscriptionId = subid;
             this.ResourceGroup = rg;
+            this.Name = name;
         }
     }
 }

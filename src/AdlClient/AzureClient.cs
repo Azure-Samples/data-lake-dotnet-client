@@ -1,20 +1,19 @@
 using MSAZURERM = Microsoft.Azure.Management.ResourceManager;
 using System.Collections.Generic;
-using AdlClient.Commands;
 using Microsoft.Azure.Management.ResourceManager; // Needed for extension methods
 
 namespace AdlClient
 {
     public class AzureClient: ClientBase
     {
-        public readonly AnalyticsRmCommands Analytics;
-        public readonly StoreRmCommands Store;
+        public readonly AdlClient.Commands.AnalyticsRmCommands Analytics;
+        public readonly AdlClient.Commands.StoreRmCommands Store;
 
         public AzureClient(Authentication auth) :
             base(auth)
         {
-            this.Analytics = new AnalyticsRmCommands(auth);
-            this.Store = new StoreRmCommands(auth);
+            this.Analytics = new AdlClient.Commands.AnalyticsRmCommands(auth);
+            this.Store = new AdlClient.Commands.StoreRmCommands(auth);
         }
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()

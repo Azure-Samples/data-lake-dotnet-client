@@ -5,9 +5,9 @@ namespace AdlClient.Commands
     public class StoreAccountCommands
     {
         internal readonly StoreAccountRef Account;
-        internal readonly StoreRestClients RestClients;
+        internal readonly AdlClient.Rest.StoreRestClients RestClients;
 
-        internal StoreAccountCommands(StoreAccountRef account, StoreRestClients restclients)
+        internal StoreAccountCommands(StoreAccountRef account, AdlClient.Rest.StoreRestClients restclients)
         {
             this.Account = account;
             this.RestClients = restclients;
