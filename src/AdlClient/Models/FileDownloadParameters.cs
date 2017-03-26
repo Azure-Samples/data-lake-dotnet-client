@@ -1,4 +1,4 @@
-namespace Models
+namespace AdlClient.Models
 {
     public class FileDownloadParameters
     {

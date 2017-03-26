@@ -1,5 +1,5 @@
 ﻿using System;
-using Models;
+using AdlClient.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestAdlClient.Store

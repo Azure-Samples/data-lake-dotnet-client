@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
-namespace Models
+namespace AdlClient.Models
 {
     public class FsAcl
     {

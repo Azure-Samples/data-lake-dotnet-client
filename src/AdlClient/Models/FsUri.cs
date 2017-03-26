@@ -1,6 +1,6 @@
 using System;
 
-namespace Models
+namespace AdlClient.Models
 {
     public class FsUri
     {
