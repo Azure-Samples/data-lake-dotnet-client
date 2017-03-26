@@ -67,12 +67,12 @@ namespace AdlClient.Commands
 
         public JobInfo SubmitJob(JobSubmitParameters parameters)
         {
-            FixupOptions(parameters);
+            FixupSubmitParameters(parameters);
             var job_info = this.clients._JobRest.JobCreate(this.account, parameters);
             return job_info;
         }
 
-        private static void FixupOptions(JobSubmitParameters parameters)
+        private static void FixupSubmitParameters(JobSubmitParameters parameters)
         {
             // If caller doesn't provide a guid, then create a new one
             if (parameters.JobId == default(System.Guid))
@@ -90,7 +90,7 @@ namespace AdlClient.Commands
 
         public JobInfo BuildJob(JobSubmitParameters parameters)
         {
-            FixupOptions(parameters);
+            FixupSubmitParameters(parameters);
             var job_info = this.clients._JobRest.JobBuild(this.account, parameters);
             return job_info;
         }

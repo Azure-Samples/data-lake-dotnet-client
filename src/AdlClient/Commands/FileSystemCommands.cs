@@ -15,7 +15,7 @@ namespace AdlClient.Commands
             this.RestClients = restclients;
         }
 
-        public IEnumerable<FsFileStatusPage> ListFilesRecursivePaged(FsPath path, FileListingParameters options)
+        public IEnumerable<FsFileStatusPage> ListFilesRecursivePaged(FsPath path, FileListingParameters parameters)
         {
             var queue = new Queue<FsPath>();
             queue.Enqueue(path);
@@ -24,7 +24,7 @@ namespace AdlClient.Commands
             {
                 FsPath cur_path = queue.Dequeue();
 
-                foreach (var page in ListFilesPaged(cur_path, options))
+                foreach (var page in ListFilesPaged(cur_path, parameters))
                 {
                     yield return page;
 
@@ -40,9 +40,9 @@ namespace AdlClient.Commands
             }
         }
 
-        public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, FileListingParameters options)
+        public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, FileListingParameters parameters)
         {
-            return this.RestClients.FileSystemRest.ListFilesPaged(this.StoreAccount, path, options);
+            return this.RestClients.FileSystemRest.ListFilesPaged(this.StoreAccount, path, parameters);
         }
 
         public void CreateDirectory(FsPath path)
@@ -60,16 +60,16 @@ namespace AdlClient.Commands
             RestClients.FileSystemRest.Delete(this.StoreAccount, path, recursive);
         }
 
-        public void Create(FsPath path, byte[] bytes, FileCreateParameters options)
+        public void Create(FsPath path, byte[] bytes, FileCreateParameters parameters)
         {
             var memstream = new System.IO.MemoryStream(bytes);
-            RestClients.FileSystemRest.Create(this.StoreAccount, path, memstream, options);
+            RestClients.FileSystemRest.Create(this.StoreAccount, path, memstream, parameters);
         }
 
-        public void Create(FsPath path, string content, FileCreateParameters options)
+        public void Create(FsPath path, string content, FileCreateParameters parameters)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
-            this.Create(path, bytes, options);
+            this.Create(path, bytes, parameters);
         }
 
         public FsFileStatus GetFileStatus(FsPath path)
@@ -184,19 +184,19 @@ namespace AdlClient.Commands
             return this.RestClients.FileSystemRest.Open(this.StoreAccount, path, bytesToRead, offset);
         }
 
-        public void Upload(LocalPath src_path, FsPath dest_path, FileUploadParameters options)
+        public void Upload(LocalPath src_path, FsPath dest_path, FileUploadParameters parameters)
         {
-            var parameters = new Microsoft.Azure.Management.DataLake.StoreUploader.UploadParameters(src_path.ToString(), dest_path.ToString(), this.StoreAccount.Name, isOverwrite: options.Force);
+            var uploader_parameters = new Microsoft.Azure.Management.DataLake.StoreUploader.UploadParameters(src_path.ToString(), dest_path.ToString(), this.StoreAccount.Name, isOverwrite: parameters.Force);
             var frontend = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreFrontEndAdapter(this.StoreAccount.Name, this.RestClients.FileSystemRest.RestClient);
-            var uploader = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreUploader(parameters, frontend);
+            var uploader = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreUploader(uploader_parameters, frontend);
             uploader.Execute();
         }
 
-        public void Download(FsPath src_path, LocalPath dest_path, FileDownloadParameters options)
+        public void Download(FsPath src_path, LocalPath dest_path, FileDownloadParameters parameters)
         {
             using (var stream = this.RestClients.FileSystemRest.Open(this.StoreAccount, src_path))
             {
-                var filemode = options.Append ? System.IO.FileMode.Append : System.IO.FileMode.Create;
+                var filemode = parameters.Append ? System.IO.FileMode.Append : System.IO.FileMode.Create;
                 using (var fileStream = new System.IO.FileStream(dest_path.ToString(), filemode))
                 {
                     stream.CopyTo(fileStream);
