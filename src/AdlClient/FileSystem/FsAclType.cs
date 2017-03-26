@@ -1,6 +1,6 @@
 namespace AdlClient.FileSystem
 {
-    public enum AclType
+    public enum FsAclType
     {
         OwningUser,
         OwningGroup,

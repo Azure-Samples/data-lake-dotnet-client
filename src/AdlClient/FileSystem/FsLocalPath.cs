@@ -1,10 +1,10 @@
 namespace AdlClient.FileSystem
 {
-    public class LocalPath
+    public class FsLocalPath
     {
         string s;
 
-        public LocalPath(string s)
+        public FsLocalPath(string s)
         {
             if (s == null)
             {

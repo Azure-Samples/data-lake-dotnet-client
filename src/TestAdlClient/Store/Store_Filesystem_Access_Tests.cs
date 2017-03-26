@@ -56,7 +56,7 @@ namespace TestAdlClient.Store
             Assert.AreEqual(false, permissions_before.OtherPermission.Value.Write);
             Assert.AreEqual(false, permissions_before.OtherPermission.Value.Execute);
 
-            var modified_entry = new FsAclEntry( AclType.Other,null, new FsPermission("r-x"));
+            var modified_entry = new FsAclEntry( FsAclType.Other,null, new FsPermission("r-x"));
             this.StoreClient.FileSystem.ModifyAclEntries(fname, modified_entry);
 
             var permissions_after = this.StoreClient.FileSystem.GetAclStatus(fname);
@@ -93,7 +93,7 @@ namespace TestAdlClient.Store
             var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);
 
             // find all the named user entries that have write access
-            var entries_before = permissions_before.Entries.Where(e => e.Type == AclType.NamedUser).Where(e=>e.Permission.Value.Write).ToList();
+            var entries_before = permissions_before.Entries.Where(e => e.Type == FsAclType.NamedUser).Where(e=>e.Permission.Value.Write).ToList();
             Assert.IsTrue(entries_before.Count>0);
 
             // Remove write access for all those entries
@@ -103,7 +103,7 @@ namespace TestAdlClient.Store
  
             var permissions_after = this.StoreClient.FileSystem.GetAclStatus(fname);
             // find all the named user entries that have write access
-            var entries_after = permissions_after.Entries.Where(e => e.Type == AclType.NamedUser).Where(e => e.Permission.Value.Write).ToList();
+            var entries_after = permissions_after.Entries.Where(e => e.Type == FsAclType.NamedUser).Where(e => e.Permission.Value.Write).ToList();
             // verify that there are no such entries
             Assert.AreEqual(0, entries_after.Count);
         }
@@ -127,12 +127,12 @@ namespace TestAdlClient.Store
             var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);
 
             // copy the entries except for the named users
-            var new_entries = permissions_before.Entries.Where(e => e.Type != AclType.NamedUser).ToList();
+            var new_entries = permissions_before.Entries.Where(e => e.Type != FsAclType.NamedUser).ToList();
             this.StoreClient.FileSystem.SetAcl(fname, new_entries);
 
             var permissions_after = this.StoreClient.FileSystem.GetAclStatus(fname);
             // find all the named user entries that have write access
-            var entries_after = permissions_after.Entries.Where(e => e.Type == AclType.NamedUser).ToList();
+            var entries_after = permissions_after.Entries.Where(e => e.Type == FsAclType.NamedUser).ToList();
             // verify that there are no such entries
             Assert.AreEqual(0, entries_after.Count);
         }

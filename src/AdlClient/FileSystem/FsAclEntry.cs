@@ -6,7 +6,7 @@ namespace AdlClient.FileSystem
 {
     public class FsAclEntry
     {
-        public AclType Type;
+        public FsAclType Type;
         public string Name;
         public FsPermission? Permission;
 
@@ -24,7 +24,7 @@ namespace AdlClient.FileSystem
             
         }
 
-        public FsAclEntry(AclType type, string name, FsPermission permission)
+        public FsAclEntry(FsAclType type, string name, FsPermission permission)
         {
             this.Type = type;
 
@@ -44,27 +44,27 @@ namespace AdlClient.FileSystem
             string user = tokens[1];
             if ((type_str == "user") && (user.Length == 0))
             {
-                this.Type = AclType.OwningUser;
+                this.Type = FsAclType.OwningUser;
             }
             else if ((type_str == "user") && (user.Length > 0))
             {
-                this.Type = AclType.NamedUser;
+                this.Type = FsAclType.NamedUser;
             }
             else if ((type_str == "group") && (user.Length == 0))
             {
-                this.Type = AclType.OwningGroup;
+                this.Type = FsAclType.OwningGroup;
             }
             else if ((type_str == "group") && (user.Length > 0))
             {
-                this.Type = AclType.NamedGroup;
+                this.Type = FsAclType.NamedGroup;
             }
             else if (type_str == "mask")
             {
-                this.Type = AclType.Mask;
+                this.Type = FsAclType.Mask;
             }
             else if (type_str == "other")
             {
-                this.Type = AclType.Other;
+                this.Type = FsAclType.Other;
             }
             else
             {
@@ -75,30 +75,30 @@ namespace AdlClient.FileSystem
             this.Permission = new FsPermission(tokens[2]);
         }
 
-        public static string AclTypeToString(AclType type)
+        public static string AclTypeToString(FsAclType type)
         {
             string aclType = "ERROR";
-            if (type == AclType.Mask)
+            if (type == FsAclType.Mask)
             {
                 aclType = "mask";
             }
-            else if (type == AclType.NamedGroup)
+            else if (type == FsAclType.NamedGroup)
             {
                 aclType = "group";
             }
-            else if (type == AclType.NamedUser)
+            else if (type == FsAclType.NamedUser)
             {
                 aclType = "user";
             }
-            else if (type == AclType.Other)
+            else if (type == FsAclType.Other)
             {
                 aclType = "other";
             }
-            else if (type == AclType.OwningGroup)
+            else if (type == FsAclType.OwningGroup)
             {
                 aclType = "group";
             }
-            else if (type == AclType.OwningUser)
+            else if (type == FsAclType.OwningUser)
             {
                 aclType = "user";
             }

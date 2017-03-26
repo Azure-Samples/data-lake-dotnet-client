@@ -180,14 +180,14 @@
     <Compile Include="OData\Enums\OrderByDirection.cs" />
     <Compile Include="Jobs\JobListingFields.cs" />
     <Compile Include="OData\Utils\RangeInteger.cs" />
-    <Compile Include="FileSystem\AclType.cs" />
+    <Compile Include="FileSystem\FsAclType.cs" />
     <Compile Include="FileSystem\FileCreateParameters.cs" />
     <Compile Include="FileSystem\FileDownloadParameters.cs" />
     <Compile Include="Commands\FileSystemCommands.cs" />
     <Compile Include="FileSystem\FsFileStatus.cs" />
     <Compile Include="FileSystem\FsUri.cs" />
     <Compile Include="FileSystem\FileListingParameters.cs" />
-    <Compile Include="FileSystem\LocalPath.cs" />
+    <Compile Include="FileSystem\FsLocalPath.cs" />
     <Compile Include="FileSystem\FsUnixTime.cs" />
     <Compile Include="Commands\StoreAccountCommands.cs" />
     <Compile Include="StoreAccountRef.cs" />

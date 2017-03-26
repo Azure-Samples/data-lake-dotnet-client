@@ -184,7 +184,7 @@ namespace AdlClient.Commands
             return this.RestClients.FileSystemRest.Open(this.StoreAccount, path, bytesToRead, offset);
         }
 
-        public void Upload(LocalPath src_path, FsPath dest_path, FileUploadParameters parameters)
+        public void Upload(FsLocalPath src_path, FsPath dest_path, FileUploadParameters parameters)
         {
             var uploader_parameters = new Microsoft.Azure.Management.DataLake.StoreUploader.UploadParameters(src_path.ToString(), dest_path.ToString(), this.StoreAccount.Name, isOverwrite: parameters.Force);
             var frontend = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreFrontEndAdapter(this.StoreAccount.Name, this.RestClients.FileSystemRest.RestClient);
@@ -192,7 +192,7 @@ namespace AdlClient.Commands
             uploader.Execute();
         }
 
-        public void Download(FsPath src_path, LocalPath dest_path, FileDownloadParameters parameters)
+        public void Download(FsPath src_path, FsLocalPath dest_path, FileDownloadParameters parameters)
         {
             using (var stream = this.RestClients.FileSystemRest.Open(this.StoreAccount, src_path))
             {
