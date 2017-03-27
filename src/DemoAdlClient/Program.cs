@@ -76,7 +76,7 @@ namespace DemoAdlClient
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
             var first_job = jobs[0];
-            var jobdetails = adla.Jobs.GetJobDetails(first_job.Id, true);
+            var jobdetails = adla.Jobs.GetJobDetails(first_job.JobId, true);
         }
 
         private static void RunDemos_Analytics_Account_Management(AdlClient.AnalyticsClient adla)

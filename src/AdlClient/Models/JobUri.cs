@@ -3,18 +3,18 @@
     public class JobUri
     {
         public readonly string Account;
-        public readonly System.Guid Id;
+        public readonly System.Guid JobId;
 
-        public JobUri(string account, System.Guid id)
+        public JobUri(string account, System.Guid jobId)
         {
             this.Account = account;
-            this.Id = id;
+            this.JobId = jobId;
         }
 
         public JobUri(JobRef job_ref)
         {
             this.Account = job_ref.Account.Name;
-            this.Id = job_ref.Id;
+            this.JobId = job_ref.Id;
         }
 
         public static JobUri Parse(string s)
@@ -65,7 +65,7 @@
         {
             string uri = string.Format(
                 "https://{0}.azuredatalakeanalytics.net/jobs/{1}?api-version=2015-10-01-preview", this.Account,
-                this.Id);
+                this.JobId);
             return uri;
         }
     }

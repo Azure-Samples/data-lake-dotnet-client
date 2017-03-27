@@ -5,14 +5,14 @@
         public readonly string SubscriptionId;
         public readonly string ResourceGroup;
         public readonly string Account;
-        public readonly System.Guid Id;
+        public readonly System.Guid JobId;
 
         public JobAzurePortalUri(string subid, string rg, string account, System.Guid id)
         {
             this.SubscriptionId = subid;
             this.ResourceGroup = rg;
             this.Account = account;
-            this.Id = id;
+            this.JobId = id;
         }
 
         public JobAzurePortalUri(JobRef job_ref)
@@ -20,7 +20,7 @@
             this.SubscriptionId = job_ref.Account.SubscriptionId;
             this.ResourceGroup = job_ref.Account.ResourceGroup;
             this.Account = job_ref.Account.Name;
-            this.Id = job_ref.Id;
+            this.JobId = job_ref.Id;
         }
 
         public static JobAzurePortalUri Parse(string s)
@@ -118,14 +118,14 @@
             string uri =
                 string.Format(
                     "https://portal.azure.com/#blade/Microsoft_Azure_DataLakeAnalytics/SqlIpJobDetailsBlade/accountId/%2Fsubscriptions%2F{0}%2FresourceGroups%2F{1}%2Fproviders%2FMicrosoft.DataLakeAnalytics%2Faccounts%2F{2}/jobId/{3}",
-                    this.SubscriptionId, this.ResourceGroup, this.Account, this.Id);
+                    this.SubscriptionId, this.ResourceGroup, this.Account, this.JobId);
             return uri;
         }
 
         public JobRef GetJobRef()
         {
             var account = new AnalyticsAccountRef(this.SubscriptionId,this.ResourceGroup,this.Account);
-            return new JobRef(this.Id, account);
+            return new JobRef(this.JobId, account);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace AdlClient.Models
     public class JobInfo
     {
         // things that identify the job
-        public readonly Guid Id;
+        public readonly Guid JobId;
         public readonly AnalyticsAccountRef Account;
 
         // Information about the job provided by user
@@ -54,7 +54,7 @@ namespace AdlClient.Models
 
         public JobRef GetJobReference()
         {
-            return new JobRef(this.Id, this.Account);
+            return new JobRef(this.JobId, this.Account);
         }       
 
         internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccountRef acct)
@@ -64,7 +64,7 @@ namespace AdlClient.Models
             this.LogFolder = job.LogFolder;
             this.DegreeOfParallelism = job.DegreeOfParallelism;
             this.EndTime = job.EndTime;
-            this.Id = job.JobId.Value;
+            this.JobId = job.JobId.Value;
             this.Priority = job.Priority;
             this.Result = job.Result;
             this.StartTime = job.StartTime;

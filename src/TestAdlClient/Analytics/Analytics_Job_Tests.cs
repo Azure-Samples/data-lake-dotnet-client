@@ -82,9 +82,9 @@ namespace TestAdlClient.Analytics
             submit_parameters.JobName = "Test Job";
             var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
 
-            System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.Id, ji.SubmitTime);
+            System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.JobId, ji.SubmitTime);
 
-            var ji2 = this.AnalyticsClient.Jobs.GetJobDetails(ji.Id,false);
+            var ji2 = this.AnalyticsClient.Jobs.GetJobDetails(ji.JobId,false);
 
             Assert.AreEqual(ji.Name, ji2.JobInfo.Name);
         }

@@ -32,7 +32,7 @@ namespace TestAdlClient.Analytics
             Assert.AreEqual("adlpminsights", portal_uri.ResourceGroup);
             Assert.AreEqual("adlpm", portal_uri.Account);
             var expected_guid = System.Guid.Parse("814e10ca-2e56-4814-8022-5632e19b561c");
-            Assert.AreEqual(expected_guid, portal_uri.Id);
+            Assert.AreEqual(expected_guid, portal_uri.JobId);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace TestAdlClient.Analytics
             Assert.IsNotNull(job_uri);
             Assert.AreEqual("adlpm", job_uri.Account);
             var expected_guid = System.Guid.Parse("814e10ca-2e56-4814-8022-5632e19b561c");
-            Assert.AreEqual(expected_guid, job_uri.Id);
+            Assert.AreEqual(expected_guid, job_uri.JobId);
         }
 
     }
