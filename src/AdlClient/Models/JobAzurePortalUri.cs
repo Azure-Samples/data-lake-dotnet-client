@@ -109,5 +109,11 @@
                     this.SubscriptionId, this.ResourceGroup, this.Account, this.Id);
             return uri;
         }
+
+        public JobRef GetJobRef()
+        {
+            var account = new AnalyticsAccountRef(this.SubscriptionId,this.ResourceGroup,this.Account);
+            return new JobRef(this.Id, account);
+        }
     }
 }
