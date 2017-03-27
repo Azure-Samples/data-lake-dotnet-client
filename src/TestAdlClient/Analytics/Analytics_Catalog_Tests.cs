@@ -25,7 +25,7 @@ namespace TestAdlClient.Analytics
         {
             string s =
                 "https://portal.azure.com/?feature.customportal=false#blade/Microsoft_Azure_DataLakeAnalytics/SqlIpJobDetailsBlade/accountId/%2Fsubscriptions%2Face74b35-b0de-428b-a1d9-55459d7a6e30%2Fresourcegroups%2Fadlpminsights%2Fproviders%2FMicrosoft.DataLakeAnalytics%2Faccounts%2Fadlpm/jobId/814e10ca-2e56-4814-8022-5632e19b561c";
-            var jr = AdlClient.Models.JobPortalUri.Parse(s);
+            var jr = AdlClient.Models.JobAzurePortalUri.Parse(s);
 
             Assert.IsNotNull(jr);
             Assert.AreEqual("ace74b35-b0de-428b-a1d9-55459d7a6e30",jr.SubscriptionId);

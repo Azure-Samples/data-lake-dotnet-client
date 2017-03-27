@@ -35,5 +35,13 @@
             throw new System.ArgumentException("invalid uri authority");
         }
 
+
+        public override string ToString()
+        {
+            string uri = string.Format(
+                "https://{0}.azuredatalakeanalytics.net/jobs/{1}?api-version=2015-10-01-preview", this.Account,
+                this.Id);
+            return uri;
+        }
     }
 }

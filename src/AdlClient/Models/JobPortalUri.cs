@@ -1,13 +1,13 @@
 ﻿namespace AdlClient.Models
 {
-    public class JobPortalUri
+    public class JobAzurePortalUri
     {
         public string SubscriptionId;
         public string ResourceGroup;
         public string Account;
         public readonly System.Guid Id;
 
-        public JobPortalUri(string subid, string rg, string account, System.Guid id)
+        public JobAzurePortalUri(string subid, string rg, string account, System.Guid id)
         {
             this.SubscriptionId = subid;
             this.ResourceGroup = rg;
@@ -16,7 +16,7 @@
         }
 
 
-        public static JobPortalUri Parse(string s)
+        public static JobAzurePortalUri Parse(string s)
         {
 
             var id = System.Guid.Empty;
@@ -41,7 +41,7 @@
                     var jobid_st = tokens[10];
 
                     var jobid = System.Guid.Parse(jobid_st);
-                    var jobportaluri = new JobPortalUri(subid, rg, account_name, jobid);
+                    var jobportaluri = new JobAzurePortalUri(subid, rg, account_name, jobid);
                     return jobportaluri;
                 }
                 throw new System.ArgumentException("invalid uri fragment");
@@ -49,5 +49,13 @@
             throw new System.ArgumentException("invalid uri authority");
         }
 
+        public override string ToString()
+        {
+            string uri =
+                string.Format(
+                    "https://portal.azure.com/#blade/Microsoft_Azure_DataLakeAnalytics/SqlIpJobDetailsBlade/accountId/%2Fsubscriptions%2F{0}%2FresourceGroups%2F{1}%2Fproviders%2FMicrosoft.DataLakeAnalytics%2Faccounts%2F{2}/jobId/{3}",
+                    this.SubscriptionId, this.ResourceGroup, this.Account, this.Id);
+            return uri;
+        }
     }
 }

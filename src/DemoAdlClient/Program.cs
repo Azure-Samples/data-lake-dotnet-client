@@ -145,11 +145,11 @@ namespace DemoAdlClient
             {
                 var joblink = job.GetJobReference();
 
-                string joburi_string = joblink.GetUri();
-                string job_portal_link_string = joblink.GetAzurePortalLink();
+                var joburi = joblink.GetUri();
+                var job_portal_uri = joblink.GetAzurePortalLink();
 
-                Console.WriteLine(joburi_string);
-                Console.WriteLine(job_portal_link_string);
+                Console.WriteLine(joburi.ToString());
+                Console.WriteLine(job_portal_uri.ToString());
             }
         }
 
