@@ -201,7 +201,6 @@
     <Compile Include="Models\FileUploadParameters.cs" />
     <Compile Include="Commands\StoreRmCommands.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />
-    <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Models\JobSubmitParameters.cs" />
     <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Models\JobListingParameters.cs" />
