@@ -114,8 +114,10 @@
     <Compile Include="Models\AnalyticsAccountRef.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobDetails.cs" />
+    <Compile Include="Models\JobPortalUri.cs" />
     <Compile Include="Models\JobRef.cs" />
     <Compile Include="Commands\LinkedStoreCommands.cs" />
+    <Compile Include="Models\JobUri.cs" />
     <Compile Include="OData\Models\DateTimeFilterCategory.cs" />
     <Compile Include="OData\Models\EnumFilterCategory.cs" />
     <Compile Include="OData\Models\IntegerFilterCategory.cs" />

@@ -25,12 +25,12 @@ namespace TestAdlClient.Analytics
         {
             string s =
                 "https://portal.azure.com/?feature.customportal=false#blade/Microsoft_Azure_DataLakeAnalytics/SqlIpJobDetailsBlade/accountId/%2Fsubscriptions%2Face74b35-b0de-428b-a1d9-55459d7a6e30%2Fresourcegroups%2Fadlpminsights%2Fproviders%2FMicrosoft.DataLakeAnalytics%2Faccounts%2Fadlpm/jobId/814e10ca-2e56-4814-8022-5632e19b561c";
-            var jr = AdlClient.Models.JobRef.Parse(s);
+            var jr = AdlClient.Models.JobPortalUri.Parse(s);
 
             Assert.IsNotNull(jr);
-            Assert.AreEqual("ace74b35-b0de-428b-a1d9-55459d7a6e30",jr.Account.SubscriptionId);
-            Assert.AreEqual("adlpminsights", jr.Account.ResourceGroup);
-            Assert.AreEqual("adlpm", jr.Account.Name);
+            Assert.AreEqual("ace74b35-b0de-428b-a1d9-55459d7a6e30",jr.SubscriptionId);
+            Assert.AreEqual("adlpminsights", jr.ResourceGroup);
+            Assert.AreEqual("adlpm", jr.Account);
             Assert.AreEqual(System.Guid.Parse("814e10ca-2e56-4814-8022-5632e19b561c"), jr.Id);
         }
 
@@ -39,12 +39,10 @@ namespace TestAdlClient.Analytics
         {
             string s =
                 "https://adlpm.azuredatalakeanalytics.net/jobs/814e10ca-2e56-4814-8022-5632e19b561c?api-version=2016-11-01";
-            var jr = AdlClient.Models.JobRef.Parse(s);
+            var jr = AdlClient.Models.JobUri.Parse(s);
 
             Assert.IsNotNull(jr);
-            Assert.AreEqual(null, jr.Account.SubscriptionId);
-            Assert.AreEqual(null, jr.Account.ResourceGroup);
-            Assert.AreEqual("adlpm", jr.Account.Name);
+            Assert.AreEqual("adlpm", jr.Account);
             Assert.AreEqual(System.Guid.Parse("814e10ca-2e56-4814-8022-5632e19b561c"), jr.Id);
         }
 
