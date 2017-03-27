@@ -6,7 +6,20 @@ namespace TestAdlClient.Analytics
     public class Analytics_JobRef_Tests : Base_Tests
     {
         [TestMethod]
-        public void ParseAccountPortalLink()
+        public void ParseStoreAccountPortalLink()
+        {
+            string s =
+                "https://portal.azure.com/?feature.customportal=false#resource/subscriptions/ace74b35-b0de-428b-a1d9-55459d7a6e30/resourceGroups/adlpminsights/providers/Microsoft.DataLakeStore/accounts/adlpm/overview";
+            var portal_uri = AdlClient.Models.StoreAccountPortalUri.Parse(s);
+
+            Assert.IsNotNull(portal_uri);
+            Assert.AreEqual("ace74b35-b0de-428b-a1d9-55459d7a6e30", portal_uri.SubscriptionId);
+            Assert.AreEqual("adlpminsights", portal_uri.ResourceGroup);
+            Assert.AreEqual("adlpm", portal_uri.Account);
+        }
+
+        [TestMethod]
+        public void ParseAnalyticsAccountPortalLink()
         {
             string s =
                 "https://portal.azure.com/?feature.customportal=false#resource/subscriptions/ace74b35-b0de-428b-a1d9-55459d7a6e30/resourcegroups/adlpminsights/providers/Microsoft.DataLakeAnalytics/accounts/adlpm/overview";
