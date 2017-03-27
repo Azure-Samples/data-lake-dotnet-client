@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdlClient.Models;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace DemoAdlClient
@@ -143,12 +144,12 @@ namespace DemoAdlClient
 
             foreach (var job in jobs)
             {
-                var joblink = job.GetJobReference();
+                var job_ref = job.GetJobReference();
 
-                var joburi = joblink.GetUri();
-                var job_portal_uri = joblink.GetAzurePortalLink();
+                var job_uri = new JobUri( job_ref );
+                var job_portal_uri = new JobAzurePortalUri( job_ref );
 
-                Console.WriteLine(joburi.ToString());
+                Console.WriteLine(job_uri.ToString());
                 Console.WriteLine(job_portal_uri.ToString());
             }
         }

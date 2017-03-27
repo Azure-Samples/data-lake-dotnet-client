@@ -15,6 +15,14 @@
             this.Id = id;
         }
 
+        public JobAzurePortalUri(JobRef job_ref)
+        {
+            this.SubscriptionId = job_ref.Account.SubscriptionId;
+            this.ResourceGroup = job_ref.Account.ResourceGroup;
+            this.Account = job_ref.Account.Name;
+            this.Id = job_ref.Id;
+        }
+
         public static JobAzurePortalUri Parse(string s)
         {
             var uri = new System.Uri(s);

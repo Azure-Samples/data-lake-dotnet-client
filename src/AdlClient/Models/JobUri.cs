@@ -11,6 +11,12 @@
             this.Id = id;
         }
 
+        public JobUri(JobRef job_ref)
+        {
+            this.Account = job_ref.Account.Name;
+            this.Id = job_ref.Id;
+        }
+
         public static JobUri Parse(string s)
         {
             // Example: "https://adlpm.azuredatalakeanalytics.net/jobs/814e10ca-2e56-4814-8022-5632e19b561c?api-version=2016-11-01";
