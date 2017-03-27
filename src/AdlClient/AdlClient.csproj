@@ -114,7 +114,7 @@
     <Compile Include="Models\AnalyticsAccountRef.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobDetails.cs" />
-    <Compile Include="Models\JobPortalUri.cs" />
+    <Compile Include="Models\JobAzurePortalUri.cs" />
     <Compile Include="Models\JobRef.cs" />
     <Compile Include="Commands\LinkedStoreCommands.cs" />
     <Compile Include="Models\JobUri.cs" />
