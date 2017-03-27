@@ -83,8 +83,6 @@ namespace AdlClient.Models
             }
 
             throw new System.ArgumentException("invalid uri authority");
-
-            return jr;
         }
     }
 }

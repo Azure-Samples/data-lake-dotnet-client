@@ -64,7 +64,7 @@ namespace TestAdlClient.Analytics
             var listing_parameters = new JobListingParameters();
             listing_parameters.Top = 30;
             listing_parameters.Sorting.Field = jobfields.DegreeOfParallelism;
-            listing_parameters.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
+            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             foreach (var job in jobs)

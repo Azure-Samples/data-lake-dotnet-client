@@ -1,4 +1,4 @@
-﻿namespace AdlClient.OData.Utils
+﻿namespace AdlClient.OData.Models
 {
     public enum EnumFilterCategory
     {

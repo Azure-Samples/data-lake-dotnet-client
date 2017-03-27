@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using AdlClient.OData.Enums;
 
-namespace AdlClient.OData.Utils
+namespace AdlClient.OData.Models
 {
     public class FieldFilterString : FieldFilter
     {
@@ -50,7 +49,7 @@ namespace AdlClient.OData.Utils
                 {
                     var expr1 = FieldFilterString.AlterCase(this.expr_field, this.IgnoreCase);
                     var expr2 = FieldFilterString.AlterCase(new ExprLiteralString(item), this.IgnoreCase);
-                    var expr_compare = Expr.GetExprComparison(expr1, expr2, ComparisonOperation.Equals );
+                    var expr_compare = Expr.GetExprComparison(expr1, expr2, AdlClient.OData.Models.ComparisonOperation.Equals );
                     expr_or.Add(expr_compare);
                 }
                 return expr_or;
