@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="Models\AnalyticsAccountPortalUri.cs" />
     <Compile Include="Models\AnalyticsAccountRef.cs" />
+    <Compile Include="Models\FileAzurePortalUri.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobAzurePortalUri.cs" />

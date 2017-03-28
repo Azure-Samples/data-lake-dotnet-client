@@ -59,5 +59,29 @@ namespace TestAdlClient.Analytics
             Assert.AreEqual(expected_guid, job_uri.JobId);
         }
 
+
+        [TestMethod]
+        public void ParseFilePortalLink_root()
+        {
+            string s =
+                "https://portal.azure.com/#blade/Microsoft_Azure_DataLakeStore/WebHdfsFolderBlade/endpoint/adlpm.azuredatalakestore.net/path/%2F";
+            var job_uri = AdlClient.Models.FileAzurePortalUri.Parse(s);
+
+            Assert.IsNotNull(job_uri);
+            Assert.AreEqual("adlpm", job_uri.Account);
+            Assert.AreEqual("/", job_uri.Path);
+        }
+
+        [TestMethod]
+        public void ParseFilePortalLink_folder1()
+        {
+            string s =
+                "https://portal.azure.com/#blade/Microsoft_Azure_DataLakeStore/WebHdfsFolderBlade/endpoint/adlpm.azuredatalakestore.net/path/%2FSamples";
+            var job_uri = AdlClient.Models.FileAzurePortalUri.Parse(s);
+
+            Assert.IsNotNull(job_uri);
+            Assert.AreEqual("adlpm", job_uri.Account);
+            Assert.AreEqual("/Samples", job_uri.Path);
+        }
     }
 }
