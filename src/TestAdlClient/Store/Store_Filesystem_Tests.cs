@@ -17,7 +17,9 @@ namespace TestAdlClient.Store
             var lfo = new FileListingParameters();
             lfo.PageSize = 4;
 
-            var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(FsPath.Root, lfo);
+            var folder = new FsPath("/test_adl_demo_client/List_Files_Recursive");
+
+            var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(folder, lfo);
             foreach (var page in pages)
             {
                 foreach (var child in page.FileItems)
@@ -25,15 +27,10 @@ namespace TestAdlClient.Store
                     child_count++;
                 }
                 page_count++;
-
-                if (page_count == 3)
-                {
-                    break;
-                }
             }
 
-            Assert.AreEqual(3,page_count);
-            Assert.AreEqual(3*4,child_count);
+            Assert.AreEqual(6,page_count);
+            Assert.AreEqual(19,child_count);
         }
 
         [TestMethod]

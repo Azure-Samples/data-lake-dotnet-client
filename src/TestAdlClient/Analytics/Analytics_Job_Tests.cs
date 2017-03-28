@@ -9,16 +9,6 @@ namespace TestAdlClient.Analytics
     [TestClass]
     public class Analytics_Job_Tests : Base_Tests
     {
-        [TestMethod]
-        public void Verify_Default_Top()
-        {
-            this.Initialize();
-            var listing_parameters = new JobListingParameters();
-
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
-            Assert.IsTrue(jobs.Count>2);
-        }
-
 
         [TestMethod]
         public void Verify_Paging_1()

@@ -15,10 +15,10 @@ namespace DemoAdlClient
             auth.Authenticate();
 
             // Collect info about the Azure resources needed for this demo
-            string subid = "045c28ea-c686-462f-9081-33c34e871ba3";
-            string rg = "InsightServices";
-            string adla_name = "datainsightsadhoc";
-            string adls_name = "datainsightsadhoc";
+            string subid = "ace74b35-b0de-428b-a1d9-55459d7a6e30";
+            string rg = "adlclienttest";
+            string adla_name = "adlclientqa";
+            string adls_name = "adlclientqa";
 
             // Identify the accounts
             var adla_account = new AdlClient.Models.AnalyticsAccountRef(subid, rg, adla_name);
@@ -75,8 +75,11 @@ namespace DemoAdlClient
             listing_parameters.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Succeeded );
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
-            var first_job = jobs[0];
-            var jobdetails = adla.Jobs.GetJobDetails(first_job.JobId, true);
+            var first_job = jobs.FirstOrDefault();
+            if (first_job!=null)
+            {
+                var jobdetails = adla.Jobs.GetJobDetails(first_job.JobId, true);
+            }
         }
 
         private static void RunDemos_Analytics_Account_Management(AdlClient.AnalyticsClient adla)
