@@ -111,15 +111,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AnalyticsAccountPortalUri.cs" />
     <Compile Include="Models\AnalyticsAccountRef.cs" />
+    <Compile Include="Models\FolderAzurePortalUri.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobDetails.cs" />
+    <Compile Include="Models\JobAzurePortalUri.cs" />
     <Compile Include="Models\JobRef.cs" />
     <Compile Include="Commands\LinkedStoreCommands.cs" />
-    <Compile Include="OData\Utils\DateTimeFilterCategory.cs" />
-    <Compile Include="OData\Utils\EnumFilterCategory.cs" />
-    <Compile Include="OData\Utils\IntegerFilterCategory.cs" />
-    <Compile Include="OData\Utils\StringFilterCategory.cs" />
+    <Compile Include="Models\JobUri.cs" />
+    <Compile Include="Models\StoreAccountPortalUri.cs" />
+    <Compile Include="OData\Models\DateTimeFilterCategory.cs" />
+    <Compile Include="OData\Models\EnumFilterCategory.cs" />
+    <Compile Include="OData\Models\IntegerFilterCategory.cs" />
+    <Compile Include="OData\Models\StringFilterCategory.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
     <Compile Include="Commands\AnalyticsRmCommands.cs" />
     <Compile Include="Models\JobInfo.cs" />
@@ -159,14 +164,14 @@
     <Compile Include="OData\ExprToLower.cs" />
     <Compile Include="OData\ExprToUpper.cs" />
     <Compile Include="OData\ExprYear.cs" />
-    <Compile Include="OData\Utils\RangeDateTime.cs" />
-    <Compile Include="OData\Utils\FieldFilter.cs" />
-    <Compile Include="OData\Utils\FieldFilterDateTime.cs" />
-    <Compile Include="OData\Utils\FieldFilterInteger.cs" />
-    <Compile Include="OData\Utils\FieldFilterEnum.cs" />
-    <Compile Include="OData\Utils\FieldFilterString.cs" />
+    <Compile Include="OData\Models\RangeDateTime.cs" />
+    <Compile Include="OData\Models\FieldFilter.cs" />
+    <Compile Include="OData\Models\FieldFilterDateTime.cs" />
+    <Compile Include="OData\Models\FieldFilterInteger.cs" />
+    <Compile Include="OData\Models\FieldFilterEnum.cs" />
+    <Compile Include="OData\Models\FieldFilterString.cs" />
     <Compile Include="Models\JobListingFilter.cs" />
-    <Compile Include="OData\Enums\ComparisonOperation.cs" />
+    <Compile Include="OData\Models\ComparisonOperation.cs" />
     <Compile Include="OData\ExpressionWriter.cs" />
     <Compile Include="OData\ExprField.cs" />
     <Compile Include="OData\ExprBinaryOp.cs" />
@@ -180,9 +185,9 @@
     <Compile Include="OData\ExprLogicalOr.cs" />
     <Compile Include="OData\ExprGroup.cs" />
     <Compile Include="OData\ExprRaw.cs" />
-    <Compile Include="OData\Enums\OrderByDirection.cs" />
+    <Compile Include="OData\Models\OrderByDirection.cs" />
     <Compile Include="Models\JobListingFields.cs" />
-    <Compile Include="OData\Utils\RangeInteger.cs" />
+    <Compile Include="OData\Models\RangeInteger.cs" />
     <Compile Include="Models\FsAclType.cs" />
     <Compile Include="Models\FileCreateParameters.cs" />
     <Compile Include="Models\FileDownloadParameters.cs" />
@@ -199,7 +204,6 @@
     <Compile Include="Models\FileUploadParameters.cs" />
     <Compile Include="Commands\StoreRmCommands.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />
-    <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Models\JobSubmitParameters.cs" />
     <Compile Include="Rest\RestUtil.cs" />
     <Compile Include="Models\JobListingParameters.cs" />

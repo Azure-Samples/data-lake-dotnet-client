@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdlClient.Models;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace DemoAdlClient
@@ -14,10 +15,10 @@ namespace DemoAdlClient
             auth.Authenticate();
 
             // Collect info about the Azure resources needed for this demo
-            string subid = "045c28ea-c686-462f-9081-33c34e871ba3";
-            string rg = "InsightServices";
-            string adla_name = "datainsightsadhoc";
-            string adls_name = "datainsightsadhoc";
+            string subid = "ace74b35-b0de-428b-a1d9-55459d7a6e30";
+            string rg = "adlclienttest";
+            string adla_name = "adlclientqa";
+            string adls_name = "adlclientqa";
 
             // Identify the accounts
             var adla_account = new AdlClient.Models.AnalyticsAccountRef(subid, rg, adla_name);
@@ -74,8 +75,11 @@ namespace DemoAdlClient
             listing_parameters.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Succeeded );
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
-            var first_job = jobs[0];
-            var jobdetails = adla.Jobs.GetJobDetails(first_job.Id, true);
+            var first_job = jobs.FirstOrDefault();
+            if (first_job!=null)
+            {
+                var jobdetails = adla.Jobs.GetJobDetails(first_job.JobId, true);
+            }
         }
 
         private static void RunDemos_Analytics_Account_Management(AdlClient.AnalyticsClient adla)
@@ -109,6 +113,7 @@ namespace DemoAdlClient
             Demo_Jobs_List_Failed(adla);
             Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla);
             Demo_Jobs_List_SubmittedBy_Users(adla);
+            Demo_GetJobsSubmitedInLast2hours(adla);
             Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla);
             Demo_Jobs_List_SubmittedBy_UserBeginsWith(adla);
             Demo_Jobs_List_SubmittedBy_UserContains(adla);
@@ -142,13 +147,13 @@ namespace DemoAdlClient
 
             foreach (var job in jobs)
             {
-                var joblink = job.GetJobReference();
+                var job_ref = job.GetJobReference();
 
-                string joburi_string = joblink.GetUri();
-                string job_portal_link_string = joblink.GetAzurePortalLink();
+                var job_uri = new JobUri( job_ref );
+                var job_portal_uri = new JobAzurePortalUri( job_ref );
 
-                Console.WriteLine(joburi_string);
-                Console.WriteLine(job_portal_link_string);
+                Console.WriteLine(job_uri.ToString());
+                Console.WriteLine(job_portal_uri.ToString());
             }
         }
 
@@ -214,7 +219,7 @@ namespace DemoAdlClient
             listing_parameters.Top = 10;
 
             var jobfields = new AdlClient.Models.JobFields();
-            listing_parameters.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
+            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
             listing_parameters.Sorting.Field = jobfields.SubmitTime;
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
@@ -228,7 +233,7 @@ namespace DemoAdlClient
             listing_parameters.Top = 10;
 
             var jobfields = new AdlClient.Models.JobFields();
-            listing_parameters.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Ascending;
+            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Ascending;
             listing_parameters.Sorting.Field = jobfields.SubmitTime;
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
@@ -242,7 +247,7 @@ namespace DemoAdlClient
             listing_parameters.Top = 1;
 
             var jobfields = new AdlClient.Models.JobFields();
-            listing_parameters.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Ascending;
+            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Ascending;
             listing_parameters.Sorting.Field = jobfields.SubmitTime;
 
             listing_parameters.Filter.Submitter.Contains("saveenr");
@@ -269,7 +274,7 @@ namespace DemoAdlClient
         private static void Demo_GetJobsSubmitedInLast2hours(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
-            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Utils.RangeDateTime.InTheLastNHours(2));
+            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Models.RangeDateTime.InTheLastNHours(2));
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
             PrintJobs(jobs);
         }
@@ -277,7 +282,7 @@ namespace DemoAdlClient
         private static void Demo_Jobs_List_SubmittedBetween_MidnightAndNow(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
-            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Utils.RangeDateTime.SinceLocalMidnight());
+            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Models.RangeDateTime.SinceLocalMidnight());
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
             PrintJobs(jobs);
         }
@@ -294,7 +299,7 @@ namespace DemoAdlClient
         private static void Demo_Jobs_List_MostExpensive_In_Last24hours(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
-            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Utils.RangeDateTime.InTheLastNHours(24));
+            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Models.RangeDateTime.InTheLastNHours(24));
             var jobs = adla.Jobs.ListJobs(listing_parameters).OrderByDescending(j=>j.AUSeconds).Take(10).ToList();
 
             PrintJobs(jobs);

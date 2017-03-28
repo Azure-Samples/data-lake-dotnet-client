@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using AdlClient.OData.Enums;
+using AdlClient.OData.Models;
 
-namespace AdlClient.OData.Utils
+namespace AdlClient.OData.Models
 {
     public class FieldFilterEnum<T> : FieldFilter where T : struct, System.IComparable, System.IConvertible, System.IFormattable 
     {

@@ -1,6 +1,6 @@
-using AdlClient.OData.Enums;
+using AdlClient.OData.Models;
 
-namespace AdlClient.OData.Utils
+namespace AdlClient.OData.Models
 {
 
     public class FieldFilterDateTime : FieldFilter

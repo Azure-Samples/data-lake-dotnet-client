@@ -1,5 +1,5 @@
 
-namespace AdlClient.OData.Utils
+namespace AdlClient.OData.Models
 {
     public abstract class FieldFilter
     {
@@ -15,7 +15,7 @@ namespace AdlClient.OData.Utils
 
         protected Expr CreateIsNotNullExpr()
         {
-            var op = Enums.ComparisonOperation.NotEquals;
+            var op = AdlClient.OData.Models.ComparisonOperation.NotEquals;
             var expr_null = new ExprNull();
             var expr_compare = Expr.GetExprComparison(this.expr_field, expr_null, op);
             return expr_compare;
@@ -23,7 +23,7 @@ namespace AdlClient.OData.Utils
 
         protected Expr CreateIsNullExpr()
         {
-            var op = Enums.ComparisonOperation.Equals;
+            var op = AdlClient.OData.Models.ComparisonOperation.Equals;
             var expr_null = new ExprNull();
             var expr_compare = Expr.GetExprComparison(this.expr_field, expr_null, op);
             return expr_compare;

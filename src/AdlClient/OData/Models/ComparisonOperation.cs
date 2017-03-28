@@ -1,4 +1,4 @@
-namespace AdlClient.OData.Enums
+namespace AdlClient.OData.Models
 {
     public enum ComparisonOperation
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using AdlClient.OData.Enums;
+using AdlClient.OData.Models;
 
-namespace AdlClient.OData.Utils
+namespace AdlClient.OData.Models
 {
     public class FieldFilterInteger : FieldFilter
     {
@@ -76,7 +76,7 @@ namespace AdlClient.OData.Utils
                 foreach (var item in this.one_of_list)
                 {
                     var expr2 = new ExprLiteralInt(item);
-                    var expr_compare = Expr.GetExprComparison(this.expr_field, expr2, ComparisonOperation.Equals);
+                    var expr_compare = Expr.GetExprComparison(this.expr_field, expr2, AdlClient.OData.Models.ComparisonOperation.Equals);
                     expr_or.Add(expr_compare);
                 }
                 return expr_or;

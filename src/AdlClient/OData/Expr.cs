@@ -1,4 +1,4 @@
-using AdlClient.OData.Enums;
+using AdlClient.OData.Models;
 
 namespace AdlClient.OData
 {

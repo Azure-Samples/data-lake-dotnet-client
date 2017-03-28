@@ -12,7 +12,7 @@ namespace AdlClient.Models
             this.Sorting = new JobListingSorting();
 
             var jobfields = new JobFields();
-            this.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
+            this.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
             this.Sorting.Field = jobfields.SubmitTime;
         }
     }

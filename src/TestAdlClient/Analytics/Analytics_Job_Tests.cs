@@ -9,16 +9,6 @@ namespace TestAdlClient.Analytics
     [TestClass]
     public class Analytics_Job_Tests : Base_Tests
     {
-        [TestMethod]
-        public void Verify_Default_Top()
-        {
-            this.Initialize();
-            var listing_parameters = new JobListingParameters();
-
-            var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
-            Assert.IsTrue(jobs.Count>2);
-        }
-
 
         [TestMethod]
         public void Verify_Paging_1()
@@ -36,22 +26,21 @@ namespace TestAdlClient.Analytics
         {
             this.Initialize();
             var listing_parameters = new JobListingParameters();
-            listing_parameters.Top = JobCommands.ADLJobPageSize;
+            listing_parameters.Top = 300;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
-            Assert.AreEqual(JobCommands.ADLJobPageSize, jobs.Count);
+            Assert.AreEqual(300, jobs.Count);
         }
 
         [TestMethod]
-        public void Verify_Paging_400()
+        public void Verify_Paging_450()
         {
             this.Initialize();
             var listing_parameters = new JobListingParameters();
-            var top = JobCommands.ADLJobPageSize + (JobCommands.ADLJobPageSize/2);
-            listing_parameters.Top = top;
+            listing_parameters.Top = 450;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
-            Assert.AreEqual(top,jobs.Count);
+            Assert.AreEqual(450, jobs.Count);
         }
 
 
@@ -65,7 +54,7 @@ namespace TestAdlClient.Analytics
             var listing_parameters = new JobListingParameters();
             listing_parameters.Top = 30;
             listing_parameters.Sorting.Field = jobfields.DegreeOfParallelism;
-            listing_parameters.Sorting.Direction = AdlClient.OData.Enums.OrderByDirection.Descending;
+            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
             foreach (var job in jobs)
@@ -83,9 +72,9 @@ namespace TestAdlClient.Analytics
             submit_parameters.JobName = "Test Job";
             var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
 
-            System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.Id, ji.SubmitTime);
+            System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.JobId, ji.SubmitTime);
 
-            var ji2 = this.AnalyticsClient.Jobs.GetJobDetails(ji.Id,false);
+            var ji2 = this.AnalyticsClient.Jobs.GetJobDetails(ji.JobId,false);
 
             Assert.AreEqual(ji.Name, ji2.JobInfo.Name);
         }
