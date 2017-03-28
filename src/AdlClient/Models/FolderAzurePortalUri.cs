@@ -1,18 +1,18 @@
 ﻿namespace AdlClient.Models
 {
-    public class FileAzurePortalUri
+    public class FolderAzurePortalUri
     {
 
         public readonly string Account;
         public readonly string Path;
 
-        public FileAzurePortalUri(string account, string path)
+        public FolderAzurePortalUri(string account, string path)
         {
             this.Account = account;
             this.Path = path;
         }
 
-        public static FileAzurePortalUri Parse(string s)
+        public static FolderAzurePortalUri Parse(string s)
         {
             // https://portal.azure.com/#blade/Microsoft_Azure_DataLakeStore/WebHdfsFolderBlade/endpoint/adlpm.azuredatalakestore.net/path/%2F
 
@@ -66,7 +66,7 @@
             string path = fragment_tokens[2];
             path = System.Uri.UnescapeDataString(path);
             // Final URI
-            var portal_uri = new FileAzurePortalUri(account_name, path);
+            var portal_uri = new FolderAzurePortalUri(account_name, path);
             return portal_uri;
         }
 

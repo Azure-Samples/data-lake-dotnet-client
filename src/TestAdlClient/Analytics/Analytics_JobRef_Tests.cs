@@ -65,7 +65,7 @@ namespace TestAdlClient.Analytics
         {
             string s =
                 "https://portal.azure.com/#blade/Microsoft_Azure_DataLakeStore/WebHdfsFolderBlade/endpoint/adlpm.azuredatalakestore.net/path/%2F";
-            var job_uri = AdlClient.Models.FileAzurePortalUri.Parse(s);
+            var job_uri = AdlClient.Models.FolderAzurePortalUri.Parse(s);
 
             Assert.IsNotNull(job_uri);
             Assert.AreEqual("adlpm", job_uri.Account);
@@ -77,7 +77,7 @@ namespace TestAdlClient.Analytics
         {
             string s =
                 "https://portal.azure.com/#blade/Microsoft_Azure_DataLakeStore/WebHdfsFolderBlade/endpoint/adlpm.azuredatalakestore.net/path/%2FSamples";
-            var job_uri = AdlClient.Models.FileAzurePortalUri.Parse(s);
+            var job_uri = AdlClient.Models.FolderAzurePortalUri.Parse(s);
 
             Assert.IsNotNull(job_uri);
             Assert.AreEqual("adlpm", job_uri.Account);
