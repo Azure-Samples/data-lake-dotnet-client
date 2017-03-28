@@ -20,11 +20,11 @@ namespace TestAdlClient
                 this.Authentication = new AdlClient.Authentication(tenant);
                 Authentication.Authenticate();
 
-                this.SubscriptionId = "045c28ea-c686-462f-9081-33c34e871ba3";
-                this.ResourceGroup = "InsightsServices";
+                this.SubscriptionId = "ace74b35-b0de-428b-a1d9-55459d7a6e30";
+                this.ResourceGroup = "adlclienttest";
 
-                var adla_account = new AdlClient.Models.AnalyticsAccountRef(this.SubscriptionId, this.ResourceGroup, "datainsightsadhoc");
-                var adls_account = new AdlClient.Models.StoreAccountRef(this.SubscriptionId, this.ResourceGroup, "datainsightsadhoc");
+                var adla_account = new AdlClient.Models.AnalyticsAccountRef(this.SubscriptionId, this.ResourceGroup, "adlclientqa");
+                var adls_account = new AdlClient.Models.StoreAccountRef(this.SubscriptionId, this.ResourceGroup, "adlclientqa");
 
                 this.AzureClient = new AdlClient.AzureClient(this.Authentication);
                 this.StoreClient = new AdlClient.StoreClient(this.Authentication, adls_account);

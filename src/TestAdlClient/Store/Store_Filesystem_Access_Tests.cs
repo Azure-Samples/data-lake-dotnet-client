@@ -92,6 +92,7 @@ namespace TestAdlClient.Store
 
             var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);
 
+            // This test depends on a default acl in the account that gives a user rwx on the access and default acl of all folders and files
             // find all the named user entries that have write access
             var entries_before = permissions_before.Entries.Where(e => e.Type == FsAclType.NamedUser).Where(e=>e.Permission.Value.Write).ToList();
             Assert.IsTrue(entries_before.Count>0);
