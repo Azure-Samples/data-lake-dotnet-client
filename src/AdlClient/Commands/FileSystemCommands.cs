@@ -95,13 +95,13 @@ namespace AdlClient.Commands
             }
         }
 
-        public bool Exists(FsPath path)
+        public bool PathExists(FsPath path)
         {
             var info = this.TryGetFileInformation(path);
             return (info != null);
         }
 
-        public bool ExistsFile(FsPath path)
+        public bool FileExists(FsPath path)
         {
             var filestat = this.TryGetFileInformation(path);
             if (filestat == null)
@@ -118,7 +118,7 @@ namespace AdlClient.Commands
 
         }
 
-        public bool ExistsFolder(FsPath path)
+        public bool FolderExists(FsPath path)
         {
             var info = this.TryGetFileInformation(path);
             if (info == null)

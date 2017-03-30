@@ -171,7 +171,7 @@ namespace DemoAdlClient
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 10;
-            listing_parameters.Filter.Submitter.IsOneOf(adla.Authentication.Token.DisplayableId);
+            listing_parameters.Filter.Submitter.IsOneOf(adla.Authentication.TokenCacheItem.DisplayableId);
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 

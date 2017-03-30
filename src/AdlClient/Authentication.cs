@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.Rest;
 using MSAD = Microsoft.IdentityModel.Clients.ActiveDirectory;
 using REST = Microsoft.Rest.Azure;
 
@@ -7,20 +8,27 @@ namespace AdlClient
 {
     public class Authentication
     {
-        public Microsoft.Rest.ServiceClientCredentials Credentials;
-        public string Tenant;
-        public MSAD.TokenCacheItem Token;
+        public readonly string Tenant;
+        private Microsoft.Rest.ServiceClientCredentials _service_client_creds;
+        private MSAD.TokenCacheItem _token;
+
+        public ServiceClientCredentials ServiceClientCredentials {
+            get => _service_client_creds;
+            private set => _service_client_creds = value; }
+
+        public MSAD.TokenCacheItem TokenCacheItem {
+            get => _token;
+            private set => _token = value; }
 
         public Authentication(string tenant)
         {
             this.Tenant = tenant;
         }
 
-        public void Clear()
+        public void ClearCache()
         {
             string cache_filename = GetTokenCachePath();
-
-
+            
             if (System.IO.File.Exists(cache_filename))
             {
                 var bytes = System.IO.File.ReadAllBytes(cache_filename);
@@ -42,49 +50,31 @@ namespace AdlClient
             // Load the token cache, if one exists.
             string cache_filename = GetTokenCachePath();
 
-            Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCache token_cache;
+            MSAD.TokenCache token_cache;
 
             if (System.IO.File.Exists(cache_filename))
             {
                 var bytes = System.IO.File.ReadAllBytes(cache_filename);
-                token_cache = new Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCache(bytes);
+                token_cache = new MSAD.TokenCache(bytes);
             }
             else
             {
-                token_cache = new Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCache();
+                token_cache = new MSAD.TokenCache();
             }
 
-            // Now figure out the token business
+            // Did not find the token in the cache, show popup and save the token
+            var sync_context = new System.Threading.SynchronizationContext();
+            System.Threading.SynchronizationContext.SetSynchronizationContext(sync_context);
+            var scv_client_creds = REST.Authentication.UserTokenProvider.LoginWithPromptAsync(domain, AD_client_settings, token_cache).Result;
 
-            Microsoft.Rest.ServiceClientCredentials creds = null;
-
-            // Get the cached token, if it exists and is not expired.
-            //if (token_cache.Count > 0)
-            //{
-            //    var token_cache_item = token_cache.ReadItems().First();
-            //    creds = REST.Authentication.UserTokenProvider.CreateCredentialsFromCache(client_id, token_cache_item.TenantId, token_cache_item.DisplayableId, token_cache).Result;
-            //    SaveTokenCache(token_cache, cache_filename);
-            //}
-
-            //if (creds == null)
+            // serialization only works if there is more then one item in the cache
+            if (token_cache.Count > 0)
             {
-                // Did not find the token in the cache, show popup and save the token
-                var sync_context = new System.Threading.SynchronizationContext();
-                System.Threading.SynchronizationContext.SetSynchronizationContext(sync_context);
-                creds = REST.Authentication.UserTokenProvider.LoginWithPromptAsync(domain, AD_client_settings, token_cache).Result;
-                if (token_cache.Count > 0)
-                {
-                    // If token cache has no items then trying serialize it will fail when deserializing
-                    System.IO.File.WriteAllBytes(cache_filename, token_cache.Serialize());
-                }
-
+                System.IO.File.WriteAllBytes(cache_filename, token_cache.Serialize());
             }
 
-
-
-            this.Credentials = creds;
-            this.Token = token_cache.ReadItems().First();
-
+            this.ServiceClientCredentials = scv_client_creds;
+            this.TokenCacheItem = token_cache.ReadItems().First();
         }
 
         private static void SaveTokenCache(MSAD.TokenCache token_cache, string filename)

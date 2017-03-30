@@ -52,8 +52,8 @@ namespace TestAdlClient.Store
             Assert.AreEqual(1.0, dif.TotalDays, 0.0001);
 
             this.StoreClient.FileSystem.Delete(dir, true);
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(fname1));
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(dir));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(fname1));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(dir));
         }
 
         [TestMethod]
@@ -80,22 +80,22 @@ namespace TestAdlClient.Store
             Assert.AreEqual(365.0, dif.TotalDays, 0.0001);
 
             this.StoreClient.FileSystem.Delete(dir, true);
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(fname1));
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(dir));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(fname1));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(dir));
         }
 
         private FsPath create_test_dir()
         {
             var dir = new FsPath("/test_adl_demo_client");
 
-            if (this.StoreClient.FileSystem.Exists(dir))
+            if (this.StoreClient.FileSystem.PathExists(dir))
             {
                 this.StoreClient.FileSystem.Delete(dir, true);
             }
 
             this.StoreClient.FileSystem.CreateDirectory(dir);
 
-            if (!this.StoreClient.FileSystem.Exists(dir))
+            if (!this.StoreClient.FileSystem.PathExists(dir))
             {
                 Assert.Fail();
             }
