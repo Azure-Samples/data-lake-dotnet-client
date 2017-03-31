@@ -42,28 +42,33 @@ namespace AdlClient.Commands
 
         public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, FileListingParameters parameters)
         {
-            return this.RestClients.FileSystemRest.ListFilesPaged(this.Account, path, parameters);
+            return this.RestClients.FileSystemRest.ListFilesPaged(this.GetUri(path), parameters);
+        }
+
+        public AdlClient.Models.FsPathUri GetUri(FsPath path)
+        {
+            return new AdlClient.Models.FsPathUri(this.Account.Name, path.ToString());
         }
 
         public void CreateDirectory(FsPath path)
         {
-            this.RestClients.FileSystemRest.Mkdirs(this.Account, path);
+            this.RestClients.FileSystemRest.Mkdirs( this.GetUri(path) );
         }
 
         public void Delete(FsPath path)
         {
-            RestClients.FileSystemRest.Delete(this.Account, path);
+            RestClients.FileSystemRest.Delete( this.GetUri(path) );
         }
 
         public void Delete(FsPath path, bool recursive)
         {
-            RestClients.FileSystemRest.Delete(this.Account, path, recursive);
+            RestClients.FileSystemRest.Delete(this.GetUri(path), recursive);
         }
 
         public void Create(FsPath path, byte[] bytes, FileCreateParameters parameters)
         {
             var memstream = new System.IO.MemoryStream(bytes);
-            RestClients.FileSystemRest.Create(this.Account, path, memstream, parameters);
+            RestClients.FileSystemRest.Create(this.GetUri(path), memstream, parameters);
         }
 
         public void Create(FsPath path, string content, FileCreateParameters parameters)
@@ -74,7 +79,7 @@ namespace AdlClient.Commands
 
         public FsFileStatus GetFileStatus(FsPath path)
         {
-            return RestClients.FileSystemRest.GetFileStatus(this.Account, path);
+            return RestClients.FileSystemRest.GetFileStatus(this.GetUri(path));
         }
 
         public FsFileStatus TryGetFileInformation(FsPath path)
@@ -139,49 +144,49 @@ namespace AdlClient.Commands
 
         public FsAcl GetAclStatus(FsPath path)
         {
-            var acl_result = RestClients.FileSystemRest.GetAclStatus(this.Account, path);
+            var acl_result = RestClients.FileSystemRest.GetAclStatus(this.GetUri(path));
             return acl_result;
         }
 
         public void ModifyAclEntries(FsPath path, FsAclEntry entry)
         {
-            this.RestClients.FileSystemRest.ModifyAclEntries(this.Account, path, entry);
+            this.RestClients.FileSystemRest.ModifyAclEntries(this.GetUri(path),entry);
         }
 
         public void ModifyAclEntries(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this.RestClients.FileSystemRest.ModifyAclEntries(this.Account, path, entries);
+            this.RestClients.FileSystemRest.ModifyAclEntries(this.GetUri(path), entries);
         }
 
         public void SetAcl(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this.RestClients.FileSystemRest.SetAcl(this.Account, path, entries);
+            this.RestClients.FileSystemRest.SetAcl(this.GetUri(path), entries);
         }
 
         public void RemoveAcl(FsPath path)
         {
-            this.RestClients.FileSystemRest.RemoveAcl(this.Account, path);
+            this.RestClients.FileSystemRest.RemoveAcl(this.GetUri(path));
         }
 
         public void RemoveDefaultAcl(FsPath path)
         {
-            this.RestClients.FileSystemRest.RemoveDefaultAcl(this.Account, path);
+            this.RestClients.FileSystemRest.RemoveDefaultAcl(this.GetUri(path));
         }
 
         public System.IO.Stream Open(FsPath path)
         {
-            return this.RestClients.FileSystemRest.Open(this.Account, path);
+            return this.RestClients.FileSystemRest.Open(this.GetUri(path));
         }
 
         public System.IO.StreamReader OpenText(FsPath path)
         {
-            var s = this.RestClients.FileSystemRest.Open(this.Account, path);
+            var s = this.RestClients.FileSystemRest.Open(this.GetUri(path));
             return new System.IO.StreamReader(s);
         }
 
         public System.IO.Stream Open(FsPath path, long offset, long bytesToRead)
         {
-            return this.RestClients.FileSystemRest.Open(this.Account, path, bytesToRead, offset);
+            return this.RestClients.FileSystemRest.Open(this.GetUri(path), bytesToRead, offset);
         }
 
         public void Upload(FsLocalPath src_path, FsPath dest_path, FileUploadParameters parameters)
@@ -194,7 +199,7 @@ namespace AdlClient.Commands
 
         public void Download(FsPath src_path, FsLocalPath dest_path, FileDownloadParameters parameters)
         {
-            using (var stream = this.RestClients.FileSystemRest.Open(this.Account, src_path))
+            using (var stream = this.RestClients.FileSystemRest.Open(this.GetUri(src_path)))
             {
                 var filemode = parameters.Append ? System.IO.FileMode.Append : System.IO.FileMode.Create;
                 using (var fileStream = new System.IO.FileStream(dest_path.ToString(), filemode))
@@ -204,20 +209,20 @@ namespace AdlClient.Commands
             }
         }
 
-        public void Appen(FsFileStatusPage file, string content)
+        public void Append(FsPath path, string content)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this.RestClients.FileSystemRest.Append(this.Account, file, stream);
+                this.RestClients.FileSystemRest.Append(this.GetUri(path), stream);
             }
         }
 
-        public void Append(FsFileStatusPage file, byte[] bytes)
+        public void Append(FsPath path, byte[] bytes)
         {
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this.RestClients.FileSystemRest.Append(this.Account, file, stream);
+                this.RestClients.FileSystemRest.Append(this.GetUri(path), stream);
             }
         }
 
@@ -228,37 +233,37 @@ namespace AdlClient.Commands
 
         public void ClearFileExpiry(FsPath path)
         {
-            this.RestClients.FileSystemRest.SetFileExpiryNever(this.Account, path);
+            this.RestClients.FileSystemRest.SetFileExpiryNever(this.GetUri(path));
         }
 
         public void SetFileExpiryAbsolute(FsPath path, System.DateTimeOffset expiretime)
         {
-            this.RestClients.FileSystemRest.SetFileExpiry(this.Account, path, expiretime);
+            this.RestClients.FileSystemRest.SetFileExpiry(this.GetUri(path), expiretime);
         }
 
         public void SetFileExpiryRelativeToNow(FsPath path, System.TimeSpan timespan)
         {
-            this.RestClients.FileSystemRest.SetFileExpiryRelativeToNow(this.Account, path, timespan);
+            this.RestClients.FileSystemRest.SetFileExpiryRelativeToNow(this.GetUri(path), timespan);
         }
 
         public void SetFileExpiryRelativeToCreationDate(FsPath path, System.TimeSpan timespan)
         {
-            this.RestClients.FileSystemRest.SetFileExpiryRelativeToCreationDate(this.Account, path, timespan);
+            this.RestClients.FileSystemRest.SetFileExpiryRelativeToCreationDate(this.GetUri(path), timespan);
         }
 
         public MSADLS.Models.ContentSummary GetContentSummary(FsPath path)
         {
-            return this.RestClients.FileSystemRest.GetContentSummary(this.Account, path);
+            return this.RestClients.FileSystemRest.GetContentSummary(this.GetUri(path));
         }
 
         public void SetOwner(FsPath path, string user, string group)
         {
-            this.RestClients.FileSystemRest.SetOwner(this.Account, path, user, group);
+            this.RestClients.FileSystemRest.SetOwner(this.GetUri(path), user, group);
         }
 
         public void Move(FsPath src_path, FsPath dest_path)
         {
-            this.RestClients.FileSystemRest.Rename(this.Account, src_path, dest_path);
+            this.RestClients.FileSystemRest.Rename(this.Account.Name, src_path, dest_path);
         }
     }
 }

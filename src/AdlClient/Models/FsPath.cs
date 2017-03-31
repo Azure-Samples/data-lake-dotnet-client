@@ -2,31 +2,31 @@ namespace AdlClient.Models
 {
     public class FsPath
     {
-        string s;
+        string _path;
 
-        public FsPath(string s)
+        public FsPath(string path)
         {
-            if (s == null)
+            if (path == null)
             {
-                throw new System.ArgumentNullException(nameof(s));
+                throw new System.ArgumentNullException(nameof(path));
             }
 
-            if (s.Length == 0)
+            if (path.Length == 0)
             {
-                throw new System.ArgumentOutOfRangeException(nameof(s));
+                throw new System.ArgumentOutOfRangeException(nameof(path));
 
             }
-            this.s=s;
+            this._path=path;
         }
 
         public override string ToString()
         {
-            return this.s;
+            return this._path;
         }
 
         public bool IsRooted
         {
-            get { return this.s[0] == '/'; }
+            get { return this._path[0] == '/'; }
         }
 
 
@@ -71,7 +71,7 @@ namespace AdlClient.Models
 
         public bool EndsWithSeparator
         {
-            get { return this.s[this.s.Length - 1] == '/'; }
+            get { return this._path[this._path.Length - 1] == '/'; }
         }
 
     }

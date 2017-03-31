@@ -114,6 +114,7 @@
     <Compile Include="Models\AnalyticsAccountPortalUri.cs" />
     <Compile Include="Models\AnalyticsAccountRef.cs" />
     <Compile Include="Models\FolderAzurePortalUri.cs" />
+    <Compile Include="Models\FsPathUri.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobAzurePortalUri.cs" />
