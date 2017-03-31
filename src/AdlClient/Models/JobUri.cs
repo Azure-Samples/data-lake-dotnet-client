@@ -13,8 +13,8 @@
 
         public JobUri(JobRef job_ref)
         {
-            this.Account = job_ref.Account.Name;
-            this.JobId = job_ref.Id;
+            this.Account = job_ref.Account;
+            this.JobId = job_ref.JobId;
         }
 
         public static JobUri Parse(string s)
