@@ -16,33 +16,33 @@ namespace AdlClient.Rest
             this.RestClient = new ADL.Store.DataLakeStoreFileSystemManagementClient(creds);
         }
 
-        public void Mkdirs(FsPathUri uri)
+        public void Mkdirs(FsUri uri)
         {
             var result = RestClient.FileSystem.Mkdirs(uri.Account, uri.Path);
         }
 
-        public void Delete(FsPathUri uri)
+        public void Delete(FsUri uri)
         {
             var result = RestClient.FileSystem.Delete(uri.Account, uri.Path);
         }
 
-        public void Delete(FsPathUri uri, bool recursive)
+        public void Delete(FsUri uri, bool recursive)
         {
             var result = RestClient.FileSystem.Delete(uri.Account, uri.Path, recursive);
         }
 
-        public void Create(FsPathUri uri, System.IO.Stream streamContents, FileCreateParameters parameters)
+        public void Create(FsUri uri, System.IO.Stream streamContents, FileCreateParameters parameters)
         {
             RestClient.FileSystem.Create(uri.Account, uri.Path, streamContents, parameters.Overwrite);
         }
 
-        public FsFileStatus GetFileStatus(FsPathUri uri)
+        public FsFileStatus GetFileStatus(FsUri uri)
         {
             var info = RestClient.FileSystem.GetFileStatus(uri.Account, uri.Path);
             return new FsFileStatus(info.FileStatus);
         }
 
-        public FsAcl GetAclStatus(FsPathUri uri)
+        public FsAcl GetAclStatus(FsUri uri)
         {
             var acl_result = this.RestClient.FileSystem.GetAclStatus(uri.Account, uri.Path);
             var acl_status = acl_result.AclStatus;
@@ -52,44 +52,44 @@ namespace AdlClient.Rest
             return fs_acl;
         }
 
-        public void ModifyAclEntries(FsPathUri uri, FsAclEntry entry)
+        public void ModifyAclEntries(FsUri uri, FsAclEntry entry)
         {
             this.RestClient.FileSystem.ModifyAclEntries(uri.Account, uri.Path, entry.ToString());
         }
 
-        public void ModifyAclEntries(FsPathUri uri, IEnumerable<FsAclEntry> entries)
+        public void ModifyAclEntries(FsUri uri, IEnumerable<FsAclEntry> entries)
         {
             var s = FsAclEntry.EntriesToString(entries);
             this.RestClient.FileSystem.ModifyAclEntries(uri.Account, uri.Path, s);
         }
 
-        public void SetAcl(FsPathUri uri, IEnumerable<FsAclEntry> entries)
+        public void SetAcl(FsUri uri, IEnumerable<FsAclEntry> entries)
         {
             var s = FsAclEntry.EntriesToString(entries);
             this.RestClient.FileSystem.SetAcl(uri.Account, uri.Path, s);
         }
 
-        public void RemoveAcl(FsPathUri uri)
+        public void RemoveAcl(FsUri uri)
         {
             this.RestClient.FileSystem.RemoveAcl(uri.Account, uri.Path);
         }
 
-        public void RemoveDefaultAcl(FsPathUri uri)
+        public void RemoveDefaultAcl(FsUri uri)
         {
             this.RestClient.FileSystem.RemoveDefaultAcl(uri.Account, uri.Path);
         }
 
-        public System.IO.Stream Open(FsPathUri uri)
+        public System.IO.Stream Open(FsUri uri)
         {
             return this.RestClient.FileSystem.Open(uri.Account, uri.Path);
         }
 
-        public System.IO.Stream Open(FsPathUri uri, long offset, long bytesToRead)
+        public System.IO.Stream Open(FsUri uri, long offset, long bytesToRead)
         {
             return this.RestClient.FileSystem.Open(uri.Account, uri.Path, bytesToRead, offset);
         }
 
-        public void Append(FsPathUri uri, System.IO.Stream steamContents)
+        public void Append(FsUri uri, System.IO.Stream steamContents)
         {
             this.RestClient.FileSystem.Append(uri.Account, uri.Path, steamContents);
         }
@@ -100,42 +100,42 @@ namespace AdlClient.Rest
             this.RestClient.FileSystem.Concat(account.Name, dest_path.ToString(), src_file_strings);
         }
 
-        public void SetFileExpiry(FsPathUri uri, System.DateTimeOffset expiretime)
+        public void SetFileExpiry(FsUri uri, System.DateTimeOffset expiretime)
         {
             var ut = new FsUnixTime(expiretime);
             var unix_time = ut.MillisecondsSinceEpoch;
             this.RestClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, ExpiryOptionType.Absolute, unix_time);
         }
 
-        public void SetFileExpiryNever(FsPathUri uri)
+        public void SetFileExpiryNever(FsUri uri)
         {
             this.RestClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, ExpiryOptionType.NeverExpire, null);
         }
 
-        public void SetFileExpiryAbsolute(FsPathUri uri, System.DateTimeOffset expiretime)
+        public void SetFileExpiryAbsolute(FsUri uri, System.DateTimeOffset expiretime)
         {
             var ut = new FsUnixTime(expiretime);
             var unix_time = ut.MillisecondsSinceEpoch;
             this.RestClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, ExpiryOptionType.Absolute, unix_time);
         }
 
-        public void SetFileExpiryRelativeToNow(FsPathUri uri, System.TimeSpan timespan)
+        public void SetFileExpiryRelativeToNow(FsUri uri, System.TimeSpan timespan)
         {
             this.RestClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, ExpiryOptionType.RelativeToNow, (long)timespan.TotalMilliseconds);
         }
 
-        public void SetFileExpiryRelativeToCreationDate(FsPathUri uri, System.TimeSpan timespan)
+        public void SetFileExpiryRelativeToCreationDate(FsUri uri, System.TimeSpan timespan)
         {
             this.RestClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, ExpiryOptionType.RelativeToCreationDate, (long)timespan.TotalMilliseconds);
         }
 
-        public ContentSummary GetContentSummary(FsPathUri uri)
+        public ContentSummary GetContentSummary(FsUri uri)
         {
             var summary = this.RestClient.FileSystem.GetContentSummary(uri.Account, uri.Path);
             return summary.ContentSummary;
         }
 
-        public void SetOwner(FsPathUri uri, string owner, string group)
+        public void SetOwner(FsUri uri, string owner, string group)
         {
             this.RestClient.FileSystem.SetOwner(uri.Account, uri.Path, owner, group);
         }
@@ -145,7 +145,7 @@ namespace AdlClient.Rest
             this.RestClient.FileSystem.Rename(account, src_path.ToString(), dest_path.ToString());
         }
 
-        public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPathUri uri, FileListingParameters parameters)
+        public IEnumerable<FsFileStatusPage> ListFilesPaged(FsUri uri, FileListingParameters parameters)
         {
             string after = null;
             while (true)

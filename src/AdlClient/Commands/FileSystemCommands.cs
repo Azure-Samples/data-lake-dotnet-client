@@ -45,9 +45,9 @@ namespace AdlClient.Commands
             return this.RestClients.FileSystemRest.ListFilesPaged(this.GetUri(path), parameters);
         }
 
-        public AdlClient.Models.FsPathUri GetUri(FsPath path)
+        public AdlClient.Models.FsUri GetUri(FsPath path)
         {
-            return new AdlClient.Models.FsPathUri(this.Account.Name, path.ToString());
+            return new AdlClient.Models.FsUri(this.Account.Name, path.ToString());
         }
 
         public void CreateDirectory(FsPath path)
