@@ -218,7 +218,7 @@ namespace DemoAdlClient
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 10;
 
-            var jobfields = new AdlClient.Models.JobFields();
+            var jobfields = new AdlClient.Models.JobExprFields();
             listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
             listing_parameters.Sorting.Field = jobfields.SubmitTime;
 
@@ -232,7 +232,7 @@ namespace DemoAdlClient
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 10;
 
-            var jobfields = new AdlClient.Models.JobFields();
+            var jobfields = new AdlClient.Models.JobExprFields();
             listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Ascending;
             listing_parameters.Sorting.Field = jobfields.SubmitTime;
 
@@ -246,7 +246,7 @@ namespace DemoAdlClient
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 1;
 
-            var jobfields = new AdlClient.Models.JobFields();
+            var jobfields = new AdlClient.Models.JobExprFields();
             listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Ascending;
             listing_parameters.Sorting.Field = jobfields.SubmitTime;
 

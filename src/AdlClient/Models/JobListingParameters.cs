@@ -11,7 +11,7 @@ namespace AdlClient.Models
             this.Filter = new JobListingFilter();
             this.Sorting = new JobListingSorting();
 
-            var jobfields = new JobFields();
+            var jobfields = new JobExprFields();
             this.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
             this.Sorting.Field = jobfields.SubmitTime;
         }

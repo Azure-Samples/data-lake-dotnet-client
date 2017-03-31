@@ -17,7 +17,7 @@ namespace AdlClient.Models
 
         public JobListingFilter()
         {
-            var fields = new JobFields();
+            var fields = new JobExprFields();
 
             this.Submitter = new OData.Models.FieldFilterString(fields.Submitter);
             this.Name = new OData.Models.FieldFilterString(fields.Name);

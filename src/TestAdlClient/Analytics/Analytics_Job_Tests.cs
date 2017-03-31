@@ -49,7 +49,7 @@ namespace TestAdlClient.Analytics
         {
             this.Initialize();
 
-            var jobfields = new JobFields();
+            var jobfields = new JobExprFields();
 
             var listing_parameters = new JobListingParameters();
             listing_parameters.Top = 30;
