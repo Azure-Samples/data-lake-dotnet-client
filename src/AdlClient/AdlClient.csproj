@@ -120,6 +120,7 @@
     <Compile Include="Models\JobRef.cs" />
     <Compile Include="Commands\LinkedStoreCommands.cs" />
     <Compile Include="Models\JobUri.cs" />
+    <Compile Include="Models\SortSpec.cs" />
     <Compile Include="Models\StoreAccountPortalUri.cs" />
     <Compile Include="OData\Models\DateTimeFilterCategory.cs" />
     <Compile Include="OData\Models\EnumFilterCategory.cs" />
@@ -134,7 +135,7 @@
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
     <Compile Include="Commands\CatalogCommands.cs" />
     <Compile Include="Commands\JobCommands.cs" />
-    <Compile Include="Models\JobFields.cs" />
+    <Compile Include="Models\JobExprFields.cs" />
     <Compile Include="Models\JobListingSorting.cs" />
     <Compile Include="Commands\AnalyticsAccountCommands.cs" />
     <Compile Include="OData\ExprCeiling.cs" />

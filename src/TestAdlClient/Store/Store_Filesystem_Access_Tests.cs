@@ -12,14 +12,14 @@ namespace TestAdlClient.Store
         {
             var dir = new FsPath("/test_adl_demo_client");
 
-            if (this.StoreClient.FileSystem.Exists(dir))
+            if (this.StoreClient.FileSystem.PathExists(dir))
             {
                 this.StoreClient.FileSystem.Delete(dir, true);
             }
 
             this.StoreClient.FileSystem.CreateDirectory(dir);
 
-            if (!this.StoreClient.FileSystem.Exists(dir))
+            if (!this.StoreClient.FileSystem.PathExists(dir))
             {
                 Assert.Fail();
             }
@@ -33,7 +33,7 @@ namespace TestAdlClient.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.StoreClient.FileSystem.Exists(fname))
+            if (this.StoreClient.FileSystem.PathExists(fname))
             {
                 this.StoreClient.FileSystem.Delete(fname);
             }
@@ -81,7 +81,7 @@ namespace TestAdlClient.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.StoreClient.FileSystem.Exists(fname))
+            if (this.StoreClient.FileSystem.PathExists(fname))
             {
                 this.StoreClient.FileSystem.Delete(fname);
             }
@@ -116,7 +116,7 @@ namespace TestAdlClient.Store
             var dir = create_test_dir();
 
             var fname = dir.Append("foo.txt");
-            if (this.StoreClient.FileSystem.Exists(fname))
+            if (this.StoreClient.FileSystem.PathExists(fname))
             {
                 this.StoreClient.FileSystem.Delete(fname);
             }

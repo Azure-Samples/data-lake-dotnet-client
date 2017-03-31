@@ -54,7 +54,7 @@ namespace AdlClient.Models
 
         public JobRef GetJobReference()
         {
-            return new JobRef(this.JobId, this.Account);
+            return new JobRef(this.Account.SubscriptionId, this.Account.ResourceGroup, this.Account.Name, this.JobId);
         }       
 
         internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccountRef acct)

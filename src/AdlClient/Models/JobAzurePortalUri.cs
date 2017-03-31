@@ -17,10 +17,10 @@
 
         public JobAzurePortalUri(JobRef job_ref)
         {
-            this.SubscriptionId = job_ref.Account.SubscriptionId;
-            this.ResourceGroup = job_ref.Account.ResourceGroup;
-            this.Account = job_ref.Account.Name;
-            this.JobId = job_ref.Id;
+            this.SubscriptionId = job_ref.SubscriptionId;
+            this.ResourceGroup = job_ref.ResourceGroup;
+            this.Account = job_ref.Account;
+            this.JobId = job_ref.JobId;
         }
 
         public static JobAzurePortalUri Parse(string s)
@@ -124,8 +124,7 @@
 
         public JobRef GetJobRef()
         {
-            var account = new AnalyticsAccountRef(this.SubscriptionId,this.ResourceGroup,this.Account);
-            return new JobRef(this.JobId, account);
+            return new JobRef(this.SubscriptionId, this.ResourceGroup, this.Account, this.JobId);
         }
     }
 }

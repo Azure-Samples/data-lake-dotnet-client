@@ -19,6 +19,22 @@ namespace TestAdlClient.Store
 
             var folder = new FsPath("/test_adl_demo_client/List_Files_Recursive");
 
+            if (StoreClient.FileSystem.FolderExists(folder))
+            {
+                StoreClient.FileSystem.Delete(folder, true);
+            }
+
+            var bytes = new byte[0];
+            var fcp = new AdlClient.Models.FileCreateParameters();
+            StoreClient.FileSystem.Create(folder.Append("f1"), bytes, fcp);
+            StoreClient.FileSystem.Create(folder.Append("f2"), bytes, fcp);
+            StoreClient.FileSystem.Create(folder.Append("a/f3"), bytes, fcp);
+            StoreClient.FileSystem.Create(folder.Append("a/f4"), bytes, fcp);
+            StoreClient.FileSystem.Create(folder.Append("a/b/f5"), bytes, fcp);
+            StoreClient.FileSystem.Create(folder.Append("a/b/f6"), bytes, fcp);
+            StoreClient.FileSystem.CreateDirectory(folder.Append("b"));
+
+
             var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(folder, lfo);
             foreach (var page in pages)
             {
@@ -29,8 +45,8 @@ namespace TestAdlClient.Store
                 page_count++;
             }
 
-            Assert.AreEqual(6,page_count);
-            Assert.AreEqual(19,child_count);
+            Assert.AreEqual(3,page_count);
+            Assert.AreEqual(9,child_count);
         }
 
         [TestMethod]
@@ -67,7 +83,7 @@ namespace TestAdlClient.Store
             var cfo = new FileCreateParameters();
             cfo.Overwrite = true;
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
-            Assert.IsTrue( this.StoreClient.FileSystem.Exists(fname));
+            Assert.IsTrue( this.StoreClient.FileSystem.PathExists(fname));
             var fi = this.StoreClient.FileSystem.GetFileStatus(fname);
             Assert.AreEqual(10,fi.Length);
 
@@ -78,8 +94,8 @@ namespace TestAdlClient.Store
             }
 
             this.StoreClient.FileSystem.Delete(dir,true);
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(fname));
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(dir));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(fname));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(dir));
 
         }
 
@@ -106,8 +122,8 @@ namespace TestAdlClient.Store
             }
 
             this.StoreClient.FileSystem.Delete(dir, true);
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(fname1));
-            Assert.IsFalse(this.StoreClient.FileSystem.Exists(dir));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(fname1));
+            Assert.IsFalse(this.StoreClient.FileSystem.PathExists(dir));
 
         }
 
@@ -115,14 +131,14 @@ namespace TestAdlClient.Store
         {
             var dir = new FsPath("/test_adl_demo_client");
 
-            if (this.StoreClient.FileSystem.Exists(dir))
+            if (this.StoreClient.FileSystem.PathExists(dir))
             {
                 this.StoreClient.FileSystem.Delete(dir, true);
             }
 
             this.StoreClient.FileSystem.CreateDirectory(dir);
 
-            if (!this.StoreClient.FileSystem.Exists(dir))
+            if (!this.StoreClient.FileSystem.PathExists(dir))
             {
                 Assert.Fail();
             }

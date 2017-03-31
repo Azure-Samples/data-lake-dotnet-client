@@ -171,7 +171,7 @@ namespace DemoAdlClient
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 10;
-            listing_parameters.Filter.Submitter.IsOneOf(adla.Authentication.Token.DisplayableId);
+            listing_parameters.Filter.Submitter.IsOneOf(adla.Authentication.TokenCacheItem.DisplayableId);
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
@@ -217,10 +217,7 @@ namespace DemoAdlClient
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 10;
-
-            var jobfields = new AdlClient.Models.JobFields();
-            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
-            listing_parameters.Sorting.Field = jobfields.SubmitTime;
+            listing_parameters.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Descending);
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
@@ -231,10 +228,7 @@ namespace DemoAdlClient
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 10;
-
-            var jobfields = new AdlClient.Models.JobFields();
-            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Ascending;
-            listing_parameters.Sorting.Field = jobfields.SubmitTime;
+            listing_parameters.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Ascending);
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
@@ -245,11 +239,7 @@ namespace DemoAdlClient
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 1;
-
-            var jobfields = new AdlClient.Models.JobFields();
-            listing_parameters.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Ascending;
-            listing_parameters.Sorting.Field = jobfields.SubmitTime;
-
+            listing_parameters.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Ascending);
             listing_parameters.Filter.Submitter.Contains("saveenr");
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
