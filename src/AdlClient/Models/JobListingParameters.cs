@@ -2,7 +2,10 @@ namespace AdlClient.Models
 {
     public class JobListingParameters
     {
-        public int Top=100; // 300 is the ADLA limit
+        // 100 is picked as the default number of records to 
+        // retrieve so that vallers are overwhelmed with data on first use
+
+        public int Top = 100; 
         public JobListingFilter Filter;
         public JobListingSorting Sorting;
 
@@ -11,9 +14,7 @@ namespace AdlClient.Models
             this.Filter = new JobListingFilter();
             this.Sorting = new JobListingSorting();
 
-            var jobfields = new JobExprFields();
-            this.Sorting.Direction = AdlClient.OData.Models.OrderByDirection.Descending;
-            this.Sorting.Field = jobfields.SubmitTime;
+            this.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Descending);
         }
     }
 }
