@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AdlClient.Commands;
 using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
@@ -6,6 +7,90 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestAdlClient.Analytics
 {
+    [TestClass]
+    public class Analytics_Profile_Tests : Base_Tests
+    {
+
+        class JobVertexProfile
+        {
+            public System.DateTime? approxEndTime;
+            public System.DateTime? versionCreatedTime;
+            public System.DateTime? vertexCreateStart;
+            public System.DateTime? vertexCreateEnd;
+            public System.DateTime? vertexQueueStart;
+            public System.DateTime? vertexQueueEnd;
+            public System.DateTime? vertexPNQueueStart;
+            public System.DateTime? vertexPNQueueEnd;
+            public System.DateTime? vertexStartTime;
+            public System.DateTime? vertexEndTime;
+            public System.DateTime? cleanedUpTime;
+            public string vertexGuid;
+            public string processId;
+            public string vertexId;
+            public long bytesRead;
+            public long bytesWritten;
+            public string vertexResult;
+        }
+
+        private static System.DateTime? _getDate(string dateString)
+        {
+            System.DateTime dt;
+            if (System.DateTime.TryParse(dateString, out dt))
+            {
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [TestMethod]
+        [DeploymentItem("content\\profiles\\profile_1.txt")]
+        public void Parse()
+        {
+            var filetext = System.IO.File.ReadAllText("profile_1.txt");
+
+            var fileRows = filetext.Split('\n');
+            var starttime = System.DateTime.MaxValue;
+            int endTime = 0;
+
+
+            for (var i = 0; i < fileRows.Length; i++)
+            {
+                var row = fileRows[i];
+
+                var rowColumns = fileRows[i].Split(',');
+                int col_count = rowColumns.Length;
+
+                if (rowColumns[0] == "timing")
+                {
+                    var v = new JobVertexProfile();
+                    v.approxEndTime = _getDate(rowColumns[1]);
+                    v.versionCreatedTime = _getDate(rowColumns[7]);
+                    v.vertexCreateStart = _getDate(rowColumns[8]);
+                    v.vertexCreateEnd = _getDate(rowColumns[12]);
+                    v.vertexQueueStart = _getDate(rowColumns[19]);
+                    v.vertexQueueEnd = _getDate(rowColumns[21]);
+                    v.approxEndTime = _getDate(rowColumns[9]);
+                    v.vertexPNQueueEnd = _getDate(rowColumns[20]);
+                    v.vertexStartTime = _getDate(rowColumns[10]);
+                    v.vertexEndTime = _getDate(rowColumns[22]);
+                    v.cleanedUpTime = _getDate(rowColumns[11]);
+                    v.vertexGuid = rowColumns[3];
+                    v.processId = rowColumns[4];
+                    v.vertexId = rowColumns[4];
+                    v.bytesRead = long.Parse(rowColumns[13]);
+                    v.bytesWritten = long.Parse(rowColumns[14]);
+                    v.vertexResult = rowColumns[5];
+
+                }
+
+            }
+
+        }
+    }
+
     [TestClass]
     public class Analytics_Job_Tests : Base_Tests
     {
