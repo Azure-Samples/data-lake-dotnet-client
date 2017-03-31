@@ -120,6 +120,7 @@
     <Compile Include="Models\JobRef.cs" />
     <Compile Include="Commands\LinkedStoreCommands.cs" />
     <Compile Include="Models\JobUri.cs" />
+    <Compile Include="Models\SortSpec.cs" />
     <Compile Include="Models\StoreAccountPortalUri.cs" />
     <Compile Include="OData\Models\DateTimeFilterCategory.cs" />
     <Compile Include="OData\Models\EnumFilterCategory.cs" />
