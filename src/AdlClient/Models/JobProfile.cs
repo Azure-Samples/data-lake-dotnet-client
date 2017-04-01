@@ -69,13 +69,12 @@ namespace AdlClient.Models
 
             profile.VertexProfiles = new Dictionary<string, JobVertexProfile>();
 
-            var filetext = System.IO.File.ReadAllText(filename);
-
-            var lines = filetext.Split('\n');
+            var stream = new System.IO.StreamReader(filename);
             profile.StartTime = System.DateTime.MaxValue;
             profile.EndTime = System.DateTime.MinValue;
 
-            foreach (string line in lines)
+            string line;
+            while ((line = stream.ReadLine()) != null)
             {
                 var cols = line.Split(',');
 
