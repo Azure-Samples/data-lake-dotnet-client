@@ -12,7 +12,7 @@ namespace TestAdlClient.Analytics
         [DeploymentItem("content\\profiles\\profile_1.txt")]
         public void Parse()
         {
-            var profile = JobProfile.Parse("profile_1.txt");
+            var profile = JobProfile.LoadProfile("profile_1.txt");
         }
     }
 

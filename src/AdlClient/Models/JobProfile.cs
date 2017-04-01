@@ -5,50 +5,56 @@ namespace AdlClient.Models
 {
     public class JobProfile
     {
-        public System.DateTime StartTime;
-        public double TimeDilation;
-        public Dictionary<string, JobVertexProfile> VertexProfiles;
+        public System.DateTime StartTime { get; private set; }
+        public System.DateTime EndTime { get; private set; }
 
-        private static System.DateTime? ParseDate(string dateString)
-        {
-            var dt = _ParseDate1(dateString);
-            return dt;
-        }
+        public Dictionary<string, JobVertexProfile> VertexProfiles { get; private set; }
 
-        private static System.DateTime? _ParseDate1(string dateString)
+        private static System.DateTime? _parse_date(string dateString)
         {
             dateString = dateString.Replace("PDT", "-8");
 
-            string fmt = "yyyy-MM-dd HH:mm:ss z";
-            DateTime dt;
-            bool result = DateTime.TryParseExact(dateString, fmt, System.Globalization.CultureInfo.InvariantCulture,
-                System.Globalization.DateTimeStyles.None, out dt);
+            DateTime result_dt = System.DateTime.MaxValue;
 
-            return result ? (DateTime?) dt : _ParseDate2(dateString);
+            var culture = System.Globalization.CultureInfo.InvariantCulture;
+            var style = System.Globalization.DateTimeStyles.None;
+
+            string fmt_1 = "yyyy-MM-dd HH:mm:ss z";
+            string fmt_2 = "yyyy-MM-dd HH:mm:ss.fff z";
+
+            bool dt_parsed = false;
+
+            if (!dt_parsed)
+            {
+                dt_parsed = DateTime.TryParseExact(dateString, fmt_1, culture, style, out result_dt);
+            }
+
+            if (!dt_parsed)
+            {
+                dt_parsed = DateTime.TryParseExact(dateString, fmt_2, culture, style, out result_dt);
+            }
+
+            // If an of the parsing succeeded, then return the datetime
+
+            if (dt_parsed)
+            {
+                return result_dt;
+            }
+
+            return null;
         }
 
-        private static System.DateTime? _ParseDate2(string dateString)
-        {
-            DateTime dt;
-            dateString = dateString.Replace("PDT", "-8");
-
-            string fmt = "yyyy-MM-dd HH:mm:ss.fff z";
-            bool result = DateTime.TryParseExact(dateString, fmt, System.Globalization.CultureInfo.InvariantCulture,
-                System.Globalization.DateTimeStyles.None, out dt);
-
-            return result ? (DateTime?)dt : null;
-        }
-        public static DateTime DateTimeMin(DateTime d1, DateTime d2)
+        private static DateTime DateTimeMin(DateTime d1, DateTime d2)
         {
             return new DateTime(Math.Min(d1.Ticks, d2.Ticks));
         }
 
-        public static DateTime DateTimeMax(DateTime d1, DateTime d2)
+        private static DateTime DateTimeMax(DateTime d1, DateTime d2)
         {
             return new DateTime(Math.Max(d1.Ticks, d2.Ticks));
         }
 
-        private static string FixId(string id)
+        private static string _get_vertex_id(string id)
         {
             if (id.IndexOf('[') != -1)
             {
@@ -57,7 +63,7 @@ namespace AdlClient.Models
             return id;
         }
 
-        public static JobProfile Parse(string filename)
+        public static JobProfile LoadProfile(string filename)
         {
             var profile = new JobProfile();
 
@@ -66,55 +72,50 @@ namespace AdlClient.Models
             var filetext = System.IO.File.ReadAllText(filename);
 
             var lines = filetext.Split('\n');
-            var startTime = System.DateTime.MaxValue;
-            var endTime = System.DateTime.MinValue;
+            profile.StartTime = System.DateTime.MaxValue;
+            profile.EndTime = System.DateTime.MinValue;
 
-
-            for (var i = 0; i < lines.Length; i++)
+            foreach (string line in lines)
             {
-                var line = lines[i];
-
                 var cols = line.Split(',');
 
                 if (cols[0] == "timing")
                 {
                     var v = new JobVertexProfile();
-                    v.ApproxEndTime = ParseDate(cols[1]);
-                    v.VersionCreatedTime = ParseDate(cols[7]);
-                    v.VertexCreateStart = ParseDate(cols[8]);
-                    v.VertexCreateEnd = ParseDate(cols[12]);
-                    v.VertexQueueStart = ParseDate(cols[19]);
-                    v.VertexQueueEnd = ParseDate(cols[21]);
-                    v.ApproxEndTime = ParseDate(cols[9]);
-                    v.VertexPNQueueEnd = ParseDate(cols[20]);
-                    v.VertexStartTime = ParseDate(cols[10]);
-                    v.VertexEndTime = ParseDate(cols[22]);
-                    v.CleanedUpTime = ParseDate(cols[11]);
+                    v.ApproxEndTime = _parse_date(cols[1]);
+                    v.VersionCreatedTime = _parse_date(cols[7]);
+                    v.VertexCreateStart = _parse_date(cols[8]);
+                    v.VertexCreateEnd = _parse_date(cols[12]);
+                    v.VertexQueueStart = _parse_date(cols[19]);
+                    v.VertexQueueEnd = _parse_date(cols[21]);
+                    v.ApproxEndTime = _parse_date(cols[9]);
+                    v.VertexPNQueueEnd = _parse_date(cols[20]);
+                    v.VertexStartTime = _parse_date(cols[10]);
+                    v.VertexEndTime = _parse_date(cols[22]);
+                    v.CleanedUpTime = _parse_date(cols[11]);
                     v.VertexGuid = cols[3];
                     v.ProcessId = cols[4];
-                    v.VertexId = FixId(cols[4]);
+                    v.VertexId = _get_vertex_id(cols[4]);
                     v.BytesRead = long.Parse(cols[13]);
                     v.BytesWritten = long.Parse(cols[14]);
                     v.VertexResult = cols[5];
 
+                    // Update profile StartTime if needed
                     if (v.VertexPNQueueEnd.HasValue && v.VersionCreatedTime.HasValue)
                     {
-                        startTime = DateTimeMin(v.VersionCreatedTime.Value, startTime);
+                        profile.StartTime = DateTimeMin(v.VersionCreatedTime.Value, profile.StartTime );
                     }
 
+                    // Update profile EndTime if needed
                     if (v.VertexEndTime.HasValue && v.CleanedUpTime.HasValue)
                     {
-                        endTime = DateTimeMax(v.CleanedUpTime.Value, endTime);
+                        profile.EndTime = DateTimeMax(v.CleanedUpTime.Value, profile.EndTime);
                     }
 
+                    // Store (or update) the verex information
                     profile.VertexProfiles[v.VertexGuid] = v;
-
                 }
             }
-
-            profile.StartTime = startTime;
-            var totalTime = endTime - startTime;
-            profile.TimeDilation = 1.0;//totalTime / 1.0; // Constants.JobProfile.simulationRunTime;
 
             return profile;
         }
