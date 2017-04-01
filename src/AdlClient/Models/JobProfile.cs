@@ -81,33 +81,16 @@ namespace AdlClient.Models
 
                 if (cols[0] == "timing")
                 {
-                    var v = new JobVertexProfile();
-                    v.ApproxEndTime = _parse_date(cols[1]);
-                    v.VersionCreatedTime = _parse_date(cols[7]);
-                    v.VertexCreateStart = _parse_date(cols[8]);
-                    v.VertexCreateEnd = _parse_date(cols[12]);
-                    v.VertexQueueStart = _parse_date(cols[19]);
-                    v.VertexQueueEnd = _parse_date(cols[21]);
-                    v.ApproxEndTime = _parse_date(cols[9]);
-                    v.VertexPNQueueEnd = _parse_date(cols[20]);
-                    v.VertexStartTime = _parse_date(cols[10]);
-                    v.VertexEndTime = _parse_date(cols[22]);
-                    v.CleanedUpTime = _parse_date(cols[11]);
-                    v.VertexGuid = cols[3];
-                    v.ProcessId = cols[4];
-                    v.VertexId = _get_vertex_id(cols[4]);
-                    v.BytesRead = long.Parse(cols[13]);
-                    v.BytesWritten = long.Parse(cols[14]);
-                    v.VertexResult = cols[5];
+                    var v = get_vertex_info(cols);
 
                     // Update profile StartTime if needed
-                    if (v.VertexPNQueueEnd.HasValue && v.VersionCreatedTime.HasValue)
+                    if (v.PNQueueEnd.HasValue && v.CreatedTime.HasValue)
                     {
-                        profile.StartTime = DateTimeMin(v.VersionCreatedTime.Value, profile.StartTime );
+                        profile.StartTime = DateTimeMin(v.CreatedTime.Value, profile.StartTime);
                     }
 
                     // Update profile EndTime if needed
-                    if (v.VertexEndTime.HasValue && v.CleanedUpTime.HasValue)
+                    if (v.EndTime.HasValue && v.CleanedUpTime.HasValue)
                     {
                         profile.EndTime = DateTimeMax(v.CleanedUpTime.Value, profile.EndTime);
                     }
@@ -118,6 +101,37 @@ namespace AdlClient.Models
             }
 
             return profile;
+        }
+
+        private static JobVertexProfile get_vertex_info(string[] cols)
+        {
+            var v = new JobVertexProfile();
+            v.ApproxEndTime = _parse_date(cols[1]);
+            v.CreatedTime = _parse_date(cols[7]);
+
+            v.CreateStart = _parse_date(cols[8]);
+            v.CreateEnd = _parse_date(cols[12]);
+
+            v.QueueStart = _parse_date(cols[19]);
+            v.QueueEnd = _parse_date(cols[21]);
+
+            v.PNQueueStart = _parse_date(cols[9]);
+            v.PNQueueEnd = _parse_date(cols[20]);
+
+            v.StartTime = _parse_date(cols[10]);
+            v.EndTime = _parse_date(cols[22]);
+
+            v.CleanedUpTime = _parse_date(cols[11]);
+
+            v.VertexGuid = cols[3];
+            v.ProcessId = cols[4];
+            v.VertexId = _get_vertex_id(cols[4]);
+            v.VertexResult = cols[5];
+
+            v.BytesRead = long.Parse(cols[13]);
+            v.BytesWritten = long.Parse(cols[14]);
+
+            return v;
         }
     }
 }
