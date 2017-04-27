@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+using System.Net.Http.Headers;
 using Microsoft.Rest;
+using Newtonsoft.Json.Linq;
 using MSAD = Microsoft.IdentityModel.Clients.ActiveDirectory;
 using REST = Microsoft.Rest.Azure;
 
@@ -89,6 +91,28 @@ namespace AdlClient
             string basefname = "AzureDataLakeClient_[" + this.Tenant + "].tokencache";
             var tokenCachePath = System.IO.Path.Combine(path, basefname);
             return tokenCachePath;
+        }
+
+        public static string GetTenantId(string tenant)
+        {
+            // example https://login.windows.net/microsoft.onmicrosoft.com/.well-known/openid-configuration
+            string url = "https://login.windows.net/" + tenant + "/.well-known/openid-configuration";
+
+            var wc = new System.Net.WebClient();
+            var s = wc.OpenRead(url);
+            string result;
+            using (var reader = new System.IO.StreamReader(s))
+            {
+                result = reader.ReadToEnd(); // do something fun...                    |
+            }
+            var root = JObject.Parse(result);
+            var token_endpoint_element = root["token_endpoint"];
+            string token_endpoint = token_endpoint_element.Value<string>();
+
+            var parts = token_endpoint.Split('/');
+
+            string tenantid = parts[3];
+            return tenantid;
         }
     }
 

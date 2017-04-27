@@ -13,5 +13,12 @@ namespace TestAdlClient
 
             var subs = this.AzureClient.ListSubscriptions().ToList();
         }
+
+        [TestMethod]
+        public void GetTenantId()
+        {
+            var t = AdlClient.Authentication.GetTenantId("microsoft.onmicrosoft.com");
+
+        }
     }
 }
