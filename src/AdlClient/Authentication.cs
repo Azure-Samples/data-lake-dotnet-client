@@ -103,7 +103,7 @@ namespace AdlClient
             string result;
             using (var reader = new System.IO.StreamReader(s))
             {
-                result = reader.ReadToEnd(); // do something fun...                    |
+                result = reader.ReadToEnd();
             }
             var root = JObject.Parse(result);
             var token_endpoint_element = root["token_endpoint"];
