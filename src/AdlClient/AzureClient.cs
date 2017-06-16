@@ -18,7 +18,7 @@ namespace AdlClient
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()
         {
-            var sub_client = new MSAZURERM.SubscriptionClient(this.Authentication.ServiceClientCredentials);
+            var sub_client = new MSAZURERM.SubscriptionClient(this.Authentication.ARMCreds);
 
             var subs = sub_client.Subscriptions.List();
             foreach (var sub in subs)
@@ -30,7 +30,7 @@ namespace AdlClient
         // ----------
         public IEnumerable<MSAZURERM.Models.ResourceGroup> ListResourceGroups(string subid)
         {
-            var rm_client = new MSAZURERM.ResourceManagementClient(this.Authentication.ServiceClientCredentials);
+            var rm_client = new MSAZURERM.ResourceManagementClient(this.Authentication.ARMCreds);
             rm_client.SubscriptionId = subid;
 
             var rgs = rm_client.ResourceGroups.List();

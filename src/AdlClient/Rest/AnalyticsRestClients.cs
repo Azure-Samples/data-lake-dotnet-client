@@ -10,9 +10,9 @@ namespace AdlClient
 
         public AnalyticsRestClients(Authentication authSession, AdlClient.Models.AnalyticsAccountRef account)
         {
-            this._JobRest = new AnalyticsJobsRestWrapper(authSession.ServiceClientCredentials);
-            this._CatalogRest = new AnalyticsCatalogRestWrapper(authSession.ServiceClientCredentials);
-            this._AdlaAccountMgmtRest = new AnalyticsAccountManagmentRestWrapper(account.SubscriptionId, authSession.ServiceClientCredentials);
+            this._JobRest = new AnalyticsJobsRestWrapper(authSession.ADLCreds);
+            this._CatalogRest = new AnalyticsCatalogRestWrapper(authSession.ADLCreds);
+            this._AdlaAccountMgmtRest = new AnalyticsAccountManagmentRestWrapper(account.SubscriptionId, authSession.ADLCreds);
         }
     }
 }

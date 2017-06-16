@@ -169,6 +169,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_SubmittedBy_AuthenticatedUser(AdlClient.AnalyticsClient adla)
         {
+            /*
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 10;
             listing_parameters.Filter.Submitter.IsOneOf(adla.Authentication.TokenCacheItem.DisplayableId);
@@ -176,6 +177,7 @@ namespace DemoAdlClient
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
             PrintJobs(jobs);
+            */
         }
 
 

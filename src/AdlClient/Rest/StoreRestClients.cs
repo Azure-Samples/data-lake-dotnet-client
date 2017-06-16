@@ -9,8 +9,8 @@
         public StoreRestClients(Authentication authSession, AdlClient.Models.StoreAccountRef account)
         {
             this.Account = account;
-            this.FileSystemRest = new StoreFileSystemRestWrapper(authSession.ServiceClientCredentials);
-            this.StoreAccountMgmtRest = new StoreManagementRestWrapper(account.SubscriptionId, authSession.ServiceClientCredentials);
+            this.FileSystemRest = new StoreFileSystemRestWrapper(authSession.ADLCreds);
+            this.StoreAccountMgmtRest = new StoreManagementRestWrapper(account.SubscriptionId, authSession.ADLCreds);
         }
     }
 }
