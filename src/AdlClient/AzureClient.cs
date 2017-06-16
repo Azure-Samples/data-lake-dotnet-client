@@ -1,6 +1,7 @@
 using MSAZURERM = Microsoft.Azure.Management.ResourceManager;
 using System.Collections.Generic;
 using Microsoft.Azure.Management.ResourceManager; // Needed for extension methods
+using System.Linq;
 
 namespace AdlClient
 {
