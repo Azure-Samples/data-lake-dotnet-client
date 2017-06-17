@@ -6,17 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace TestAdlClient.Analytics
 {
     [TestClass]
-    public class Analytics_Profile_Tests : Base_Tests
-    {
-        [TestMethod]
-        [DeploymentItem("content\\profiles\\profile_1.txt")]
-        public void Parse()
-        {
-            var profile = JobProfile.LoadProfile("profile_1.txt");
-        }
-    }
-
-    [TestClass]
     public class Analytics_Job_Tests : Base_Tests
     {
 

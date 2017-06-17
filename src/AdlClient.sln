@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdlClient", "AdlClient\AdlClient.csproj", "{DCAB6EC2-704F-45E8-9BE0-BB0D33C34232}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAdlClient", "TestAdlClient\TestAdlClient.csproj", "{EE881980-E06E-4499-9813-EDC986BF96A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAdlClient", "DemoAdlClient\DemoAdlClient.csproj", "{F61DCA08-6676-4527-9DD6-2107A742BE62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCAB6EC2-704F-45E8-9BE0-BB0D33C34232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCAB6EC2-704F-45E8-9BE0-BB0D33C34232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCAB6EC2-704F-45E8-9BE0-BB0D33C34232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCAB6EC2-704F-45E8-9BE0-BB0D33C34232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE881980-E06E-4499-9813-EDC986BF96A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE881980-E06E-4499-9813-EDC986BF96A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE881980-E06E-4499-9813-EDC986BF96A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE881980-E06E-4499-9813-EDC986BF96A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F61DCA08-6676-4527-9DD6-2107A742BE62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F61DCA08-6676-4527-9DD6-2107A742BE62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F61DCA08-6676-4527-9DD6-2107A742BE62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F61DCA08-6676-4527-9DD6-2107A742BE62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

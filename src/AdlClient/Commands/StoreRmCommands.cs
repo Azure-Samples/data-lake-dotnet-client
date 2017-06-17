@@ -21,7 +21,7 @@ namespace AdlClient.Commands
 
         private DataLakeStoreAccountManagementClient _get_account_mgmt_client(string subid)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.Authentication.ADLCreds);
+            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.Authentication.ARMCreds);
             client.SubscriptionId = subid;
             return client;
         }

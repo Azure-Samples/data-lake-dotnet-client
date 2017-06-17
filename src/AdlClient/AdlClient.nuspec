@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AzureDataLake.Client</id>
-    <version>1.10.0-preview</version>
+    <version>1.11.0-preview</version>
     <authors>saveenr</authors>
     <owners>saveenr</owners>
     <licenseUrl>https://raw.githubusercontent.com/Microsoft/dotnet/master/LICENSE</licenseUrl>

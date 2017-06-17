@@ -13,7 +13,7 @@ namespace AdlClient.Commands
         {
             this.Account = account;
             this.RestClients = restclients;
-            this.LinkedStorage  = new LinkedStoreCommands(account,restclients);
+            this.LinkedStorage  = new LinkedStoreCommands(account, restclients);
         }
 
         public MSADLA.Models.DataLakeAnalyticsAccount Get()

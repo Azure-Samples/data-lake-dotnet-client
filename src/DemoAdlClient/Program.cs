@@ -28,7 +28,7 @@ namespace DemoAdlClient
             var az = new AdlClient.AzureClient(auth);
             var adla = new AdlClient.AnalyticsClient(auth, adla_account);
             var adls = new AdlClient.StoreClient(auth, adls_account);
-            
+
             // ------------------------------
             // Run the Demo
             // ------------------------------
@@ -52,7 +52,7 @@ namespace DemoAdlClient
             var subs = az.ListSubscriptions();
             foreach (var sub in subs)
             {
-                Console.WriteLine("Sub: {0} {1}",sub.DisplayName, sub.Id);
+                Console.WriteLine("Sub: {0} {1}", sub.DisplayName, sub.Id);
             }
         }
 
@@ -71,12 +71,12 @@ namespace DemoAdlClient
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Top = 5;
-            listing_parameters.Filter.State.IsOneOf( MSADLA.Models.JobState.Ended );
-            listing_parameters.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Succeeded );
+            listing_parameters.Filter.State.IsOneOf(MSADLA.Models.JobState.Ended);
+            listing_parameters.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Succeeded);
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
             var first_job = jobs.FirstOrDefault();
-            if (first_job!=null)
+            if (first_job != null)
             {
                 var jobdetails = adla.Jobs.GetJobDetails(first_job.JobId, true);
             }
@@ -130,11 +130,11 @@ namespace DemoAdlClient
         {
             var folder = new AdlClient.Models.FsPath("/Samples");
             var lfo = new AdlClient.Models.FileListingParameters();
-            foreach (var page in adls.FileSystem.ListFilesPaged(folder,lfo))
+            foreach (var page in adls.FileSystem.ListFilesPaged(folder, lfo))
             {
                 foreach (var fileitemn in page.FileItems)
                 {
-                    Console.WriteLine("path={0} filename={1}",page.Path,fileitemn.PathSuffix);                    
+                    Console.WriteLine("path={0} filename={1}", page.Path, fileitemn.PathSuffix);
                 }
             }
         }
@@ -149,8 +149,8 @@ namespace DemoAdlClient
             {
                 var job_ref = job.GetJobReference();
 
-                var job_uri = new JobUri( job_ref );
-                var job_portal_uri = new JobAzurePortalUri( job_ref );
+                var job_uri = new JobUri(job_ref);
+                var job_portal_uri = new JobAzurePortalUri(job_ref);
 
                 Console.WriteLine(job_uri.ToString());
                 Console.WriteLine(job_portal_uri.ToString());
@@ -292,7 +292,7 @@ namespace DemoAdlClient
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
             listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Models.RangeDateTime.InTheLastNHours(24));
-            var jobs = adla.Jobs.ListJobs(listing_parameters).OrderByDescending(j=>j.AUSeconds).Take(10).ToList();
+            var jobs = adla.Jobs.ListJobs(listing_parameters).OrderByDescending(j => j.AUSeconds).Take(10).ToList();
 
             PrintJobs(jobs);
         }
@@ -378,13 +378,13 @@ namespace DemoAdlClient
             var failed_jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
             var results = from job in failed_jobs
-                          group job by job.Submitter into job_group
-                          select new 
-                          {
-                              Submitter = job_group.Key,
-                              Count = job_group.Count(),
-                              AUHours = job_group.Sum( j=> j.AUSeconds)/(60.0*60.0),
-                          };
+                group job by job.Submitter into job_group
+                select new
+                {
+                    Submitter = job_group.Key,
+                    Count = job_group.Count(),
+                    AUHours = job_group.Sum(j => j.AUSeconds) / (60.0 * 60.0),
+                };
 
             foreach (var i in results)
             {
@@ -406,17 +406,20 @@ namespace DemoAdlClient
             var jobs = adla.Jobs.ListJobs(listing_parameters).Where(j => j.StartTime != null).ToList();
 
             var results = from job in jobs
-                          group job by 
-                            new {   job.Result,
-                                    job.Submitter }  
-                            into job_group
-                          select new
-                          {
-                              Submitter = job_group.Key.Submitter,
-                              Result = job_group.Key.Result,
-                              Count = job_group.Count(),
-                              AUHours = job_group.Sum(j => j.AUSeconds) / (60.0 * 60.0),
-                          };
+                group job by
+                new
+                {
+                    job.Result,
+                    job.Submitter
+                }
+                into job_group
+                select new
+                {
+                    Submitter = job_group.Key.Submitter,
+                    Result = job_group.Key.Result,
+                    Count = job_group.Count(),
+                    AUHours = job_group.Sum(j => j.AUSeconds) / (60.0 * 60.0),
+                };
 
             foreach (var row in results)
             {

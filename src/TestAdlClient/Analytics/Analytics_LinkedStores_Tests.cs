@@ -12,7 +12,7 @@ namespace TestAdlClient.Analytics
         {
             this.Initialize();
 
-            var acct = new AnalyticsAccountRef("ace74b35-b0de-428b-a1d9-55459d7a6e30","adlpminsights","adlpm");
+            var acct = new AnalyticsAccountRef("ace74b35-b0de-428b-a1d9-55459d7a6e30", "adlpminsights", "adlpm");
             var adla = new AdlClient.AnalyticsClient(this.Authentication, acct);
             var account_info = adla.Account.Get();
 

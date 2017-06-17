@@ -10,7 +10,7 @@
         {
             this.Account = account;
             this.FileSystemRest = new StoreFileSystemRestWrapper(authSession.ADLCreds);
-            this.StoreAccountMgmtRest = new StoreManagementRestWrapper(account.SubscriptionId, authSession.ADLCreds);
+            this.StoreAccountMgmtRest = new StoreManagementRestWrapper(account.SubscriptionId, authSession.ARMCreds);
         }
     }
 }

@@ -1,1 +1,1 @@
-nuget.exe pack AdlClient.csproj
+d:\nuget.exe pack AdlClient.csproj
