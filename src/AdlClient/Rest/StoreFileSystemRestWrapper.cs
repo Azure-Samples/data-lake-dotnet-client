@@ -89,6 +89,11 @@ namespace AdlClient.Rest
             return this.RestClient.FileSystem.Open(uri.Account, uri.Path, bytesToRead, offset);
         }
 
+        public void Upload(FsLocalPath localpath, FsUri remotepath, int threads, bool resume, bool overwrite, bool uplaodasbinary)
+        {
+            this.RestClient.FileSystem.UploadFile(remotepath.Account, localpath.ToString(), remotepath.Path, threads, resume, overwrite, uplaodasbinary);
+        }
+
         public void Append(FsUri uri, System.IO.Stream steamContents)
         {
             this.RestClient.FileSystem.Append(uri.Account, uri.Path, steamContents);

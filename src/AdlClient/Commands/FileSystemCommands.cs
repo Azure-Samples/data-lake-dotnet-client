@@ -191,12 +191,8 @@ namespace AdlClient.Commands
 
         public void Upload(FsLocalPath src_path, FsPath dest_path, FileUploadParameters parameters)
         {
-            /*
-            var uploader_parameters = new Microsoft.Azure.Management.DataLake.UploadParameters(src_path.ToString(), dest_path.ToString(), this.Account.Name, isOverwrite: parameters.Force);
-            var frontend = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreFrontEndAdapter(this.Account.Name, this.RestClients.FileSystemRest.RestClient);
-            var uploader = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreUploader(uploader_parameters, frontend);
-            uploader.Execute();
-            */
+            var dest_uri = this.GetUri(dest_path);
+            this.RestClients.FileSystemRest.Upload(src_path, dest_uri, parameters.NumThreads, parameters.Resume, parameters.Overwrite, parameters.UploadAsBinary);
         }
 
         public void Download(FsPath src_path, FsLocalPath dest_path, FileDownloadParameters parameters)
