@@ -197,14 +197,8 @@ namespace AdlClient.Commands
 
         public void Download(FsPath src_path, FsLocalPath dest_path, FileDownloadParameters parameters)
         {
-            using (var stream = this.RestClients.FileSystemRest.Open(this.GetUri(src_path)))
-            {
-                var filemode = parameters.Append ? System.IO.FileMode.Append : System.IO.FileMode.Create;
-                using (var fileStream = new System.IO.FileStream(dest_path.ToString(), filemode))
-                {
-                    stream.CopyTo(fileStream);
-                }
-            }
+            var src_uri = this.GetUri(src_path);
+            this.RestClients.FileSystemRest.Download(src_uri, dest_path, parameters.NumThreads, parameters.Resume, parameters.Overwrite);
         }
 
         public void Append(FsPath path, string content)
