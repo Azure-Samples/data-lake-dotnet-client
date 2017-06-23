@@ -12,7 +12,7 @@ namespace TestAdlClient.Store
         public void AAD_Scenario()
         {
             this.Initialize();
-            var u = this.StoreClient.RestClients.AADclient.Users.Get("saveenr@microsoft.com");
+            var u = this.StoreClient.RestClients.GraphClient.Users.Get("saveenr@microsoft.com");
 
             int x = 1;
         }
