@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AdlClient.Models;
+using Microsoft.Azure.Graph.RBAC;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestAdlClient.Store
@@ -7,6 +8,14 @@ namespace TestAdlClient.Store
     [TestClass]
     public class Store_Filesystem_Access_Tests : Base_Tests
     {
+        [TestMethod]
+        public void AAD_Scenario()
+        {
+            this.Initialize();
+            var u = this.StoreClient.RestClients.AADclient.Users.Get("saveenr@microsoft.com");
+
+            int x = 1;
+        }
 
         private FsPath create_test_dir()
         {
