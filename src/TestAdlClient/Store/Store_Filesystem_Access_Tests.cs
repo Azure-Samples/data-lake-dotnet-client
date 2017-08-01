@@ -109,7 +109,7 @@ namespace TestAdlClient.Store
             // Remove write access for all those entries
             var perms_mask = new FsPermission("r-x");
             var new_acls = entries_before.Select(e => e.AndWith(perms_mask));
-            this.StoreClient.FileSystem.SetAcl(fname, new_acls);
+            this.StoreClient.FileSystem.ModifyAclEntries(fname, new_acls);
  
             var permissions_after = this.StoreClient.FileSystem.GetAclStatus(fname);
             // find all the named user entries that have write access
