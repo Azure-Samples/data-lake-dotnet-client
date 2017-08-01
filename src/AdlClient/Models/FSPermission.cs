@@ -122,5 +122,22 @@ namespace AdlClient.Models
             var np = new FsPermission(this.Read || p.Read, this.Write || p.Write, this.Execute || p.Execute);
             return np;
         }
+
+        public static FsPermission All
+        {
+            get
+            {
+                return new FsPermission(true, true, true);
+            }
+        }
+
+        public static FsPermission None
+        {
+            get
+            {
+                return new FsPermission(false, false, false);
+            }
+        }
+
     }
 }

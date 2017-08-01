@@ -18,7 +18,8 @@ namespace TestAdlClient
         public void GetTenantId()
         {
             var t = AdlClient.Authentication.GetTenantId("microsoft.onmicrosoft.com");
-
         }
+
+
     }
 }

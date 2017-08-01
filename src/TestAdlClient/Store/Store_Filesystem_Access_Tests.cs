@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AdlClient.Models;
+using Microsoft.Azure.Graph.RBAC;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestAdlClient.Store
@@ -7,6 +8,14 @@ namespace TestAdlClient.Store
     [TestClass]
     public class Store_Filesystem_Access_Tests : Base_Tests
     {
+        [TestMethod]
+        public void AAD_Scenario()
+        {
+            this.Initialize();
+            var u = this.StoreClient.RestClients.AADclient.Users.Get("saveenr@microsoft.com");
+
+            int x = 1;
+        }
 
         private FsPath create_test_dir()
         {
@@ -136,6 +145,38 @@ namespace TestAdlClient.Store
             var entries_after = permissions_after.Entries.Where(e => e.Type == FsAclType.NamedUser).ToList();
             // verify that there are no such entries
             Assert.AreEqual(0, entries_after.Count);
+        }
+
+        [TestMethod]
+        public void ACLs_Scenario_Add_Named_User()
+        {
+            this.Initialize();
+            var dir = create_test_dir();
+
+            var fname = dir.Append( nameof(ACLs_Scenario_Add_Named_User) + ".txt");
+            if (this.StoreClient.FileSystem.PathExists(fname))
+            {
+                this.StoreClient.FileSystem.Delete(fname);
+            }
+
+            var cfo = new FileCreateParameters();
+            cfo.Overwrite = true;
+            this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
+
+
+            var u = this.StoreClient.RestClients.AADclient.Users.Get("mahi@microsoft.com");
+
+
+            var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);
+            var acl_entry = new FsAclEntry( FsAclType.NamedUser, u.ObjectId, FsPermission.All);
+            this.StoreClient.FileSystem.ModifyAclEntries(fname,acl_entry);
+
+            var permissions_after = this.StoreClient.FileSystem.GetAclStatus(fname);
+
+            var new_entries = permissions_after.Entries.Where(e => e.Type == FsAclType.NamedUser).ToList();
+            int count = new_entries.Where(i => i.Name == u.ObjectId).Count();
+
+            Assert.AreEqual(1, count);
         }
 
     }

@@ -191,24 +191,14 @@ namespace AdlClient.Commands
 
         public void Upload(FsLocalPath src_path, FsPath dest_path, FileUploadParameters parameters)
         {
-            /*
-            var uploader_parameters = new Microsoft.Azure.Management.DataLake.UploadParameters(src_path.ToString(), dest_path.ToString(), this.Account.Name, isOverwrite: parameters.Force);
-            var frontend = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreFrontEndAdapter(this.Account.Name, this.RestClients.FileSystemRest.RestClient);
-            var uploader = new Microsoft.Azure.Management.DataLake.StoreUploader.DataLakeStoreUploader(uploader_parameters, frontend);
-            uploader.Execute();
-            */
+            var dest_uri = this.GetUri(dest_path);
+            this.RestClients.FileSystemRest.Upload(src_path, dest_uri, parameters.NumThreads, parameters.Resume, parameters.Overwrite, parameters.UploadAsBinary);
         }
 
         public void Download(FsPath src_path, FsLocalPath dest_path, FileDownloadParameters parameters)
         {
-            using (var stream = this.RestClients.FileSystemRest.Open(this.GetUri(src_path)))
-            {
-                var filemode = parameters.Append ? System.IO.FileMode.Append : System.IO.FileMode.Create;
-                using (var fileStream = new System.IO.FileStream(dest_path.ToString(), filemode))
-                {
-                    stream.CopyTo(fileStream);
-                }
-            }
+            var src_uri = this.GetUri(src_path);
+            this.RestClients.FileSystemRest.Download(src_uri, dest_path, parameters.NumThreads, parameters.Resume, parameters.Overwrite);
         }
 
         public void Append(FsPath path, string content)

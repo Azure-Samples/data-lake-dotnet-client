@@ -15,6 +15,7 @@ namespace AdlClient
 
         public Microsoft.Rest.ServiceClientCredentials ARMCreds;
         public Microsoft.Rest.ServiceClientCredentials ADLCreds;
+        public Microsoft.Rest.ServiceClientCredentials AADCreds;
 
 
         public Authentication(string tenant)
@@ -88,10 +89,12 @@ namespace AdlClient
             string CLIENTID = "1950a258-227b-4e31-a9cf-717495945fc2"; // Re-use the Azure PowerShell client id, in production code you should create your own client id
             var ARM_TOKEN_AUDIENCE = new System.Uri(@"https://management.core.windows.net/");
             var ADL_TOKEN_AUDIENCE = new System.Uri(@"https://datalake.azure.net/");
+            var AAD_TOKEN_AUDIENCE = new System.Uri(@"https://graph.windows.net/");
 
             var tokenCache = GetTokenCache(this.GetTokenCachePath());
             this.ARMCreds = GetCreds_User_Popup(this.Tenant, ARM_TOKEN_AUDIENCE, CLIENTID, tokenCache);
             this.ADLCreds = GetCreds_User_Popup(this.Tenant, ADL_TOKEN_AUDIENCE, CLIENTID, tokenCache);
+            this.AADCreds = GetCreds_User_Popup(this.Tenant, AAD_TOKEN_AUDIENCE, CLIENTID, tokenCache);
         }
 
         private string GetTokenCachePath()
