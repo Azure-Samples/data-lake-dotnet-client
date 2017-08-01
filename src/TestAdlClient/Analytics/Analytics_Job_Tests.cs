@@ -130,5 +130,25 @@ namespace TestAdlClient.Analytics
                 }
             }
         }
+
+        [TestMethod]
+        public void Submit_500_Jobs()
+        {
+            this.Initialize();
+
+            int num_jobs=500;
+            bool doit = false;
+            if (doit)
+            {
+                for (int i = 0; i < num_jobs; i++)
+                {
+                    var submit_parameters = new JobSubmitParameters();
+                    submit_parameters.ScriptText = "FOOBAR";
+                    submit_parameters.JobName = "Test Job " + i.ToString();
+                    var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
+
+                }
+            }
+        }
     }
 }
