@@ -168,6 +168,11 @@ namespace AdlClient.Commands
             this.RestClients.FileSystemRest.RemoveAcl(this.GetUri(path));
         }
 
+        public void RemoveAclEntries(FsPath path, IEnumerable<FsAclEntry> entries)
+        {
+            this.RestClients.FileSystemRest.RemoveAclEntries(this.GetUri(path), entries);
+        }
+
         public void RemoveDefaultAcl(FsPath path)
         {
             this.RestClients.FileSystemRest.RemoveDefaultAcl(this.GetUri(path));

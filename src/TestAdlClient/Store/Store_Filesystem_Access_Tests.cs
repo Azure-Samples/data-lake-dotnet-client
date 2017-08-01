@@ -137,8 +137,9 @@ namespace TestAdlClient.Store
             var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);
 
             // copy the entries except for the named users
-            var new_entries = permissions_before.Entries.Where(e => e.Type != FsAclType.NamedUser).ToList();
-            this.StoreClient.FileSystem.SetAcl(fname, new_entries);
+            var target_entries = permissions_before.Entries.Where(e => e.Type == FsAclType.NamedUser).ToList();
+            target_entries = target_entries.Select(i => i.AndWith(FsPermission.None)).ToList();
+            this.StoreClient.FileSystem.RemoveAclEntries(fname, target_entries);
 
             var permissions_after = this.StoreClient.FileSystem.GetAclStatus(fname);
             // find all the named user entries that have write access

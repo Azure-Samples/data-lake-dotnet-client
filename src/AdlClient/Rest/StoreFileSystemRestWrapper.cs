@@ -74,6 +74,13 @@ namespace AdlClient.Rest
             this.RestClient.FileSystem.RemoveAcl(uri.Account, uri.Path);
         }
 
+        public void RemoveAclEntries(FsUri uri, IEnumerable<FsAclEntry> entries)
+        {
+            var s = FsAclEntry.EntriesToString(entries);
+            s = s.Replace("---", ""); // NOTE: RemoveAclEntries doesn't support --- only empty
+            this.RestClient.FileSystem.RemoveAclEntries(uri.Account, uri.Path,s);
+        }
+
         public void RemoveDefaultAcl(FsUri uri)
         {
             this.RestClient.FileSystem.RemoveDefaultAcl(uri.Account, uri.Path);

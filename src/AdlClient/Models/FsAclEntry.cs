@@ -10,6 +10,7 @@ namespace AdlClient.Models
         public string Name;
         public FsPermission? Permission;
 
+
         public override string ToString()
         {
             var rwx = this.Permission.Value.ToRwxString();
