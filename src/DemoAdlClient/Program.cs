@@ -266,7 +266,7 @@ namespace DemoAdlClient
         private static void Demo_GetJobsSubmitedInLast2hours(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
-            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Models.RangeDateTime.InTheLastNHours(2));
+            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.Models.RangeDateTime.InTheLastNHours(2));
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
             PrintJobs(jobs);
         }
@@ -274,7 +274,7 @@ namespace DemoAdlClient
         private static void Demo_Jobs_List_SubmittedBetween_MidnightAndNow(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
-            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Models.RangeDateTime.SinceLocalMidnight());
+            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.Models.RangeDateTime.SinceLocalMidnight());
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
             PrintJobs(jobs);
         }
@@ -291,7 +291,7 @@ namespace DemoAdlClient
         private static void Demo_Jobs_List_MostExpensive_In_Last24hours(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListingParameters();
-            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.OData.Models.RangeDateTime.InTheLastNHours(24));
+            listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.Models.RangeDateTime.InTheLastNHours(24));
             var jobs = adla.Jobs.ListJobs(listing_parameters).OrderByDescending(j => j.AUSeconds).Take(10).ToList();
 
             PrintJobs(jobs);

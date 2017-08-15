@@ -169,8 +169,8 @@
     <Compile Include="OData\Models\FieldFilterString.cs" />
     <Compile Include="OData\Models\IntegerFilterCategory.cs" />
     <Compile Include="OData\Models\OrderByDirection.cs" />
-    <Compile Include="OData\Models\RangeDateTime.cs" />
-    <Compile Include="OData\Models\RangeInteger.cs" />
+    <Compile Include="Models\RangeDateTime.cs" />
+    <Compile Include="Models\RangeInteger.cs" />
     <Compile Include="OData\Models\StringFilterCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />

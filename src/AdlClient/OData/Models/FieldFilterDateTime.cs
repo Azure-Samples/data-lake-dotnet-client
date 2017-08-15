@@ -5,7 +5,7 @@ namespace AdlClient.OData.Models
 
     public class FieldFilterDateTime : FieldFilter
     {
-        private RangeDateTime range;
+        private AdlClient.Models.RangeDateTime range;
         public bool Inclusive;
         private DateTimeFilterCategory Category;
 
@@ -16,7 +16,7 @@ namespace AdlClient.OData.Models
             this.Category = DateTimeFilterCategory.NoFilter;
         }
 
-        public void IsInRange(RangeDateTime range)
+        public void IsInRange(AdlClient.Models.RangeDateTime range)
         {
             this.Category = DateTimeFilterCategory.IsInRange;
             this.range = range;

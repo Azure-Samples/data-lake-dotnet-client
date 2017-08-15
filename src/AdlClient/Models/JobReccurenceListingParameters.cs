@@ -6,7 +6,7 @@ namespace AdlClient.Models
         // retrieve so that vallers are overwhelmed with data on first use
 
         public int Top = 100;
-        public AdlClient.OData.Models.RangeDateTime DateRange;
+        public AdlClient.Models.RangeDateTime DateRange;
 
         public JobReccurenceListingParameters()
         {
