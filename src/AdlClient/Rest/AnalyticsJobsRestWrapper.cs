@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics;
@@ -51,7 +52,42 @@ namespace AdlClient.Rest
                     break;
                 }
             }
+        }
 
+        public IEnumerable<MSADLA.Models.JobRecurrenceInformation> JobRecurrenceList(AnalyticsAccountRef account, DateTimeOffset? start, DateTimeOffset? end, int top)
+        {
+            int item_count = 0;
+            var page = this.RestClient.Recurrence.List(account.Name, start, end);
+            foreach (
+                var job in
+                RestUtil.EnumItemsInPages(page, p => this.RestClient.Recurrence.ListNext(p.NextPageLink)))
+            {
+                yield return job;
+                item_count++;
+
+                if ((top > 0) && (item_count >= top))
+                {
+                    break;
+                }
+            }
+        }
+
+        public IEnumerable<MSADLA.Models.JobPipelineInformation> JobPipelineInformationList(AnalyticsAccountRef account, DateTimeOffset? start, DateTimeOffset? end, int top)
+        {
+            int item_count = 0;
+            var page = this.RestClient.Pipeline.List(account.Name, start, end);
+            foreach (
+                var job in
+                RestUtil.EnumItemsInPages(page, p => this.RestClient.Pipeline.ListNext(p.NextPageLink)))
+            {
+                yield return job;
+                item_count++;
+
+                if ((top > 0) && (item_count >= top))
+                {
+                    break;
+                }
+            }
         }
 
         public JobInfo JobCreate(AnalyticsAccountRef account, JobSubmitParameters parameters)
