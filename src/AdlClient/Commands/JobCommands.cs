@@ -60,15 +60,14 @@ namespace AdlClient.Commands
 
         public IEnumerable<MSADL.Analytics.Models.JobPipelineInformation> ListJobPipelines(JobPipelineListingParameters parameters)
         {
-
-            var pipelines = this.RestClients._JobRest.JobPipelineInformationList(this.Account, parameters.Start, parameters.Start, parameters.Top);
+            var pipelines = this.RestClients._JobRest.JobPipelineInformationList(this.Account, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound, parameters.Top);
             return pipelines;
         }
 
         public IEnumerable<MSADL.Analytics.Models.JobRecurrenceInformation> ListJobRecurrences(JobReccurenceListingParameters parameters)
         {
 
-            var recurrences = this.RestClients._JobRest.JobRecurrenceList(this.Account, parameters.Start, parameters.Start, parameters.Top);
+            var recurrences = this.RestClients._JobRest.JobRecurrenceList(this.Account, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound, parameters.Top);
             return recurrences;
         }
 
