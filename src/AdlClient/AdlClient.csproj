@@ -120,6 +120,7 @@
     <Compile Include="Models\SortSpec.cs" />
     <Compile Include="Models\StoreAccountPortalUri.cs" />
     <Compile Include="Models\StoreAccountRef.cs" />
+    <Compile Include="NonInteractiveAuthentication.cs" />
     <Compile Include="OData\Expr.cs" />
     <Compile Include="OData\ExprBinaryOp.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
