@@ -9,7 +9,8 @@ namespace AdlClient
     {
         public InteractiveAuthentication(string tenant) : base(tenant)
         {
-            this.ClientID = "1950a258-227b-4e31-a9cf-717495945fc2"; // Re-use the Azure PowerShell client id, in production code you should create your own client id
+            // Re-use the Azure PowerShell client id, in production code you should create your own client id
+            this.ClientID = "1950a258-227b-4e31-a9cf-717495945fc2"; 
         }
 
         public void ClearCache()
