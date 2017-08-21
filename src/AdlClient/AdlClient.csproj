@@ -72,7 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsClient.cs" />
-    <Compile Include="Authentication.cs" />
+    <Compile Include="InteractiveAuthentication.cs" />
+    <Compile Include="AuthenticationBase.cs" />
     <Compile Include="AzureClient.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="Commands\AnalyticsAccountCommands.cs" />

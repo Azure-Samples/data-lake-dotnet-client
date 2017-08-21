@@ -6,9 +6,9 @@ namespace AdlClient.Commands
 {
     public class AnalyticsRmCommands
     {
-        internal readonly Authentication Authentication;
+        internal readonly InteractiveAuthentication Authentication;
 
-        internal AnalyticsRmCommands(Authentication auth)
+        internal AnalyticsRmCommands(InteractiveAuthentication auth)
         {
             this.Authentication = auth;
         }
@@ -21,7 +21,7 @@ namespace AdlClient.Commands
 
         private DataLakeAnalyticsAccountManagementClient _get_acount_mgmt_client(string subid)
         {
-            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(Authentication.ARMCreds);
+            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(Authentication.ArmCreds);
             client.SubscriptionId = subid;
             return client;
         }

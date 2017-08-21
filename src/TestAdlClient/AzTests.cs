@@ -17,7 +17,7 @@ namespace TestAdlClient
         [TestMethod]
         public void GetTenantId()
         {
-            var t = AdlClient.Authentication.GetTenantId("microsoft.onmicrosoft.com");
+            var t = AdlClient.InteractiveAuthentication.GetTenantId("microsoft.onmicrosoft.com");
         }
 
 

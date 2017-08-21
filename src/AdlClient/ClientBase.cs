@@ -2,9 +2,9 @@ namespace AdlClient
 {
     public class ClientBase
     {
-        public Authentication Authentication;
+        public InteractiveAuthentication Authentication;
 
-        internal ClientBase(Authentication auth)
+        internal ClientBase(InteractiveAuthentication auth)
         {
             this.Authentication = auth;
         }
