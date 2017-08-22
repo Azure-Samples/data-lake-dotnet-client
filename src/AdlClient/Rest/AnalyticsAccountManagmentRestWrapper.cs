@@ -24,7 +24,7 @@ namespace AdlClient.Rest
 
             int top = 0;
 
-            var accounts = RestUtil.EnumItems(pageiter, top);
+            var accounts = pageiter.EnumerateItems(top);
 
             return accounts;
         }
@@ -37,7 +37,7 @@ namespace AdlClient.Rest
 
             int top = 0;
 
-            var accounts = RestUtil.EnumItems(pageiter, top);
+            var accounts = pageiter.EnumerateItems(top);
 
             return accounts;
         }
@@ -75,7 +75,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.DataLakeStoreAccounts.ListByAccountNext(p.NextPageLink);
 
             int top = 0;
-            var accounts = RestUtil.EnumItems(pageiter, top);
+            var accounts = pageiter.EnumerateItems(top);
 
             return accounts;
         }
@@ -88,7 +88,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.StorageAccounts.ListByAccountNext(p.NextPageLink);
 
             int top = 0;
-            var accounts = RestUtil.EnumItems(pageiter, top);
+            var accounts = pageiter.EnumerateItems(top);
 
             return accounts;
         }
@@ -100,7 +100,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.StorageAccounts.ListStorageContainersNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
@@ -121,7 +121,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.StorageAccounts.ListSasTokensNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
     }

@@ -177,7 +177,7 @@
     <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
-    <Compile Include="Rest\RestUtil.cs" />
+    <Compile Include="Rest\PagedIterator.cs" />
     <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
     <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />

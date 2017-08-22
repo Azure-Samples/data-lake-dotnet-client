@@ -44,7 +44,7 @@ namespace AdlClient.Rest
             pageiter.GetFirstPage = () => this.RestClient.Job.List(account.Name, odata_query, opt_select, opt_count);
             pageiter.GetNextPage = p => this.RestClient.Job.ListNext(p.NextPageLink);
 
-            var jobs = RestUtil.EnumItems(pageiter, top);
+            var jobs = pageiter.EnumerateItems(top);
 
             return jobs;
         }
@@ -56,7 +56,7 @@ namespace AdlClient.Rest
             pageiter.GetFirstPage = () => this.RestClient.Recurrence.List(account.Name, start, end);
             pageiter.GetNextPage = p => this.RestClient.Recurrence.ListNext(p.NextPageLink);
 
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
 
             return items;
         }
@@ -67,7 +67,7 @@ namespace AdlClient.Rest
             pageiter.GetFirstPage = () => this.RestClient.Pipeline.List(account.Name, start, end);
             pageiter.GetNextPage = p => this.RestClient.Pipeline.ListNext(p.NextPageLink);
 
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
 
             return items;
         }

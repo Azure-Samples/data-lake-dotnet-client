@@ -21,7 +21,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Account.ListNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
@@ -32,7 +32,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
 
         }

@@ -32,7 +32,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListDatabasesNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
@@ -48,7 +48,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListAssembliesNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
@@ -64,7 +64,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListExternalDataSourcesNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
 
         }
@@ -81,7 +81,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListProceduresNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
 
         }
@@ -99,7 +99,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListSchemasNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
 
         }
@@ -115,7 +115,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListViewsNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
 
         }
@@ -131,7 +131,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListTablesNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
@@ -146,7 +146,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListTypesNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
@@ -161,7 +161,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListTableTypesNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
 
         }
@@ -173,7 +173,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListTablePartitionsNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
 
         }
@@ -185,7 +185,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListTableStatisticsNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
@@ -220,7 +220,7 @@ namespace AdlClient.Rest
             pageiter.GetNextPage = p => this.RestClient.Catalog.ListCredentialsNext(p.NextPageLink);
 
             int top = 0;
-            var items = RestUtil.EnumItems(pageiter, top);
+            var items = pageiter.EnumerateItems(top);
             return items;
         }
 
