@@ -9,6 +9,7 @@ namespace AdlClient
 
         public readonly MSADLA.DataLakeAnalyticsJobManagementClient Jobs;
         public readonly MSADLA.DataLakeAnalyticsCatalogManagementClient Catalog;
+        public readonly MSADLA.DataLakeAnalyticsAccountManagementClient Account;
 
         public AnalyticsRestClients(Authentication authSession, AdlClient.Models.AnalyticsAccountRef account)
         {
@@ -18,6 +19,8 @@ namespace AdlClient
 
             this.Jobs = new MSADLA.DataLakeAnalyticsJobManagementClient(authSession.ADLCreds);
             this.Catalog = new MSADLA.DataLakeAnalyticsCatalogManagementClient(authSession.ADLCreds);
+            this.Account = new MSADLA.DataLakeAnalyticsAccountManagementClient(authSession.ARMCreds);
+            this.Account.SubscriptionId = account.SubscriptionId;
         }
     }
 }
