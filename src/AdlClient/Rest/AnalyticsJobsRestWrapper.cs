@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics;
+using Microsoft.Rest.Azure;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Rest
 {
     public class AnalyticsJobsRestWrapper
     {
+
         public MSADLA.DataLakeAnalyticsJobManagementClient RestClient;
 
         public AnalyticsJobsRestWrapper(Microsoft.Rest.ServiceClientCredentials creds)
@@ -38,56 +40,36 @@ namespace AdlClient.Rest
             string opt_select = null;
             bool? opt_count = null;
 
-            int item_count = 0;
-            var page = this.RestClient.Job.List(account.Name, odata_query, opt_select, opt_count);
-            foreach (
-                var job in
-                RestUtil.EnumItemsInPages(page, p => this.RestClient.Job.ListNext(p.NextPageLink)))
-            {
-                yield return job;
-                item_count++;
+            var pageiter = new PagedIterator<MSADLA.Models.JobInformation>();
+            pageiter.GetFirstPage = () => this.RestClient.Job.List(account.Name, odata_query, opt_select, opt_count);
+            pageiter.GetNextPage = p => this.RestClient.Job.ListNext(p.NextPageLink);
 
-                if ((top > 0) && (item_count >= top))
-                {
-                    break;
-                }
-            }
+            var jobs = RestUtil.EnumItems(pageiter, top);
+
+            return jobs;
         }
 
         public IEnumerable<MSADLA.Models.JobRecurrenceInformation> JobRecurrenceList(AnalyticsAccountRef account, DateTimeOffset? start, DateTimeOffset? end, int top)
         {
-            int item_count = 0;
-            var page = this.RestClient.Recurrence.List(account.Name, start, end);
-            foreach (
-                var job in
-                RestUtil.EnumItemsInPages(page, p => this.RestClient.Recurrence.ListNext(p.NextPageLink)))
-            {
-                yield return job;
-                item_count++;
 
-                if ((top > 0) && (item_count >= top))
-                {
-                    break;
-                }
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.JobRecurrenceInformation>();
+            pageiter.GetFirstPage = () => this.RestClient.Recurrence.List(account.Name, start, end);
+            pageiter.GetNextPage = p => this.RestClient.Recurrence.ListNext(p.NextPageLink);
+
+            var items = RestUtil.EnumItems(pageiter, top);
+
+            return items;
         }
 
         public IEnumerable<MSADLA.Models.JobPipelineInformation> JobPipelineInformationList(AnalyticsAccountRef account, DateTimeOffset? start, DateTimeOffset? end, int top)
         {
-            int item_count = 0;
-            var page = this.RestClient.Pipeline.List(account.Name, start, end);
-            foreach (
-                var job in
-                RestUtil.EnumItemsInPages(page, p => this.RestClient.Pipeline.ListNext(p.NextPageLink)))
-            {
-                yield return job;
-                item_count++;
+            var pageiter = new PagedIterator<MSADLA.Models.JobPipelineInformation>();
+            pageiter.GetFirstPage = () => this.RestClient.Pipeline.List(account.Name, start, end);
+            pageiter.GetNextPage = p => this.RestClient.Pipeline.ListNext(p.NextPageLink);
 
-                if ((top > 0) && (item_count >= top))
-                {
-                    break;
-                }
-            }
+            var items = RestUtil.EnumItems(pageiter, top);
+
+            return items;
         }
 
         public JobInfo JobCreate(AnalyticsAccountRef account, JobSubmitParameters parameters)
