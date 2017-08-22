@@ -1,7 +1,11 @@
-﻿namespace AdlClient.Rest
+﻿using Microsoft.Azure.Management.DataLake.Store;
+using ADL = Microsoft.Azure.Management.DataLake;
+namespace AdlClient.Rest
 {
     public class StoreRestClients
     {
+        public readonly ADL.Store.DataLakeStoreFileSystemManagementClient FS;
+
         public readonly StoreFileSystemRestWrapper FileSystemRest;
         public readonly StoreManagementRestWrapper StoreAccountMgmtRest;
         public readonly AdlClient.Models.StoreAccountRef Account;
@@ -14,6 +18,8 @@
             this.StoreAccountMgmtRest = new StoreManagementRestWrapper(account.SubscriptionId, authSession.ARMCreds);
             this.AADclient = new Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient(authSession.AADCreds);
             this.AADclient.TenantID = authSession.Tenant;
+
+            this.FS = new DataLakeStoreFileSystemManagementClient(authSession.ADLCreds);
         }
     }
 }
