@@ -12,7 +12,7 @@ namespace TestAdlClient.Store
         public void AAD_Scenario()
         {
             this.Initialize();
-            var u = this.StoreClient.RestClients.GraphClient.Users.Get("saveenr@microsoft.com");
+            var u = this.AzureClient.GraphClient.Users.Get("saveenr@microsoft.com");
 
             int x = 1;
         }
@@ -165,7 +165,7 @@ namespace TestAdlClient.Store
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
 
-            var u = this.StoreClient.RestClients.GraphClient.Users.Get("mahi@microsoft.com");
+            var u = this.AzureClient.GraphClient.Users.Get("mahi@microsoft.com");
 
 
             var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);
