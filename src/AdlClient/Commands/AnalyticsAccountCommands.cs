@@ -1,3 +1,4 @@
+using Microsoft.Azure.Management.DataLake.Analytics;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Commands
@@ -18,13 +19,18 @@ namespace AdlClient.Commands
 
         public MSADLA.Models.DataLakeAnalyticsAccount Get()
         {
-            var acc = this.RestClients._AdlaAccountMgmtRest.GetAccount(this.Account);
-            return acc;
+            var adls_account = this.RestClients.AccountClient.Account.Get(this.Account.ResourceGroup, this.Account.Name);
+            return adls_account;
         }
 
         public void Update( MSADLA.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this.RestClients._AdlaAccountMgmtRest.UpdateAccount(this.Account, parameters);
+            this.RestClients.AccountClient.Account.Update(this.Account.ResourceGroup, this.Account.Name, parameters);
+        }
+
+        public bool Exists()
+        {
+            return this.RestClients.AccountClient.Account.Exists(this.Account.ResourceGroup, this.Account.Name);
         }
     }
 }

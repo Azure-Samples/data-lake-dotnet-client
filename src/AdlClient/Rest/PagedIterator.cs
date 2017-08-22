@@ -5,11 +5,11 @@ namespace AdlClient.Rest
 {
     public class PagedIterator<T>
     {
-        public FuncGetFirstPage<T> GetFirstPage;
-        public FuncGetNextPage<T> GetNextPage;
+        public FuncGetFirstPage GetFirstPage;
+        public FuncGetNextPage GetNextPage;
 
-        public delegate IPage<T> FuncGetFirstPage<T>();
-        public delegate IPage<T> FuncGetNextPage<T>(IPage<T> p);
+        public delegate IPage<T> FuncGetFirstPage();
+        public delegate IPage<T> FuncGetNextPage(IPage<T> p);
 
         public IEnumerable<T> EnumerateItems( int top)
         {

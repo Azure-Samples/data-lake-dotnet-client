@@ -173,13 +173,8 @@
     <Compile Include="Models\RangeInteger.cs" />
     <Compile Include="OData\Models\StringFilterCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rest\AnalyticsAccountManagmentRestWrapper.cs" />
-    <Compile Include="Rest\AnalyticsCatalogRestWrapper.cs" />
-    <Compile Include="Rest\AnalyticsJobsRestWrapper.cs" />
     <Compile Include="Rest\AnalyticsRestClients.cs" />
     <Compile Include="Rest\PagedIterator.cs" />
-    <Compile Include="Rest\StoreFileSystemRestWrapper.cs" />
-    <Compile Include="Rest\StoreManagementRestWrapper.cs" />
     <Compile Include="Rest\StoreRestClients.cs" />
     <Compile Include="StoreClient.cs" />
   </ItemGroup>

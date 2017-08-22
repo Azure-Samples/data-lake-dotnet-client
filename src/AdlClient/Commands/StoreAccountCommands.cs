@@ -1,3 +1,4 @@
+using Microsoft.Azure.Management.DataLake.Store;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
 
 namespace AdlClient.Commands
@@ -15,13 +16,24 @@ namespace AdlClient.Commands
 
         public MSADLS.Models.DataLakeStoreAccount Get()
         {
-            var acc = this.RestClients.StoreAccountMgmtRest.GetAccount(this.Account);
+            var acc = this.RestClients.AccountClient.Account.Get(this.Account.ResourceGroup, this.Account.Name);
             return acc;
         }
 
         public void Update(MSADLS.Models.DataLakeStoreAccountUpdateParameters parameters)
         {
-            this.RestClients.StoreAccountMgmtRest.Update(this.Account, parameters);
+            this.RestClients.AccountClient.Account.Update(this.Account.ResourceGroup, this.Account.Name, parameters);
         }
+
+        public void Delete()
+        {
+            this.RestClients.AccountClient.Account.Delete(this.Account.ResourceGroup, this.Account.Name);
+        }
+
+        public bool Exists()
+        {
+            return this.RestClients.AccountClient.Account.Exists(this.Account.ResourceGroup, this.Account.Name);
+        }
+
     }
 }

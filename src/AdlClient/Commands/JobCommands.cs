@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdlClient.Models;
+using Microsoft.Azure.Management.DataLake.Analytics;
 using MSADL = Microsoft.Azure.Management.DataLake;
 
 namespace AdlClient.Commands
@@ -17,9 +19,20 @@ namespace AdlClient.Commands
             this.RestClients = clients;
         }
 
+        public void CancelJob(System.Guid jobid)
+        {
+            this.RestClients.JobsClient.Job.Cancel(this.Account.Name, jobid);
+        }
+
+        public bool JobExists(System.Guid jobid)
+        {
+            return this.RestClients.JobsClient.Job.Exists(this.Account.Name, jobid);
+        }
+
         public JobDetails GetJobDetails(System.Guid jobid, bool extendedInfo)
         {
-            var job = this.RestClients._JobRest.JobGet(this.Account, jobid);
+
+            var job = this.RestClients.JobsClient.Job.Get(this.Account.Name, jobid);
 
             var jobinfo = new JobInfo(job, this.Account);
 
@@ -34,7 +47,9 @@ namespace AdlClient.Commands
             if (extendedInfo)
             {
                 jobdetails.JobDetailsExtended = new JobDetailsExtended();
-                jobdetails.JobDetailsExtended.Statistics = this.RestClients._JobRest.GetStatistics(this.Account, jobid);
+
+
+                jobdetails.JobDetailsExtended.Statistics = this.RestClients.JobsClient.Job.GetStatistics(this.Account.Name, jobid);
 
                 // jobdetails.JobDetailsExtended.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
@@ -50,7 +65,15 @@ namespace AdlClient.Commands
             odata_query.Filter = parameters.Filter.ToFilterString();
 
             // enumerate the job objects
-            var jobs = this.RestClients._JobRest.JobList(this.Account, odata_query, parameters.Top);
+            // Other parameters
+            string opt_select = null;
+            bool? opt_count = null;
+
+            var pageiter = new Rest.PagedIterator<MSADLA.Models.JobInformation>();
+            pageiter.GetFirstPage = () => this.RestClients.JobsClient.Job.List(this.Account.Name, odata_query, opt_select, opt_count);
+            pageiter.GetNextPage = p => this.RestClients.JobsClient.Job.ListNext(p.NextPageLink);
+
+            var jobs = pageiter.EnumerateItems(parameters.Top);
 
             // convert them to the JobInfo
             var jobinfos = jobs.Select(j => new JobInfo(j, this.Account));
@@ -60,22 +83,36 @@ namespace AdlClient.Commands
 
         public IEnumerable<MSADL.Analytics.Models.JobPipelineInformation> ListJobPipelines(JobPipelineListingParameters parameters)
         {
-            var pipelines = this.RestClients._JobRest.JobPipelineInformationList(this.Account, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound, parameters.Top);
-            return pipelines;
+            var pageiter = new Rest.PagedIterator<MSADLA.Models.JobPipelineInformation>();
+            pageiter.GetFirstPage = () => this.RestClients.JobsClient.Pipeline.List(this.Account.Name, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound);
+            pageiter.GetNextPage = p => this.RestClients.JobsClient.Pipeline.ListNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+
+            return items;
         }
 
         public IEnumerable<MSADL.Analytics.Models.JobRecurrenceInformation> ListJobRecurrences(JobReccurenceListingParameters parameters)
         {
 
-            var recurrences = this.RestClients._JobRest.JobRecurrenceList(this.Account, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound, parameters.Top);
+            var pageiter = new Rest.PagedIterator<MSADLA.Models.JobRecurrenceInformation>();
+            pageiter.GetFirstPage = () => this.RestClients.JobsClient.Recurrence.List(this.Account.Name, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound);
+            pageiter.GetNextPage = p => this.RestClients.JobsClient.Recurrence.ListNext(p.NextPageLink);
+
+            int top = 0;
+            var recurrences = pageiter.EnumerateItems(top);
             return recurrences;
         }
 
         public JobInfo SubmitJob(JobSubmitParameters parameters)
         {
             FixupSubmitParameters(parameters);
-            var job_info = this.RestClients._JobRest.JobCreate(this.Account, parameters);
-            return job_info;
+
+            var job_props = parameters.ToJobInformationObject();
+            var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, parameters.JobId, job_props);
+            var j = new JobInfo(job_info, this.Account);
+            return j;
         }
 
         private static void FixupSubmitParameters(JobSubmitParameters parameters)
@@ -97,21 +134,23 @@ namespace AdlClient.Commands
         public JobInfo BuildJob(JobSubmitParameters parameters)
         {
             FixupSubmitParameters(parameters);
-            var job_info = this.RestClients._JobRest.JobBuild(this.Account, parameters);
-            return job_info;
+
+
+            var job_props = parameters.ToJobInformationObject();
+            var job_info = this.RestClients.JobsClient.Job.Build(this.Account.Name, job_props);
+            var j = new JobInfo(job_info, this.Account);
+            return j;
         }
 
         public MSADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            return this.RestClients._JobRest.GetStatistics(this.Account, jobid);
+            return this.RestClients.JobsClient.Job.GetStatistics(this.Account.Name, jobid);
         }
 
         public MSADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            return this.RestClients._JobRest.GetDebugDataPath(this.Account, jobid);
+            var jobdatapath = this.RestClients.JobsClient.Job.GetDebugDataPath(this.Account.Name, jobid);
+            return jobdatapath;
         }
-
-
-
     }
 }

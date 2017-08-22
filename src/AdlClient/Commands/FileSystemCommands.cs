@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using AdlClient.Models;
+using Microsoft.Azure.Management.DataLake.Store;
 using MSADLS = Microsoft.Azure.Management.DataLake.Store;
+using System.Linq;
 
 namespace AdlClient.Commands
 {
@@ -42,7 +44,26 @@ namespace AdlClient.Commands
 
         public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, FileListingParameters parameters)
         {
-            return this.RestClients.FileSystemRest.ListFilesPaged(this.GetUri(path), parameters);
+            var uri = this.GetUri(path);
+            string after = null;
+            while (true)
+            {
+                var result = RestClients.FileSystemClient.FileSystem.ListFileStatus(uri.Account, uri.Path, parameters.PageSize, after);
+
+                if (result.FileStatuses.FileStatus.Count > 0)
+                {
+                    var page = new FsFileStatusPage();
+                    page.Path = new FsPath(uri.Path);
+
+                    page.FileItems = result.FileStatuses.FileStatus.Select(i => new FsFileStatus(i)).ToList();
+                    yield return page;
+                    after = result.FileStatuses.FileStatus[result.FileStatuses.FileStatus.Count - 1].PathSuffix;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
 
         public AdlClient.Models.FsUri GetUri(FsPath path)
@@ -52,23 +73,28 @@ namespace AdlClient.Commands
 
         public void CreateDirectory(FsPath path)
         {
-            this.RestClients.FileSystemRest.Mkdirs( this.GetUri(path) );
+            var uri = this.GetUri(path);
+            var result = this.RestClients.FileSystemClient.FileSystem.Mkdirs(uri.Account, uri.Path);
         }
 
         public void Delete(FsPath path)
         {
-            RestClients.FileSystemRest.Delete( this.GetUri(path) );
+            var uri = this.GetUri(path);
+            var result = this.RestClients.FileSystemClient.FileSystem.Delete(uri.Account, uri.Path);
         }
 
         public void Delete(FsPath path, bool recursive)
         {
-            RestClients.FileSystemRest.Delete(this.GetUri(path), recursive);
+            var uri = this.GetUri(path);
+            var result = this.RestClients.FileSystemClient.FileSystem.Delete(uri.Account, uri.Path, recursive);
         }
 
         public void Create(FsPath path, byte[] bytes, FileCreateParameters parameters)
         {
             var memstream = new System.IO.MemoryStream(bytes);
-            RestClients.FileSystemRest.Create(this.GetUri(path), memstream, parameters);
+            var uri = this.GetUri(path);
+            RestClients.FileSystemClient.FileSystem.Create(uri.Account, uri.Path, memstream, parameters.Overwrite);
+
         }
 
         public void Create(FsPath path, string content, FileCreateParameters parameters)
@@ -79,7 +105,9 @@ namespace AdlClient.Commands
 
         public FsFileStatus GetFileStatus(FsPath path)
         {
-            return RestClients.FileSystemRest.GetFileStatus(this.GetUri(path));
+            var uri = this.GetUri(path);
+            var info = RestClients.FileSystemClient.FileSystem.GetFileStatus(uri.Account, uri.Path);
+            return new FsFileStatus(info.FileStatus);
         }
 
         public FsFileStatus TryGetFileInformation(FsPath path)
@@ -144,74 +172,108 @@ namespace AdlClient.Commands
 
         public FsAcl GetAclStatus(FsPath path)
         {
-            var acl_result = RestClients.FileSystemRest.GetAclStatus(this.GetUri(path));
-            return acl_result;
+            var uri = this.GetUri(path);
+            var acl_result = this.RestClients.FileSystemClient.FileSystem.GetAclStatus(uri.Account, uri.Path);
+            var acl_status = acl_result.AclStatus;
+
+            var fs_acl = new FsAcl(acl_status);
+
+            return fs_acl;
         }
 
         public void ModifyAclEntries(FsPath path, FsAclEntry entry)
         {
-            this.RestClients.FileSystemRest.ModifyAclEntries(this.GetUri(path),entry);
+            var uri = this.GetUri(path);
+            this.RestClients.FileSystemClient.FileSystem.ModifyAclEntries(uri.Account, uri.Path, entry.ToString());
         }
 
         public void ModifyAclEntries(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this.RestClients.FileSystemRest.ModifyAclEntries(this.GetUri(path), entries);
+            var uri = this.GetUri(path);
+            var s = FsAclEntry.EntriesToString(entries);
+            this.RestClients.FileSystemClient.FileSystem.ModifyAclEntries(uri.Account, uri.Path, s);
         }
 
         public void SetAcl(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this.RestClients.FileSystemRest.SetAcl(this.GetUri(path), entries);
+            var uri = this.GetUri(path);
+            var s = FsAclEntry.EntriesToString(entries);
+            this.RestClients.FileSystemClient.FileSystem.SetAcl(uri.Account, uri.Path, s);
         }
 
         public void RemoveAcl(FsPath path)
         {
-            this.RestClients.FileSystemRest.RemoveAcl(this.GetUri(path));
+            var uri = this.GetUri(path);
+            this.RestClients.FileSystemClient.FileSystem.RemoveAcl(uri.Account, uri.Path);
         }
 
         public void RemoveAclEntries(FsPath path, IEnumerable<FsAclEntry> entries)
         {
-            this.RestClients.FileSystemRest.RemoveAclEntries(this.GetUri(path), entries);
+            var uri = this.GetUri(path);
+            foreach (var entry in entries)
+            {
+                if (entry.Permission.HasValue)
+                {
+                    var perm = entry.Permission.Value;
+
+                    if (perm.Integer > 0)
+                    {
+                        throw new System.ArgumentOutOfRangeException("For RemoveAclEntries the RWX must be empty");
+                    }
+                }
+            }
+            var s = FsAclEntry.EntriesToString(entries);
+            s = s.Replace("---", ""); // NOTE: RemoveAclEntries doesn't support --- only empty
+            this.RestClients.FileSystemClient.FileSystem.RemoveAclEntries(uri.Account, uri.Path, s);
         }
 
         public void RemoveDefaultAcl(FsPath path)
         {
-            this.RestClients.FileSystemRest.RemoveDefaultAcl(this.GetUri(path));
+            var uri = this.GetUri(path);
+            this.RestClients.FileSystemClient.FileSystem.RemoveDefaultAcl(uri.Account, uri.Path);
         }
 
         public System.IO.Stream Open(FsPath path)
         {
-            return this.RestClients.FileSystemRest.Open(this.GetUri(path));
+            var uri = this.GetUri(path);
+            return this.RestClients.FileSystemClient.FileSystem.Open(uri.Account, uri.Path);
         }
 
         public System.IO.StreamReader OpenText(FsPath path)
         {
-            var s = this.RestClients.FileSystemRest.Open(this.GetUri(path));
+            var uri = this.GetUri(path);
+            var s = this.RestClients.FileSystemClient.FileSystem.Open(uri.Account, uri.Path);
             return new System.IO.StreamReader(s);
         }
 
         public System.IO.Stream Open(FsPath path, long offset, long bytesToRead)
         {
-            return this.RestClients.FileSystemRest.Open(this.GetUri(path), bytesToRead, offset);
+            var uri = this.GetUri(path);
+            return this.RestClients.FileSystemClient.FileSystem.Open(uri.Account, uri.Path, bytesToRead, offset);
         }
 
         public void Upload(FsLocalPath src_path, FsPath dest_path, FileUploadParameters parameters)
         {
             var dest_uri = this.GetUri(dest_path);
-            this.RestClients.FileSystemRest.Upload(src_path, dest_uri, parameters.NumThreads, parameters.Resume, parameters.Overwrite, parameters.UploadAsBinary);
+            this.RestClients.FileSystemClient.FileSystem.UploadFile(
+                dest_uri.Account,
+                src_path.ToString(), 
+                dest_uri.Path, parameters.NumThreads, parameters.Resume, parameters.Overwrite, parameters.UploadAsBinary);
         }
 
         public void Download(FsPath src_path, FsLocalPath dest_path, FileDownloadParameters parameters)
         {
             var src_uri = this.GetUri(src_path);
-            this.RestClients.FileSystemRest.Download(src_uri, dest_path, parameters.NumThreads, parameters.Resume, parameters.Overwrite);
+            this.RestClients.FileSystemClient.FileSystem.DownloadFile(src_uri.Account, src_uri.Path, dest_path.ToString(), parameters.NumThreads, parameters.Resume, parameters.Overwrite);
         }
 
         public void Append(FsPath path, string content)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
+            var uri = this.GetUri(path);
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this.RestClients.FileSystemRest.Append(this.GetUri(path), stream);
+                this.RestClients.FileSystemClient.FileSystem.Append(uri.Account, uri.Path, stream);
             }
         }
 
@@ -219,48 +281,61 @@ namespace AdlClient.Commands
         {
             using (var stream = new System.IO.MemoryStream(bytes))
             {
-                this.RestClients.FileSystemRest.Append(this.GetUri(path), stream);
+                var uri = this.GetUri(path);
+                this.RestClients.FileSystemClient.FileSystem.Append(this.Account.Name, uri.Path, stream);
             }
         }
 
         public void Concat(IEnumerable<FsPath> src_paths, FsPath dest_path)
         {
-            this.RestClients.FileSystemRest.Concat(this.Account, src_paths, dest_path);
+            var src_file_strings = src_paths.Select(i => i.ToString()).ToList();
+            this.RestClients.FileSystemClient.FileSystem.Concat(this.Account.Name, dest_path.ToString(), src_file_strings);
+
         }
 
         public void ClearFileExpiry(FsPath path)
         {
-            this.RestClients.FileSystemRest.SetFileExpiryNever(this.GetUri(path));
+            var uri = this.GetUri(path);
+            this.RestClients.FileSystemClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, MSADLS.Models.ExpiryOptionType.NeverExpire, null);
+
         }
 
         public void SetFileExpiryAbsolute(FsPath path, System.DateTimeOffset expiretime)
         {
-            this.RestClients.FileSystemRest.SetFileExpiry(this.GetUri(path), expiretime);
+            var uri = this.GetUri(path);
+            var ut = new FsUnixTime(expiretime);
+            var unix_time = ut.MillisecondsSinceEpoch;
+            this.RestClients.FileSystemClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, MSADLS.Models.ExpiryOptionType.Absolute, unix_time);
         }
 
         public void SetFileExpiryRelativeToNow(FsPath path, System.TimeSpan timespan)
         {
-            this.RestClients.FileSystemRest.SetFileExpiryRelativeToNow(this.GetUri(path), timespan);
+            var uri = this.GetUri(path);
+            this.RestClients.FileSystemClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, MSADLS.Models.ExpiryOptionType.RelativeToNow, (long)timespan.TotalMilliseconds);
         }
 
         public void SetFileExpiryRelativeToCreationDate(FsPath path, System.TimeSpan timespan)
         {
-            this.RestClients.FileSystemRest.SetFileExpiryRelativeToCreationDate(this.GetUri(path), timespan);
+            var uri = this.GetUri(path);
+            this.RestClients.FileSystemClient.FileSystem.SetFileExpiry(uri.Account, uri.Path, MSADLS.Models.ExpiryOptionType.RelativeToCreationDate, (long)timespan.TotalMilliseconds);
         }
 
         public MSADLS.Models.ContentSummary GetContentSummary(FsPath path)
         {
-            return this.RestClients.FileSystemRest.GetContentSummary(this.GetUri(path));
+            var uri = this.GetUri(path);
+            var summary = this.RestClients.FileSystemClient.FileSystem.GetContentSummary(uri.Account, uri.Path);
+            return summary.ContentSummary;
         }
 
         public void SetOwner(FsPath path, string user, string group)
         {
-            this.RestClients.FileSystemRest.SetOwner(this.GetUri(path), user, group);
+            var uri = this.GetUri(path);
+            this.RestClients.FileSystemClient.FileSystem.SetOwner(uri.Account, uri.Path, user, group);
         }
 
         public void Move(FsPath src_path, FsPath dest_path)
         {
-            this.RestClients.FileSystemRest.Rename(this.Account.Name, src_path, dest_path);
+            this.RestClients.FileSystemClient.FileSystem.Rename(this.Account.Name, src_path.ToString(), dest_path.ToString());
         }
     }
 }
