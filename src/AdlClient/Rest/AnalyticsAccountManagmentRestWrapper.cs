@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Azure.Management.DataLake.Analytics; // have to have this using clause to get the extension methods
+using Microsoft.Azure.Management.DataLake.Analytics;
+using Microsoft.Rest.Azure;
+// have to have this using clause to get the extension methods
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Rest
@@ -16,20 +18,28 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccounts()
         {
-            var initial_page = this.RestClient.Account.List();
-            foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.Account.ListNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.DataLakeAnalyticsAccount>();
+            pageiter.GetFirstPage = () => this.RestClient.Account.List();
+            pageiter.GetNextPage = p => this.RestClient.Account.ListNext(p.NextPageLink);
+
+            int top = 0;
+
+            var accounts = pageiter.EnumerateItems(top);
+
+            return accounts;
         }
 
         public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccounts(string rg)
         {
-            var initial_page = this.RestClient.Account.ListByResourceGroup(rg);
-            foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.DataLakeAnalyticsAccount>();
+            pageiter.GetFirstPage = () => this.RestClient.Account.ListByResourceGroup(rg);
+            pageiter.GetNextPage = p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink);
+
+            int top = 0;
+
+            var accounts = pageiter.EnumerateItems(top);
+
+            return accounts;
         }
 
         public MSADLA.Models.DataLakeAnalyticsAccount GetAccount(AdlClient.Models.AnalyticsAccountRef account)
@@ -60,29 +70,38 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.DataLakeStoreAccountInfo> ListStoreAccounts(AdlClient.Models.AnalyticsAccountRef account)
         {
-            var initial_page = this.RestClient.DataLakeStoreAccounts.ListByAccount(account.ResourceGroup, account.Name);
-            foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.DataLakeStoreAccounts.ListByAccountNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.DataLakeStoreAccountInfo>();
+            pageiter.GetFirstPage = () => this.RestClient.DataLakeStoreAccounts.ListByAccount(account.ResourceGroup, account.Name);
+            pageiter.GetNextPage = p => this.RestClient.DataLakeStoreAccounts.ListByAccountNext(p.NextPageLink);
+
+            int top = 0;
+            var accounts = pageiter.EnumerateItems(top);
+
+            return accounts;
         }
 
         public IEnumerable<MSADLA.Models.StorageAccountInfo> ListStorageAccounts(AdlClient.Models.AnalyticsAccountRef account)
         {
-            var initial_page = this.RestClient.StorageAccounts.ListByAccount(account.ResourceGroup, account.Name);
-            foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.StorageAccounts.ListByAccountNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+
+            var pageiter = new PagedIterator<MSADLA.Models.StorageAccountInfo>();
+            pageiter.GetFirstPage = () => this.RestClient.StorageAccounts.ListByAccount(account.ResourceGroup, account.Name);
+            pageiter.GetNextPage = p => this.RestClient.StorageAccounts.ListByAccountNext(p.NextPageLink);
+
+            int top = 0;
+            var accounts = pageiter.EnumerateItems(top);
+
+            return accounts;
         }
 
         public IEnumerable<MSADLA.Models.StorageContainer> ListStorageContainers(AdlClient.Models.AnalyticsAccountRef account, string storage_account)
         {
-            var initial_page = this.RestClient.StorageAccounts.ListStorageContainers(account.Name, account.Name, storage_account);
-            foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.StorageAccounts.ListStorageContainersNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.StorageContainer>();
+            pageiter.GetFirstPage = () => this.RestClient.StorageAccounts.ListStorageContainers(account.Name, account.Name, storage_account);
+            pageiter.GetNextPage = p => this.RestClient.StorageAccounts.ListStorageContainersNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
         public void DeleteStorageAccount(AdlClient.Models.AnalyticsAccountRef account, string storage_account)
@@ -97,11 +116,13 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLA.Models.SasTokenInfo> ListSasTokens(AdlClient.Models.AnalyticsAccountRef account, string storage_account, string container)
         {
-            var initial_page = this.RestClient.StorageAccounts.ListSasTokens(account.ResourceGroup, account.Name, storage_account, container);
-            foreach (var acc in RestUtil.EnumItemsInPages(initial_page, p => this.RestClient.StorageAccounts.ListSasTokensNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.SasTokenInfo>();
+            pageiter.GetFirstPage = () => this.RestClient.StorageAccounts.ListSasTokens(account.ResourceGroup, account.Name, storage_account, container);
+            pageiter.GetNextPage = p => this.RestClient.StorageAccounts.ListSasTokensNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
     }
 }

@@ -27,11 +27,13 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListDatabases(account.Name, oDataQuery, select_cols, count);
-            foreach (var db in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListDatabasesNext(p.NextPageLink)))
-            {
-                yield return db;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.USqlDatabase>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListDatabases(account.Name, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListDatabasesNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
         public IEnumerable<MSADLA.Models.USqlAssemblyClr> ListAssemblies(AdlClient.Models.AnalyticsAccountRef account, string dbname)
@@ -41,11 +43,13 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListAssemblies(account.Name, dbname, oDataQuery, select_cols, count);
-            foreach (var asm in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListAssembliesNext(p.NextPageLink)))
-            {
-                yield return asm;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.USqlAssemblyClr>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListAssemblies(account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListAssembliesNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
         public IEnumerable<MSADLA.Models.USqlExternalDataSource> ListExternalDatasources(AdlClient.Models.AnalyticsAccountRef account, string dbname)
@@ -55,11 +59,14 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListExternalDataSources(account.Name, dbname, oDataQuery, select_cols, count);
-            foreach (var ds in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListExternalDataSourcesNext(p.NextPageLink)))
-            {
-                yield return ds;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.USqlExternalDataSource>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListExternalDataSources(account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListExternalDataSourcesNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
+
         }
 
         public IEnumerable<MSADLA.Models.USqlProcedure> ListProcedures(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
@@ -68,12 +75,15 @@ namespace AdlClient.Rest
 
             string select_cols = null;
             bool? count = null;
+           
+            var pageiter = new PagedIterator<MSADLA.Models.USqlProcedure>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListProcedures(account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListProceduresNext(p.NextPageLink);
 
-            var page = this.RestClient.Catalog.ListProcedures(account.Name, dbname, schema, oDataQuery, select_cols, count);
-            foreach (var proc in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListProceduresNext(p.NextPageLink)))
-            {
-                yield return proc;
-            }
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
+
         }
 
         public IEnumerable<MSADLA.Models.USqlSchema> ListSchemas(AdlClient.Models.AnalyticsAccountRef account, string dbname)
@@ -82,11 +92,16 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListSchemas(account.Name, dbname, oDataQuery, select_cols, count);
-            foreach (var schema in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListSchemasNext(p.NextPageLink)))
-            {
-                yield return schema;
-            }
+            
+         
+            var pageiter = new PagedIterator<MSADLA.Models.USqlSchema>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListSchemas(account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListSchemasNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
+
         }
 
         public IEnumerable<MSADLA.Models.USqlView> ListViews(AdlClient.Models.AnalyticsAccountRef account,string dbname, string schema)
@@ -95,12 +110,14 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
+            var pageiter = new PagedIterator<MSADLA.Models.USqlView>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListViews(account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListViewsNext(p.NextPageLink);
 
-            var page = this.RestClient.Catalog.ListViews(account.Name, dbname, schema, oDataQuery, select_cols, count);
-            foreach (var view in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListViewsNext(p.NextPageLink)))
-            {
-                yield return view;
-            }
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
+
         }
 
         public IEnumerable<MSADLA.Models.USqlTable> ListTables(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
@@ -109,11 +126,13 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListTables(account.Name, dbname, schema, oDataQuery, select_cols, count);
-            foreach (var table in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTablesNext(p.NextPageLink)))
-            {
-                yield return table;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.USqlTable>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListTables(account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListTablesNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
         public IEnumerable<MSADLA.Models.USqlType> ListTypes(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
@@ -122,12 +141,13 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
+            var pageiter = new PagedIterator<MSADLA.Models.USqlType>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListTypes(account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListTypesNext(p.NextPageLink);
 
-            var page = this.RestClient.Catalog.ListTypes(account.Name, dbname, schema, oDataQuery, select_cols, count);
-            foreach (var type in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTypesNext(p.NextPageLink)))
-            {
-                yield return type;
-            }
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
         public IEnumerable<MSADLA.Models.USqlTableType> ListTableTypes(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema)
@@ -136,33 +156,37 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, select_cols, count);
-            foreach (var tabletype in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTableTypesNext(p.NextPageLink)))
-            {
-                yield return tabletype;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.USqlTableType>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListTableTypes(account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListTableTypesNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
+
         }
 
         public IEnumerable<MSADLA.Models.USqlTablePartition> ListTablePartitions(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema, string tablename)
         {
-            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
+            var pageiter = new PagedIterator<MSADLA.Models.USqlTablePartition>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListTablePartitions(account.Name, dbname, schema, tablename);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListTablePartitionsNext(p.NextPageLink);
 
-            var page = this.RestClient.Catalog.ListTablePartitions(account.Name, dbname, schema, tablename);
-            foreach (var part in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTablePartitionsNext(p.NextPageLink)))
-            {
-                yield return part;
-            }
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
+
         }
 
         public IEnumerable<MSADLA.Models.USqlTableStatistics> ListTableStatistics(AdlClient.Models.AnalyticsAccountRef account, string dbname, string schema, string tablename)
         {
-            var oDataQuery = new MSODATA.ODataQuery<MSADLA.Models.USqlTableType>();
+            var pageiter = new PagedIterator<MSADLA.Models.USqlTableStatistics>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListTableStatistics(account.Name, dbname, schema, tablename);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListTableStatisticsNext(p.NextPageLink);
 
-            var page = this.RestClient.Catalog.ListTableStatistics(account.Name, dbname, schema, tablename);
-            foreach (var stats in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListTableStatisticsNext(p.NextPageLink)))
-            {
-                yield return stats;
-            }
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
         public void CreateCredential(AdlClient.Models.AnalyticsAccountRef account, string dbname, string credname, MSADLA.Models.DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
@@ -191,11 +215,13 @@ namespace AdlClient.Rest
             string select_cols = null;
             bool? count = null;
 
-            var page = this.RestClient.Catalog.ListCredentials(account.Name, dbname, oDataQuery, select_cols, count);
-            foreach (var cred in RestUtil.EnumItemsInPages(page, p => this.RestClient.Catalog.ListCredentialsNext(p.NextPageLink)))
-            {
-                yield return cred;
-            }
+            var pageiter = new PagedIterator<MSADLA.Models.USqlCredential>();
+            pageiter.GetFirstPage = () => this.RestClient.Catalog.ListCredentials(account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClient.Catalog.ListCredentialsNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
     }

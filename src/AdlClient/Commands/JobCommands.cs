@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AdlClient.Models;
 using MSADL = Microsoft.Azure.Management.DataLake;
@@ -55,6 +56,19 @@ namespace AdlClient.Commands
             var jobinfos = jobs.Select(j => new JobInfo(j, this.Account));
 
             return jobinfos;
+        }
+
+        public IEnumerable<MSADL.Analytics.Models.JobPipelineInformation> ListJobPipelines(JobPipelineListingParameters parameters)
+        {
+            var pipelines = this.RestClients._JobRest.JobPipelineInformationList(this.Account, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound, parameters.Top);
+            return pipelines;
+        }
+
+        public IEnumerable<MSADL.Analytics.Models.JobRecurrenceInformation> ListJobRecurrences(JobReccurenceListingParameters parameters)
+        {
+
+            var recurrences = this.RestClients._JobRest.JobRecurrenceList(this.Account, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound, parameters.Top);
+            return recurrences;
         }
 
         public JobInfo SubmitJob(JobSubmitParameters parameters)

@@ -5,7 +5,7 @@ namespace AdlClient.OData.Models
 {
     public class FieldFilterInteger : FieldFilter
     {
-        private RangeInteger range;
+        private AdlClient.Models.RangeInteger range;
         private List<int> one_of_list;
         private IntegerFilterCategory Category;
 
@@ -17,12 +17,12 @@ namespace AdlClient.OData.Models
 
         public void IsInRange(int lower, int upper)
         {
-            var r = new RangeInteger(lower,upper);
+            var r = new AdlClient.Models.RangeInteger(lower,upper);
             this.IsInRange(r);
             this.Category = IntegerFilterCategory.IsInRange;
         }
 
-        public void IsInRange(RangeInteger range)
+        public void IsInRange(AdlClient.Models.RangeInteger range)
         {
             this.range = range;
             this.one_of_list = null;

@@ -16,23 +16,25 @@ namespace AdlClient.Rest
 
         public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccounts()
         {
-            var page = this.RestClient.Account.List();
-            foreach (var acc in RestUtil.EnumItemsInPages(page,
-                p => this.RestClient.Account.ListNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+            var pageiter = new PagedIterator<MSADLS.Models.DataLakeStoreAccount>();
+            pageiter.GetFirstPage = () => this.RestClient.Account.List();
+            pageiter.GetNextPage = p => this.RestClient.Account.ListNext(p.NextPageLink);
+
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
         }
 
         public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsByResourceGroup(string resource_group)
         {
-            var page = this.RestClient.Account.ListByResourceGroup(resource_group);
+            var pageiter = new PagedIterator<MSADLS.Models.DataLakeStoreAccount>();
+            pageiter.GetFirstPage = () => this.RestClient.Account.ListByResourceGroup(resource_group);
+            pageiter.GetNextPage = p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink);
 
-            foreach (var acc in RestUtil.EnumItemsInPages(page,
-                p => this.RestClient.Account.ListByResourceGroupNext(p.NextPageLink)))
-            {
-                yield return acc;
-            }
+            int top = 0;
+            var items = pageiter.EnumerateItems(top);
+            return items;
+
         }
 
         public MSADLS.Models.DataLakeStoreAccount GetAccount(AdlClient.Models.StoreAccountRef account)

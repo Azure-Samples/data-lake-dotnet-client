@@ -1,4 +1,4 @@
-namespace AdlClient.OData.Models
+namespace AdlClient.Models
 {
     public class RangeInteger
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace AdlClient.OData.Models
+namespace AdlClient.Models
 {
     public class RangeDateTime
     {
