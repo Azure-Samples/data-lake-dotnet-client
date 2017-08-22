@@ -21,18 +21,18 @@ namespace AdlClient.Commands
 
         public void CancelJob(System.Guid jobid)
         {
-            this.RestClients.Jobs.Job.Cancel(this.Account.Name, jobid);
+            this.RestClients.JobsClient.Job.Cancel(this.Account.Name, jobid);
         }
 
         public bool JobExists(System.Guid jobid)
         {
-            return this.RestClients.Jobs.Job.Exists(this.Account.Name, jobid);
+            return this.RestClients.JobsClient.Job.Exists(this.Account.Name, jobid);
         }
 
         public JobDetails GetJobDetails(System.Guid jobid, bool extendedInfo)
         {
 
-            var job = this.RestClients.Jobs.Job.Get(this.Account.Name, jobid);
+            var job = this.RestClients.JobsClient.Job.Get(this.Account.Name, jobid);
 
             var jobinfo = new JobInfo(job, this.Account);
 
@@ -49,7 +49,7 @@ namespace AdlClient.Commands
                 jobdetails.JobDetailsExtended = new JobDetailsExtended();
 
 
-                jobdetails.JobDetailsExtended.Statistics = this.RestClients.Jobs.Job.GetStatistics(this.Account.Name, jobid);
+                jobdetails.JobDetailsExtended.Statistics = this.RestClients.JobsClient.Job.GetStatistics(this.Account.Name, jobid);
 
                 // jobdetails.JobDetailsExtended.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
@@ -70,8 +70,8 @@ namespace AdlClient.Commands
             bool? opt_count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.JobInformation>();
-            pageiter.GetFirstPage = () => this.RestClients.Jobs.Job.List(this.Account.Name, odata_query, opt_select, opt_count);
-            pageiter.GetNextPage = p => this.RestClients.Jobs.Job.ListNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.JobsClient.Job.List(this.Account.Name, odata_query, opt_select, opt_count);
+            pageiter.GetNextPage = p => this.RestClients.JobsClient.Job.ListNext(p.NextPageLink);
 
             var jobs = pageiter.EnumerateItems(parameters.Top);
 
@@ -84,8 +84,8 @@ namespace AdlClient.Commands
         public IEnumerable<MSADL.Analytics.Models.JobPipelineInformation> ListJobPipelines(JobPipelineListingParameters parameters)
         {
             var pageiter = new Rest.PagedIterator<MSADLA.Models.JobPipelineInformation>();
-            pageiter.GetFirstPage = () => this.RestClients.Jobs.Pipeline.List(this.Account.Name, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound);
-            pageiter.GetNextPage = p => this.RestClients.Jobs.Pipeline.ListNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.JobsClient.Pipeline.List(this.Account.Name, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound);
+            pageiter.GetNextPage = p => this.RestClients.JobsClient.Pipeline.ListNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -97,8 +97,8 @@ namespace AdlClient.Commands
         {
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.JobRecurrenceInformation>();
-            pageiter.GetFirstPage = () => this.RestClients.Jobs.Recurrence.List(this.Account.Name, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound);
-            pageiter.GetNextPage = p => this.RestClients.Jobs.Recurrence.ListNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.JobsClient.Recurrence.List(this.Account.Name, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound);
+            pageiter.GetNextPage = p => this.RestClients.JobsClient.Recurrence.ListNext(p.NextPageLink);
 
             int top = 0;
             var recurrences = pageiter.EnumerateItems(top);
@@ -110,7 +110,7 @@ namespace AdlClient.Commands
             FixupSubmitParameters(parameters);
 
             var job_props = parameters.ToJobInformationObject();
-            var job_info = this.RestClients.Jobs.Job.Create(this.Account.Name, parameters.JobId, job_props);
+            var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, parameters.JobId, job_props);
             var j = new JobInfo(job_info, this.Account);
             return j;
         }
@@ -137,19 +137,19 @@ namespace AdlClient.Commands
 
 
             var job_props = parameters.ToJobInformationObject();
-            var job_info = this.RestClients.Jobs.Job.Build(this.Account.Name, job_props);
+            var job_info = this.RestClients.JobsClient.Job.Build(this.Account.Name, job_props);
             var j = new JobInfo(job_info, this.Account);
             return j;
         }
 
         public MSADL.Analytics.Models.JobStatistics GetStatistics(System.Guid jobid)
         {
-            return this.RestClients.Jobs.Job.GetStatistics(this.Account.Name, jobid);
+            return this.RestClients.JobsClient.Job.GetStatistics(this.Account.Name, jobid);
         }
 
         public MSADL.Analytics.Models.JobDataPath GetDebugDataPath(System.Guid jobid)
         {
-            var jobdatapath = this.RestClients.Jobs.Job.GetDebugDataPath(this.Account.Name, jobid);
+            var jobdatapath = this.RestClients.JobsClient.Job.GetDebugDataPath(this.Account.Name, jobid);
             return jobdatapath;
         }
     }

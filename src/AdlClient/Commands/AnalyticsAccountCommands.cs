@@ -19,18 +19,18 @@ namespace AdlClient.Commands
 
         public MSADLA.Models.DataLakeAnalyticsAccount Get()
         {
-            var adls_account = this.RestClients.Account.Account.Get(this.Account.ResourceGroup, this.Account.Name);
+            var adls_account = this.RestClients.AccountClient.Account.Get(this.Account.ResourceGroup, this.Account.Name);
             return adls_account;
         }
 
         public void Update( MSADLA.Models.DataLakeAnalyticsAccountUpdateParameters parameters)
         {
-            this.RestClients.Account.Account.Update(this.Account.ResourceGroup, this.Account.Name, parameters);
+            this.RestClients.AccountClient.Account.Update(this.Account.ResourceGroup, this.Account.Name, parameters);
         }
 
         public bool Exists()
         {
-            return this.RestClients.Account.Account.Exists(this.Account.ResourceGroup, this.Account.Name);
+            return this.RestClients.AccountClient.Account.Exists(this.Account.ResourceGroup, this.Account.Name);
         }
     }
 }

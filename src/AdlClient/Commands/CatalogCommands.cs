@@ -19,7 +19,7 @@ namespace AdlClient.Commands
 
         public ADL.Analytics.Models.USqlDatabase GetDatabase(string dbname)
         {
-            var db = this.RestClients.Catalog.Catalog.GetDatabase(this.Account.Name, dbname);
+            var db = this.RestClients.CatalogClient.Catalog.GetDatabase(this.Account.Name, dbname);
             return db;
         }
 
@@ -31,8 +31,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlDatabase>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListDatabases(this.Account.Name, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListDatabasesNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListDatabases(this.Account.Name, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListDatabasesNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -47,8 +47,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlAssemblyClr>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListAssemblies(this.Account.Name, dbname, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListAssembliesNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListAssemblies(this.Account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListAssembliesNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -63,8 +63,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlExternalDataSource>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListExternalDataSources(this.Account.Name, dbname, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListExternalDataSourcesNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListExternalDataSources(this.Account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListExternalDataSourcesNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -79,8 +79,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlProcedure>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListProcedures(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListProceduresNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListProcedures(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListProceduresNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -96,8 +96,8 @@ namespace AdlClient.Commands
 
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlSchema>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListSchemas(this.Account.Name, dbname, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListSchemasNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListSchemas(this.Account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListSchemasNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -111,8 +111,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlView>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListViews(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListViewsNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListViews(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListViewsNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -126,8 +126,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlTable>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListTables(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListTablesNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListTables(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListTablesNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -141,8 +141,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlType>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListTypes(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListTypesNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListTypes(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListTypesNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -156,8 +156,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlTableType>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListTableTypes(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListTableTypesNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListTableTypes(this.Account.Name, dbname, schema, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListTableTypesNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -167,8 +167,8 @@ namespace AdlClient.Commands
         public IEnumerable<ADL.Analytics.Models.USqlTablePartition> ListTablePartitions(string dbname, string schema, string tablename)
         {
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlTablePartition>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListTablePartitions(this.Account.Name, dbname, schema, tablename);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListTablePartitionsNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListTablePartitions(this.Account.Name, dbname, schema, tablename);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListTablePartitionsNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -178,8 +178,8 @@ namespace AdlClient.Commands
         public IEnumerable<ADL.Analytics.Models.USqlTableStatistics> ListTableStatistics(string dbname, string schema, string tablename)
         {
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlTableStatistics>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListTableStatistics(this.Account.Name, dbname, schema, tablename);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListTableStatisticsNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListTableStatistics(this.Account.Name, dbname, schema, tablename);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListTableStatisticsNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
@@ -188,22 +188,22 @@ namespace AdlClient.Commands
 
         public void CreateCredential(string dbname, string credname, ADL.Analytics.Models.DataLakeAnalyticsCatalogCredentialCreateParameters create_parameters)
         {
-            this.RestClients.Catalog.Catalog.CreateCredential(this.Account.Name, dbname, credname, create_parameters);
+            this.RestClients.CatalogClient.Catalog.CreateCredential(this.Account.Name, dbname, credname, create_parameters);
         }
 
         public void DeleteCredential(string dbname, string credname, ADL.Analytics.Models.DataLakeAnalyticsCatalogCredentialDeleteParameters delete_parameters)
         {
-            this.RestClients.Catalog.Catalog.DeleteCredential(this.Account.Name, dbname, credname);
+            this.RestClients.CatalogClient.Catalog.DeleteCredential(this.Account.Name, dbname, credname);
         }
 
         public void UpdateCredential(string dbname, string credname, ADL.Analytics.Models.DataLakeAnalyticsCatalogCredentialUpdateParameters update_parameters)
         {
-            this.RestClients.Catalog.Catalog.UpdateCredential(this.Account.Name, dbname, credname, update_parameters);
+            this.RestClients.CatalogClient.Catalog.UpdateCredential(this.Account.Name, dbname, credname, update_parameters);
         }
 
         public ADL.Analytics.Models.USqlCredential GetCredential(string dbname, string credname)
         {
-            return this.RestClients.Catalog.Catalog.GetCredential(this.Account.Name, dbname, credname);
+            return this.RestClients.CatalogClient.Catalog.GetCredential(this.Account.Name, dbname, credname);
         }
 
         public IEnumerable<ADL.Analytics.Models.USqlCredential> ListCredential(string dbname)
@@ -213,8 +213,8 @@ namespace AdlClient.Commands
             bool? count = null;
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.USqlCredential>();
-            pageiter.GetFirstPage = () => this.RestClients.Catalog.Catalog.ListCredentials(this.Account.Name, dbname, oDataQuery, select_cols, count);
-            pageiter.GetNextPage = p => this.RestClients.Catalog.Catalog.ListCredentialsNext(p.NextPageLink);
+            pageiter.GetFirstPage = () => this.RestClients.CatalogClient.Catalog.ListCredentials(this.Account.Name, dbname, oDataQuery, select_cols, count);
+            pageiter.GetNextPage = p => this.RestClients.CatalogClient.Catalog.ListCredentialsNext(p.NextPageLink);
 
             int top = 0;
             var items = pageiter.EnumerateItems(top);
