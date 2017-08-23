@@ -34,8 +34,10 @@ namespace TestAdlClient.Store
             StoreClient.FileSystem.Create(folder.Append("a/b/f6"), bytes, fcp);
             StoreClient.FileSystem.CreateDirectory(folder.Append("b"));
 
+            var rlfo = new RecursiveFileListingParameters();
+            rlfo.PageSize = 4;
 
-            var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(folder, lfo);
+            var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(folder, rlfo);
             foreach (var page in pages)
             {
                 foreach (var child in page.FileItems)

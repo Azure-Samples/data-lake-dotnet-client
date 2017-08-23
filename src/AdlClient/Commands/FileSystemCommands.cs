@@ -17,16 +17,20 @@ namespace AdlClient.Commands
             this.RestClients = restclients;
         }
 
-        public IEnumerable<FsFileStatusPage> ListFilesRecursivePaged(FsPath path, FileListingParameters parameters)
+        public IEnumerable<FsFileStatusPage> ListFilesRecursivePaged(FsPath path, RecursiveFileListingParameters parameters)
         {
             var queue = new Queue<FsPath>();
             queue.Enqueue(path);
+
+            var flp = new FileListingParameters();
+            flp.PageSize = parameters.PageSize;
+            flp.Top = 0;
 
             while (queue.Count > 0)
             {
                 FsPath cur_path = queue.Dequeue();
 
-                foreach (var page in ListFilesPaged(cur_path, parameters))
+                foreach (var page in ListFilesPaged(cur_path, flp))
                 {
                     yield return page;
 
@@ -42,8 +46,21 @@ namespace AdlClient.Commands
             }
         }
 
+        public IEnumerable<FsPathAndFileStatusPair> ListFiles(FsPath path, FileListingParameters parameters)
+        {
+            foreach (var page in ListFilesPaged(path, parameters))
+            {
+                foreach (var filestatus in page.FileItems)
+                {
+                    var item = new FsPathAndFileStatusPair(page.Path, filestatus);
+                    yield return item;
+                }
+            }
+        }
+
         public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, FileListingParameters parameters)
         {
+            int count = 0;
             var uri = this.GetUri(path);
             string after = null;
             while (true)
@@ -57,6 +74,13 @@ namespace AdlClient.Commands
 
                     page.FileItems = result.FileStatuses.FileStatus.Select(i => new FsFileStatus(i)).ToList();
                     yield return page;
+
+                    count += page.FileItems.Count;
+
+                    if (parameters.Top > 0 && count >= parameters.Top)
+                    {
+                        break;
+                    }
                     after = result.FileStatuses.FileStatus[result.FileStatuses.FileStatus.Count - 1].PathSuffix;
                 }
                 else
