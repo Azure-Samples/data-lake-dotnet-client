@@ -6,7 +6,7 @@ namespace AdlClient
         public readonly AdlClient.Commands.FileSystemCommands FileSystem;
         public readonly AdlClient.Commands.StoreAccountCommands Account;
 
-        public StoreClient(InteractiveAuthentication auth, AdlClient.Models.StoreAccountRef account) :
+        public StoreClient(AuthenticationBase auth, AdlClient.Models.StoreAccountRef account) :
             base(auth)
         {
             this.RestClients = new AdlClient.Rest.StoreRestClients(auth, account);

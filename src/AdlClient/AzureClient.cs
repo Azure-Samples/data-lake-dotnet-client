@@ -16,7 +16,7 @@ namespace AdlClient
         {
             this.Analytics = new AdlClient.Commands.AnalyticsRmCommands(auth);
             this.Store = new AdlClient.Commands.StoreRmCommands(auth);
-            this.GraphClient = new Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient(auth.GraphCreds);
+            this.GraphClient = new Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient(auth.AadCreds);
             this.GraphClient.TenantID = auth.Tenant;
         }
 

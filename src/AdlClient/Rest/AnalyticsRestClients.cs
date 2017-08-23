@@ -9,7 +9,7 @@ namespace AdlClient
         public readonly MSADLA.DataLakeAnalyticsAccountManagementClient AccountClient;
         public readonly AdlClient.Models.AnalyticsAccountRef Account;
 
-        public AnalyticsRestClients(Authentication authSession, AdlClient.Models.AnalyticsAccountRef account)
+        public AnalyticsRestClients(AuthenticationBase authSession, AdlClient.Models.AnalyticsAccountRef account)
         {
             this.Account = account;
             this.JobsClient = new MSADLA.DataLakeAnalyticsJobManagementClient(authSession.AdlCreds);
