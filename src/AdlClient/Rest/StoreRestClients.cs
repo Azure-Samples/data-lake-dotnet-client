@@ -13,8 +13,8 @@ namespace AdlClient.Rest
         public StoreRestClients(Authentication authSession, AdlClient.Models.StoreAccountRef account)
         {
             this.Account = account;
-            this.FileSystemClient = new DataLakeStoreFileSystemManagementClient(authSession.ADLCreds);
-            this.AccountClient = new DataLakeStoreAccountManagementClient(authSession.ARMCreds);
+            this.FileSystemClient = new DataLakeStoreFileSystemManagementClient(authSession.AdlCreds);
+            this.AccountClient = new DataLakeStoreAccountManagementClient(authSession.ArmCreds);
             this.AccountClient.SubscriptionId = account.SubscriptionId;
         }
     }

@@ -13,9 +13,9 @@ namespace AdlClient
         public readonly string Tenant;
         private MSAD.TokenCache _tokenCache;
 
-        public Microsoft.Rest.ServiceClientCredentials ARMCreds;
-        public Microsoft.Rest.ServiceClientCredentials ADLCreds;
-        public Microsoft.Rest.ServiceClientCredentials AADCreds;
+        public Microsoft.Rest.ServiceClientCredentials ArmCreds;
+        public Microsoft.Rest.ServiceClientCredentials AdlCreds;
+        public Microsoft.Rest.ServiceClientCredentials GraphCreds;
 
 
         public Authentication(string tenant)
@@ -86,15 +86,15 @@ namespace AdlClient
 
         public void Authenticate()
         {
-            string CLIENTID = "1950a258-227b-4e31-a9cf-717495945fc2"; // Re-use the Azure PowerShell client id, in production code you should create your own client id
-            var ARM_TOKEN_AUDIENCE = new System.Uri(@"https://management.core.windows.net/");
-            var ADL_TOKEN_AUDIENCE = new System.Uri(@"https://datalake.azure.net/");
-            var AAD_TOKEN_AUDIENCE = new System.Uri(@"https://graph.windows.net/");
+            string ClientID = "1950a258-227b-4e31-a9cf-717495945fc2"; // Re-use the Azure PowerShell client id, in production code you should create your own client id
+            var ArmTokenAudience = new System.Uri(@"https://management.core.windows.net/");
+            var AdlTokenAudience = new System.Uri(@"https://datalake.azure.net/");
+            var GraphTokenAudience = new System.Uri(@"https://graph.windows.net/");
 
             var tokenCache = GetTokenCache(this.GetTokenCachePath());
-            this.ARMCreds = GetCreds_User_Popup(this.Tenant, ARM_TOKEN_AUDIENCE, CLIENTID, tokenCache);
-            this.ADLCreds = GetCreds_User_Popup(this.Tenant, ADL_TOKEN_AUDIENCE, CLIENTID, tokenCache);
-            this.AADCreds = GetCreds_User_Popup(this.Tenant, AAD_TOKEN_AUDIENCE, CLIENTID, tokenCache);
+            this.ArmCreds = GetCreds_User_Popup(this.Tenant, ArmTokenAudience, ClientID, tokenCache);
+            this.AdlCreds = GetCreds_User_Popup(this.Tenant, AdlTokenAudience, ClientID, tokenCache);
+            this.GraphCreds = GetCreds_User_Popup(this.Tenant, GraphTokenAudience, ClientID, tokenCache);
         }
 
         private string GetTokenCachePath()
