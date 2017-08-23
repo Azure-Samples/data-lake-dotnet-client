@@ -31,13 +31,13 @@ namespace AdlClient
             {
                 this.ArmCreds = GetCredsServicePrincipalSecretKey(this.Tenant, this.ArmTokenAudience, this.ClientID, this.SecretKey);
                 this.AdlCreds = GetCredsServicePrincipalSecretKey(this.Tenant, this.ArmTokenAudience, this.ClientID, this.SecretKey);
-                this.AadCreds = GetCredsServicePrincipalSecretKey(this.Tenant, this.ArmTokenAudience, this.ClientID, this.SecretKey);
+                this.GraphCreds = GetCredsServicePrincipalSecretKey(this.Tenant, this.ArmTokenAudience, this.ClientID, this.SecretKey);
             }
             else
             {
                 this.ArmCreds = GetCredsServicePrincipalCertificate(this.Tenant, this.ArmTokenAudience, this.ClientID, this.Certificate);
                 this.AdlCreds = GetCredsServicePrincipalCertificate(this.Tenant, this.ArmTokenAudience, this.ClientID, this.Certificate);
-                this.AadCreds = GetCredsServicePrincipalCertificate(this.Tenant, this.ArmTokenAudience, this.ClientID, this.Certificate);
+                this.GraphCreds = GetCredsServicePrincipalCertificate(this.Tenant, this.ArmTokenAudience, this.ClientID, this.Certificate);
 
             }
         }

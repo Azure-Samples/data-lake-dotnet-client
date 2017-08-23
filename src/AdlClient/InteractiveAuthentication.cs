@@ -80,7 +80,7 @@ namespace AdlClient
 
             this.ArmCreds = GetCreds_User_Popup(this.Tenant, this.ArmTokenAudience, this.ClientID, tokenCache);
             this.AdlCreds = GetCreds_User_Popup(this.Tenant, this.AdlTokenAudience, this.ClientID, tokenCache);
-            this.AadCreds = GetCreds_User_Popup(this.Tenant, this.AadTokenAudience, this.ClientID, tokenCache);
+            this.GraphCreds = GetCreds_User_Popup(this.Tenant, this.GraphTokenAudience, this.ClientID, tokenCache);
         }
 
 

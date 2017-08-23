@@ -6,15 +6,15 @@ namespace AdlClient
     {
         // information needed to get the credentials
         public readonly string Tenant;
-        readonly public System.Uri ArmTokenAudience = new System.Uri(@"https://management.core.windows.net/");
-        readonly public System.Uri AdlTokenAudience = new System.Uri(@"https://datalake.azure.net/");
-        readonly public System.Uri AadTokenAudience = new System.Uri(@"https://graph.windows.net/");
+        public readonly System.Uri ArmTokenAudience = new System.Uri(@"https://management.core.windows.net/");
+        public readonly System.Uri AdlTokenAudience = new System.Uri(@"https://datalake.azure.net/");
+        public readonly System.Uri GraphTokenAudience = new System.Uri(@"https://graph.windows.net/");
         public string ClientID;
 
         // credentials will be stored here
         public Microsoft.Rest.ServiceClientCredentials ArmCreds;
         public Microsoft.Rest.ServiceClientCredentials AdlCreds;
-        public Microsoft.Rest.ServiceClientCredentials AadCreds;
+        public Microsoft.Rest.ServiceClientCredentials GraphCreds;
         
         protected AuthenticationBase(string tenant)
         {
