@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Rest.Azure;
 
 namespace AdlClient.Rest
@@ -11,21 +12,10 @@ namespace AdlClient.Rest
         public delegate IPage<T> FuncGetFirstPage();
         public delegate IPage<T> FuncGetNextPage(IPage<T> p);
 
-        public IEnumerable<T> EnumerateItems( int top)
+        public IEnumerable<T> EnumerateItems(int top)
         {
-            int item_count = 0;
-            foreach (var p in this._EnumerateItems())
-            {
-                yield return p;
-
-                item_count++;
-
-                if ((top > 0) && (item_count >= top))
-                {
-                    break;
-                }
-
-            }
+            var items = this._EnumerateItems().Take(top);
+            return items;
         }
 
         private IEnumerable<T> _EnumerateItems()
@@ -41,8 +31,11 @@ namespace AdlClient.Rest
 
         private IEnumerable<IPage<T>> _EnumeratePages()
         {
+            int item_count = 0;
+
             var page = this.GetFirstPage();
             yield return page;
+
             while (!string.IsNullOrEmpty(page.NextPageLink))
             {
                 page = this.GetNextPage(page);
