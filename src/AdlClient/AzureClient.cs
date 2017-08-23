@@ -11,7 +11,7 @@ namespace AdlClient
         public readonly AdlClient.Commands.StoreRmCommands Store;
         public readonly Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient GraphClient;
 
-        public AzureClient(Authentication auth) :
+        public AzureClient(InteractiveAuthentication auth) :
             base(auth)
         {
             this.Analytics = new AdlClient.Commands.AnalyticsRmCommands(auth);

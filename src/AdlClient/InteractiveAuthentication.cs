@@ -1,26 +1,16 @@
 using System;
-using System.Linq;
-using System.Net.Http.Headers;
 using Microsoft.Rest;
-using Newtonsoft.Json.Linq;
 using MSAD = Microsoft.IdentityModel.Clients.ActiveDirectory;
 using REST = Microsoft.Rest.Azure;
 
 namespace AdlClient
 {
-    public class Authentication
+    public class InteractiveAuthentication: AuthenticationBase
     {
-        public readonly string Tenant;
-        private MSAD.TokenCache _tokenCache;
-
-        public Microsoft.Rest.ServiceClientCredentials ArmCreds;
-        public Microsoft.Rest.ServiceClientCredentials AdlCreds;
-        public Microsoft.Rest.ServiceClientCredentials GraphCreds;
-
-
-        public Authentication(string tenant)
+        public InteractiveAuthentication(string tenant) : base(tenant)
         {
-            this.Tenant = tenant;
+            // Re-use the Azure PowerShell client id, in production code you should create your own client id
+            this.ClientID = "1950a258-227b-4e31-a9cf-717495945fc2"; 
         }
 
         public void ClearCache()
@@ -30,7 +20,7 @@ namespace AdlClient
             if (System.IO.File.Exists(cache_filename))
             {
                 var bytes = System.IO.File.ReadAllBytes(cache_filename);
-                var token_cache = new Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCache(bytes);
+                var token_cache = new MSAD.TokenCache(bytes);
                 token_cache.Clear();
                 System.IO.File.WriteAllBytes(cache_filename, token_cache.Serialize());
             }
@@ -84,18 +74,15 @@ namespace AdlClient
             return tokenCache;
         }
 
-        public void Authenticate()
+        public override void _Authenticate()
         {
-            string ClientID = "1950a258-227b-4e31-a9cf-717495945fc2"; // Re-use the Azure PowerShell client id, in production code you should create your own client id
-            var ArmTokenAudience = new System.Uri(@"https://management.core.windows.net/");
-            var AdlTokenAudience = new System.Uri(@"https://datalake.azure.net/");
-            var GraphTokenAudience = new System.Uri(@"https://graph.windows.net/");
-
             var tokenCache = GetTokenCache(this.GetTokenCachePath());
-            this.ArmCreds = GetCreds_User_Popup(this.Tenant, ArmTokenAudience, ClientID, tokenCache);
-            this.AdlCreds = GetCreds_User_Popup(this.Tenant, AdlTokenAudience, ClientID, tokenCache);
-            this.GraphCreds = GetCreds_User_Popup(this.Tenant, GraphTokenAudience, ClientID, tokenCache);
+
+            this.ArmCreds = GetCreds_User_Popup(this.Tenant, this.ArmTokenAudience, this.ClientID, tokenCache);
+            this.AdlCreds = GetCreds_User_Popup(this.Tenant, this.AdlTokenAudience, this.ClientID, tokenCache);
+            this.AadCreds = GetCreds_User_Popup(this.Tenant, this.AadTokenAudience, this.ClientID, tokenCache);
         }
+
 
         private string GetTokenCachePath()
         {
@@ -104,29 +91,6 @@ namespace AdlClient
             var tokenCachePath = System.IO.Path.Combine(path, basefname);
             return tokenCachePath;
         }
-
-        public static string GetTenantId(string tenant)
-        {
-            // example https://login.windows.net/microsoft.onmicrosoft.com/.well-known/openid-configuration
-            string url = "https://login.windows.net/" + tenant + "/.well-known/openid-configuration";
-
-            var wc = new System.Net.WebClient();
-            var s = wc.OpenRead(url);
-            string result;
-            using (var reader = new System.IO.StreamReader(s))
-            {
-                result = reader.ReadToEnd();
-            }
-            var root = JObject.Parse(result);
-            var token_endpoint_element = root["token_endpoint"];
-            string token_endpoint = token_endpoint_element.Value<string>();
-
-            var parts = token_endpoint.Split('/');
-
-            string tenantid = parts[3];
-            return tenantid;
-        }
     }
-
 }
  
