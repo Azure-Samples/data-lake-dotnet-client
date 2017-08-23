@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics;
+using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using MSADL = Microsoft.Azure.Management.DataLake;
 
 namespace AdlClient.Commands
@@ -69,7 +70,7 @@ namespace AdlClient.Commands
             string opt_select = null;
             bool? opt_count = null;
 
-            var pageiter = new Rest.PagedIterator<MSADLA.Models.JobInformation>();
+            var pageiter = new Rest.PagedIterator<MSADLA.Models.JobInformationBasic>();
             pageiter.GetFirstPage = () => this.RestClients.JobsClient.Job.List(this.Account.Name, odata_query, opt_select, opt_count);
             pageiter.GetNextPage = p => this.RestClients.JobsClient.Job.ListNext(p.NextPageLink);
 
@@ -105,39 +106,17 @@ namespace AdlClient.Commands
             return recurrences;
         }
 
-        public JobInfo SubmitJob(JobSubmitParameters parameters)
+        public JobInfo SubmitJob(CreateJobParameters parameters)
         {
-            FixupSubmitParameters(parameters);
-
-            var job_props = parameters.ToJobInformationObject();
-            var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, parameters.JobId, job_props);
+            var jobid = System.Guid.NewGuid();
+            var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, jobid, parameters);
             var j = new JobInfo(job_info, this.Account);
             return j;
         }
 
-        private static void FixupSubmitParameters(JobSubmitParameters parameters)
+        public JobInfo BuildJob(BuildJobParameters parameters)
         {
-            // If caller doesn't provide a guid, then create a new one
-            if (parameters.JobId == default(System.Guid))
-            {
-                parameters.JobId = System.Guid.NewGuid();
-            }
-
-            // if caller doesn't provide a name, then create one automativally
-            if (parameters.JobName == null)
-            {
-                // TODO: Handle the date part of the name nicely
-                parameters.JobName = "USQL " + System.DateTimeOffset.Now.ToString();
-            }
-        }
-
-        public JobInfo BuildJob(JobSubmitParameters parameters)
-        {
-            FixupSubmitParameters(parameters);
-
-
-            var job_props = parameters.ToJobInformationObject();
-            var job_info = this.RestClients.JobsClient.Job.Build(this.Account.Name, job_props);
+            var job_info = this.RestClients.JobsClient.Job.Build(this.Account.Name, parameters);
             var j = new JobInfo(job_info, this.Account);
             return j;
         }

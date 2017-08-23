@@ -13,7 +13,7 @@ namespace AdlClient.Commands
             this.Authentication = auth;
         }
 
-        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsInSubscription(string subid)
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccountBasic> ListAccountsInSubscription(string subid)
         {
             var client = _get_acount_mgmt_client(subid);
             return client.Account.List();
@@ -26,7 +26,7 @@ namespace AdlClient.Commands
             return client;
         }
 
-        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsResourceGroup(string subid, string rg)
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccountBasic> ListAccountsResourceGroup(string subid, string rg)
         {
             var client = _get_acount_mgmt_client(subid);
             return client.Account.ListByResourceGroup(rg);

@@ -63,9 +63,19 @@ namespace TestAdlClient.Analytics
         public void Submit_Job_with_Syntax_Error()
         {
             this.Initialize();
-            var submit_parameters = new JobSubmitParameters();
-            submit_parameters.ScriptText = "FOOBAR";
-            submit_parameters.JobName = "Test Job";
+            var submit_parameters = new CreateJobParameters();
+
+
+            submit_parameters.Name = "Test Job";
+            submit_parameters.DegreeOfParallelism = 1;
+            //submit_parameters.Priority = ;
+            //submit_parameters.Related = ;
+            submit_parameters.Properties = new CreateJobProperties();
+            submit_parameters.Properties.Script = "Test Job";
+            submit_parameters.Type = JobType.USql;
+
+            submit_parameters.Validate();
+
             var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
 
             System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.JobId, ji.SubmitTime);
@@ -142,9 +152,10 @@ namespace TestAdlClient.Analytics
             {
                 for (int i = 0; i < num_jobs; i++)
                 {
-                    var submit_parameters = new JobSubmitParameters();
-                    submit_parameters.ScriptText = "FOOBAR";
-                    submit_parameters.JobName = "Test Job " + i.ToString();
+                    var submit_parameters = new CreateJobParameters();
+                    submit_parameters.Properties = new CreateJobProperties();
+                    submit_parameters.Properties.Script = "FOOBAR";
+                    submit_parameters.Name = "Test Job " + i.ToString();
                     var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
 
                 }
