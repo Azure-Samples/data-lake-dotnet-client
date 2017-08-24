@@ -112,12 +112,10 @@
     <Compile Include="Models\JobListingParameters.cs" />
     <Compile Include="Models\JobListingSorting.cs" />
     <Compile Include="Models\JobPipelineListingParameters.cs" />
-    <Compile Include="Models\JobProfile.cs" />
     <Compile Include="Models\JobReccurenceListingParameters.cs" />
     <Compile Include="Models\JobRef.cs" />
     <Compile Include="Models\JobSubmitParameters.cs" />
     <Compile Include="Models\JobUri.cs" />
-    <Compile Include="Models\JobVertexProfile.cs" />
     <Compile Include="Models\RecursiveFileListingParameters.cs" />
     <Compile Include="Models\SortSpec.cs" />
     <Compile Include="Models\StoreAccountPortalUri.cs" />
