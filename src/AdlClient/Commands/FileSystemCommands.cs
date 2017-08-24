@@ -17,7 +17,7 @@ namespace AdlClient.Commands
             this.RestClients = restclients;
         }
 
-        public IEnumerable<FsPathAndFileStatusPair> ListFilesRecursive(FsPath path, RecursiveFileListingParameters parameters)
+        public IEnumerable<FsPathAndFileStatusPair> ListFilesRecursive(FsPath path, FileListRecursiveParameters parameters)
         {
             foreach (var page in ListFilesRecursivePaged(path, parameters))
             {
@@ -29,12 +29,12 @@ namespace AdlClient.Commands
             }
         }
 
-        public IEnumerable<FsFileStatusPage> ListFilesRecursivePaged(FsPath path, RecursiveFileListingParameters parameters)
+        public IEnumerable<FsFileStatusPage> ListFilesRecursivePaged(FsPath path, FileListRecursiveParameters parameters)
         {
             var queue = new Queue<FsPath>();
             queue.Enqueue(path);
 
-            var flp = new FileListingParameters();
+            var flp = new FileListParameters();
             flp.PageSize = parameters.PageSize;
             flp.Top = 0;
 
@@ -67,7 +67,7 @@ namespace AdlClient.Commands
             }
         }
 
-        public IEnumerable<FsPathAndFileStatusPair> ListFiles(FsPath path, FileListingParameters parameters)
+        public IEnumerable<FsPathAndFileStatusPair> ListFiles(FsPath path, FileListParameters parameters)
         {
             foreach (var page in ListFilesPaged(path, parameters))
             {
@@ -79,7 +79,7 @@ namespace AdlClient.Commands
             }
         }
 
-        public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, FileListingParameters parameters)
+        public IEnumerable<FsFileStatusPage> ListFilesPaged(FsPath path, FileListParameters parameters)
         {
             int count = 0;
             string after = null;

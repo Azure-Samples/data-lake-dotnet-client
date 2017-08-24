@@ -57,7 +57,7 @@ namespace AdlClient.Commands
             return jobdetails;
         }
 
-        public IEnumerable<JobInfo> ListJobs(JobListingParameters parameters)
+        public IEnumerable<JobInfo> ListJobs(JobListParameters parameters)
         {
             var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSADL.Analytics.Models.JobInformation>();
 
@@ -81,7 +81,7 @@ namespace AdlClient.Commands
             return jobinfos;
         }
 
-        public IEnumerable<MSADL.Analytics.Models.JobPipelineInformation> ListJobPipelines(JobPipelineListingParameters parameters)
+        public IEnumerable<MSADL.Analytics.Models.JobPipelineInformation> ListJobPipelines(JobPipelineListParameters parameters)
         {
             var pageiter = new Rest.PagedIterator<MSADLA.Models.JobPipelineInformation>();
             pageiter.GetFirstPage = () => this.RestClients.JobsClient.Pipeline.List(this.Account.Name, parameters.DateRange.LowerBound, parameters.DateRange.UpperBound);
@@ -93,7 +93,7 @@ namespace AdlClient.Commands
             return items;
         }
 
-        public IEnumerable<MSADL.Analytics.Models.JobRecurrenceInformation> ListJobRecurrences(JobReccurenceListingParameters parameters)
+        public IEnumerable<MSADL.Analytics.Models.JobRecurrenceInformation> ListJobRecurrences(JobReccurenceListParameters parameters)
         {
 
             var pageiter = new Rest.PagedIterator<MSADLA.Models.JobRecurrenceInformation>();
@@ -105,7 +105,7 @@ namespace AdlClient.Commands
             return recurrences;
         }
 
-        public JobInfo CreateJob(CreateJobParameters parameters)
+        public JobInfo CreateJob(JobCreateParameters parameters)
         {
             FixupCreateJobParameters(parameters);
 
@@ -115,7 +115,7 @@ namespace AdlClient.Commands
             return j;
         }
 
-        private static void FixupCreateJobParameters(CreateJobParameters parameters)
+        private static void FixupCreateJobParameters(JobCreateParameters parameters)
         {
             // If caller doesn't provide a guid, then create a new one
             if (parameters.JobId == default(System.Guid))
@@ -131,7 +131,7 @@ namespace AdlClient.Commands
             }
         }
 
-        public JobInfo BuildJob(CreateJobParameters parameters)
+        public JobInfo BuildJob(JobCreateParameters parameters)
         {
             FixupCreateJobParameters(parameters);
 

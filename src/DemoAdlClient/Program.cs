@@ -69,7 +69,7 @@ namespace DemoAdlClient
 
         private static void Demo_JobsDetails(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 5;
             listing_parameters.Filter.State.IsOneOf(MSADLA.Models.JobState.Ended);
             listing_parameters.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Succeeded);
@@ -129,7 +129,7 @@ namespace DemoAdlClient
         private static void Demo_FileSystem_ListFilesInFolder(AdlClient.StoreClient adls)
         {
             var folder = new AdlClient.Models.FsPath("/Samples");
-            var lfo = new AdlClient.Models.FileListingParameters();
+            var lfo = new AdlClient.Models.FileListParameters();
             foreach (var page in adls.FileSystem.ListFilesPaged(folder, lfo))
             {
                 foreach (var fileitemn in page.FileItems)
@@ -141,7 +141,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_GetJobUrl(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 3;
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
@@ -160,7 +160,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_SingleMostRecent(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 1;
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
 
@@ -183,7 +183,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_SubmittedBy_Users(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 10;
             listing_parameters.Filter.Submitter.IsOneOf("mrys@microsoft.com", "saveenr@microsoft.com");
 
@@ -194,7 +194,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_SubmittedBy_UserBeginsWith(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 10;
             listing_parameters.Filter.Submitter.BeginsWith("saa");
 
@@ -205,7 +205,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_SubmittedBy_UserContains(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 10;
             listing_parameters.Filter.Submitter.Contains("eenr");
 
@@ -217,7 +217,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_Recent(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 10;
             listing_parameters.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Descending);
 
@@ -228,7 +228,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_Oldest(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 10;
             listing_parameters.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Ascending);
 
@@ -239,7 +239,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_Oldest_from_Submitter(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 1;
             listing_parameters.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Ascending);
             listing_parameters.Filter.Submitter.Contains("saveenr");
@@ -252,7 +252,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_Failed(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 5;
 
             listing_parameters.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Failed);
@@ -265,7 +265,7 @@ namespace DemoAdlClient
 
         private static void Demo_GetJobsSubmitedInLast2hours(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.Models.RangeDateTime.InTheLastNHours(2));
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
             PrintJobs(jobs);
@@ -273,7 +273,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_SubmittedBetween_MidnightAndNow(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.Models.RangeDateTime.SinceLocalMidnight());
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
             PrintJobs(jobs);
@@ -281,7 +281,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_NeverStarted(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 2;
             listing_parameters.Filter.StartTime.IsNull();
             var jobs = adla.Jobs.ListJobs(listing_parameters).ToList().ToList();
@@ -290,7 +290,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_List_MostExpensive_In_Last24hours(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Filter.SubmitTime.IsInRange(AdlClient.Models.RangeDateTime.InTheLastNHours(24));
             var jobs = adla.Jobs.ListJobs(listing_parameters).OrderByDescending(j => j.AUSeconds).Take(10).ToList();
 
@@ -369,7 +369,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_Summarize_FailedAUHours_By_Submitter(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 300;
 
             listing_parameters.Filter.Result.IsOneOf(MSADLA.Models.JobResult.Failed);
@@ -398,7 +398,7 @@ namespace DemoAdlClient
 
         private static void Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(AdlClient.AnalyticsClient adla)
         {
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
+            var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 300;
 
             //opts.Filter.Result.OneOf(MS_ADLA.Models.JobResult.Failed);

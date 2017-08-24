@@ -13,7 +13,7 @@ namespace TestAdlClient.Analytics
         public void Verify_Paging_1()
         {
             this.Initialize();
-            var listing_parameters = new JobListingParameters();
+            var listing_parameters = new JobListParameters();
             listing_parameters.Top = 100;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
@@ -24,7 +24,7 @@ namespace TestAdlClient.Analytics
         public void Verify_Paging_300()
         {
             this.Initialize();
-            var listing_parameters = new JobListingParameters();
+            var listing_parameters = new JobListParameters();
             listing_parameters.Top = 300;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
@@ -35,7 +35,7 @@ namespace TestAdlClient.Analytics
         public void Verify_Paging_450()
         {
             this.Initialize();
-            var listing_parameters = new JobListingParameters();
+            var listing_parameters = new JobListParameters();
             listing_parameters.Top = 450;
 
             var jobs = this.AnalyticsClient.Jobs.ListJobs(listing_parameters).ToList();
@@ -48,7 +48,7 @@ namespace TestAdlClient.Analytics
         {
             this.Initialize();
 
-            var listing_parameters = new JobListingParameters();
+            var listing_parameters = new JobListParameters();
             listing_parameters.Top = 30;
             listing_parameters.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Descending);
 
@@ -63,7 +63,7 @@ namespace TestAdlClient.Analytics
         public void Create_Job_with_Syntax_Error()
         {
             this.Initialize();
-            var create_job__parameters = new CreateJobParameters();
+            var create_job__parameters = new JobCreateParameters();
             create_job__parameters.ScriptText = "FOOBAR";
             create_job__parameters.JobName = "Test Job";
             var ji = this.AnalyticsClient.Jobs.CreateJob(create_job__parameters);
@@ -79,7 +79,7 @@ namespace TestAdlClient.Analytics
         public void List_Jobs_Ended()
         {
             this.Initialize();
-            var listing_parameters = new JobListingParameters();
+            var listing_parameters = new JobListParameters();
             listing_parameters.Top = 30;
             listing_parameters.Filter.State.IsOneOf(JobState.Ended);
 
@@ -97,7 +97,7 @@ namespace TestAdlClient.Analytics
         public void List_Jobs_Running()
         {
             this.Initialize();
-            var listing_parameters = new JobListingParameters();
+            var listing_parameters = new JobListParameters();
             listing_parameters.Top = 30;
             listing_parameters.Filter.State.IsOneOf(JobState.Running);
 
@@ -115,7 +115,7 @@ namespace TestAdlClient.Analytics
         public void List_Jobs_Ended_Failed()
         {
             this.Initialize();
-            var listing_parameters = new JobListingParameters();
+            var listing_parameters = new JobListParameters();
             listing_parameters.Top = 30;
             listing_parameters.Filter.State.IsOneOf( JobState.Ended);
             listing_parameters.Filter.Result.IsOneOf( JobResult.Failed);
@@ -142,7 +142,7 @@ namespace TestAdlClient.Analytics
             {
                 for (int i = 0; i < num_jobs; i++)
                 {
-                    var create_job_parameters = new CreateJobParameters();
+                    var create_job_parameters = new JobCreateParameters();
                     create_job_parameters.ScriptText = "FOOBAR";
                     create_job_parameters.JobName = "Test Job " + i.ToString();
                     var ji = this.AnalyticsClient.Jobs.CreateJob(create_job_parameters);

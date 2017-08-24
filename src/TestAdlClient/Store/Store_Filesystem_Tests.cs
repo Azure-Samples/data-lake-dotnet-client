@@ -14,7 +14,7 @@ namespace TestAdlClient.Store
             int page_count = 0;
             int child_count = 0;
 
-            var lfo = new FileListingParameters();
+            var lfo = new FileListParameters();
             lfo.PageSize = 4;
 
             var folder = new FsPath("/test_adl_demo_client/List_Files_Recursive");
@@ -34,7 +34,7 @@ namespace TestAdlClient.Store
             StoreClient.FileSystem.Create(folder.Append("a/b/f6"), bytes, fcp);
             StoreClient.FileSystem.CreateDirectory(folder.Append("b"));
 
-            var rlfo = new RecursiveFileListingParameters();
+            var rlfo = new FileListRecursiveParameters();
             rlfo.PageSize = 4;
 
             var pages = this.StoreClient.FileSystem.ListFilesRecursivePaged(folder, rlfo);
@@ -59,7 +59,7 @@ namespace TestAdlClient.Store
             int page_count = 0;
             int child_count = 0;
 
-            var lfo = new FileListingParameters();
+            var lfo = new FileListParameters();
             lfo.PageSize = 4;
 
             var pages = this.StoreClient.FileSystem.ListFilesPaged(FsPath.Root, lfo);
