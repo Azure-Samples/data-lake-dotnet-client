@@ -2,7 +2,7 @@ using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Models
 {
-    public class JobSubmitParameters
+    public class CreateJobParameters
     {
         public System.Guid JobId;
         public string JobName;

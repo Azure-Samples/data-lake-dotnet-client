@@ -60,13 +60,13 @@ namespace TestAdlClient.Analytics
         }
 
         [TestMethod]
-        public void Submit_Job_with_Syntax_Error()
+        public void Create_Job_with_Syntax_Error()
         {
             this.Initialize();
-            var submit_parameters = new JobSubmitParameters();
-            submit_parameters.ScriptText = "FOOBAR";
-            submit_parameters.JobName = "Test Job";
-            var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
+            var create_job__parameters = new CreateJobParameters();
+            create_job__parameters.ScriptText = "FOOBAR";
+            create_job__parameters.JobName = "Test Job";
+            var ji = this.AnalyticsClient.Jobs.CreateJob(create_job__parameters);
 
             System.Console.WriteLine("{0} {1} {2}", ji.Name, ji.JobId, ji.SubmitTime);
 
@@ -132,7 +132,7 @@ namespace TestAdlClient.Analytics
         }
 
         [TestMethod]
-        public void Submit_500_Jobs()
+        public void Create_500_Jobs()
         {
             this.Initialize();
 
@@ -142,10 +142,10 @@ namespace TestAdlClient.Analytics
             {
                 for (int i = 0; i < num_jobs; i++)
                 {
-                    var submit_parameters = new JobSubmitParameters();
-                    submit_parameters.ScriptText = "FOOBAR";
-                    submit_parameters.JobName = "Test Job " + i.ToString();
-                    var ji = this.AnalyticsClient.Jobs.SubmitJob(submit_parameters);
+                    var create_job_parameters = new CreateJobParameters();
+                    create_job_parameters.ScriptText = "FOOBAR";
+                    create_job_parameters.JobName = "Test Job " + i.ToString();
+                    var ji = this.AnalyticsClient.Jobs.CreateJob(create_job_parameters);
 
                 }
             }

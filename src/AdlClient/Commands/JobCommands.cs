@@ -105,9 +105,9 @@ namespace AdlClient.Commands
             return recurrences;
         }
 
-        public JobInfo SubmitJob(JobSubmitParameters parameters)
+        public JobInfo CreateJob(CreateJobParameters parameters)
         {
-            FixupSubmitParameters(parameters);
+            FixupCreateJobParameters(parameters);
 
             var job_props = parameters.ToJobInformationObject();
             var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, parameters.JobId, job_props);
@@ -115,7 +115,7 @@ namespace AdlClient.Commands
             return j;
         }
 
-        private static void FixupSubmitParameters(JobSubmitParameters parameters)
+        private static void FixupCreateJobParameters(CreateJobParameters parameters)
         {
             // If caller doesn't provide a guid, then create a new one
             if (parameters.JobId == default(System.Guid))
@@ -131,9 +131,9 @@ namespace AdlClient.Commands
             }
         }
 
-        public JobInfo BuildJob(JobSubmitParameters parameters)
+        public JobInfo BuildJob(CreateJobParameters parameters)
         {
-            FixupSubmitParameters(parameters);
+            FixupCreateJobParameters(parameters);
 
 
             var job_props = parameters.ToJobInformationObject();

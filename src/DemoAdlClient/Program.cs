@@ -11,7 +11,7 @@ namespace DemoAdlClient
         private static void Main(string[] args)
         {
             // Setup authentication for this demo
-            var auth = new AdlClient.Authentication("microsoft.onmicrosoft.com"); // change this to YOUR tenant
+            var auth = new AdlClient.InteractiveAuthentication("microsoft.onmicrosoft.com"); // change this to YOUR tenant
             auth.Authenticate();
 
             // Collect info about the Azure resources needed for this demo

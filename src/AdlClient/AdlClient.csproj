@@ -72,7 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsClient.cs" />
-    <Compile Include="Authentication.cs" />
+    <Compile Include="Commands\FsPathAndFileStatusPair.cs" />
+    <Compile Include="Commands\GraphCommands.cs" />
+    <Compile Include="InteractiveAuthentication.cs" />
+    <Compile Include="AuthenticationBase.cs" />
     <Compile Include="AzureClient.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="Commands\AnalyticsAccountCommands.cs" />
@@ -110,15 +113,15 @@
     <Compile Include="Models\JobListingParameters.cs" />
     <Compile Include="Models\JobListingSorting.cs" />
     <Compile Include="Models\JobPipelineListingParameters.cs" />
-    <Compile Include="Models\JobProfile.cs" />
     <Compile Include="Models\JobReccurenceListingParameters.cs" />
     <Compile Include="Models\JobRef.cs" />
-    <Compile Include="Models\JobSubmitParameters.cs" />
+    <Compile Include="Models\CreateJobParameters.cs" />
     <Compile Include="Models\JobUri.cs" />
-    <Compile Include="Models\JobVertexProfile.cs" />
+    <Compile Include="Models\RecursiveFileListingParameters.cs" />
     <Compile Include="Models\SortSpec.cs" />
     <Compile Include="Models\StoreAccountPortalUri.cs" />
     <Compile Include="Models\StoreAccountRef.cs" />
+    <Compile Include="NonInteractiveAuthentication.cs" />
     <Compile Include="OData\Expr.cs" />
     <Compile Include="OData\ExprBinaryOp.cs" />
     <Compile Include="OData\ExprCeiling.cs" />

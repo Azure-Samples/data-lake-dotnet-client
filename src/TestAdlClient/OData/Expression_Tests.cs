@@ -6,7 +6,7 @@ namespace TestAdlClient.Store
     public class Expression_Tests : Base_Tests
     {
         [TestMethod]
-        public void Field_0()
+        public void SimpleField()
         {
             var e0 = new AdlClient.OData.ExprField("foo");
             var s = e0.ToExpressionString();
@@ -14,7 +14,7 @@ namespace TestAdlClient.Store
         }
 
         [TestMethod]
-        public void Field_1()
+        public void CompareFieldsLogical()
         {
             var e0 = new AdlClient.OData.ExprField("foo");
             var e1 = new AdlClient.OData.ExprField("bar");
@@ -25,7 +25,7 @@ namespace TestAdlClient.Store
         }
 
         [TestMethod]
-        public void Field_2()
+        public void CompareFieldsLogicalWithOptimization()
         {
             var e0 = new AdlClient.OData.ExprField("foo");
             var e2 = new AdlClient.OData.ExprLogicalAnd(e0);
@@ -33,6 +33,5 @@ namespace TestAdlClient.Store
             var s = e2.ToExpressionString();
             Assert.AreEqual("foo", s);
         }
-
     }
 }

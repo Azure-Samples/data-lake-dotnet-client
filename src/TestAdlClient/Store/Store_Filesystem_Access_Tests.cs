@@ -9,12 +9,10 @@ namespace TestAdlClient.Store
     public class Store_Filesystem_Access_Tests : Base_Tests
     {
         [TestMethod]
-        public void AAD_Scenario()
+        public void GraphLookupUser()
         {
             this.Initialize();
-            var u = this.AzureClient.GraphClient.Users.Get("saveenr@microsoft.com");
-
-            int x = 1;
+            var u = this.AzureClient.Graph.GetUser("saveenr@microsoft.com");
         }
 
         private FsPath create_test_dir()
@@ -165,7 +163,7 @@ namespace TestAdlClient.Store
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
 
-            var u = this.AzureClient.GraphClient.Users.Get("mahi@microsoft.com");
+            var u = this.AzureClient.Graph.GetUser("mahi@microsoft.com");
 
 
             var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);
