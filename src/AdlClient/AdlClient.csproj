@@ -114,7 +114,7 @@
     <Compile Include="Models\JobPipelineListingParameters.cs" />
     <Compile Include="Models\JobReccurenceListingParameters.cs" />
     <Compile Include="Models\JobRef.cs" />
-    <Compile Include="Models\JobSubmitParameters.cs" />
+    <Compile Include="Models\CreateJobParameters.cs" />
     <Compile Include="Models\JobUri.cs" />
     <Compile Include="Models\RecursiveFileListingParameters.cs" />
     <Compile Include="Models\SortSpec.cs" />
