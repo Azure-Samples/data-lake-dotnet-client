@@ -1,6 +1,6 @@
 ﻿using AdlClient.OData;
 
-namespace AdlClient.Models
+namespace AdlClient.OData.Models
 {
     public class SortSpec
     {

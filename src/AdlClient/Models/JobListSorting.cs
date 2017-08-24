@@ -3,7 +3,7 @@ namespace AdlClient.Models
 
     public class JobListSorting
     {
-        public SortSpec Spec { get; private set; }
+        public AdlClient.OData.Models.SortSpec Spec { get; private set; }
 
         static JobExprFields jobfields = new JobExprFields();
 
@@ -19,54 +19,53 @@ namespace AdlClient.Models
         
         public void BySubmitTime(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec( jobfields.SubmitTime, dir );
+            this.Spec = new AdlClient.OData.Models.SortSpec( jobfields.SubmitTime, dir );
         }
 
 
         public void ByEndTime(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.EndTime, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.EndTime, dir);
         }
 
         public void ByName(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.Name, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.Name, dir);
         }
 
         public void ByPriority(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.Priority, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.Priority, dir);
         }
 
         public void ByResult(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.Result, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.Result, dir);
         }
 
         public void ByStartTime(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.StartTime, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.StartTime, dir);
         }
 
         public void BySubmitter(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.Submitter, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.Submitter, dir);
         }
 
         public void ByState(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.State, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.State, dir);
         }
 
         public void ByDegreeOfParallelism(AdlClient.OData.Models.OrderByDirection dir)
         {
-            this.Spec = new SortSpec(jobfields.DegreeOfParallelism, dir);
+            this.Spec = new AdlClient.OData.Models.SortSpec(jobfields.DegreeOfParallelism, dir);
         }
 
         public void Clear()
         {
             this.Spec = null;
         }
-
     }
 }
