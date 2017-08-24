@@ -9,12 +9,10 @@ namespace TestAdlClient.Store
     public class Store_Filesystem_Access_Tests : Base_Tests
     {
         [TestMethod]
-        public void AAD_Scenario()
+        public void GraphLookupUser()
         {
             this.Initialize();
             var u = this.AzureClient.GraphClient.Users.Get("saveenr@microsoft.com");
-
-            int x = 1;
         }
 
         private FsPath create_test_dir()
