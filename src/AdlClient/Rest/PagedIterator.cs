@@ -31,8 +31,6 @@ namespace AdlClient.Rest
 
         private IEnumerable<IPage<T>> _EnumeratePages()
         {
-            int item_count = 0;
-
             var page = this.GetFirstPage();
             yield return page;
 
@@ -42,6 +40,5 @@ namespace AdlClient.Rest
                 yield return page;
             }
         }
-
     }
 }
