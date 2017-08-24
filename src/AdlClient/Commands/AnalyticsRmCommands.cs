@@ -6,7 +6,7 @@ namespace AdlClient.Commands
 {
     public class AnalyticsRmCommands
     {
-        internal readonly InteractiveAuthentication Authentication;
+        internal readonly AuthenticationBase Authentication;
 
         internal AnalyticsRmCommands(InteractiveAuthentication auth)
         {

@@ -9,15 +9,14 @@ namespace AdlClient
     {
         public readonly AdlClient.Commands.AnalyticsRmCommands Analytics;
         public readonly AdlClient.Commands.StoreRmCommands Store;
-        public readonly Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient GraphClient;
+        public readonly AdlClient.Commands.GraphCommands Graph;
 
         public AzureClient(InteractiveAuthentication auth) :
             base(auth)
         {
             this.Analytics = new AdlClient.Commands.AnalyticsRmCommands(auth);
             this.Store = new AdlClient.Commands.StoreRmCommands(auth);
-            this.GraphClient = new Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient(auth.GraphCreds);
-            this.GraphClient.TenantID = auth.Tenant;
+            this.Graph = new AdlClient.Commands.GraphCommands(auth);
         }
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()

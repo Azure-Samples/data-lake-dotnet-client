@@ -12,7 +12,7 @@ namespace TestAdlClient.Store
         public void GraphLookupUser()
         {
             this.Initialize();
-            var u = this.AzureClient.GraphClient.Users.Get("saveenr@microsoft.com");
+            var u = this.AzureClient.Graph.GetUser("saveenr@microsoft.com");
         }
 
         private FsPath create_test_dir()
@@ -163,7 +163,7 @@ namespace TestAdlClient.Store
             this.StoreClient.FileSystem.Create(fname, "HelloWorld", cfo);
 
 
-            var u = this.AzureClient.GraphClient.Users.Get("mahi@microsoft.com");
+            var u = this.AzureClient.Graph.GetUser("mahi@microsoft.com");
 
 
             var permissions_before = this.StoreClient.FileSystem.GetAclStatus(fname);

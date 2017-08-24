@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="AnalyticsClient.cs" />
     <Compile Include="Commands\FsPathAndFileStatusPair.cs" />
+    <Compile Include="Commands\GraphCommands.cs" />
     <Compile Include="InteractiveAuthentication.cs" />
     <Compile Include="AuthenticationBase.cs" />
     <Compile Include="AzureClient.cs" />
