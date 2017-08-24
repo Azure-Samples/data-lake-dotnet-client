@@ -7,10 +7,10 @@ namespace AdlClient.Models
         public ExprField Field { get; private set; }
         public AdlClient.OData.Models.OrderByDirection Direction { get; private set; }
 
-        public SortSpec( ExprField f, AdlClient.OData.Models.OrderByDirection d)
+        public SortSpec(ExprField field, AdlClient.OData.Models.OrderByDirection direction)
         {
-            this.Field = f;
-            this.Direction = d;
+            this.Field = field;
+            this.Direction = direction;
         }
 
         public string CreateOrderByString()
