@@ -1,7 +1,7 @@
 namespace AdlClient.Models
 {
 
-    public class JobListingSorting
+    public class JobListSorting
     {
         public SortSpec Spec { get; private set; }
 

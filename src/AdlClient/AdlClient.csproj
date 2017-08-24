@@ -111,7 +111,7 @@
     <Compile Include="Models\JobListFields.cs" />
     <Compile Include="Models\JobListFilter.cs" />
     <Compile Include="Models\JobListParameters.cs" />
-    <Compile Include="Models\JobListingSorting.cs" />
+    <Compile Include="Models\JobListSorting.cs" />
     <Compile Include="Models\JobPipelineListParameters.cs" />
     <Compile Include="Models\JobReccurenceListParameters.cs" />
     <Compile Include="Models\JobRef.cs" />

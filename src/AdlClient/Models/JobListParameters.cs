@@ -7,12 +7,12 @@ namespace AdlClient.Models
 
         public int Top = 100; 
         public JobListFilter Filter;
-        public JobListingSorting Sorting;
+        public JobListSorting Sorting;
 
         public JobListParameters()
         {
             this.Filter = new JobListFilter();
-            this.Sorting = new JobListingSorting();
+            this.Sorting = new JobListSorting();
 
             this.Sorting.BySubmitTime(AdlClient.OData.Models.OrderByDirection.Descending);
         }
