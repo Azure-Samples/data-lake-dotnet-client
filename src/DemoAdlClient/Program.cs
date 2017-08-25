@@ -6,7 +6,7 @@ using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace DemoAdlClient
 {
-    class Program
+    public class Program
     {
         private static void Main(string[] args)
         {
@@ -111,7 +111,6 @@ namespace DemoAdlClient
             Demo_Jobs_List_Oldest(adla);
             Demo_Jobs_List_Oldest_from_Submitter(adla);
             Demo_Jobs_List_Failed(adla);
-            Demo_Jobs_List_SubmittedBy_AuthenticatedUser(adla);
             Demo_Jobs_List_SubmittedBy_Users(adla);
             Demo_GetJobsSubmitedInLast2hours(adla);
             Demo_Jobs_List_SubmittedBetween_MidnightAndNow(adla);
@@ -157,7 +156,6 @@ namespace DemoAdlClient
             }
         }
 
-
         private static void Demo_Jobs_List_SingleMostRecent(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListParameters();
@@ -166,21 +164,7 @@ namespace DemoAdlClient
 
             PrintJobs(jobs);
         }
-
-        private static void Demo_Jobs_List_SubmittedBy_AuthenticatedUser(AdlClient.AnalyticsClient adla)
-        {
-            /*
-            var listing_parameters = new AdlClient.Models.JobListingParameters();
-            listing_parameters.Top = 10;
-            listing_parameters.Filter.Submitter.IsOneOf(adla.Authentication.TokenCacheItem.DisplayableId);
-
-            var jobs = adla.Jobs.ListJobs(listing_parameters).ToList();
-
-            PrintJobs(jobs);
-            */
-        }
-
-
+       
         private static void Demo_Jobs_List_SubmittedBy_Users(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListParameters();
@@ -213,8 +197,7 @@ namespace DemoAdlClient
 
             PrintJobs(jobs);
         }
-
-
+        
         private static void Demo_Jobs_List_Recent(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListParameters();
@@ -248,8 +231,7 @@ namespace DemoAdlClient
 
             PrintJobs(jobs);
         }
-
-
+        
         private static void Demo_Jobs_List_Failed(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListParameters();
@@ -261,8 +243,7 @@ namespace DemoAdlClient
 
             PrintJobs(jobs);
         }
-
-
+        
         private static void Demo_GetJobsSubmitedInLast2hours(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListParameters();
@@ -364,9 +345,6 @@ namespace DemoAdlClient
             }
         }
 
-
-
-
         private static void Demo_Jobs_Summarize_FailedAUHours_By_Submitter(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListParameters();
@@ -393,15 +371,12 @@ namespace DemoAdlClient
                 Console.WriteLine("NumJobs = {0}", i.Count);
                 Console.WriteLine("AU Hours = {0}", i.AUHours);
             }
-
         }
 
         private static void Demo_Jobs_Summarize_AUHours_By_JobResult_nad_Submitter(AdlClient.AnalyticsClient adla)
         {
             var listing_parameters = new AdlClient.Models.JobListParameters();
             listing_parameters.Top = 300;
-
-            //opts.Filter.Result.OneOf(MS_ADLA.Models.JobResult.Failed);
 
             var jobs = adla.Jobs.ListJobs(listing_parameters).Where(j => j.StartTime != null).ToList();
 
