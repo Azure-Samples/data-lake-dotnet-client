@@ -104,9 +104,10 @@
     <Compile Include="Models\FsUnixTime.cs" />
     <Compile Include="Models\FsUri.cs" />
     <Compile Include="Models\JobAzurePortalUri.cs" />
+    <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobExprFields.cs" />
-    <Compile Include="Models\JobInfo.cs" />
+    <Compile Include="Models\JobInformationBasicEx.cs" />
     <Compile Include="Models\JobListFields.cs" />
     <Compile Include="Models\JobListFilter.cs" />
     <Compile Include="Models\JobListParameters.cs" />

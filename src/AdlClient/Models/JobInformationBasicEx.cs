@@ -5,7 +5,7 @@ using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Models
 {
-    public class JobInformationExBasic
+    public class JobInformationBasicEx
     {
         // things that identify the job
         public readonly Guid JobId;
@@ -65,7 +65,7 @@ namespace AdlClient.Models
             return new JobRef(this.Account.SubscriptionId, this.Account.ResourceGroup, this.Account.Name, this.JobId);
         }
 
-        internal JobInformationExBasic(MSADLA.Models.JobInformationBasic job, AnalyticsAccountRef acct)
+        internal JobInformationBasicEx(MSADLA.Models.JobInformationBasic job, AnalyticsAccountRef acct)
         {
             this.Account = acct;
             this.Name = job.Name;
@@ -82,22 +82,6 @@ namespace AdlClient.Models
             this.Submitter = job.Submitter;
             this.LogFilePatterns = job.LogFilePatterns;
             this.Related = job.Related;
-        }
-    }
-
-    public class JobInformationEx : JobInformationExBasic
-    {
-        public readonly MSADLA.Models.JobProperties Properties;
-        public readonly IList<JobErrorDetails> ErrorMessage;
-        public readonly IList<JobStateAuditRecord> StateAuditRecords;
-        public JobDetailsExtended JobDetailsExtended;
-
-        public JobInformationEx(MSADLA.Models.JobInformation job, AnalyticsAccountRef acct) :
-            base(job, acct)
-        {
-            this.Properties = job.Properties;
-            this.ErrorMessage = job.ErrorMessage;
-            this.StateAuditRecords = job.StateAuditRecords;
         }
     }
 }
