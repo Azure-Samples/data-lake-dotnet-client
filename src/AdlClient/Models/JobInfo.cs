@@ -55,7 +55,24 @@ namespace AdlClient.Models
         public JobRef GetJobReference()
         {
             return new JobRef(this.Account.SubscriptionId, this.Account.ResourceGroup, this.Account.Name, this.JobId);
-        }       
+        }
+
+        internal JobInfo(MSADLA.Models.JobInformationBasic job, AnalyticsAccountRef acct)
+        {
+            this.Account = acct;
+            this.Name = job.Name;
+            this.LogFolder = job.LogFolder;
+            this.DegreeOfParallelism = job.DegreeOfParallelism;
+            this.EndTime = job.EndTime;
+            this.JobId = job.JobId.Value;
+            this.Priority = job.Priority;
+            this.Result = job.Result;
+            this.StartTime = job.StartTime;
+            this.State = job.State;
+            this.SubmitTime = job.SubmitTime;
+            this.Type = job.Type;
+            this.Submitter = job.Submitter;
+        }
 
         internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccountRef acct)
         {

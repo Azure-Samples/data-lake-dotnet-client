@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AdlClient.Models;
 using Microsoft.Azure.Management.DataLake.Analytics;
+using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using MSADL = Microsoft.Azure.Management.DataLake;
 
 namespace AdlClient.Commands
@@ -69,7 +70,7 @@ namespace AdlClient.Commands
             string opt_select = null;
             bool? opt_count = null;
 
-            var pageiter = new Rest.PagedIterator<MSADLA.Models.JobInformation>();
+            var pageiter = new Rest.PagedIterator<MSADLA.Models.JobInformationBasic>();
             pageiter.GetFirstPage = () => this.RestClients.JobsClient.Job.List(this.Account.Name, odata_query, opt_select, opt_count);
             pageiter.GetNextPage = p => this.RestClients.JobsClient.Job.ListNext(p.NextPageLink);
 
@@ -109,8 +110,10 @@ namespace AdlClient.Commands
         {
             FixupCreateJobParameters(parameters);
 
-            var job_props = parameters.ToJobInformationObject();
-            var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, parameters.JobId, job_props);
+            var usql_prop_parameters = new CreateUSqlJobProperties(parameters.ScriptText);
+            var cj = new CreateJobParameters(JobType.USql,usql_prop_parameters,parameters.JobName);
+            var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, parameters.JobId, cj);
+
             var j = new JobInfo(job_info, this.Account);
             return j;
         }
@@ -135,9 +138,9 @@ namespace AdlClient.Commands
         {
             FixupCreateJobParameters(parameters);
 
-
-            var job_props = parameters.ToJobInformationObject();
-            var job_info = this.RestClients.JobsClient.Job.Build(this.Account.Name, job_props);
+            var cj = new CreateJobProperties(parameters.ScriptText,null);
+            var bj_parameters = new BuildJobParameters(JobType.USql, cj, parameters.JobName);
+            var job_info = this.RestClients.JobsClient.Job.Build(this.Account.Name, bj_parameters);
             var j = new JobInfo(job_info, this.Account);
             return j;
         }
