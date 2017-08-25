@@ -5,7 +5,7 @@ namespace AdlClient.OData.Models
     public class SortSpec
     {
         public ExprField Field { get; private set; }
-        public AdlClient.OData.Models.OrderByDirection Direction { get; private set; }
+        public OrderByDirection Direction { get; private set; }
 
         public SortSpec(ExprField field, AdlClient.OData.Models.OrderByDirection direction)
         {
@@ -20,9 +20,9 @@ namespace AdlClient.OData.Models
             return orderBy;
         }
 
-        private static string DirectionToString(AdlClient.OData.Models.OrderByDirection direction)
+        private static string DirectionToString(OrderByDirection direction)
         {
-            var dir = (direction == AdlClient.OData.Models.OrderByDirection.Ascending) ? "asc" : "desc";
+            var dir = (direction == OrderByDirection.Ascending) ? "asc" : "desc";
             return dir;
         }
 

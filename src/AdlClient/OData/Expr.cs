@@ -4,7 +4,6 @@ namespace AdlClient.OData
 {
     public abstract class Expr
     {
-
         public abstract void Write(ExpressionWriter writer);
 
         public string ToExpressionString()

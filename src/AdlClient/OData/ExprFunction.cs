@@ -7,7 +7,7 @@ namespace AdlClient.OData
         public List<Expr> items;
         private string name;
 
-        public ExprFunction(string name, params Expr[] items)
+        protected ExprFunction(string name, params Expr[] items)
         {
             this.items = new List<Expr>();
             this.items.AddRange(items);
