@@ -30,35 +30,24 @@ namespace AdlClient.Commands
             return this.RestClients.JobsClient.Job.Exists(this.Account.Name, jobid);
         }
 
-        public JobDetails GetJobDetails(System.Guid jobid, bool extendedInfo)
+        public JobInformationEx GetJobDetails(System.Guid jobid, bool extendedInfo)
         {
 
             var job = this.RestClients.JobsClient.Job.Get(this.Account.Name, jobid);
 
-            var jobinfo = new JobInfo(job, this.Account);
-
-            var jobdetails = new JobDetails();
-            jobdetails.JobInfo = jobinfo;
-
-            jobdetails.StateAuditRecords = job.StateAuditRecords;
-            jobdetails.Properties = job.Properties;
-            jobdetails.ErrorMessage = job.ErrorMessage;
-            jobdetails.LogFilePatterns = job.LogFilePatterns;
+            var jobinfo = new JobInformationEx(job, this.Account);
 
             if (extendedInfo)
             {
-                jobdetails.JobDetailsExtended = new JobDetailsExtended();
-
-
-                jobdetails.JobDetailsExtended.Statistics = this.RestClients.JobsClient.Job.GetStatistics(this.Account.Name, jobid);
-
+                jobinfo.JobDetailsExtended = new JobDetailsExtended();
+                jobinfo.JobDetailsExtended.Statistics = this.RestClients.JobsClient.Job.GetStatistics(this.Account.Name, jobid);
                 // jobdetails.JobDetailsExtended.DebugDataPath = this.clients._JobRest.GetDebugDataPath(this.account, jobid);
             }
 
-            return jobdetails;
+            return jobinfo;
         }
 
-        public IEnumerable<JobInfo> ListJobs(JobListParameters parameters)
+        public IEnumerable<JobInformationExBasic> ListJobs(JobListParameters parameters)
         {
             var odata_query = new Microsoft.Rest.Azure.OData.ODataQuery<MSADL.Analytics.Models.JobInformation>();
 
@@ -77,7 +66,7 @@ namespace AdlClient.Commands
             var jobs = pageiter.EnumerateItems(parameters.Top);
 
             // convert them to the JobInfo
-            var jobinfos = jobs.Select(j => new JobInfo(j, this.Account));
+            var jobinfos = jobs.Select(j => new JobInformationExBasic(j, this.Account));
 
             return jobinfos;
         }
@@ -106,7 +95,7 @@ namespace AdlClient.Commands
             return recurrences;
         }
 
-        public JobInfo CreateJob(JobCreateParameters parameters)
+        public JobInformationExBasic CreateJob(JobCreateParameters parameters)
         {
             FixupCreateJobParameters(parameters);
 
@@ -114,7 +103,7 @@ namespace AdlClient.Commands
             var cj = new CreateJobParameters(JobType.USql,usql_prop_parameters,parameters.JobName);
             var job_info = this.RestClients.JobsClient.Job.Create(this.Account.Name, parameters.JobId, cj);
 
-            var j = new JobInfo(job_info, this.Account);
+            var j = new JobInformationExBasic(job_info, this.Account);
             return j;
         }
 
@@ -134,14 +123,14 @@ namespace AdlClient.Commands
             }
         }
 
-        public JobInfo BuildJob(JobCreateParameters parameters)
+        public JobInformationExBasic BuildJob(JobCreateParameters parameters)
         {
             FixupCreateJobParameters(parameters);
 
             var cj = new CreateJobProperties(parameters.ScriptText,null);
             var bj_parameters = new BuildJobParameters(JobType.USql, cj, parameters.JobName);
             var job_info = this.RestClients.JobsClient.Job.Build(this.Account.Name, bj_parameters);
-            var j = new JobInfo(job_info, this.Account);
+            var j = new JobInformationExBasic(job_info, this.Account);
             return j;
         }
 

@@ -297,7 +297,7 @@ namespace DemoAdlClient
             PrintJobs(jobs);
         }
 
-        private static void PrintJobs(IEnumerable<AdlClient.Models.JobInfo> jobs)
+        private static void PrintJobs(IEnumerable<AdlClient.Models.JobInformationExBasic> jobs)
         {
             foreach (var job in jobs)
             {

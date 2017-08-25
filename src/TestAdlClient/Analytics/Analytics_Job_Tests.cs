@@ -72,7 +72,7 @@ namespace TestAdlClient.Analytics
 
             var ji2 = this.AnalyticsClient.Jobs.GetJobDetails(ji.JobId,false);
 
-            Assert.AreEqual(ji.Name, ji2.JobInfo.Name);
+            Assert.AreEqual(ji.Name, ji2.Name);
         }
 
         [TestMethod]
