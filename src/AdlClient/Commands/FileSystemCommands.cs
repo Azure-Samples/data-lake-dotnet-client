@@ -89,10 +89,8 @@ namespace AdlClient.Commands
 
                 if (result.FileStatuses.FileStatus.Count > 0)
                 {
-                    var page = new FsFileStatusPage();
-                    page.Path = path;
-
-                    page.FileItems = result.FileStatuses.FileStatus.Select(i => new FsFileStatus(i)).ToList();
+                    var childitems = result.FileStatuses.FileStatus.Select(i => new FsFileStatus(i)).ToList();
+                    var page = new FsFileStatusPage(path, childitems);
                     yield return page;
 
                     count += page.FileItems.Count;
