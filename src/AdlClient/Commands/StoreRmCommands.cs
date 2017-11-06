@@ -6,14 +6,14 @@ namespace AdlClient.Commands
 {
     public class StoreRmCommands
     {
-        internal Authentication Authentication;
+        internal InteractiveAuthentication Authentication;
 
-        internal StoreRmCommands(Authentication authSession)
+        internal StoreRmCommands(InteractiveAuthentication authSession)
         {
             this.Authentication = authSession;
         }
 
-        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInSubscription(string subid)
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccountBasic> ListAccountsInSubscription(string subid)
         {
             var client = _get_account_mgmt_client(subid);
             return client.Account.List();
@@ -21,12 +21,12 @@ namespace AdlClient.Commands
 
         private DataLakeStoreAccountManagementClient _get_account_mgmt_client(string subid)
         {
-            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.Authentication.ARMCreds);
+            var client = new MSADLS.DataLakeStoreAccountManagementClient(this.Authentication.ArmCreds);
             client.SubscriptionId = subid;
             return client;
         }
 
-        public IEnumerable<MSADLS.Models.DataLakeStoreAccount> ListAccountsInResourceGroup(string subid, string rg)
+        public IEnumerable<MSADLS.Models.DataLakeStoreAccountBasic> ListAccountsInResourceGroup(string subid, string rg)
         {
             var client = _get_account_mgmt_client(subid);
             return client.Account.ListByResourceGroup(rg);

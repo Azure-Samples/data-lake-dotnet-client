@@ -2,7 +2,7 @@ namespace AdlClient.OData
 {
     public class ExprField : Expr
     {
-        public string Name;
+        public readonly string Name;
 
         public ExprField(string name)
         {

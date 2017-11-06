@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
-using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
+using System.Collections.Generic;
+using MSADLA=Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Models
 {
-    public class JobDetails
+    public class JobDetails : JobInformationBasicEx
     {
-        public JobInfo JobInfo;
+        public readonly Microsoft.Azure.Management.DataLake.Analytics.Models.JobProperties Properties;
+        public readonly IList<MSADLA.Models.JobErrorDetails> ErrorMessage;
+        public readonly IList<MSADLA.Models.JobStateAuditRecord> StateAuditRecords;
+        public JobDetailsExtended JobDetailsExtended { get; internal set; }
 
-        public IList<MSADLA.Models.JobErrorDetails> ErrorMessage;
-        public IList<string> LogFilePatterns;
-        public IList<MSADLA.Models.JobStateAuditRecord> StateAuditRecords;
-        public MSADLA.Models.JobProperties Properties;
-
-        public JobDetailsExtended JobDetailsExtended;
+        public JobDetails(MSADLA.Models.JobInformation job, AnalyticsAccountRef acct) :
+            base(job, acct)
+        {
+            this.Properties = job.Properties;
+            this.ErrorMessage = job.ErrorMessage;
+            this.StateAuditRecords = job.StateAuditRecords;
+        }
     }
 }

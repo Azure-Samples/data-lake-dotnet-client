@@ -34,10 +34,10 @@
       <HintPath>..\packages\Microsoft.Azure.Graph.RBAC.3.4.0-preview\lib\net452\Microsoft.Azure.Graph.RBAC.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.DataLake.Analytics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Management.DataLake.Analytics.3.0.0\lib\net452\Microsoft.Azure.Management.DataLake.Analytics.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Azure.Management.DataLake.Analytics.3.1.2-preview\lib\net452\Microsoft.Azure.Management.DataLake.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.DataLake.Store, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Management.DataLake.Store.2.2.0\lib\net452\Microsoft.Azure.Management.DataLake.Store.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Azure.Management.DataLake.Store.2.3.0-preview\lib\net452\Microsoft.Azure.Management.DataLake.Store.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.ResourceManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Management.ResourceManager.1.6.0-preview\lib\net452\Microsoft.Azure.Management.ResourceManager.dll</HintPath>
@@ -49,17 +49,16 @@
       <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.28.3\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.10\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.7\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.10\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.Azure.Authentication.2.3.1\lib\net452\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -72,7 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsClient.cs" />
-    <Compile Include="Authentication.cs" />
+    <Compile Include="Commands\FsPathAndFileStatusPair.cs" />
+    <Compile Include="Commands\GraphCommands.cs" />
+    <Compile Include="InteractiveAuthentication.cs" />
+    <Compile Include="AuthenticationBase.cs" />
     <Compile Include="AzureClient.cs" />
     <Compile Include="ClientBase.cs" />
     <Compile Include="Commands\AnalyticsAccountCommands.cs" />
@@ -87,7 +89,7 @@
     <Compile Include="Models\AnalyticsAccountRef.cs" />
     <Compile Include="Models\FileCreateParameters.cs" />
     <Compile Include="Models\FileDownloadParameters.cs" />
-    <Compile Include="Models\FileListingParameters.cs" />
+    <Compile Include="Models\FileListParameters.cs" />
     <Compile Include="Models\FileUploadParameters.cs" />
     <Compile Include="Models\FolderAzurePortalUri.cs" />
     <Compile Include="Models\FsAcl.cs" />
@@ -104,21 +106,21 @@
     <Compile Include="Models\JobDetails.cs" />
     <Compile Include="Models\JobDetailsExtended.cs" />
     <Compile Include="Models\JobExprFields.cs" />
-    <Compile Include="Models\JobInfo.cs" />
-    <Compile Include="Models\JobListingFields.cs" />
-    <Compile Include="Models\JobListingFilter.cs" />
-    <Compile Include="Models\JobListingParameters.cs" />
-    <Compile Include="Models\JobListingSorting.cs" />
-    <Compile Include="Models\JobPipelineListingParameters.cs" />
-    <Compile Include="Models\JobProfile.cs" />
-    <Compile Include="Models\JobReccurenceListingParameters.cs" />
+    <Compile Include="Models\JobInformationBasicEx.cs" />
+    <Compile Include="Models\JobListFields.cs" />
+    <Compile Include="Models\JobListFilter.cs" />
+    <Compile Include="Models\JobListParameters.cs" />
+    <Compile Include="Models\JobListSorting.cs" />
+    <Compile Include="Models\JobPipelineListParameters.cs" />
+    <Compile Include="Models\JobReccurenceListParameters.cs" />
     <Compile Include="Models\JobRef.cs" />
-    <Compile Include="Models\JobSubmitParameters.cs" />
+    <Compile Include="Models\JobCreateParameters.cs" />
     <Compile Include="Models\JobUri.cs" />
-    <Compile Include="Models\JobVertexProfile.cs" />
-    <Compile Include="Models\SortSpec.cs" />
+    <Compile Include="Models\FileListRecursiveParameters.cs" />
+    <Compile Include="OData\Models\SortSpec.cs" />
     <Compile Include="Models\StoreAccountPortalUri.cs" />
     <Compile Include="Models\StoreAccountRef.cs" />
+    <Compile Include="NonInteractiveAuthentication.cs" />
     <Compile Include="OData\Expr.cs" />
     <Compile Include="OData\ExprBinaryOp.cs" />
     <Compile Include="OData\ExprCeiling.cs" />
@@ -179,6 +181,7 @@
     <Compile Include="StoreClient.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

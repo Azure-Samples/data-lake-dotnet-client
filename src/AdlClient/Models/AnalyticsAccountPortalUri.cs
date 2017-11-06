@@ -105,6 +105,5 @@
             var account_portal_uri = new AnalyticsAccountPortalUri(subid, rg, account_name);
             return account_portal_uri;
         }
-
     }
 }

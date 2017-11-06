@@ -4,7 +4,13 @@ namespace AdlClient.Models
 {
     public class FsFileStatusPage
     {
-        public FsPath Path;
-        public IList<FsFileStatus> FileItems;
+        public readonly FsPath Path;
+        public readonly IList<FsFileStatus> FileItems;
+
+        public FsFileStatusPage(FsPath path, IList<FsFileStatus> items)
+        {
+            this.Path = path;
+            this.FileItems = items;
+        }
     }
 }

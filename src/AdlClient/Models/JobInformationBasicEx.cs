@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using MSADLA = Microsoft.Azure.Management.DataLake.Analytics;
 
 namespace AdlClient.Models
 {
-    public class JobInfo
+    public class JobInformationBasicEx
     {
         // things that identify the job
         public readonly Guid JobId;
+
         public readonly AnalyticsAccountRef Account;
 
         // Information about the job provided by user
         public readonly string Name;
+
         public readonly int? DegreeOfParallelism;
         public readonly int? Priority;
         public readonly string Submitter;
@@ -18,13 +22,17 @@ namespace AdlClient.Models
 
         // State and Timings of the Job
         public readonly MSADLA.Models.JobResult? Result;
-        public readonly MSADLA.Models.JobState? State ;
+
+        public readonly MSADLA.Models.JobState? State;
         public readonly DateTimeOffset? SubmitTime;
         public readonly DateTimeOffset? StartTime;
         public readonly DateTimeOffset? EndTime;
 
         // Deubgging Resources
         public readonly string LogFolder;
+
+        public readonly IList<string> LogFilePatterns;
+        public readonly JobRelationshipProperties Related;
 
         public TimeSpan? ExecutionDuration
         {
@@ -55,9 +63,9 @@ namespace AdlClient.Models
         public JobRef GetJobReference()
         {
             return new JobRef(this.Account.SubscriptionId, this.Account.ResourceGroup, this.Account.Name, this.JobId);
-        }       
+        }
 
-        internal JobInfo(MSADLA.Models.JobInformation job, AnalyticsAccountRef acct)
+        internal JobInformationBasicEx(MSADLA.Models.JobInformationBasic job, AnalyticsAccountRef acct)
         {
             this.Account = acct;
             this.Name = job.Name;
@@ -72,7 +80,8 @@ namespace AdlClient.Models
             this.SubmitTime = job.SubmitTime;
             this.Type = job.Type;
             this.Submitter = job.Submitter;
+            this.LogFilePatterns = job.LogFilePatterns;
+            this.Related = job.Related;
         }
     }
 }
- 

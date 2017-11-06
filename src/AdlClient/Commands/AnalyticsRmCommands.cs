@@ -6,14 +6,14 @@ namespace AdlClient.Commands
 {
     public class AnalyticsRmCommands
     {
-        internal readonly Authentication Authentication;
+        internal readonly AuthenticationBase Authentication;
 
-        internal AnalyticsRmCommands(Authentication auth)
+        internal AnalyticsRmCommands(InteractiveAuthentication auth)
         {
             this.Authentication = auth;
         }
 
-        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsInSubscription(string subid)
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccountBasic> ListAccountsInSubscription(string subid)
         {
             var client = _get_acount_mgmt_client(subid);
             return client.Account.List();
@@ -21,12 +21,12 @@ namespace AdlClient.Commands
 
         private DataLakeAnalyticsAccountManagementClient _get_acount_mgmt_client(string subid)
         {
-            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(Authentication.ARMCreds);
+            var client = new MSADLA.DataLakeAnalyticsAccountManagementClient(Authentication.ArmCreds);
             client.SubscriptionId = subid;
             return client;
         }
 
-        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccount> ListAccountsResourceGroup(string subid, string rg)
+        public IEnumerable<MSADLA.Models.DataLakeAnalyticsAccountBasic> ListAccountsResourceGroup(string subid, string rg)
         {
             var client = _get_acount_mgmt_client(subid);
             return client.Account.ListByResourceGroup(rg);

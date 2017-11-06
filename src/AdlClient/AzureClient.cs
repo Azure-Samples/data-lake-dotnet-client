@@ -9,20 +9,19 @@ namespace AdlClient
     {
         public readonly AdlClient.Commands.AnalyticsRmCommands Analytics;
         public readonly AdlClient.Commands.StoreRmCommands Store;
-        public readonly Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient GraphClient;
+        public readonly AdlClient.Commands.GraphCommands Graph;
 
-        public AzureClient(Authentication auth) :
+        public AzureClient(InteractiveAuthentication auth) :
             base(auth)
         {
             this.Analytics = new AdlClient.Commands.AnalyticsRmCommands(auth);
             this.Store = new AdlClient.Commands.StoreRmCommands(auth);
-            this.GraphClient = new Microsoft.Azure.Graph.RBAC.GraphRbacManagementClient(auth.AADCreds);
-            this.GraphClient.TenantID = auth.Tenant;
+            this.Graph = new AdlClient.Commands.GraphCommands(auth);
         }
 
         public IEnumerable<MSAZURERM.Models.Subscription> ListSubscriptions()
         {
-            var sub_client = new MSAZURERM.SubscriptionClient(this.Authentication.ARMCreds);
+            var sub_client = new MSAZURERM.SubscriptionClient(this.Authentication.ArmCreds);
 
             var subs = sub_client.Subscriptions.List();
             foreach (var sub in subs)
@@ -34,7 +33,7 @@ namespace AdlClient
         // ----------
         public IEnumerable<MSAZURERM.Models.ResourceGroup> ListResourceGroups(string subid)
         {
-            var rm_client = new MSAZURERM.ResourceManagementClient(this.Authentication.ARMCreds);
+            var rm_client = new MSAZURERM.ResourceManagementClient(this.Authentication.ArmCreds);
             rm_client.SubscriptionId = subid;
 
             var rgs = rm_client.ResourceGroups.List();

@@ -2,9 +2,9 @@
 {
     public class AnalyticsAccountRef
     {
-        public string SubscriptionId;
-        public string ResourceGroup;
-        public string Name;
+        public readonly string SubscriptionId;
+        public readonly string ResourceGroup;
+        public readonly string Name;
 
         public AnalyticsAccountRef(string subid, string rg, string name)
         {

@@ -5,7 +5,7 @@ namespace TestAdlClient
     {
         private bool init;
 
-        public AdlClient.Authentication Authentication;
+        public AdlClient.InteractiveAuthentication Authentication;
         public AdlClient.AnalyticsClient AnalyticsClient;
         public AdlClient.StoreClient StoreClient;        
         public AdlClient.AzureClient AzureClient;
@@ -17,7 +17,7 @@ namespace TestAdlClient
             if (this.init == false)
             {
                 string tenant = "microsoft.onmicrosoft.com";
-                this.Authentication = new AdlClient.Authentication(tenant);
+                this.Authentication = new AdlClient.InteractiveAuthentication(tenant);
                 Authentication.Authenticate();
 
                 this.SubscriptionId = "ace74b35-b0de-428b-a1d9-55459d7a6e30";
