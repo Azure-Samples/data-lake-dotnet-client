@@ -5,6 +5,8 @@ platforms: dotnet
 author: saveenr-msft
 ---
 
+# THIS SAMPLE IS DEPRECATED.
+
 # Azure Data Lake DotNet Client Sample
 
 The AzureDataLakeClient C# library wraps the use of the Azure Data Lake SDKs to make common scenarios easy. 
